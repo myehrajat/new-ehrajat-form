@@ -1,0 +1,2356 @@
+From: "Saved by Windows Internet Explorer 7"
+Subject: =?Windows-1252?Q?Demos_of_JSColor_=96_JavaScript_/_HTML_Color_Picker=2C_S?=
+	=?Windows-1252?Q?elector=2C_Chooser?=
+Date: Sat, 2 Nov 2013 10:01:56 -0700
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="multipart/alternative";
+	boundary="----=_NextPart_000_0000_01CED7B2.9029C490"
+X-MimeOLE: Produced By Microsoft MimeOLE V6.0.6001.18000
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_0000_01CED7B2.9029C490
+Content-Type: text/css;
+	charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://jscolor.com/css/screen.css
+
+.cleaner {
+	CLEAR: both
+}
+H1 {
+	COLOR: #004c99
+}
+H2 {
+	COLOR: #004c99
+}
+H3 {
+	COLOR: #004c99
+}
+A {
+	COLOR: #004c99
+}
+TH {
+	COLOR: #004c99
+}
+DT {
+	COLOR: #004c99
+}
+CODE {
+	COLOR: #004c99
+}
+PRE {
+	COLOR: #004c99
+}
+LABEL {
+	COLOR: #004c99
+}
+H1 {
+	FONT-WEIGHT: normal
+}
+H2 {
+	FONT-WEIGHT: normal
+}
+H3 {
+	FONT-WEIGHT: normal
+}
+H1 {
+	FONT-SIZE: 150%
+}
+H2 {
+	FONT-SIZE: 130%
+}
+A {
+	BORDER-BOTTOM: #004c99 1px dotted; TEXT-DECORATION: none
+}
+A:hover {
+	COLOR: #4078b2
+}
+A[href^=3D'http:'] {
+	PADDING-RIGHT: 10px; BACKGROUND: url(http.gif) no-repeat right top
+}
+A[href^=3D'https:'] {
+	PADDING-RIGHT: 10px; BACKGROUND: url(http.gif) no-repeat right top
+}
+A[href^=3D'mailto:'] {
+	PADDING-RIGHT: 16px; BACKGROUND: url(mailto.gif) no-repeat right center
+}
+IMG {
+	BORDER-TOP-STYLE: none; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: =
+none; BORDER-BOTTOM-STYLE: none
+}
+IMG.left {
+	MARGIN: 10px
+}
+IMG.right {
+	MARGIN: 10px
+}
+IMG.left {
+	MARGIN-RIGHT: 30px
+}
+TH {
+	BACKGROUND-COLOR: #f3f3f3; TEXT-ALIGN: center
+}
+TD {
+	PADDING-RIGHT: 0.5em; PADDING-LEFT: 0.5em; PADDING-BOTTOM: 0px; =
+PADDING-TOP: 0px
+}
+TH {
+	PADDING-RIGHT: 0.5em; PADDING-LEFT: 0.5em; PADDING-BOTTOM: 0px; =
+PADDING-TOP: 0px
+}
+PRE {
+	BORDER-RIGHT: #cdf 1px solid; PADDING-RIGHT: 2em; BORDER-TOP: #cdf 1px =
+solid; PADDING-LEFT: 2em; PADDING-BOTTOM: 1em; BORDER-LEFT: #cdf 1px =
+solid; LINE-HEIGHT: 200%; PADDING-TOP: 1em; BORDER-BOTTOM: #cdf 1px =
+solid; BACKGROUND-COLOR: #f9f9ff
+}
+BODY {
+	PADDING-RIGHT: 0px; MIN-WIDTH: 760px; PADDING-LEFT: 0px; =
+PADDING-BOTTOM: 0px; MARGIN: 0px; FONT: 83% sans-serif; COLOR: #333; =
+PADDING-TOP: 0px; BACKGROUND-COLOR: #fff; TEXT-ALIGN: center
+}
+.left {
+	FLOAT: left
+}
+.supported {
+	FONT-WEIGHT: bold; COLOR: #0c0
+}
+.unsupported {
+	FONT-WEIGHT: bold; COLOR: #f00
+}
+.inlineItem {
+	PADDING-RIGHT: 0.5em; PADDING-LEFT: 0.5em; PADDING-BOTTOM: 0px; COLOR: =
+#fff; PADDING-TOP: 0px; BACKGROUND-COLOR: #c3c3c3
+}
+.message {
+	BORDER-RIGHT: #7f7f7f 1px solid; PADDING-RIGHT: 1em; BORDER-TOP: =
+#7f7f7f 1px solid; PADDING-LEFT: 1em; PADDING-BOTTOM: 1em; MARGIN: 1em; =
+BORDER-LEFT: #7f7f7f 1px solid; PADDING-TOP: 1em; BORDER-BOTTOM: #7f7f7f =
+1px solid; BACKGROUND-COLOR: #f6f6f6
+}
+.warning {
+	BORDER-LEFT-COLOR: #f00; BORDER-BOTTOM-COLOR: #f00; COLOR: #f00; =
+BORDER-TOP-COLOR: #f00; BACKGROUND-COLOR: #fee; BORDER-RIGHT-COLOR: #f00
+}
+#head {
+	MARGIN: 0px; HEIGHT: 200px; BACKGROUND-COLOR: #369
+}
+#head A {
+	DISPLAY: block; Z-INDEX: 1; LEFT: 0px; WIDTH: 100%; BORDER-TOP-STYLE: =
+none; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; POSITION: =
+absolute; TOP: 40px; HEIGHT: 100px; TEXT-DECORATION: none; =
+BORDER-BOTTOM-STYLE: none
+}
+#head .sep {
+	DISPLAY: none
+}
+#foot {
+	CLEAR: both; FONT-SIZE: small; MARGIN: 2em 0px; COLOR: #999
+}
+#webName {
+	DISPLAY: block; MARGIN: 0px; COLOR: #d9ecff
+}
+#webDesc {
+	DISPLAY: block; MARGIN: 0px; COLOR: #d9ecff
+}
+#webName {
+	FONT-SIZE: 450%
+}
+#webDesc {
+	FONT-SIZE: 150%
+}
+#menu {
+	FONT-SIZE: 140%; LEFT: 50%; WIDTH: 50%; POSITION: absolute; TOP: 0px; =
+HEIGHT: 200px
+}
+#menu2 {
+	LEFT: -237px; BOTTOM: 0px; POSITION: absolute; HEIGHT: 40px
+}
+#menu A {
+	FONT-WEIGHT: normal; FLOAT: left; MARGIN: 0px 4px; WIDTH: 150px; COLOR: =
+#fff; BORDER-TOP-STYLE: none; LINE-HEIGHT: 40px; BORDER-RIGHT-STYLE: =
+none; BORDER-LEFT-STYLE: none; HEIGHT: 40px; BACKGROUND-COLOR: #5c85ad; =
+TEXT-DECORATION: none; BORDER-BOTTOM-STYLE: none
+}
+#menu A:hover {
+	BACKGROUND-COLOR: #7497b9
+}
+#menu A.active {
+	COLOR: #369; BACKGROUND-COLOR: #fff
+}
+#menu A.active:hover {
+	COLOR: #369; BACKGROUND-COLOR: #fff
+}
+#page {
+	WIDTH: 100%; POSITION: relative; TEXT-ALIGN: left
+}
+#main {
+	MARGIN-LEFT: 250px
+}
+#column {
+	LEFT: 0px; WIDTH: 250px; POSITION: absolute; TOP: 0px
+}
+#main2 {
+	PADDING-RIGHT: 15px; PADDING-LEFT: 15px; PADDING-BOTTOM: 20px; =
+PADDING-TOP: 20px
+}
+#column2 {
+	PADDING-RIGHT: 15px; PADDING-LEFT: 15px; PADDING-BOTTOM: 20px; =
+PADDING-TOP: 20px
+}
+.box {
+	FONT-SIZE: 90%; FLOAT: left; WIDTH: 50%
+}
+.box2 {
+	BORDER-RIGHT: #ccc 1px solid; PADDING-RIGHT: 16px; BORDER-TOP: #ccc 1px =
+solid; PADDING-LEFT: 16px; PADDING-BOTTOM: 16px; MARGIN: 8px; =
+BORDER-LEFT: #ccc 1px solid; PADDING-TOP: 16px; BORDER-BOTTOM: #ccc 1px =
+solid; BACKGROUND-COLOR: #f3f3f3
+}
+.box H1 {
+	MARGIN-TOP: 0px
+}
+.tags {
+	FONT-SIZE: 90%; COLOR: #999
+}
+.tags STRONG {
+	COLOR: #666
+}
+.news {
+	PADDING-LEFT: 2em; MARGIN: 0px; LIST-STYLE-TYPE: none
+}
+.news LI {
+	MARGIN-BOTTOM: 1em; TEXT-INDENT: -2em
+}
+.news LI LI {
+	MARGIN-BOTTOM: 0px; TEXT-INDENT: 0px
+}
+.compatibility {
+	WHITE-SPACE: nowrap
+}
+.example {
+	MARGIN: 1em 0px; WIDTH: 100%
+}
+.example TEXTAREA {
+	MARGIN: 0px; COLOR: #999; BORDER-TOP-STYLE: none; BORDER-RIGHT-STYLE: =
+none; BORDER-LEFT-STYLE: none; BORDER-BOTTOM-STYLE: none
+}
+.example TEXTAREA:focus {
+	COLOR: #000
+}
+.example TEXTAREA {
+	WIDTH: 100%; HEIGHT: 180px; BACKGROUND-COLOR: #fff
+}
+.example IFRAME {
+	WIDTH: 100%; HEIGHT: 180px; BACKGROUND-COLOR: #fff
+}
+.example .code {
+	BORDER-RIGHT: #ccc 1px solid; BORDER-TOP: #ccc 1px solid; BORDER-LEFT: =
+#ccc 1px solid; BORDER-BOTTOM: #ccc 1px solid
+}
+.example IFRAME {
+	BORDER-RIGHT: #ccc 1px solid; BORDER-TOP: #ccc 1px solid; BORDER-LEFT: =
+#ccc 1px solid; BORDER-BOTTOM: #ccc 1px solid
+}
+.example IFRAME {
+	MARGIN-BOTTOM: 5px
+}
+.example .buttons {
+	BACKGROUND: url(xECECEC-15-FFFFFF.png) #fff repeat-x left top; =
+PADDING-BOTTOM: 10px; TEXT-ALIGN: center
+}
+.example .buttons A {
+	BORDER-RIGHT: #ccc 1px solid; PADDING-RIGHT: 10px; BORDER-TOP: #ccc =
+1px; PADDING-LEFT: 10px; FONT-WEIGHT: normal; PADDING-BOTTOM: 3px; =
+MARGIN: 0px 2px; BORDER-LEFT: #ccc 1px solid; WIDTH: 1em; COLOR: #999; =
+PADDING-TOP: 0px; BORDER-BOTTOM: #ccc 1px solid; POSITION: relative; =
+TOP: -1px; BACKGROUND-COLOR: #fff; TEXT-DECORATION: none
+}
+.example .buttons A:hover {
+	COLOR: #000
+}
+.example .buttons A:focus {
+	COLOR: #000
+}
+
+------=_NextPart_000_0000_01CED7B2.9029C490
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://jscolor.com/example/jscolor/jscolor.js
+
+/**
+ * jscolor, JavaScript Color Picker
+ *
+ * @version 1.4.0
+ * @license GNU Lesser General Public License, =
+http://www.gnu.org/copyleft/lesser.html
+ * @author  Jan Odvarko, http://odvarko.cz
+ * @created 2008-06-15
+ * @updated 2012-07-06
+ * @link    http://jscolor.com
+ */
+
+
+var jscolor =3D {
+
+
+	dir : '', // location of jscolor directory (leave empty to autodetect)
+	bindClass : 'color', // class name
+	binding : true, // automatic binding via <input class=3D"...">
+	preloading : true, // use image preloading?
+
+
+	install : function() {
+		jscolor.addEvent(window, 'load', jscolor.init);
+	},
+
+
+	init : function() {
+		if(jscolor.binding) {
+			jscolor.bind();
+		}
+		if(jscolor.preloading) {
+			jscolor.preload();
+		}
+	},
+
+
+	getDir : function() {
+		if(!jscolor.dir) {
+			var detected =3D jscolor.detectDir();
+			jscolor.dir =3D detected!=3D=3Dfalse ? detected : 'jscolor/';
+		}
+		return jscolor.dir;
+	},
+
+
+	detectDir : function() {
+		var base =3D location.href;
+
+		var e =3D document.getElementsByTagName('base');
+		for(var i=3D0; i<e.length; i+=3D1) {
+			if(e[i].href) { base =3D e[i].href; }
+		}
+
+		var e =3D document.getElementsByTagName('script');
+		for(var i=3D0; i<e.length; i+=3D1) {
+			if(e[i].src && /(^|\/)jscolor\.js([?#].*)?$/i.test(e[i].src)) {
+				var src =3D new jscolor.URI(e[i].src);
+				var srcAbs =3D src.toAbsolute(base);
+				srcAbs.path =3D srcAbs.path.replace(/[^\/]+$/, ''); // remove =
+filename
+				srcAbs.query =3D null;
+				srcAbs.fragment =3D null;
+				return srcAbs.toString();
+			}
+		}
+		return false;
+	},
+
+
+	bind : function() {
+		var matchClass =3D new =
+RegExp('(^|\\s)('+jscolor.bindClass+')\\s*(\\{[^}]*\\})?', 'i');
+		var e =3D document.getElementsByTagName('input');
+		for(var i=3D0; i<e.length; i+=3D1) {
+			var m;
+			if(!e[i].color && e[i].className && (m =3D =
+e[i].className.match(matchClass))) {
+				var prop =3D {};
+				if(m[3]) {
+					try {
+						prop =3D (new Function ('return (' + m[3] + ')'))();
+					} catch(eInvalidProp) {}
+				}
+				e[i].color =3D new jscolor.color(e[i], prop);
+			}
+		}
+	},
+
+
+	preload : function() {
+		for(var fn in jscolor.imgRequire) {
+			if(jscolor.imgRequire.hasOwnProperty(fn)) {
+				jscolor.loadImage(fn);
+			}
+		}
+	},
+
+
+	images : {
+		pad : [ 181, 101 ],
+		sld : [ 16, 101 ],
+		cross : [ 15, 15 ],
+		arrow : [ 7, 11 ]
+	},
+
+
+	imgRequire : {},
+	imgLoaded : {},
+
+
+	requireImage : function(filename) {
+		jscolor.imgRequire[filename] =3D true;
+	},
+
+
+	loadImage : function(filename) {
+		if(!jscolor.imgLoaded[filename]) {
+			jscolor.imgLoaded[filename] =3D new Image();
+			jscolor.imgLoaded[filename].src =3D jscolor.getDir()+filename;
+		}
+	},
+
+
+	fetchElement : function(mixed) {
+		return typeof mixed =3D=3D=3D 'string' ? =
+document.getElementById(mixed) : mixed;
+	},
+
+
+	addEvent : function(el, evnt, func) {
+		if(el.addEventListener) {
+			el.addEventListener(evnt, func, false);
+		} else if(el.attachEvent) {
+			el.attachEvent('on'+evnt, func);
+		}
+	},
+
+
+	fireEvent : function(el, evnt) {
+		if(!el) {
+			return;
+		}
+		if(document.createEvent) {
+			var ev =3D document.createEvent('HTMLEvents');
+			ev.initEvent(evnt, true, true);
+			el.dispatchEvent(ev);
+		} else if(document.createEventObject) {
+			var ev =3D document.createEventObject();
+			el.fireEvent('on'+evnt, ev);
+		} else if(el['on'+evnt]) { // alternatively use the traditional event =
+model (IE5)
+			el['on'+evnt]();
+		}
+	},
+
+
+	getElementPos : function(e) {
+		var e1=3De, e2=3De;
+		var x=3D0, y=3D0;
+		if(e1.offsetParent) {
+			do {
+				x +=3D e1.offsetLeft;
+				y +=3D e1.offsetTop;
+			} while(e1 =3D e1.offsetParent);
+		}
+		while((e2 =3D e2.parentNode) && e2.nodeName.toUpperCase() !=3D=3D =
+'BODY') {
+			x -=3D e2.scrollLeft;
+			y -=3D e2.scrollTop;
+		}
+		return [x, y];
+	},
+
+
+	getElementSize : function(e) {
+		return [e.offsetWidth, e.offsetHeight];
+	},
+
+
+	getRelMousePos : function(e) {
+		var x =3D 0, y =3D 0;
+		if (!e) { e =3D window.event; }
+		if (typeof e.offsetX =3D=3D=3D 'number') {
+			x =3D e.offsetX;
+			y =3D e.offsetY;
+		} else if (typeof e.layerX =3D=3D=3D 'number') {
+			x =3D e.layerX;
+			y =3D e.layerY;
+		}
+		return { x: x, y: y };
+	},
+
+
+	getViewPos : function() {
+		if(typeof window.pageYOffset =3D=3D=3D 'number') {
+			return [window.pageXOffset, window.pageYOffset];
+		} else if(document.body && (document.body.scrollLeft || =
+document.body.scrollTop)) {
+			return [document.body.scrollLeft, document.body.scrollTop];
+		} else if(document.documentElement && =
+(document.documentElement.scrollLeft || =
+document.documentElement.scrollTop)) {
+			return [document.documentElement.scrollLeft, =
+document.documentElement.scrollTop];
+		} else {
+			return [0, 0];
+		}
+	},
+
+
+	getViewSize : function() {
+		if(typeof window.innerWidth =3D=3D=3D 'number') {
+			return [window.innerWidth, window.innerHeight];
+		} else if(document.body && (document.body.clientWidth || =
+document.body.clientHeight)) {
+			return [document.body.clientWidth, document.body.clientHeight];
+		} else if(document.documentElement && =
+(document.documentElement.clientWidth || =
+document.documentElement.clientHeight)) {
+			return [document.documentElement.clientWidth, =
+document.documentElement.clientHeight];
+		} else {
+			return [0, 0];
+		}
+	},
+
+
+	URI : function(uri) { // See RFC3986
+
+		this.scheme =3D null;
+		this.authority =3D null;
+		this.path =3D '';
+		this.query =3D null;
+		this.fragment =3D null;
+
+		this.parse =3D function(uri) {
+			var m =3D =
+uri.match(/^(([A-Za-z][0-9A-Za-z+.-]*)(:))?((\/\/)([^\/?#]*))?([^?#]*)((\=
+?)([^#]*))?((#)(.*))?/);
+			this.scheme =3D m[3] ? m[2] : null;
+			this.authority =3D m[5] ? m[6] : null;
+			this.path =3D m[7];
+			this.query =3D m[9] ? m[10] : null;
+			this.fragment =3D m[12] ? m[13] : null;
+			return this;
+		};
+
+		this.toString =3D function() {
+			var result =3D '';
+			if(this.scheme !=3D=3D null) { result =3D result + this.scheme + ':'; =
+}
+			if(this.authority !=3D=3D null) { result =3D result + '//' + =
+this.authority; }
+			if(this.path !=3D=3D null) { result =3D result + this.path; }
+			if(this.query !=3D=3D null) { result =3D result + '?' + this.query; }
+			if(this.fragment !=3D=3D null) { result =3D result + '#' + =
+this.fragment; }
+			return result;
+		};
+
+		this.toAbsolute =3D function(base) {
+			var base =3D new jscolor.URI(base);
+			var r =3D this;
+			var t =3D new jscolor.URI;
+
+			if(base.scheme =3D=3D=3D null) { return false; }
+
+			if(r.scheme !=3D=3D null && r.scheme.toLowerCase() =3D=3D=3D =
+base.scheme.toLowerCase()) {
+				r.scheme =3D null;
+			}
+
+			if(r.scheme !=3D=3D null) {
+				t.scheme =3D r.scheme;
+				t.authority =3D r.authority;
+				t.path =3D removeDotSegments(r.path);
+				t.query =3D r.query;
+			} else {
+				if(r.authority !=3D=3D null) {
+					t.authority =3D r.authority;
+					t.path =3D removeDotSegments(r.path);
+					t.query =3D r.query;
+				} else {
+					if(r.path =3D=3D=3D '') {
+						t.path =3D base.path;
+						if(r.query !=3D=3D null) {
+							t.query =3D r.query;
+						} else {
+							t.query =3D base.query;
+						}
+					} else {
+						if(r.path.substr(0,1) =3D=3D=3D '/') {
+							t.path =3D removeDotSegments(r.path);
+						} else {
+							if(base.authority !=3D=3D null && base.path =3D=3D=3D '') {
+								t.path =3D '/'+r.path;
+							} else {
+								t.path =3D base.path.replace(/[^\/]+$/,'')+r.path;
+							}
+							t.path =3D removeDotSegments(t.path);
+						}
+						t.query =3D r.query;
+					}
+					t.authority =3D base.authority;
+				}
+				t.scheme =3D base.scheme;
+			}
+			t.fragment =3D r.fragment;
+
+			return t;
+		};
+
+		function removeDotSegments(path) {
+			var out =3D '';
+			while(path) {
+				if(path.substr(0,3)=3D=3D=3D'../' || path.substr(0,2)=3D=3D=3D'./') =
+{
+					path =3D path.replace(/^\.+/,'').substr(1);
+				} else if(path.substr(0,3)=3D=3D=3D'/./' || path=3D=3D=3D'/.') {
+					path =3D '/'+path.substr(3);
+				} else if(path.substr(0,4)=3D=3D=3D'/../' || path=3D=3D=3D'/..') {
+					path =3D '/'+path.substr(4);
+					out =3D out.replace(/\/?[^\/]*$/, '');
+				} else if(path=3D=3D=3D'.' || path=3D=3D=3D'..') {
+					path =3D '';
+				} else {
+					var rm =3D path.match(/^\/?[^\/]*/)[0];
+					path =3D path.substr(rm.length);
+					out =3D out + rm;
+				}
+			}
+			return out;
+		}
+
+		if(uri) {
+			this.parse(uri);
+		}
+
+	},
+
+
+	/*
+	 * Usage example:
+	 * var myColor =3D new jscolor.color(myInputElement)
+	 */
+
+	color : function(target, prop) {
+
+
+		this.required =3D true; // refuse empty values?
+		this.adjust =3D true; // adjust value to uniform notation?
+		this.hash =3D false; // prefix color with # symbol?
+		this.caps =3D true; // uppercase?
+		this.slider =3D true; // show the value/saturation slider?
+		this.valueElement =3D target; // value holder
+		this.styleElement =3D target; // where to reflect current color
+		this.onImmediateChange =3D null; // onchange callback (can be either =
+string or function)
+		this.hsv =3D [0, 0, 1]; // read-only  0-6, 0-1, 0-1
+		this.rgb =3D [1, 1, 1]; // read-only  0-1, 0-1, 0-1
+		this.minH =3D 0; // read-only  0-6
+		this.maxH =3D 6; // read-only  0-6
+		this.minS =3D 0; // read-only  0-1
+		this.maxS =3D 1; // read-only  0-1
+		this.minV =3D 0; // read-only  0-1
+		this.maxV =3D 1; // read-only  0-1
+
+		this.pickerOnfocus =3D true; // display picker on focus?
+		this.pickerMode =3D 'HSV'; // HSV | HVS
+		this.pickerPosition =3D 'bottom'; // left | right | top | bottom
+		this.pickerSmartPosition =3D true; // automatically adjust picker =
+position when necessary
+		this.pickerButtonHeight =3D 20; // px
+		this.pickerClosable =3D false;
+		this.pickerCloseText =3D 'Close';
+		this.pickerButtonColor =3D 'ButtonText'; // px
+		this.pickerFace =3D 10; // px
+		this.pickerFaceColor =3D 'ThreeDFace'; // CSS color
+		this.pickerBorder =3D 1; // px
+		this.pickerBorderColor =3D 'ThreeDHighlight ThreeDShadow ThreeDShadow =
+ThreeDHighlight'; // CSS color
+		this.pickerInset =3D 1; // px
+		this.pickerInsetColor =3D 'ThreeDShadow ThreeDHighlight =
+ThreeDHighlight ThreeDShadow'; // CSS color
+		this.pickerZIndex =3D 10000;
+
+
+		for(var p in prop) {
+			if(prop.hasOwnProperty(p)) {
+				this[p] =3D prop[p];
+			}
+		}
+
+
+		this.hidePicker =3D function() {
+			if(isPickerOwner()) {
+				removePicker();
+			}
+		};
+
+
+		this.showPicker =3D function() {
+			if(!isPickerOwner()) {
+				var tp =3D jscolor.getElementPos(target); // target pos
+				var ts =3D jscolor.getElementSize(target); // target size
+				var vp =3D jscolor.getViewPos(); // view pos
+				var vs =3D jscolor.getViewSize(); // view size
+				var ps =3D getPickerDims(this); // picker size
+				var a, b, c;
+				switch(this.pickerPosition.toLowerCase()) {
+					case 'left': a=3D1; b=3D0; c=3D-1; break;
+					case 'right':a=3D1; b=3D0; c=3D1; break;
+					case 'top':  a=3D0; b=3D1; c=3D-1; break;
+					default:     a=3D0; b=3D1; c=3D1; break;
+				}
+				var l =3D (ts[b]+ps[b])/2;
+
+				// picker pos
+				if (!this.pickerSmartPosition) {
+					var pp =3D [
+						tp[a],
+						tp[b]+ts[b]-l+l*c
+					];
+				} else {
+					var pp =3D [
+						-vp[a]+tp[a]+ps[a] > vs[a] ?
+							(-vp[a]+tp[a]+ts[a]/2 > vs[a]/2 && tp[a]+ts[a]-ps[a] >=3D 0 ? =
+tp[a]+ts[a]-ps[a] : tp[a]) :
+							tp[a],
+						-vp[b]+tp[b]+ts[b]+ps[b]-l+l*c > vs[b] ?
+							(-vp[b]+tp[b]+ts[b]/2 > vs[b]/2 && tp[b]+ts[b]-l-l*c >=3D 0 ? =
+tp[b]+ts[b]-l-l*c : tp[b]+ts[b]-l+l*c) :
+							(tp[b]+ts[b]-l+l*c >=3D 0 ? tp[b]+ts[b]-l+l*c : =
+tp[b]+ts[b]-l-l*c)
+					];
+				}
+				drawPicker(pp[a], pp[b]);
+			}
+		};
+
+
+		this.importColor =3D function() {
+			if(!valueElement) {
+				this.exportColor();
+			} else {
+				if(!this.adjust) {
+					if(!this.fromString(valueElement.value, leaveValue)) {
+						styleElement.style.backgroundImage =3D =
+styleElement.jscStyle.backgroundImage;
+						styleElement.style.backgroundColor =3D =
+styleElement.jscStyle.backgroundColor;
+						styleElement.style.color =3D styleElement.jscStyle.color;
+						this.exportColor(leaveValue | leaveStyle);
+					}
+				} else if(!this.required && /^\s*$/.test(valueElement.value)) {
+					valueElement.value =3D '';
+					styleElement.style.backgroundImage =3D =
+styleElement.jscStyle.backgroundImage;
+					styleElement.style.backgroundColor =3D =
+styleElement.jscStyle.backgroundColor;
+					styleElement.style.color =3D styleElement.jscStyle.color;
+					this.exportColor(leaveValue | leaveStyle);
+
+				} else if(this.fromString(valueElement.value)) {
+					// OK
+				} else {
+					this.exportColor();
+				}
+			}
+		};
+
+
+		this.exportColor =3D function(flags) {
+			if(!(flags & leaveValue) && valueElement) {
+				var value =3D this.toString();
+				if(this.caps) { value =3D value.toUpperCase(); }
+				if(this.hash) { value =3D '#'+value; }
+				valueElement.value =3D value;
+			}
+			if(!(flags & leaveStyle) && styleElement) {
+				styleElement.style.backgroundImage =3D "none";
+				styleElement.style.backgroundColor =3D
+					'#'+this.toString();
+				styleElement.style.color =3D
+					0.213 * this.rgb[0] +
+					0.715 * this.rgb[1] +
+					0.072 * this.rgb[2]
+					< 0.5 ? '#FFF' : '#000';
+			}
+			if(!(flags & leavePad) && isPickerOwner()) {
+				redrawPad();
+			}
+			if(!(flags & leaveSld) && isPickerOwner()) {
+				redrawSld();
+			}
+		};
+
+
+		this.fromHSV =3D function(h, s, v, flags) { // null =3D don't change
+			if(h !=3D=3D null) { h =3D Math.max(0.0, this.minH, Math.min(6.0, =
+this.maxH, h)); }
+			if(s !=3D=3D null) { s =3D Math.max(0.0, this.minS, Math.min(1.0, =
+this.maxS, s)); }
+			if(v !=3D=3D null) { v =3D Math.max(0.0, this.minV, Math.min(1.0, =
+this.maxV, v)); }
+
+			this.rgb =3D HSV_RGB(
+				h=3D=3D=3Dnull ? this.hsv[0] : (this.hsv[0]=3Dh),
+				s=3D=3D=3Dnull ? this.hsv[1] : (this.hsv[1]=3Ds),
+				v=3D=3D=3Dnull ? this.hsv[2] : (this.hsv[2]=3Dv)
+			);
+
+			this.exportColor(flags);
+		};
+
+
+		this.fromRGB =3D function(r, g, b, flags) { // null =3D don't change
+			if(r !=3D=3D null) { r =3D Math.max(0.0, Math.min(1.0, r)); }
+			if(g !=3D=3D null) { g =3D Math.max(0.0, Math.min(1.0, g)); }
+			if(b !=3D=3D null) { b =3D Math.max(0.0, Math.min(1.0, b)); }
+
+			var hsv =3D RGB_HSV(
+				r=3D=3D=3Dnull ? this.rgb[0] : r,
+				g=3D=3D=3Dnull ? this.rgb[1] : g,
+				b=3D=3D=3Dnull ? this.rgb[2] : b
+			);
+			if(hsv[0] !=3D=3D null) {
+				this.hsv[0] =3D Math.max(0.0, this.minH, Math.min(6.0, this.maxH, =
+hsv[0]));
+			}
+			if(hsv[2] !=3D=3D 0) {
+				this.hsv[1] =3D hsv[1]=3D=3D=3Dnull ? null : Math.max(0.0, =
+this.minS, Math.min(1.0, this.maxS, hsv[1]));
+			}
+			this.hsv[2] =3D hsv[2]=3D=3D=3Dnull ? null : Math.max(0.0, this.minV, =
+Math.min(1.0, this.maxV, hsv[2]));
+
+			// update RGB according to final HSV, as some values might be trimmed
+			var rgb =3D HSV_RGB(this.hsv[0], this.hsv[1], this.hsv[2]);
+			this.rgb[0] =3D rgb[0];
+			this.rgb[1] =3D rgb[1];
+			this.rgb[2] =3D rgb[2];
+
+			this.exportColor(flags);
+		};
+
+
+		this.fromString =3D function(hex, flags) {
+			var m =3D hex.match(/^\W*([0-9A-F]{3}([0-9A-F]{3})?)\W*$/i);
+			if(!m) {
+				return false;
+			} else {
+				if(m[1].length =3D=3D=3D 6) { // 6-char notation
+					this.fromRGB(
+						parseInt(m[1].substr(0,2),16) / 255,
+						parseInt(m[1].substr(2,2),16) / 255,
+						parseInt(m[1].substr(4,2),16) / 255,
+						flags
+					);
+				} else { // 3-char notation
+					this.fromRGB(
+						parseInt(m[1].charAt(0)+m[1].charAt(0),16) / 255,
+						parseInt(m[1].charAt(1)+m[1].charAt(1),16) / 255,
+						parseInt(m[1].charAt(2)+m[1].charAt(2),16) / 255,
+						flags
+					);
+				}
+				return true;
+			}
+		};
+
+
+		this.toString =3D function() {
+			return (
+				(0x100 | Math.round(255*this.rgb[0])).toString(16).substr(1) +
+				(0x100 | Math.round(255*this.rgb[1])).toString(16).substr(1) +
+				(0x100 | Math.round(255*this.rgb[2])).toString(16).substr(1)
+			);
+		};
+
+
+		function RGB_HSV(r, g, b) {
+			var n =3D Math.min(Math.min(r,g),b);
+			var v =3D Math.max(Math.max(r,g),b);
+			var m =3D v - n;
+			if(m =3D=3D=3D 0) { return [ null, 0, v ]; }
+			var h =3D r=3D=3D=3Dn ? 3+(b-g)/m : (g=3D=3D=3Dn ? 5+(r-b)/m : =
+1+(g-r)/m);
+			return [ h=3D=3D=3D6?0:h, m/v, v ];
+		}
+
+
+		function HSV_RGB(h, s, v) {
+			if(h =3D=3D=3D null) { return [ v, v, v ]; }
+			var i =3D Math.floor(h);
+			var f =3D i%2 ? h-i : 1-(h-i);
+			var m =3D v * (1 - s);
+			var n =3D v * (1 - s*f);
+			switch(i) {
+				case 6:
+				case 0: return [v,n,m];
+				case 1: return [n,v,m];
+				case 2: return [m,v,n];
+				case 3: return [m,n,v];
+				case 4: return [n,m,v];
+				case 5: return [v,m,n];
+			}
+		}
+
+
+		function removePicker() {
+			delete jscolor.picker.owner;
+			=
+document.getElementsByTagName('body')[0].removeChild(jscolor.picker.boxB)=
+;
+		}
+
+
+		function drawPicker(x, y) {
+			if(!jscolor.picker) {
+				jscolor.picker =3D {
+					box : document.createElement('div'),
+					boxB : document.createElement('div'),
+					pad : document.createElement('div'),
+					padB : document.createElement('div'),
+					padM : document.createElement('div'),
+					sld : document.createElement('div'),
+					sldB : document.createElement('div'),
+					sldM : document.createElement('div'),
+					btn : document.createElement('div'),
+					btnS : document.createElement('span'),
+					btnT : document.createTextNode(THIS.pickerCloseText)
+				};
+				for(var i=3D0,segSize=3D4; i<jscolor.images.sld[1]; i+=3DsegSize) {
+					var seg =3D document.createElement('div');
+					seg.style.height =3D segSize+'px';
+					seg.style.fontSize =3D '1px';
+					seg.style.lineHeight =3D '0';
+					jscolor.picker.sld.appendChild(seg);
+				}
+				jscolor.picker.sldB.appendChild(jscolor.picker.sld);
+				jscolor.picker.box.appendChild(jscolor.picker.sldB);
+				jscolor.picker.box.appendChild(jscolor.picker.sldM);
+				jscolor.picker.padB.appendChild(jscolor.picker.pad);
+				jscolor.picker.box.appendChild(jscolor.picker.padB);
+				jscolor.picker.box.appendChild(jscolor.picker.padM);
+				jscolor.picker.btnS.appendChild(jscolor.picker.btnT);
+				jscolor.picker.btn.appendChild(jscolor.picker.btnS);
+				jscolor.picker.box.appendChild(jscolor.picker.btn);
+				jscolor.picker.boxB.appendChild(jscolor.picker.box);
+			}
+
+			var p =3D jscolor.picker;
+
+			// controls interaction
+			p.box.onmouseup =3D
+			p.box.onmouseout =3D function() { target.focus(); };
+			p.box.onmousedown =3D function() { abortBlur=3Dtrue; };
+			p.box.onmousemove =3D function(e) {
+				if (holdPad || holdSld) {
+					holdPad && setPad(e);
+					holdSld && setSld(e);
+					if (document.selection) {
+						document.selection.empty();
+					} else if (window.getSelection) {
+						window.getSelection().removeAllRanges();
+					}
+					dispatchImmediateChange();
+				}
+			};
+			p.padM.onmouseup =3D
+			p.padM.onmouseout =3D function() { if(holdPad) { holdPad=3Dfalse; =
+jscolor.fireEvent(valueElement,'change'); } };
+			p.padM.onmousedown =3D function(e) {
+				// if the slider is at the bottom, move it up
+				switch(modeID) {
+					case 0: if (THIS.hsv[2] =3D=3D=3D 0) { THIS.fromHSV(null, null, =
+1.0); }; break;
+					case 1: if (THIS.hsv[1] =3D=3D=3D 0) { THIS.fromHSV(null, 1.0, =
+null); }; break;
+				}
+				holdPad=3Dtrue;
+				setPad(e);
+				dispatchImmediateChange();
+			};
+			p.sldM.onmouseup =3D
+			p.sldM.onmouseout =3D function() { if(holdSld) { holdSld=3Dfalse; =
+jscolor.fireEvent(valueElement,'change'); } };
+			p.sldM.onmousedown =3D function(e) {
+				holdSld=3Dtrue;
+				setSld(e);
+				dispatchImmediateChange();
+			};
+
+			// picker
+			var dims =3D getPickerDims(THIS);
+			p.box.style.width =3D dims[0] + 'px';
+			p.box.style.height =3D dims[1] + 'px';
+
+			// picker border
+			p.boxB.style.position =3D 'absolute';
+			p.boxB.style.clear =3D 'both';
+			p.boxB.style.left =3D x+'px';
+			p.boxB.style.top =3D y+'px';
+			p.boxB.style.zIndex =3D THIS.pickerZIndex;
+			p.boxB.style.border =3D THIS.pickerBorder+'px solid';
+			p.boxB.style.borderColor =3D THIS.pickerBorderColor;
+			p.boxB.style.background =3D THIS.pickerFaceColor;
+
+			// pad image
+			p.pad.style.width =3D jscolor.images.pad[0]+'px';
+			p.pad.style.height =3D jscolor.images.pad[1]+'px';
+
+			// pad border
+			p.padB.style.position =3D 'absolute';
+			p.padB.style.left =3D THIS.pickerFace+'px';
+			p.padB.style.top =3D THIS.pickerFace+'px';
+			p.padB.style.border =3D THIS.pickerInset+'px solid';
+			p.padB.style.borderColor =3D THIS.pickerInsetColor;
+
+			// pad mouse area
+			p.padM.style.position =3D 'absolute';
+			p.padM.style.left =3D '0';
+			p.padM.style.top =3D '0';
+			p.padM.style.width =3D THIS.pickerFace + 2*THIS.pickerInset + =
+jscolor.images.pad[0] + jscolor.images.arrow[0] + 'px';
+			p.padM.style.height =3D p.box.style.height;
+			p.padM.style.cursor =3D 'crosshair';
+
+			// slider image
+			p.sld.style.overflow =3D 'hidden';
+			p.sld.style.width =3D jscolor.images.sld[0]+'px';
+			p.sld.style.height =3D jscolor.images.sld[1]+'px';
+
+			// slider border
+			p.sldB.style.display =3D THIS.slider ? 'block' : 'none';
+			p.sldB.style.position =3D 'absolute';
+			p.sldB.style.right =3D THIS.pickerFace+'px';
+			p.sldB.style.top =3D THIS.pickerFace+'px';
+			p.sldB.style.border =3D THIS.pickerInset+'px solid';
+			p.sldB.style.borderColor =3D THIS.pickerInsetColor;
+
+			// slider mouse area
+			p.sldM.style.display =3D THIS.slider ? 'block' : 'none';
+			p.sldM.style.position =3D 'absolute';
+			p.sldM.style.right =3D '0';
+			p.sldM.style.top =3D '0';
+			p.sldM.style.width =3D jscolor.images.sld[0] + =
+jscolor.images.arrow[0] + THIS.pickerFace + 2*THIS.pickerInset + 'px';
+			p.sldM.style.height =3D p.box.style.height;
+			try {
+				p.sldM.style.cursor =3D 'pointer';
+			} catch(eOldIE) {
+				p.sldM.style.cursor =3D 'hand';
+			}
+
+			// "close" button
+			function setBtnBorder() {
+				var insetColors =3D THIS.pickerInsetColor.split(/\s+/);
+				var pickerOutsetColor =3D insetColors.length < 2 ? insetColors[0] : =
+insetColors[1] + ' ' + insetColors[0] + ' ' + insetColors[0] + ' ' + =
+insetColors[1];
+				p.btn.style.borderColor =3D pickerOutsetColor;
+			}
+			p.btn.style.display =3D THIS.pickerClosable ? 'block' : 'none';
+			p.btn.style.position =3D 'absolute';
+			p.btn.style.left =3D THIS.pickerFace + 'px';
+			p.btn.style.bottom =3D THIS.pickerFace + 'px';
+			p.btn.style.padding =3D '0 15px';
+			p.btn.style.height =3D '18px';
+			p.btn.style.border =3D THIS.pickerInset + 'px solid';
+			setBtnBorder();
+			p.btn.style.color =3D THIS.pickerButtonColor;
+			p.btn.style.font =3D '12px sans-serif';
+			p.btn.style.textAlign =3D 'center';
+			try {
+				p.btn.style.cursor =3D 'pointer';
+			} catch(eOldIE) {
+				p.btn.style.cursor =3D 'hand';
+			}
+			p.btn.onmousedown =3D function () {
+				THIS.hidePicker();
+			};
+			p.btnS.style.lineHeight =3D p.btn.style.height;
+
+			// load images in optimal order
+			switch(modeID) {
+				case 0: var padImg =3D 'hs.png'; break;
+				case 1: var padImg =3D 'hv.png'; break;
+			}
+			p.padM.style.backgroundImage =3D =
+"url('"+jscolor.getDir()+"cross.gif')";
+			p.padM.style.backgroundRepeat =3D "no-repeat";
+			p.sldM.style.backgroundImage =3D =
+"url('"+jscolor.getDir()+"arrow.gif')";
+			p.sldM.style.backgroundRepeat =3D "no-repeat";
+			p.pad.style.backgroundImage =3D "url('"+jscolor.getDir()+padImg+"')";
+			p.pad.style.backgroundRepeat =3D "no-repeat";
+			p.pad.style.backgroundPosition =3D "0 0";
+
+			// place pointers
+			redrawPad();
+			redrawSld();
+
+			jscolor.picker.owner =3D THIS;
+			document.getElementsByTagName('body')[0].appendChild(p.boxB);
+		}
+
+
+		function getPickerDims(o) {
+			var dims =3D [
+				2*o.pickerInset + 2*o.pickerFace + jscolor.images.pad[0] +
+					(o.slider ? 2*o.pickerInset + 2*jscolor.images.arrow[0] + =
+jscolor.images.sld[0] : 0),
+				o.pickerClosable ?
+					4*o.pickerInset + 3*o.pickerFace + jscolor.images.pad[1] + =
+o.pickerButtonHeight :
+					2*o.pickerInset + 2*o.pickerFace + jscolor.images.pad[1]
+			];
+			return dims;
+		}
+
+
+		function redrawPad() {
+			// redraw the pad pointer
+			switch(modeID) {
+				case 0: var yComponent =3D 1; break;
+				case 1: var yComponent =3D 2; break;
+			}
+			var x =3D Math.round((THIS.hsv[0]/6) * (jscolor.images.pad[0]-1));
+			var y =3D Math.round((1-THIS.hsv[yComponent]) * =
+(jscolor.images.pad[1]-1));
+			jscolor.picker.padM.style.backgroundPosition =3D
+				(THIS.pickerFace+THIS.pickerInset+x - =
+Math.floor(jscolor.images.cross[0]/2)) + 'px ' +
+				(THIS.pickerFace+THIS.pickerInset+y - =
+Math.floor(jscolor.images.cross[1]/2)) + 'px';
+
+			// redraw the slider image
+			var seg =3D jscolor.picker.sld.childNodes;
+
+			switch(modeID) {
+				case 0:
+					var rgb =3D HSV_RGB(THIS.hsv[0], THIS.hsv[1], 1);
+					for(var i=3D0; i<seg.length; i+=3D1) {
+						seg[i].style.backgroundColor =3D 'rgb('+
+							(rgb[0]*(1-i/seg.length)*100)+'%,'+
+							(rgb[1]*(1-i/seg.length)*100)+'%,'+
+							(rgb[2]*(1-i/seg.length)*100)+'%)';
+					}
+					break;
+				case 1:
+					var rgb, s, c =3D [ THIS.hsv[2], 0, 0 ];
+					var i =3D Math.floor(THIS.hsv[0]);
+					var f =3D i%2 ? THIS.hsv[0]-i : 1-(THIS.hsv[0]-i);
+					switch(i) {
+						case 6:
+						case 0: rgb=3D[0,1,2]; break;
+						case 1: rgb=3D[1,0,2]; break;
+						case 2: rgb=3D[2,0,1]; break;
+						case 3: rgb=3D[2,1,0]; break;
+						case 4: rgb=3D[1,2,0]; break;
+						case 5: rgb=3D[0,2,1]; break;
+					}
+					for(var i=3D0; i<seg.length; i+=3D1) {
+						s =3D 1 - 1/(seg.length-1)*i;
+						c[1] =3D c[0] * (1 - s*f);
+						c[2] =3D c[0] * (1 - s);
+						seg[i].style.backgroundColor =3D 'rgb('+
+							(c[rgb[0]]*100)+'%,'+
+							(c[rgb[1]]*100)+'%,'+
+							(c[rgb[2]]*100)+'%)';
+					}
+					break;
+			}
+		}
+
+
+		function redrawSld() {
+			// redraw the slider pointer
+			switch(modeID) {
+				case 0: var yComponent =3D 2; break;
+				case 1: var yComponent =3D 1; break;
+			}
+			var y =3D Math.round((1-THIS.hsv[yComponent]) * =
+(jscolor.images.sld[1]-1));
+			jscolor.picker.sldM.style.backgroundPosition =3D
+				'0 ' + (THIS.pickerFace+THIS.pickerInset+y - =
+Math.floor(jscolor.images.arrow[1]/2)) + 'px';
+		}
+
+
+		function isPickerOwner() {
+			return jscolor.picker && jscolor.picker.owner =3D=3D=3D THIS;
+		}
+
+
+		function blurTarget() {
+			if(valueElement =3D=3D=3D target) {
+				THIS.importColor();
+			}
+			if(THIS.pickerOnfocus) {
+				THIS.hidePicker();
+			}
+		}
+
+
+		function blurValue() {
+			if(valueElement !=3D=3D target) {
+				THIS.importColor();
+			}
+		}
+
+
+		function setPad(e) {
+			var mpos =3D jscolor.getRelMousePos(e);
+			var x =3D mpos.x - THIS.pickerFace - THIS.pickerInset;
+			var y =3D mpos.y - THIS.pickerFace - THIS.pickerInset;
+			switch(modeID) {
+				case 0: THIS.fromHSV(x*(6/(jscolor.images.pad[0]-1)), 1 - =
+y/(jscolor.images.pad[1]-1), null, leaveSld); break;
+				case 1: THIS.fromHSV(x*(6/(jscolor.images.pad[0]-1)), null, 1 - =
+y/(jscolor.images.pad[1]-1), leaveSld); break;
+			}
+		}
+
+
+		function setSld(e) {
+			var mpos =3D jscolor.getRelMousePos(e);
+			var y =3D mpos.y - THIS.pickerFace - THIS.pickerInset;
+			switch(modeID) {
+				case 0: THIS.fromHSV(null, null, 1 - y/(jscolor.images.sld[1]-1), =
+leavePad); break;
+				case 1: THIS.fromHSV(null, 1 - y/(jscolor.images.sld[1]-1), null, =
+leavePad); break;
+			}
+		}
+
+
+		function dispatchImmediateChange() {
+			if (THIS.onImmediateChange) {
+				var callback;
+				if (typeof THIS.onImmediateChange =3D=3D=3D 'string') {
+					callback =3D new Function (THIS.onImmediateChange);
+				} else {
+					callback =3D THIS.onImmediateChange;
+				}
+				callback.call(THIS);
+			}
+		}
+
+
+		var THIS =3D this;
+		var modeID =3D this.pickerMode.toLowerCase()=3D=3D=3D'hvs' ? 1 : 0;
+		var abortBlur =3D false;
+		var
+			valueElement =3D jscolor.fetchElement(this.valueElement),
+			styleElement =3D jscolor.fetchElement(this.styleElement);
+		var
+			holdPad =3D false,
+			holdSld =3D false;
+		var
+			leaveValue =3D 1<<0,
+			leaveStyle =3D 1<<1,
+			leavePad =3D 1<<2,
+			leaveSld =3D 1<<3;
+
+		// target
+		jscolor.addEvent(target, 'focus', function() {
+			if(THIS.pickerOnfocus) { THIS.showPicker(); }
+		});
+		jscolor.addEvent(target, 'blur', function() {
+			if(!abortBlur) {
+				window.setTimeout(function(){ abortBlur || blurTarget(); =
+abortBlur=3Dfalse; }, 0);
+			} else {
+				abortBlur =3D false;
+			}
+		});
+
+		// valueElement
+		if(valueElement) {
+			var updateField =3D function() {
+				THIS.fromString(valueElement.value, leaveValue);
+				dispatchImmediateChange();
+			};
+			jscolor.addEvent(valueElement, 'keyup', updateField);
+			jscolor.addEvent(valueElement, 'input', updateField);
+			jscolor.addEvent(valueElement, 'blur', blurValue);
+			valueElement.setAttribute('autocomplete', 'off');
+		}
+
+		// styleElement
+		if(styleElement) {
+			styleElement.jscStyle =3D {
+				backgroundImage : styleElement.style.backgroundImage,
+				backgroundColor : styleElement.style.backgroundColor,
+				color : styleElement.style.color
+			};
+		}
+
+		// require images
+		switch(modeID) {
+			case 0: jscolor.requireImage('hs.png'); break;
+			case 1: jscolor.requireImage('hv.png'); break;
+		}
+		jscolor.requireImage('cross.gif');
+		jscolor.requireImage('arrow.gif');
+
+		this.importColor();
+	}
+
+};
+
+
+jscolor.install();
+
+------=_NextPart_000_0000_01CED7B2.9029C490
+Content-Type: multipart/alternative;
+	boundary="----=_NextPart_001_0005_01CED7B2.902A12B0"
+
+
+------=_NextPart_001_0005_01CED7B2.902A12B0
+Content-Type: text/html;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://jscolor.com/try.php
+
+=EF=BB=BF<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" =
+"http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<HTML lang=3Den xml:lang=3D"en" =
+xmlns=3D"http://www.w3.org/1999/xhtml"><HEAD><TITLE>Demos of JSColor =
+=E2=80=93 JavaScript / HTML Color Picker, Selector, Chooser</TITLE>
+<META http-equiv=3Dcontent-type content=3D"text/html; charset=3Dutf-8">
+<META content=3Den name=3Dcontent-language>
+<META content=3Dindex,follow name=3Drobots>
+<META=20
+content=3D"free open source gnu gpl online web interactive javascript =
+java script js dhtml dynamic html compact simple small smooth slider =
+slidable rgb rgba hsl hsla hsv hex pick colour color picker colorpicker =
+colorpallet colorpalette color palette pallet mixer spectrum select =
+selection selector getter generator alpha transparency opacity form =
+forms input field dropdown popup pop-up context dialog panel window box =
+control ajax jquery mootools yui dojo mochikit framework plugin module =
+component extension widget tool toolkit applet library pack package"=20
+name=3Dkeywords>
+<META content=3D"Jan Odvarko, http://odvarko.cz" name=3Dauthor><LINK=20
+media=3Dscreen,projection href=3D"http://jscolor.com/css/screen.css" =
+rel=3Dstylesheet>
+<META content=3D"MSHTML 6.00.6001.18000" name=3DGENERATOR></HEAD>
+<BODY>
+<DIV id=3Dhead><A href=3D"http://jscolor.com/"><SPAN =
+id=3DwebName>JSColor</SPAN><SPAN=20
+class=3Dsep>=E2=80=93</SPAN>=20
+<H1 id=3DwebDesc>JavaScript / HTML Color Picker</H1></A></DIV>
+<DIV id=3Dpage>
+<DIV id=3Dmain>
+<DIV id=3Dmain2>
+<H1 style=3D"DISPLAY: none">Demos</H1><NOSCRIPT>
+<DIV class=3D"message warning"><STRONG>Warning:</STRONG> The examples =
+won't work=20
+because your browser seems to have the <STRONG>JavaScript =
+disabled</STRONG> or=20
+not to support it. </DIV></NOSCRIPT>
+<H2 id=3Dbasic><A href=3D"http://jscolor.com/try.php#basic">1. Basic =
+usage</A></H2>
+<SCRIPT src=3D"http://jscolor.com/js/encodeURI.js" =
+type=3Dtext/javascript></SCRIPT>
+
+<SCRIPT type=3Dtext/javascript>=0A=
+function exampleApply(id) {=0A=
+	var form =3D document.getElementById('example'+id)=0A=
+	var codeEnc =3D encodeURIComponent(form.code.value)=0A=
+	if(codeEnc.length > 2000) {=0A=
+		alert('Code is too long')=0A=
+	} else {=0A=
+		var frame =3D document.getElementById('example'+id+'_frame')=0A=
+		frame.src =3D 'example/gen.php?code=3D'+codeEnc=0A=
+	}=0A=
+}=0A=
+function exampleReset(id) {=0A=
+	document.getElementById('example'+id).reset()=0A=
+}=0A=
+</SCRIPT>
+<!-- EXAMPLE -->
+<FORM class=3Dexample id=3Dexample1><IFRAME id=3Dexample1_frame=20
+src=3D"http://jscolor.com/example/basic.html" frameBorder=3D0></IFRAME>
+<DIV class=3Dcode><TEXTAREA name=3Dcode rows=3D10 cols=3D80>&lt;script =
+type=3D"text/javascript" src=3D"jscolor/jscolor.js"&gt;&lt;/script&gt;
+
+Click here: &lt;input class=3D"color" =
+value=3D"66ff00"&gt;</TEXTAREA></DIV>
+<DIV class=3Dbuttons><A onclick=3D"exampleApply(1); return false"=20
+href=3D"http://jscolor.com/">Apply</A> <A onclick=3D"exampleReset(1); =
+return false"=20
+href=3D"http://jscolor.com/">Reset</A> <A=20
+href=3D"http://jscolor.com/example/basic.html">Single&nbsp;window</A> <A =
+
+href=3D"http://jscolor.com/example/basic.html?download">Download</A> =
+</DIV></FORM><!-- /EXAMPLE -->
+<H2 id=3Dtweaking><A href=3D"http://jscolor.com/try.php#tweaking">2.=20
+Tweaking</A></H2><!-- EXAMPLE -->
+<FORM class=3Dexample id=3Dexample2><IFRAME id=3Dexample2_frame=20
+src=3D"http://jscolor.com/example/tweaking.html" =
+frameBorder=3D0></IFRAME>
+<DIV class=3Dcode><TEXTAREA name=3Dcode rows=3D10 cols=3D80>&lt;script =
+type=3D"text/javascript" src=3D"jscolor/jscolor.js"&gt;&lt;/script&gt;
+
+&lt;p&gt; This field can be left empty: &lt;input class=3D"color =
+{required:false}"&gt;
+&lt;p&gt; This field accepts any value: &lt;input class=3D"color =
+{adjust:false}"&gt;
+&lt;p&gt; Hash symbol:                  &lt;input class=3D"color =
+{hash:true}"&gt;
+&lt;p&gt; Hash symbol, lowercase:       &lt;input class=3D"color =
+{hash:true,caps:false}"&gt;</TEXTAREA></DIV>
+<DIV class=3Dbuttons><A onclick=3D"exampleApply(2); return false"=20
+href=3D"http://jscolor.com/">Apply</A> <A onclick=3D"exampleReset(2); =
+return false"=20
+href=3D"http://jscolor.com/">Reset</A> <A=20
+href=3D"http://jscolor.com/example/tweaking.html">Single&nbsp;window</A> =
+<A=20
+href=3D"http://jscolor.com/example/tweaking.html?download">Download</A>=20
+</DIV></FORM><!-- /EXAMPLE -->
+<H2 id=3Dmodes><A href=3D"http://jscolor.com/try.php#modes">3. Picker =
+modes=20
+HSV/HVS</A></H2><!-- EXAMPLE -->
+<FORM class=3Dexample id=3Dexample3><IFRAME id=3Dexample3_frame=20
+src=3D"http://jscolor.com/example/modes.html" frameBorder=3D0></IFRAME>
+<DIV class=3Dcode><TEXTAREA name=3Dcode rows=3D10 cols=3D80>&lt;script =
+type=3D"text/javascript" src=3D"jscolor/jscolor.js"&gt;&lt;/script&gt;
+
+HSV mode: &lt;input class=3D"color {pickerMode:'HSV'}"&gt;
+HVS mode: &lt;input class=3D"color =
+{pickerMode:'HVS'}"&gt;</TEXTAREA></DIV>
+<DIV class=3Dbuttons><A onclick=3D"exampleApply(3); return false"=20
+href=3D"http://jscolor.com/">Apply</A> <A onclick=3D"exampleReset(3); =
+return false"=20
+href=3D"http://jscolor.com/">Reset</A> <A=20
+href=3D"http://jscolor.com/example/modes.html">Single&nbsp;window</A> <A =
+
+href=3D"http://jscolor.com/example/modes.html?download">Download</A> =
+</DIV></FORM><!-- /EXAMPLE -->
+<H2 id=3Dposition><A href=3D"http://jscolor.com/try.php#position">4. =
+Picker=20
+position</A></H2><!-- EXAMPLE -->
+<FORM class=3Dexample id=3Dexample4><IFRAME id=3Dexample4_frame=20
+src=3D"http://jscolor.com/example/position.html" =
+frameBorder=3D0></IFRAME>
+<DIV class=3Dcode><TEXTAREA name=3Dcode rows=3D10 cols=3D80>&lt;script =
+type=3D"text/javascript" src=3D"jscolor/jscolor.js"&gt;&lt;/script&gt;
+
+&lt;p style=3D"margin-left:210px"&gt;Left:  &lt;input class=3D"color =
+{pickerPosition:'left'}"&gt;
+&lt;p style=3D"margin-left:90px"&gt; Right: &lt;input class=3D"color =
+{pickerPosition:'right'}"&gt;
+&lt;p style=3D"margin-top:65px"&gt;  Top:   &lt;input class=3D"color =
+{pickerPosition:'top'}"&gt;</TEXTAREA></DIV>
+<DIV class=3Dbuttons><A onclick=3D"exampleApply(4); return false"=20
+href=3D"http://jscolor.com/">Apply</A> <A onclick=3D"exampleReset(4); =
+return false"=20
+href=3D"http://jscolor.com/">Reset</A> <A=20
+href=3D"http://jscolor.com/example/position.html">Single&nbsp;window</A> =
+<A=20
+href=3D"http://jscolor.com/example/position.html?download">Download</A>=20
+</DIV></FORM><!-- /EXAMPLE -->
+<H2 id=3Dsizes><A href=3D"http://jscolor.com/try.php#sizes">5. Picker =
+borders &amp;=20
+face</A></H2><!-- EXAMPLE -->
+<FORM class=3Dexample id=3Dexample5><IFRAME id=3Dexample5_frame=20
+src=3D"http://jscolor.com/example/sizes.html" frameBorder=3D0></IFRAME>
+<DIV class=3Dcode><TEXTAREA name=3Dcode rows=3D10 cols=3D80>&lt;script =
+type=3D"text/javascript" src=3D"jscolor/jscolor.js"&gt;&lt;/script&gt;
+
+&lt;p&gt; Stronger borders: &lt;input class=3D"color =
+{pickerBorder:3,pickerInset:10}"&gt;
+&lt;p&gt; Stronger face:    &lt;input class=3D"color =
+{pickerFace:20}"&gt;</TEXTAREA></DIV>
+<DIV class=3Dbuttons><A onclick=3D"exampleApply(5); return false"=20
+href=3D"http://jscolor.com/">Apply</A> <A onclick=3D"exampleReset(5); =
+return false"=20
+href=3D"http://jscolor.com/">Reset</A> <A=20
+href=3D"http://jscolor.com/example/sizes.html">Single&nbsp;window</A> <A =
+
+href=3D"http://jscolor.com/example/sizes.html?download">Download</A> =
+</DIV></FORM><!-- /EXAMPLE -->
+<H2 id=3Dcolors><A href=3D"http://jscolor.com/try.php#colors">6. Picker =
+color=20
+scheme</A></H2><!-- EXAMPLE -->
+<FORM class=3Dexample id=3Dexample6><IFRAME id=3Dexample6_frame=20
+src=3D"http://jscolor.com/example/colors.html" frameBorder=3D0></IFRAME>
+<DIV class=3Dcode><TEXTAREA name=3Dcode rows=3D10 cols=3D80>&lt;script =
+type=3D"text/javascript" src=3D"jscolor/jscolor.js"&gt;&lt;/script&gt;
+
+&lt;p&gt; Colour outer border:  &lt;input class=3D"color =
+{pickerBorderColor:'red green blue yellow'}"&gt;
+&lt;p&gt; Colour inset borders: &lt;input class=3D"color =
+{pickerInsetColor:'#9F9 #090 #090 #9F9'}"&gt;
+&lt;p&gt; Colour picker face:   &lt;input class=3D"color =
+{pickerFaceColor:'#01BABE'}"&gt;
+&lt;p&gt; Transparent picker:   &lt;input class=3D"color =
+{pickerFaceColor:'transparent',pickerFace:3,pickerBorder:0,pickerInsetCol=
+or:'black'}"&gt;</TEXTAREA></DIV>
+<DIV class=3Dbuttons><A onclick=3D"exampleApply(6); return false"=20
+href=3D"http://jscolor.com/">Apply</A> <A onclick=3D"exampleReset(6); =
+return false"=20
+href=3D"http://jscolor.com/">Reset</A> <A=20
+href=3D"http://jscolor.com/example/colors.html">Single&nbsp;window</A> =
+<A=20
+href=3D"http://jscolor.com/example/colors.html?download">Download</A>=20
+</DIV></FORM><!-- /EXAMPLE -->
+<H2 id=3Dshowing-hiding><A =
+href=3D"http://jscolor.com/try.php#showing-hiding">7.=20
+Showing/hiding the picker</A></H2><!-- EXAMPLE -->
+<FORM class=3Dexample id=3Dexample7><IFRAME id=3Dexample7_frame=20
+src=3D"http://jscolor.com/example/showing-hiding.html" =
+frameBorder=3D0></IFRAME>
+<DIV class=3Dcode><TEXTAREA name=3Dcode rows=3D10 cols=3D80>&lt;script =
+type=3D"text/javascript" src=3D"jscolor/jscolor.js"&gt;&lt;/script&gt;
+
+&lt;input class=3D"color {pickerOnfocus:false}" id=3D"myColor"&gt; this =
+field has disabled automatic showing/hiding of a picker
+
+&lt;p&gt; Move the mouse over these buttons:
+
+&lt;input type=3D"button" value=3D"Show"
+	=
+onmousemove=3D"document.getElementById('myColor').color.showPicker()"&gt;=
+
+&lt;input type=3D"button" value=3D"Hide"
+	=
+onmousemove=3D"document.getElementById('myColor').color.hidePicker()"&gt;=
+</TEXTAREA></DIV>
+<DIV class=3Dbuttons><A onclick=3D"exampleApply(7); return false"=20
+href=3D"http://jscolor.com/">Apply</A> <A onclick=3D"exampleReset(7); =
+return false"=20
+href=3D"http://jscolor.com/">Reset</A> <A=20
+href=3D"http://jscolor.com/example/showing-hiding.html">Single&nbsp;windo=
+w</A> <A=20
+href=3D"http://jscolor.com/example/showing-hiding.html?download">Download=
+</A>=20
+</DIV></FORM><!-- /EXAMPLE -->
+<H2 id=3Donchange><A href=3D"http://jscolor.com/try.php#onchange">8. =
+Onchange=20
+event</A></H2><!-- EXAMPLE -->
+<FORM class=3Dexample id=3Dexample8><IFRAME id=3Dexample8_frame=20
+src=3D"http://jscolor.com/example/onchange.html" =
+frameBorder=3D0></IFRAME>
+<DIV class=3Dcode><TEXTAREA name=3Dcode rows=3D10 cols=3D80>&lt;script =
+type=3D"text/javascript" src=3D"jscolor/jscolor.js"&gt;&lt;/script&gt;
+
+&lt;p&gt; Change background: &lt;input class=3D"color"
+	=
+onchange=3D"document.getElementsByTagName('BODY')[0].style.backgroundColo=
+r =3D '#'+this.color"&gt;</TEXTAREA></DIV>
+<DIV class=3Dbuttons><A onclick=3D"exampleApply(8); return false"=20
+href=3D"http://jscolor.com/">Apply</A> <A onclick=3D"exampleReset(8); =
+return false"=20
+href=3D"http://jscolor.com/">Reset</A> <A=20
+href=3D"http://jscolor.com/example/onchange.html">Single&nbsp;window</A> =
+<A=20
+href=3D"http://jscolor.com/example/onchange.html?download">Download</A>=20
+</DIV></FORM><!-- /EXAMPLE -->
+<H2 id=3Donimmediatechange><A=20
+href=3D"http://jscolor.com/try.php#onimmediatechange">9. =
+onImmediateChange=20
+event</A></H2><!-- EXAMPLE -->
+<FORM class=3Dexample id=3Dexample9><IFRAME id=3Dexample9_frame=20
+src=3D"http://jscolor.com/example/onimmediatechange.html" =
+frameBorder=3D0></IFRAME>
+<DIV class=3Dcode><TEXTAREA name=3Dcode rows=3D10 cols=3D80>&lt;script =
+type=3D"text/javascript" src=3D"jscolor/jscolor.js"&gt;&lt;/script&gt;
+&lt;script type=3D"text/javascript"&gt;
+function updateInfo(color) {
+	document.getElementById('info-r').value =3D color.rgb[0];
+	document.getElementById('info-g').value =3D color.rgb[1];
+	document.getElementById('info-b').value =3D color.rgb[2];
+}
+&lt;/script&gt;
+
+Color: &lt;input class=3D"color {onImmediateChange:'updateInfo(this);'}" =
+value=3D"66ff00"&gt;
+R: &lt;input id=3D"info-r" size=3D"2" /&gt;,
+G: &lt;input id=3D"info-g" size=3D"2" /&gt;,
+B: &lt;input id=3D"info-b" size=3D"2" /&gt;</TEXTAREA></DIV>
+<DIV class=3Dbuttons><A onclick=3D"exampleApply(9); return false"=20
+href=3D"http://jscolor.com/">Apply</A> <A onclick=3D"exampleReset(9); =
+return false"=20
+href=3D"http://jscolor.com/">Reset</A> <A=20
+href=3D"http://jscolor.com/example/onimmediatechange.html">Single&nbsp;wi=
+ndow</A>=20
+<A=20
+href=3D"http://jscolor.com/example/onimmediatechange.html?download">Downl=
+oad</A>=20
+</DIV></FORM><!-- /EXAMPLE -->
+<H2 id=3Dgetting-color><A =
+href=3D"http://jscolor.com/try.php#getting-color">10.=20
+Getting the color</A></H2><!-- EXAMPLE -->
+<FORM class=3Dexample id=3Dexample10><IFRAME id=3Dexample10_frame=20
+src=3D"http://jscolor.com/example/getting-color.html" =
+frameBorder=3D0></IFRAME>
+<DIV class=3Dcode><TEXTAREA name=3Dcode rows=3D10 cols=3D80>&lt;script =
+type=3D"text/javascript" src=3D"jscolor/jscolor.js"&gt;&lt;/script&gt;
+
+R&lt;input id=3D"red" size=3D"5"&gt;  G&lt;input id=3D"grn" =
+size=3D"5"&gt;  B&lt;input id=3D"blu" size=3D"5"&gt;  - - -
+H&lt;input id=3D"hue" size=3D"5"&gt;  S&lt;input id=3D"sat" =
+size=3D"5"&gt;  V&lt;input id=3D"val" size=3D"5"&gt;
+
+&lt;p&gt; Choose any color: &lt;input class=3D"color" id=3D"myColor" =
+onchange=3D"
+	document.getElementById('red').value =3D this.color.rgb[0]*100 + '%';
+	document.getElementById('grn').value =3D this.color.rgb[1]*100 + '%';
+	document.getElementById('blu').value =3D this.color.rgb[2]*100 + '%';
+	document.getElementById('hue').value =3D this.color.hsv[0]* 60 + =
+'&amp;deg;';
+	document.getElementById('sat').value =3D this.color.hsv[1]*100 + '%';
+	document.getElementById('val').value =3D this.color.hsv[2]*100 + =
+'%';"&gt;</TEXTAREA></DIV>
+<DIV class=3Dbuttons><A onclick=3D"exampleApply(10); return false"=20
+href=3D"http://jscolor.com/">Apply</A> <A onclick=3D"exampleReset(10); =
+return false"=20
+href=3D"http://jscolor.com/">Reset</A> <A=20
+href=3D"http://jscolor.com/example/getting-color.html">Single&nbsp;window=
+</A> <A=20
+href=3D"http://jscolor.com/example/getting-color.html?download">Download<=
+/A>=20
+</DIV></FORM><!-- /EXAMPLE -->
+<H2 id=3Dsetting-color><A =
+href=3D"http://jscolor.com/try.php#setting-color">11.=20
+Setting the color</A></H2><!-- EXAMPLE -->
+<FORM class=3Dexample id=3Dexample11><IFRAME id=3Dexample11_frame=20
+src=3D"http://jscolor.com/example/setting-color.html" =
+frameBorder=3D0></IFRAME>
+<DIV class=3Dcode><TEXTAREA name=3Dcode rows=3D10 cols=3D80>&lt;script =
+type=3D"text/javascript" src=3D"jscolor/jscolor.js"&gt;&lt;/script&gt;
+
+&lt;input class=3D"color" id=3D"myColor"&gt;
+
+&lt;input type=3D"submit" value=3D"Move mouse"
+	=
+onmouseover=3D"document.getElementById('myColor').color.fromString('F2C80=
+A')"&gt;
+&lt;input type=3D"submit" value=3D"Move mouse"
+	onmouseover=3D"document.getElementById('myColor').color.fromRGB(0.8, 1, =
+0.2)"&gt;
+&lt;input type=3D"submit" value=3D"Move mouse"
+	onmouseover=3D"document.getElementById('myColor').color.fromHSV(4, 0.8, =
+0.5)"&gt;</TEXTAREA></DIV>
+<DIV class=3Dbuttons><A onclick=3D"exampleApply(11); return false"=20
+href=3D"http://jscolor.com/">Apply</A> <A onclick=3D"exampleReset(11); =
+return false"=20
+href=3D"http://jscolor.com/">Reset</A> <A=20
+href=3D"http://jscolor.com/example/setting-color.html">Single&nbsp;window=
+</A> <A=20
+href=3D"http://jscolor.com/example/setting-color.html?download">Download<=
+/A>=20
+</DIV></FORM><!-- /EXAMPLE -->
+<H2 id=3Dlinking-foreign-elements><A=20
+href=3D"http://jscolor.com/try.php#linking-foreign-elements">12. Linking =
+foreign=20
+elements</A></H2><!-- EXAMPLE -->
+<FORM class=3Dexample id=3Dexample12><IFRAME id=3Dexample12_frame=20
+src=3D"http://jscolor.com/example/linking-foreign-elements.html"=20
+frameBorder=3D0></IFRAME>
+<DIV class=3Dcode><TEXTAREA name=3Dcode rows=3D10 cols=3D80>&lt;script =
+type=3D"text/javascript" src=3D"jscolor/jscolor.js"&gt;&lt;/script&gt;
+
+&lt;p&gt; Redirect value: &lt;input class=3D"color =
+{valueElement:'myValue'}"&gt; &lt;input id=3D"myValue"&gt;
+
+&lt;p&gt; Redirect style: &lt;input class=3D"color =
+{styleElement:'myStyle'}"&gt; &lt;input id=3D"myStyle"&gt;
+
+&lt;p&gt; Redirect both:  &lt;input class=3D"color =
+{valueElement:'myBoth',styleElement:'myBoth'}"&gt; &lt;input =
+id=3D"myBoth"&gt;</TEXTAREA></DIV>
+<DIV class=3Dbuttons><A onclick=3D"exampleApply(12); return false"=20
+href=3D"http://jscolor.com/">Apply</A> <A onclick=3D"exampleReset(12); =
+return false"=20
+href=3D"http://jscolor.com/">Reset</A> <A=20
+href=3D"http://jscolor.com/example/linking-foreign-elements.html">Single&=
+nbsp;window</A>=20
+<A=20
+href=3D"http://jscolor.com/example/linking-foreign-elements.html?download=
+">Download</A>=20
+</DIV></FORM><!-- /EXAMPLE -->
+<H2 id=3Dmanual-binding><A =
+href=3D"http://jscolor.com/try.php#manual-binding">13.=20
+Manual binding - useful for AJAX applications</A></H2><!-- EXAMPLE -->
+<FORM class=3Dexample id=3Dexample13><IFRAME id=3Dexample13_frame=20
+src=3D"http://jscolor.com/example/manual-binding.html" =
+frameBorder=3D0></IFRAME>
+<DIV class=3Dcode><TEXTAREA name=3Dcode rows=3D10 cols=3D80>&lt;script =
+type=3D"text/javascript" src=3D"jscolor/jscolor.js"&gt;&lt;/script&gt;
+
+&lt;input id=3D"myField1"&gt;
+
+&lt;script type=3D"text/javascript"&gt;
+var myPicker =3D new jscolor.color(document.getElementById('myField1'), =
+{})
+myPicker.fromString('99FF33')  // now you can access API via 'myPicker' =
+variable
+&lt;/script&gt;</TEXTAREA></DIV>
+<DIV class=3Dbuttons><A onclick=3D"exampleApply(13); return false"=20
+href=3D"http://jscolor.com/">Apply</A> <A onclick=3D"exampleReset(13); =
+return false"=20
+href=3D"http://jscolor.com/">Reset</A> <A=20
+href=3D"http://jscolor.com/example/manual-binding.html">Single&nbsp;windo=
+w</A> <A=20
+href=3D"http://jscolor.com/example/manual-binding.html?download">Download=
+</A>=20
+</DIV></FORM><!-- /EXAMPLE -->
+<H2 id=3Dslider><A href=3D"http://jscolor.com/try.php#slider">14. Hiding =
+the=20
+Slider</A></H2><!-- EXAMPLE -->
+<FORM class=3Dexample id=3Dexample14><IFRAME id=3Dexample14_frame=20
+src=3D"http://jscolor.com/example/slider.html" frameBorder=3D0></IFRAME>
+<DIV class=3Dcode><TEXTAREA name=3Dcode rows=3D10 cols=3D80>&lt;script =
+type=3D"text/javascript" src=3D"jscolor/jscolor.js"&gt;&lt;/script&gt;
+
+&lt;p&gt; No Slider: &lt;input class=3D"color =
+{slider:false}"&gt;</TEXTAREA></DIV>
+<DIV class=3Dbuttons><A onclick=3D"exampleApply(14); return false"=20
+href=3D"http://jscolor.com/">Apply</A> <A onclick=3D"exampleReset(14); =
+return false"=20
+href=3D"http://jscolor.com/">Reset</A> <A=20
+href=3D"http://jscolor.com/example/slider.html">Single&nbsp;window</A> =
+<A=20
+href=3D"http://jscolor.com/example/slider.html?download">Download</A>=20
+</DIV></FORM><!-- /EXAMPLE -->
+<H2 id=3Dclosable><A href=3D"http://jscolor.com/try.php#closable">15. =
+Closable=20
+picker</A></H2><!-- EXAMPLE -->
+<FORM class=3Dexample id=3Dexample15><IFRAME id=3Dexample15_frame=20
+src=3D"http://jscolor.com/example/closable.html" =
+frameBorder=3D0></IFRAME>
+<DIV class=3Dcode><TEXTAREA name=3Dcode rows=3D10 cols=3D80>&lt;script =
+type=3D"text/javascript" src=3D"jscolor/jscolor.js"&gt;&lt;/script&gt;
+
+Click here: &lt;input class=3D"color =
+{pickerClosable:true}"&gt;</TEXTAREA></DIV>
+<DIV class=3Dbuttons><A onclick=3D"exampleApply(15); return false"=20
+href=3D"http://jscolor.com/">Apply</A> <A onclick=3D"exampleReset(15); =
+return false"=20
+href=3D"http://jscolor.com/">Reset</A> <A=20
+href=3D"http://jscolor.com/example/closable.html">Single&nbsp;window</A> =
+<A=20
+href=3D"http://jscolor.com/example/closable.html?download">Download</A>=20
+</DIV></FORM><!-- /EXAMPLE -->
+<H2 id=3Dlimits><A href=3D"http://jscolor.com/try.php#limits">16. =
+Limiting H/S/V=20
+ranges</A></H2><!-- EXAMPLE -->
+<FORM class=3Dexample id=3Dexample16><IFRAME id=3Dexample16_frame=20
+src=3D"http://jscolor.com/example/limits.html" frameBorder=3D0></IFRAME>
+<DIV class=3Dcode><TEXTAREA name=3Dcode rows=3D10 cols=3D80>&lt;script =
+type=3D"text/javascript" src=3D"jscolor/jscolor.js"&gt;&lt;/script&gt;
+
+Light colors only: &lt;input class=3D"color {minV:0.8}" =
+value=3D"66ff00"&gt;
+
+Dark colors only: &lt;input class=3D"color {maxV:0.2}" =
+value=3D"66ff00"&gt;
+
+Pale colors only: &lt;input class=3D"color {maxS:0.2}" =
+value=3D"66ff00"&gt;
+
+Strong colors only: &lt;input class=3D"color {minS:0.8}" =
+value=3D"66ff00"&gt;</TEXTAREA></DIV>
+<DIV class=3Dbuttons><A onclick=3D"exampleApply(16); return false"=20
+href=3D"http://jscolor.com/">Apply</A> <A onclick=3D"exampleReset(16); =
+return false"=20
+href=3D"http://jscolor.com/">Reset</A> <A=20
+href=3D"http://jscolor.com/example/limits.html">Single&nbsp;window</A> =
+<A=20
+href=3D"http://jscolor.com/example/limits.html?download">Download</A>=20
+</DIV></FORM><!-- /EXAMPLE -->
+<H2 id=3Dperformance-test><A=20
+href=3D"http://jscolor.com/try.php#performance-test">17. Performance =
+test</A></H2><!-- EXAMPLE -->
+<FORM class=3Dexample id=3Dexample17><IFRAME id=3Dexample17_frame=20
+src=3D"http://jscolor.com/example/performance-test.html" =
+frameBorder=3D0></IFRAME>
+<DIV class=3Dcode><TEXTAREA name=3Dcode rows=3D10 cols=3D80>&lt;script =
+type=3D"text/javascript" src=3D"jscolor/jscolor.js"&gt;&lt;/script&gt;
+
+&lt;p&gt; &lt;input onclick=3D"add()" type=3D"button" value=3D"Add 100 =
+pickers"&gt;
+
+&lt;script type=3D"text/javascript"&gt;
+function add() {
+	var count =3D 100
+
+	for(var i=3D0; i&lt;count; i++) {
+		var input =3D document.createElement('INPUT')
+		input.style.width =3D '5em'
+
+		// bind jscolor
+		var col =3D new jscolor.color(input)
+		col.fromHSV(6/count*i, 1, 1)
+
+		document.getElementsByTagName('BODY')[0].appendChild(input)
+	}
+}
+&lt;/script&gt;</TEXTAREA></DIV>
+<DIV class=3Dbuttons><A onclick=3D"exampleApply(17); return false"=20
+href=3D"http://jscolor.com/">Apply</A> <A onclick=3D"exampleReset(17); =
+return false"=20
+href=3D"http://jscolor.com/">Reset</A> <A=20
+href=3D"http://jscolor.com/example/performance-test.html">Single&nbsp;win=
+dow</A>=20
+<A =
+href=3D"http://jscolor.com/example/performance-test.html?download">Downlo=
+ad</A>=20
+</DIV></FORM><!-- /EXAMPLE --></DIV></DIV>
+<DIV id=3Dcolumn>
+<DIV id=3Dcolumn2>
+<H1 id=3Dcol-download>Download</H1>
+<P>Latest release is <A=20
+href=3D"http://jscolor.com/release/jscolor-1.4.0.zip">jscolor-1.4.0.zip</=
+A></P>
+<H1 id=3Dcol-installation>Installation</H1>
+<OL class=3Dinstallation>
+  <LI>include script <CODE>jscolor/jscolor.js</CODE>=20
+  <LI>turn all desired <CODE>&lt;input&gt;</CODE> elements into=20
+  <CODE>&lt;input&nbsp;class=3D"color"&gt;</CODE> </LI></OL>
+<H1 id=3Dcol-donate>Do you like JSColor?</H1>
+<DIV>JSColor is <A =
+href=3D"http://www.gnu.org/copyleft/lesser.html">LGPL</A>=20
+licensed, so you can use it everywhere, even in commercial applications. =
+If you=20
+appreciate my work, you can support it by making a small donation:=20
+<DIV id=3Ddonation-placeholder style=3D"MARGIN: 1em 0px; TEXT-ALIGN: =
+center"></DIV>
+<SCRIPT src=3D"http://jscolor.com/js/donate.js" =
+type=3Dtext/javascript></SCRIPT>
+
+<SCRIPT type=3Dtext/javascript>=0A=
+			window.onload =3D function () {=0A=
+				insertDonationButton('donation-placeholder');=0A=
+			};=0A=
+			</SCRIPT>
+</DIV>
+<H1 id=3Dcol-examples>Examples</H1>
+<OL class=3Dexamples>
+  <LI><A href=3D"http://jscolor.com/try.php#basic">Basic usage</A>=20
+  <LI><A href=3D"http://jscolor.com/try.php#tweaking">Tweaking</A>=20
+  <LI><A href=3D"http://jscolor.com/try.php#modes">Picker modes =
+HSV/HVS</A>=20
+  <LI><A href=3D"http://jscolor.com/try.php#position">Picker =
+position</A>=20
+  <LI><A href=3D"http://jscolor.com/try.php#sizes">Picker borders &amp; =
+face</A>=20
+  <LI><A href=3D"http://jscolor.com/try.php#colors">Picker color =
+scheme</A>=20
+  <LI><A =
+href=3D"http://jscolor.com/try.php#showing-hiding">Showing/hiding the=20
+  picker</A>=20
+  <LI><A href=3D"http://jscolor.com/try.php#onchange">Onchange event</A> =
+
+  <LI><A =
+href=3D"http://jscolor.com/try.php#onimmediatechange">onImmediateChange=20
+  event</A>=20
+  <LI><A href=3D"http://jscolor.com/try.php#getting-color">Getting the =
+color</A>=20
+  <LI><A href=3D"http://jscolor.com/try.php#setting-color">Setting the =
+color</A>=20
+  <LI><A =
+href=3D"http://jscolor.com/try.php#linking-foreign-elements">Linking=20
+  foreign elements</A>=20
+  <LI><A href=3D"http://jscolor.com/try.php#manual-binding">Manual =
+binding -=20
+  useful for AJAX applications</A>=20
+  <LI><A href=3D"http://jscolor.com/try.php#slider">Hiding the =
+Slider</A>=20
+  <LI><A href=3D"http://jscolor.com/try.php#closable">Closable =
+picker</A>=20
+  <LI><A href=3D"http://jscolor.com/try.php#limits">Limiting H/S/V =
+ranges</A>=20
+  <LI><A =
+href=3D"http://jscolor.com/try.php#performance-test">Performance =
+test</A>=20
+  </LI></OL>
+<H1 id=3Dcol-tags>Tags</H1>
+<P class=3Dtags>free open source gnu gpl online web interactive =
+javascript java=20
+script js dhtml dynamic html compact simple small =
+<STRONG>smooth</STRONG> slider=20
+slidable rgb rgba hsl hsla hsv hex pick colour <STRONG>color</STRONG>=20
+<STRONG>picker</STRONG> colorpicker colorpallet colorpalette color=20
+<STRONG>palette</STRONG> pallet mixer spectrum select selection selector =
+getter=20
+generator alpha transparency opacity <STRONG>form</STRONG> forms=20
+<STRONG>input</STRONG> field dropdown popup pop-up context=20
+<STRONG>dialog</STRONG> panel window box control ajax jquery mootools =
+yui dojo=20
+mochikit framework plugin module <STRONG>component</STRONG> extension =
+widget=20
+tool toolkit applet library pack package </P></DIV></DIV></DIV>
+<DIV id=3Dmenu>
+<DIV id=3Dmenu2><A href=3D"http://jscolor.com/">Summary</A> <A =
+class=3Dactive=20
+href=3D"http://jscolor.com/try.php">Demos</A> <A=20
+href=3D"http://jscolor.com/download.php">Download</A> </DIV></DIV>
+<DIV class=3Dcleaner></DIV>
+<DIV id=3Dfoot>=C2=A9 2008-2012 Jan Odv=C3=A1rko </DIV></BODY></HTML>
+
+------=_NextPart_001_0005_01CED7B2.902A12B0
+Content-Type: text/html;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://jscolor.com/example/basic.html
+
+=EF=BB=BF<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>basic (example)</TITLE>
+<META http-equiv=3Dcontent-type content=3D"text/html; charset=3Dutf-8">
+<META content=3D"MSHTML 6.00.6001.18000" name=3DGENERATOR></HEAD>
+<BODY>
+<SCRIPT src=3D"http://jscolor.com/example/jscolor/jscolor.js"=20
+type=3Dtext/javascript></SCRIPT>
+Click here: <INPUT class=3Dcolor value=3D66ff00> </BODY></HTML>
+
+------=_NextPart_001_0005_01CED7B2.902A12B0--
+
+------=_NextPart_000_0000_01CED7B2.9029C490
+Content-Type: text/html;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://jscolor.com/example/tweaking.html
+
+=EF=BB=BF<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>tweaking (example)</TITLE>
+<META http-equiv=3Dcontent-type content=3D"text/html; charset=3Dutf-8">
+<META content=3D"MSHTML 6.00.6001.18000" name=3DGENERATOR></HEAD>
+<BODY>
+<SCRIPT src=3D"http://jscolor.com/example/jscolor/jscolor.js"=20
+type=3Dtext/javascript></SCRIPT>
+
+<P>This field can be left empty: <INPUT class=3D"color =
+{required:false}">=20
+<P>This field accepts any value: <INPUT class=3D"color {adjust:false}">=20
+<P>Hash symbol: <INPUT class=3D"color {hash:true}">=20
+<P>Hash symbol, lowercase: <INPUT class=3D"color =
+{hash:true,caps:false}">=20
+</P></BODY></HTML>
+
+------=_NextPart_000_0000_01CED7B2.9029C490
+Content-Type: text/html;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://jscolor.com/example/modes.html
+
+=EF=BB=BF<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>modes (example)</TITLE>
+<META http-equiv=3Dcontent-type content=3D"text/html; charset=3Dutf-8">
+<META content=3D"MSHTML 6.00.6001.18000" name=3DGENERATOR></HEAD>
+<BODY>
+<SCRIPT src=3D"http://jscolor.com/example/jscolor/jscolor.js"=20
+type=3Dtext/javascript></SCRIPT>
+HSV mode: <INPUT class=3D"color {pickerMode:'HSV'}"> HVS mode: <INPUT=20
+class=3D"color {pickerMode:'HVS'}"> </BODY></HTML>
+
+------=_NextPart_000_0000_01CED7B2.9029C490
+Content-Type: text/html;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://jscolor.com/example/position.html
+
+=EF=BB=BF<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>position (example)</TITLE>
+<META http-equiv=3Dcontent-type content=3D"text/html; charset=3Dutf-8">
+<META content=3D"MSHTML 6.00.6001.18000" name=3DGENERATOR></HEAD>
+<BODY>
+<SCRIPT src=3D"http://jscolor.com/example/jscolor/jscolor.js"=20
+type=3Dtext/javascript></SCRIPT>
+
+<P style=3D"MARGIN-LEFT: 210px">Left: <INPUT=20
+class=3D"color {pickerPosition:'left'}">=20
+<P style=3D"MARGIN-LEFT: 90px">Right: <INPUT=20
+class=3D"color {pickerPosition:'right'}">=20
+<P style=3D"MARGIN-TOP: 65px">Top: <INPUT class=3D"color =
+{pickerPosition:'top'}">=20
+</P></BODY></HTML>
+
+------=_NextPart_000_0000_01CED7B2.9029C490
+Content-Type: text/html;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://jscolor.com/example/sizes.html
+
+=EF=BB=BF<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>sizes (example)</TITLE>
+<META http-equiv=3Dcontent-type content=3D"text/html; charset=3Dutf-8">
+<META content=3D"MSHTML 6.00.6001.18000" name=3DGENERATOR></HEAD>
+<BODY>
+<SCRIPT src=3D"http://jscolor.com/example/jscolor/jscolor.js"=20
+type=3Dtext/javascript></SCRIPT>
+
+<P>Stronger borders: <INPUT class=3D"color =
+{pickerBorder:3,pickerInset:10}">=20
+<P>Stronger face: <INPUT class=3D"color {pickerFace:20}"> =
+</P></BODY></HTML>
+
+------=_NextPart_000_0000_01CED7B2.9029C490
+Content-Type: text/html;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://jscolor.com/example/colors.html
+
+=EF=BB=BF<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>colors (example)</TITLE>
+<META http-equiv=3Dcontent-type content=3D"text/html; charset=3Dutf-8">
+<META content=3D"MSHTML 6.00.6001.18000" name=3DGENERATOR></HEAD>
+<BODY>
+<SCRIPT src=3D"http://jscolor.com/example/jscolor/jscolor.js"=20
+type=3Dtext/javascript></SCRIPT>
+
+<P>Colour outer border: <INPUT=20
+class=3D"color {pickerBorderColor:'red green blue yellow'}">=20
+<P>Colour inset borders: <INPUT=20
+class=3D"color {pickerInsetColor:'#9F9 #090 #090 #9F9'}">=20
+<P>Colour picker face: <INPUT class=3D"color =
+{pickerFaceColor:'#01BABE'}">=20
+<P>Transparent picker: <INPUT=20
+class=3D"color =
+{pickerFaceColor:'transparent',pickerFace:3,pickerBorder:0,pickerInsetCol=
+or:'black'}">=20
+</P></BODY></HTML>
+
+------=_NextPart_000_0000_01CED7B2.9029C490
+Content-Type: text/html;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://jscolor.com/example/showing-hiding.html
+
+=EF=BB=BF<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>showing-hiding (example)</TITLE>
+<META http-equiv=3Dcontent-type content=3D"text/html; charset=3Dutf-8">
+<META content=3D"MSHTML 6.00.6001.18000" name=3DGENERATOR></HEAD>
+<BODY>
+<SCRIPT src=3D"http://jscolor.com/example/jscolor/jscolor.js"=20
+type=3Dtext/javascript></SCRIPT>
+<INPUT class=3D"color {pickerOnfocus:false}" id=3DmyColor> this field =
+has disabled=20
+automatic showing/hiding of a picker=20
+<P>Move the mouse over these buttons: <INPUT =
+onmousemove=3D"document.getElementById('myColor').color.showPicker()" =
+type=3Dbutton value=3DShow>=20
+<INPUT =
+onmousemove=3D"document.getElementById('myColor').color.hidePicker()" =
+type=3Dbutton value=3DHide>=20
+</P></BODY></HTML>
+
+------=_NextPart_000_0000_01CED7B2.9029C490
+Content-Type: text/html;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://jscolor.com/example/onchange.html
+
+=EF=BB=BF<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>onchange (example)</TITLE>
+<META http-equiv=3Dcontent-type content=3D"text/html; charset=3Dutf-8">
+<META content=3D"MSHTML 6.00.6001.18000" name=3DGENERATOR></HEAD>
+<BODY>
+<SCRIPT src=3D"http://jscolor.com/example/jscolor/jscolor.js"=20
+type=3Dtext/javascript></SCRIPT>
+
+<P>Change background: <INPUT class=3Dcolor=20
+onchange=3D"document.getElementsByTagName('BODY')[0].style.backgroundColo=
+r =3D '#'+this.color">=20
+</P></BODY></HTML>
+
+------=_NextPart_000_0000_01CED7B2.9029C490
+Content-Type: text/html;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://jscolor.com/example/onimmediatechange.html
+
+=EF=BB=BF<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>onimmediatechange (example)</TITLE>
+<META http-equiv=3Dcontent-type content=3D"text/html; charset=3Dutf-8">
+<META content=3D"MSHTML 6.00.6001.18000" name=3DGENERATOR></HEAD>
+<BODY>
+<SCRIPT src=3D"http://jscolor.com/example/jscolor/jscolor.js"=20
+type=3Dtext/javascript></SCRIPT>
+
+<SCRIPT type=3Dtext/javascript>=0A=
+function updateInfo(color) {=0A=
+	document.getElementById('info-r').value =3D color.rgb[0];=0A=
+	document.getElementById('info-g').value =3D color.rgb[1];=0A=
+	document.getElementById('info-b').value =3D color.rgb[2];=0A=
+}=0A=
+</SCRIPT>
+Color: <INPUT class=3D"color {onImmediateChange:'updateInfo(this);'}"=20
+value=3D66ff00> R: <INPUT id=3Dinfo-r size=3D2>, G: <INPUT id=3Dinfo-g =
+size=3D2>, B:=20
+<INPUT id=3Dinfo-b size=3D2> </BODY></HTML>
+
+------=_NextPart_000_0000_01CED7B2.9029C490
+Content-Type: text/html;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://jscolor.com/example/getting-color.html
+
+=EF=BB=BF<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>getting-color (example)</TITLE>
+<META http-equiv=3Dcontent-type content=3D"text/html; charset=3Dutf-8">
+<META content=3D"MSHTML 6.00.6001.18000" name=3DGENERATOR></HEAD>
+<BODY>
+<SCRIPT src=3D"http://jscolor.com/example/jscolor/jscolor.js"=20
+type=3Dtext/javascript></SCRIPT>
+R<INPUT id=3Dred size=3D5> G<INPUT id=3Dgrn size=3D5> B<INPUT id=3Dblu =
+size=3D5> - - -=20
+H<INPUT id=3Dhue size=3D5> S<INPUT id=3Dsat size=3D5> V<INPUT id=3Dval =
+size=3D5>=20
+<P>Choose any color: <INPUT class=3Dcolor id=3DmyColor=20
+onchange=3D"&#10;&#9;document.getElementById('red').value =3D =
+this.color.rgb[0]*100 + =
+'%';&#10;&#9;document.getElementById('grn').value =3D =
+this.color.rgb[1]*100 + =
+'%';&#10;&#9;document.getElementById('blu').value =3D =
+this.color.rgb[2]*100 + =
+'%';&#10;&#9;document.getElementById('hue').value =3D this.color.hsv[0]* =
+60 + '=C2=B0';&#10;&#9;document.getElementById('sat').value =3D =
+this.color.hsv[1]*100 + =
+'%';&#10;&#9;document.getElementById('val').value =3D =
+this.color.hsv[2]*100 + '%';">=20
+</P></BODY></HTML>
+
+------=_NextPart_000_0000_01CED7B2.9029C490
+Content-Type: text/html;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://jscolor.com/example/setting-color.html
+
+=EF=BB=BF<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>setting-color (example)</TITLE>
+<META http-equiv=3Dcontent-type content=3D"text/html; charset=3Dutf-8">
+<META content=3D"MSHTML 6.00.6001.18000" name=3DGENERATOR></HEAD>
+<BODY>
+<SCRIPT src=3D"http://jscolor.com/example/jscolor/jscolor.js"=20
+type=3Dtext/javascript></SCRIPT>
+<INPUT class=3Dcolor id=3DmyColor> <INPUT =
+onmouseover=3D"document.getElementById('myColor').color.fromString('F2C80=
+A')" type=3Dsubmit value=3D"Move mouse">=20
+<INPUT =
+onmouseover=3D"document.getElementById('myColor').color.fromRGB(0.8, 1, =
+0.2)" type=3Dsubmit value=3D"Move mouse">=20
+<INPUT =
+onmouseover=3D"document.getElementById('myColor').color.fromHSV(4, 0.8, =
+0.5)" type=3Dsubmit value=3D"Move mouse">=20
+</BODY></HTML>
+
+------=_NextPart_000_0000_01CED7B2.9029C490
+Content-Type: text/html;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://jscolor.com/example/linking-foreign-elements.html
+
+=EF=BB=BF<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>linking-foreign-elements (example)</TITLE>
+<META http-equiv=3Dcontent-type content=3D"text/html; charset=3Dutf-8">
+<META content=3D"MSHTML 6.00.6001.18000" name=3DGENERATOR></HEAD>
+<BODY>
+<SCRIPT src=3D"http://jscolor.com/example/jscolor/jscolor.js"=20
+type=3Dtext/javascript></SCRIPT>
+
+<P>Redirect value: <INPUT class=3D"color {valueElement:'myValue'}"> =
+<INPUT=20
+id=3DmyValue>=20
+<P>Redirect style: <INPUT class=3D"color {styleElement:'myStyle'}"> =
+<INPUT=20
+id=3DmyStyle>=20
+<P>Redirect both: <INPUT=20
+class=3D"color {valueElement:'myBoth',styleElement:'myBoth'}"> <INPUT =
+id=3DmyBoth>=20
+</P></BODY></HTML>
+
+------=_NextPart_000_0000_01CED7B2.9029C490
+Content-Type: text/html;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://jscolor.com/example/manual-binding.html
+
+=EF=BB=BF<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>manual-binding (example)</TITLE>
+<META http-equiv=3Dcontent-type content=3D"text/html; charset=3Dutf-8">
+<META content=3D"MSHTML 6.00.6001.18000" name=3DGENERATOR></HEAD>
+<BODY>
+<SCRIPT src=3D"http://jscolor.com/example/jscolor/jscolor.js"=20
+type=3Dtext/javascript></SCRIPT>
+<INPUT id=3DmyField1>
+<SCRIPT type=3Dtext/javascript>=0A=
+var myPicker =3D new jscolor.color(document.getElementById('myField1'), =
+{})=0A=
+myPicker.fromString('99FF33')  // now you can access API via 'myPicker' =
+variable=0A=
+</SCRIPT>
+ </BODY></HTML>
+
+------=_NextPart_000_0000_01CED7B2.9029C490
+Content-Type: text/html;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://jscolor.com/example/slider.html
+
+=EF=BB=BF<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>slider (example)</TITLE>
+<META http-equiv=3Dcontent-type content=3D"text/html; charset=3Dutf-8">
+<META content=3D"MSHTML 6.00.6001.18000" name=3DGENERATOR></HEAD>
+<BODY>
+<SCRIPT src=3D"http://jscolor.com/example/jscolor/jscolor.js"=20
+type=3Dtext/javascript></SCRIPT>
+
+<P>No Slider: <INPUT class=3D"color {slider:false}"> </P></BODY></HTML>
+
+------=_NextPart_000_0000_01CED7B2.9029C490
+Content-Type: text/html;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://jscolor.com/example/closable.html
+
+=EF=BB=BF<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>closable (example)</TITLE>
+<META http-equiv=3Dcontent-type content=3D"text/html; charset=3Dutf-8">
+<META content=3D"MSHTML 6.00.6001.18000" name=3DGENERATOR></HEAD>
+<BODY>
+<SCRIPT src=3D"http://jscolor.com/example/jscolor/jscolor.js"=20
+type=3Dtext/javascript></SCRIPT>
+Click here: <INPUT class=3D"color {pickerClosable:true}"> </BODY></HTML>
+
+------=_NextPart_000_0000_01CED7B2.9029C490
+Content-Type: text/html;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://jscolor.com/example/limits.html
+
+=EF=BB=BF<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>limits (example)</TITLE>
+<META http-equiv=3Dcontent-type content=3D"text/html; charset=3Dutf-8">
+<META content=3D"MSHTML 6.00.6001.18000" name=3DGENERATOR></HEAD>
+<BODY>
+<SCRIPT src=3D"http://jscolor.com/example/jscolor/jscolor.js"=20
+type=3Dtext/javascript></SCRIPT>
+Light colors only: <INPUT class=3D"color {minV:0.8}" value=3D66ff00> =
+Dark colors=20
+only: <INPUT class=3D"color {maxV:0.2}" value=3D66ff00> Pale colors =
+only: <INPUT=20
+class=3D"color {maxS:0.2}" value=3D66ff00> Strong colors only: <INPUT=20
+class=3D"color {minS:0.8}" value=3D66ff00> </BODY></HTML>
+
+------=_NextPart_000_0000_01CED7B2.9029C490
+Content-Type: text/html;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://jscolor.com/example/performance-test.html
+
+=EF=BB=BF<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>performance-test (example)</TITLE>
+<META http-equiv=3Dcontent-type content=3D"text/html; charset=3Dutf-8">
+<META content=3D"MSHTML 6.00.6001.18000" name=3DGENERATOR></HEAD>
+<BODY>
+<SCRIPT src=3D"http://jscolor.com/example/jscolor/jscolor.js"=20
+type=3Dtext/javascript></SCRIPT>
+
+<P><INPUT onclick=3Dadd() type=3Dbutton value=3D"Add 100 pickers">
+<SCRIPT type=3Dtext/javascript>=0A=
+function add() {=0A=
+	var count =3D 100=0A=
+=0A=
+	for(var i=3D0; i<count; i++) {=0A=
+		var input =3D document.createElement('INPUT')=0A=
+		input.style.width =3D '5em'=0A=
+=0A=
+		// bind jscolor=0A=
+		var col =3D new jscolor.color(input)=0A=
+		col.fromHSV(6/count*i, 1, 1)=0A=
+=0A=
+		document.getElementsByTagName('BODY')[0].appendChild(input)=0A=
+	}=0A=
+}=0A=
+</SCRIPT>
+ </P></BODY></HTML>
+
+------=_NextPart_000_0000_01CED7B2.9029C490
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://jscolor.com/js/encodeURI.js
+
+/**=0A=
+ * Substitute for missing functions encodeURI() and encodeURIComponent()=0A=
+ *=0A=
+ * @license http://www.gnu.org/copyleft/gpl.html  GNU General Public =
+License=0A=
+ * @author Jan Odv=C3=A1rko, http://odvarko.cz=0A=
+ */=0A=
+=0A=
+if(typeof encodeURI =3D=3D 'undefined') {=0A=
+	function encodeURI(str) {=0A=
+		return encodeURICommon(str,=0A=
+		=
+'!#$&\'()*+,-./0123456789:;=3D?@ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmn=
+opqrstuvwxyz~')=0A=
+	}=0A=
+}=0A=
+=0A=
+if(typeof encodeURIComponent =3D=3D 'undefined') {=0A=
+	function encodeURIComponent(str) {=0A=
+		return encodeURICommon(str,=0A=
+		=
+'!\'()*-.0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz~=
+')=0A=
+	}=0A=
+}=0A=
+=0A=
+function encodeURICommon(str, keep) {=0A=
+	function hex(code) {=0A=
+		return '%'+(0x100+code).toString(16).substr(1).toUpperCase()=0A=
+	}=0A=
+	for(var i=3D0,out=3D''; i<str.length; i++) {=0A=
+		var chr=3Dstr.charAt(i), code=3Dstr.charCodeAt(i)=0A=
+		switch(true) {=0A=
+			case keep.indexOf(chr) >=3D 0: out =3D out + chr=0A=
+				break=0A=
+			case code < 128: out =3D out + hex(code)=0A=
+				break=0A=
+			case code > 127 && code < 2048: out =3D out +=0A=
+				hex(0xC0 | (code >> 6)) +=0A=
+				hex(0x80 | (code & 0x3F))=0A=
+				break=0A=
+			case code > 2047 && code < 65536: out =3D out +=0A=
+				hex(0xE0 | (code >> 12)) +=0A=
+				hex(0x80 | (code >> 6 & 0x3F)) +=0A=
+				hex(0x80 | (code & 0x3F))=0A=
+				break=0A=
+			case code > 65535: out =3D out +=0A=
+				hex(0xF0 | (code >> 18)) +=0A=
+				hex(0x80 | (code >> 12 & 0x3F)) +=0A=
+				hex(0x80 | (code >> 6 & 0x3F)) +=0A=
+				hex(0x80 | (code & 0x3F))=0A=
+				break=0A=
+		}=0A=
+	}=0A=
+	return out=0A=
+}=0A=
+
+------=_NextPart_000_0000_01CED7B2.9029C490
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://jscolor.com/js/donate.js
+
+var insertDonationButton =3D function (id) {=0A=
+	document.getElementById(id).innerHTML =3D=0A=
+		'<form action=3D"https://www.paypal.com/cgi-bin/webscr" =
+method=3D"post">' +=0A=
+		'<input type=3D"hidden" name=3D"cmd" value=3D"_donations">' +=0A=
+		'<input type=3D"hidden" name=3D"business" value=3D"MY2J2G87EHUH2">' +=0A=
+		'<input type=3D"hidden" name=3D"lc" value=3D"CZ">' +=0A=
+		'<input type=3D"hidden" name=3D"item_name" value=3D"JSColor">' +=0A=
+		'<input type=3D"hidden" name=3D"currency_code" value=3D"USD">' +=0A=
+		'<input type=3D"hidden" name=3D"bn" =
+value=3D"PP-DonationsBF:btn_donateCC_LG.gif:NonHosted">' +=0A=
+		'<input type=3D"image" =
+src=3D"https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" =
+border=3D"0" name=3D"submit" alt=3D"PayPal - The safer, easier way to =
+pay online!">' +=0A=
+		'<img alt=3D"" border=3D"0" =
+src=3D"https://www.paypal.com/en_US/i/scr/pixel.gif" width=3D"1" =
+height=3D"1">' +=0A=
+		'</form>';=0A=
+};=0A=
+
+------=_NextPart_000_0000_01CED7B2.9029C490--

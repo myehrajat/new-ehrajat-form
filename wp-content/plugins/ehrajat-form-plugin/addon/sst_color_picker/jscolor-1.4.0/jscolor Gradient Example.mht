@@ -1,0 +1,1106 @@
+From: "Saved by Windows Internet Explorer 7"
+Subject: jscolor Example
+Date: Sat, 2 Nov 2013 10:09:18 -0700
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----=_NextPart_000_002E_01CED7B3.97710F50"
+X-MimeOLE: Produced By Microsoft MimeOLE V6.0.6001.18000
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_002E_01CED7B3.97710F50
+Content-Type: text/html;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://jscolor.com/example01.php
+
+=EF=BB=BF<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" =
+"http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<HTML lang=3Den xml:lang=3D"en" =
+xmlns=3D"http://www.w3.org/1999/xhtml"><HEAD><TITLE>jscolor =
+Example</TITLE>
+<META http-equiv=3Dcontent-type content=3D"text/html; charset=3Dutf-8">
+<META content=3Den name=3Dcontent-language>
+<META content=3Dindex,follow name=3Drobots>
+<META content=3D"Jan Odv=C3=A1rko, http://odvarko.cz" name=3Dauthor>
+<STYLE type=3Dtext/css>INPUT.color {
+	BORDER-RIGHT: black 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: black =
+1px solid; PADDING-LEFT: 0px; PADDING-BOTTOM: 3px; BORDER-LEFT: black =
+1px solid; WIDTH: 10em; CURSOR: pointer; PADDING-TOP: 3px; =
+BORDER-BOTTOM: black 1px solid; TEXT-ALIGN: center
+}
+BODY {
+	FONT-FAMILY: sans-serif; TEXT-ALIGN: center
+}
+H1 {
+	MARGIN-TOP: 175px; FONT-VARIANT: small-caps
+}
+#gradient {
+	BORDER-RIGHT: black 2px solid; BORDER-TOP: black 2px solid; MARGIN: =
+100px auto; BORDER-LEFT: black 2px solid; WIDTH: 760px; BORDER-BOTTOM: =
+black 2px solid; POSITION: relative; HEIGHT: 380px
+}
+</STYLE>
+
+<META content=3D"MSHTML 6.00.6001.18000" name=3DGENERATOR></HEAD>
+<BODY onload=3D"updateBackground('666666'); updateGradient()">
+<DIV><INPUT class=3Dcolor style=3D"RIGHT: 10px; POSITION: absolute; TOP: =
+10px"=20
+onchange=3DupdateBackground(this.color.toString()) value=3D666666=20
+name=3DbgColor></DIV>
+<DIV id=3Dgradient>
+<H1><SPAN style=3D"COLOR: #000">jscolor Example</SPAN> <SPAN=20
+style=3D"COLOR: #fff">jscolor Example</SPAN></H1><INPUT class=3Dcolor=20
+style=3D"LEFT: 10px; POSITION: absolute; TOP: 10px"=20
+onchange=3D"color1=3Dthis.color.toString(); updateGradient()" =
+value=3D009687> <INPUT=20
+class=3Dcolor style=3D"LEFT: 10px; BOTTOM: 10px; POSITION: absolute"=20
+onchange=3D"color2=3Dthis.color.toString(); updateGradient()" =
+value=3D191C26> </DIV>
+<SCRIPT src=3D"http://jscolor.com/jscolor/jscolor.js"=20
+type=3Dtext/javascript></SCRIPT>
+
+<SCRIPT type=3Dtext/javascript><!--=0A=
+/*<![CDATA[*/=0A=
+function updateBackground(color) {=0A=
+	document.getElementsByTagName('body')[0].style.backgroundColor =3D =
+'#'+color=0A=
+}=0A=
+=0A=
+var color1=3D'009687', color2=3D'191C26'=0A=
+=0A=
+function updateGradient() {=0A=
+	document.getElementById('gradient').style.background =3D=0A=
+		=
+"url('gradient/x"+color1.toUpperCase()+"-378-"+color2.toUpperCase()+".png=
+?tmp') center top repeat-x"=0A=
+}=0A=
+/*]]>*/=0A=
+--></SCRIPT>
+</BODY></HTML>
+
+------=_NextPart_000_002E_01CED7B3.97710F50
+Content-Type: application/octet-stream
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://jscolor.com/jscolor/jscolor.js
+
+/**
+ * jscolor, JavaScript Color Picker
+ *
+ * @version 1.4.0
+ * @license GNU Lesser General Public License, =
+http://www.gnu.org/copyleft/lesser.html
+ * @author  Jan Odvarko, http://odvarko.cz
+ * @created 2008-06-15
+ * @updated 2012-07-06
+ * @link    http://jscolor.com
+ */
+
+
+var jscolor =3D {
+
+
+	dir : '', // location of jscolor directory (leave empty to autodetect)
+	bindClass : 'color', // class name
+	binding : true, // automatic binding via <input class=3D"...">
+	preloading : true, // use image preloading?
+
+
+	install : function() {
+		jscolor.addEvent(window, 'load', jscolor.init);
+	},
+
+
+	init : function() {
+		if(jscolor.binding) {
+			jscolor.bind();
+		}
+		if(jscolor.preloading) {
+			jscolor.preload();
+		}
+	},
+
+
+	getDir : function() {
+		if(!jscolor.dir) {
+			var detected =3D jscolor.detectDir();
+			jscolor.dir =3D detected!=3D=3Dfalse ? detected : 'jscolor/';
+		}
+		return jscolor.dir;
+	},
+
+
+	detectDir : function() {
+		var base =3D location.href;
+
+		var e =3D document.getElementsByTagName('base');
+		for(var i=3D0; i<e.length; i+=3D1) {
+			if(e[i].href) { base =3D e[i].href; }
+		}
+
+		var e =3D document.getElementsByTagName('script');
+		for(var i=3D0; i<e.length; i+=3D1) {
+			if(e[i].src && /(^|\/)jscolor\.js([?#].*)?$/i.test(e[i].src)) {
+				var src =3D new jscolor.URI(e[i].src);
+				var srcAbs =3D src.toAbsolute(base);
+				srcAbs.path =3D srcAbs.path.replace(/[^\/]+$/, ''); // remove =
+filename
+				srcAbs.query =3D null;
+				srcAbs.fragment =3D null;
+				return srcAbs.toString();
+			}
+		}
+		return false;
+	},
+
+
+	bind : function() {
+		var matchClass =3D new =
+RegExp('(^|\\s)('+jscolor.bindClass+')\\s*(\\{[^}]*\\})?', 'i');
+		var e =3D document.getElementsByTagName('input');
+		for(var i=3D0; i<e.length; i+=3D1) {
+			var m;
+			if(!e[i].color && e[i].className && (m =3D =
+e[i].className.match(matchClass))) {
+				var prop =3D {};
+				if(m[3]) {
+					try {
+						prop =3D (new Function ('return (' + m[3] + ')'))();
+					} catch(eInvalidProp) {}
+				}
+				e[i].color =3D new jscolor.color(e[i], prop);
+			}
+		}
+	},
+
+
+	preload : function() {
+		for(var fn in jscolor.imgRequire) {
+			if(jscolor.imgRequire.hasOwnProperty(fn)) {
+				jscolor.loadImage(fn);
+			}
+		}
+	},
+
+
+	images : {
+		pad : [ 181, 101 ],
+		sld : [ 16, 101 ],
+		cross : [ 15, 15 ],
+		arrow : [ 7, 11 ]
+	},
+
+
+	imgRequire : {},
+	imgLoaded : {},
+
+
+	requireImage : function(filename) {
+		jscolor.imgRequire[filename] =3D true;
+	},
+
+
+	loadImage : function(filename) {
+		if(!jscolor.imgLoaded[filename]) {
+			jscolor.imgLoaded[filename] =3D new Image();
+			jscolor.imgLoaded[filename].src =3D jscolor.getDir()+filename;
+		}
+	},
+
+
+	fetchElement : function(mixed) {
+		return typeof mixed =3D=3D=3D 'string' ? =
+document.getElementById(mixed) : mixed;
+	},
+
+
+	addEvent : function(el, evnt, func) {
+		if(el.addEventListener) {
+			el.addEventListener(evnt, func, false);
+		} else if(el.attachEvent) {
+			el.attachEvent('on'+evnt, func);
+		}
+	},
+
+
+	fireEvent : function(el, evnt) {
+		if(!el) {
+			return;
+		}
+		if(document.createEvent) {
+			var ev =3D document.createEvent('HTMLEvents');
+			ev.initEvent(evnt, true, true);
+			el.dispatchEvent(ev);
+		} else if(document.createEventObject) {
+			var ev =3D document.createEventObject();
+			el.fireEvent('on'+evnt, ev);
+		} else if(el['on'+evnt]) { // alternatively use the traditional event =
+model (IE5)
+			el['on'+evnt]();
+		}
+	},
+
+
+	getElementPos : function(e) {
+		var e1=3De, e2=3De;
+		var x=3D0, y=3D0;
+		if(e1.offsetParent) {
+			do {
+				x +=3D e1.offsetLeft;
+				y +=3D e1.offsetTop;
+			} while(e1 =3D e1.offsetParent);
+		}
+		while((e2 =3D e2.parentNode) && e2.nodeName.toUpperCase() !=3D=3D =
+'BODY') {
+			x -=3D e2.scrollLeft;
+			y -=3D e2.scrollTop;
+		}
+		return [x, y];
+	},
+
+
+	getElementSize : function(e) {
+		return [e.offsetWidth, e.offsetHeight];
+	},
+
+
+	getRelMousePos : function(e) {
+		var x =3D 0, y =3D 0;
+		if (!e) { e =3D window.event; }
+		if (typeof e.offsetX =3D=3D=3D 'number') {
+			x =3D e.offsetX;
+			y =3D e.offsetY;
+		} else if (typeof e.layerX =3D=3D=3D 'number') {
+			x =3D e.layerX;
+			y =3D e.layerY;
+		}
+		return { x: x, y: y };
+	},
+
+
+	getViewPos : function() {
+		if(typeof window.pageYOffset =3D=3D=3D 'number') {
+			return [window.pageXOffset, window.pageYOffset];
+		} else if(document.body && (document.body.scrollLeft || =
+document.body.scrollTop)) {
+			return [document.body.scrollLeft, document.body.scrollTop];
+		} else if(document.documentElement && =
+(document.documentElement.scrollLeft || =
+document.documentElement.scrollTop)) {
+			return [document.documentElement.scrollLeft, =
+document.documentElement.scrollTop];
+		} else {
+			return [0, 0];
+		}
+	},
+
+
+	getViewSize : function() {
+		if(typeof window.innerWidth =3D=3D=3D 'number') {
+			return [window.innerWidth, window.innerHeight];
+		} else if(document.body && (document.body.clientWidth || =
+document.body.clientHeight)) {
+			return [document.body.clientWidth, document.body.clientHeight];
+		} else if(document.documentElement && =
+(document.documentElement.clientWidth || =
+document.documentElement.clientHeight)) {
+			return [document.documentElement.clientWidth, =
+document.documentElement.clientHeight];
+		} else {
+			return [0, 0];
+		}
+	},
+
+
+	URI : function(uri) { // See RFC3986
+
+		this.scheme =3D null;
+		this.authority =3D null;
+		this.path =3D '';
+		this.query =3D null;
+		this.fragment =3D null;
+
+		this.parse =3D function(uri) {
+			var m =3D =
+uri.match(/^(([A-Za-z][0-9A-Za-z+.-]*)(:))?((\/\/)([^\/?#]*))?([^?#]*)((\=
+?)([^#]*))?((#)(.*))?/);
+			this.scheme =3D m[3] ? m[2] : null;
+			this.authority =3D m[5] ? m[6] : null;
+			this.path =3D m[7];
+			this.query =3D m[9] ? m[10] : null;
+			this.fragment =3D m[12] ? m[13] : null;
+			return this;
+		};
+
+		this.toString =3D function() {
+			var result =3D '';
+			if(this.scheme !=3D=3D null) { result =3D result + this.scheme + ':'; =
+}
+			if(this.authority !=3D=3D null) { result =3D result + '//' + =
+this.authority; }
+			if(this.path !=3D=3D null) { result =3D result + this.path; }
+			if(this.query !=3D=3D null) { result =3D result + '?' + this.query; }
+			if(this.fragment !=3D=3D null) { result =3D result + '#' + =
+this.fragment; }
+			return result;
+		};
+
+		this.toAbsolute =3D function(base) {
+			var base =3D new jscolor.URI(base);
+			var r =3D this;
+			var t =3D new jscolor.URI;
+
+			if(base.scheme =3D=3D=3D null) { return false; }
+
+			if(r.scheme !=3D=3D null && r.scheme.toLowerCase() =3D=3D=3D =
+base.scheme.toLowerCase()) {
+				r.scheme =3D null;
+			}
+
+			if(r.scheme !=3D=3D null) {
+				t.scheme =3D r.scheme;
+				t.authority =3D r.authority;
+				t.path =3D removeDotSegments(r.path);
+				t.query =3D r.query;
+			} else {
+				if(r.authority !=3D=3D null) {
+					t.authority =3D r.authority;
+					t.path =3D removeDotSegments(r.path);
+					t.query =3D r.query;
+				} else {
+					if(r.path =3D=3D=3D '') {
+						t.path =3D base.path;
+						if(r.query !=3D=3D null) {
+							t.query =3D r.query;
+						} else {
+							t.query =3D base.query;
+						}
+					} else {
+						if(r.path.substr(0,1) =3D=3D=3D '/') {
+							t.path =3D removeDotSegments(r.path);
+						} else {
+							if(base.authority !=3D=3D null && base.path =3D=3D=3D '') {
+								t.path =3D '/'+r.path;
+							} else {
+								t.path =3D base.path.replace(/[^\/]+$/,'')+r.path;
+							}
+							t.path =3D removeDotSegments(t.path);
+						}
+						t.query =3D r.query;
+					}
+					t.authority =3D base.authority;
+				}
+				t.scheme =3D base.scheme;
+			}
+			t.fragment =3D r.fragment;
+
+			return t;
+		};
+
+		function removeDotSegments(path) {
+			var out =3D '';
+			while(path) {
+				if(path.substr(0,3)=3D=3D=3D'../' || path.substr(0,2)=3D=3D=3D'./') =
+{
+					path =3D path.replace(/^\.+/,'').substr(1);
+				} else if(path.substr(0,3)=3D=3D=3D'/./' || path=3D=3D=3D'/.') {
+					path =3D '/'+path.substr(3);
+				} else if(path.substr(0,4)=3D=3D=3D'/../' || path=3D=3D=3D'/..') {
+					path =3D '/'+path.substr(4);
+					out =3D out.replace(/\/?[^\/]*$/, '');
+				} else if(path=3D=3D=3D'.' || path=3D=3D=3D'..') {
+					path =3D '';
+				} else {
+					var rm =3D path.match(/^\/?[^\/]*/)[0];
+					path =3D path.substr(rm.length);
+					out =3D out + rm;
+				}
+			}
+			return out;
+		}
+
+		if(uri) {
+			this.parse(uri);
+		}
+
+	},
+
+
+	/*
+	 * Usage example:
+	 * var myColor =3D new jscolor.color(myInputElement)
+	 */
+
+	color : function(target, prop) {
+
+
+		this.required =3D true; // refuse empty values?
+		this.adjust =3D true; // adjust value to uniform notation?
+		this.hash =3D false; // prefix color with # symbol?
+		this.caps =3D true; // uppercase?
+		this.slider =3D true; // show the value/saturation slider?
+		this.valueElement =3D target; // value holder
+		this.styleElement =3D target; // where to reflect current color
+		this.onImmediateChange =3D null; // onchange callback (can be either =
+string or function)
+		this.hsv =3D [0, 0, 1]; // read-only  0-6, 0-1, 0-1
+		this.rgb =3D [1, 1, 1]; // read-only  0-1, 0-1, 0-1
+		this.minH =3D 0; // read-only  0-6
+		this.maxH =3D 6; // read-only  0-6
+		this.minS =3D 0; // read-only  0-1
+		this.maxS =3D 1; // read-only  0-1
+		this.minV =3D 0; // read-only  0-1
+		this.maxV =3D 1; // read-only  0-1
+
+		this.pickerOnfocus =3D true; // display picker on focus?
+		this.pickerMode =3D 'HSV'; // HSV | HVS
+		this.pickerPosition =3D 'bottom'; // left | right | top | bottom
+		this.pickerSmartPosition =3D true; // automatically adjust picker =
+position when necessary
+		this.pickerButtonHeight =3D 20; // px
+		this.pickerClosable =3D false;
+		this.pickerCloseText =3D 'Close';
+		this.pickerButtonColor =3D 'ButtonText'; // px
+		this.pickerFace =3D 10; // px
+		this.pickerFaceColor =3D 'ThreeDFace'; // CSS color
+		this.pickerBorder =3D 1; // px
+		this.pickerBorderColor =3D 'ThreeDHighlight ThreeDShadow ThreeDShadow =
+ThreeDHighlight'; // CSS color
+		this.pickerInset =3D 1; // px
+		this.pickerInsetColor =3D 'ThreeDShadow ThreeDHighlight =
+ThreeDHighlight ThreeDShadow'; // CSS color
+		this.pickerZIndex =3D 10000;
+
+
+		for(var p in prop) {
+			if(prop.hasOwnProperty(p)) {
+				this[p] =3D prop[p];
+			}
+		}
+
+
+		this.hidePicker =3D function() {
+			if(isPickerOwner()) {
+				removePicker();
+			}
+		};
+
+
+		this.showPicker =3D function() {
+			if(!isPickerOwner()) {
+				var tp =3D jscolor.getElementPos(target); // target pos
+				var ts =3D jscolor.getElementSize(target); // target size
+				var vp =3D jscolor.getViewPos(); // view pos
+				var vs =3D jscolor.getViewSize(); // view size
+				var ps =3D getPickerDims(this); // picker size
+				var a, b, c;
+				switch(this.pickerPosition.toLowerCase()) {
+					case 'left': a=3D1; b=3D0; c=3D-1; break;
+					case 'right':a=3D1; b=3D0; c=3D1; break;
+					case 'top':  a=3D0; b=3D1; c=3D-1; break;
+					default:     a=3D0; b=3D1; c=3D1; break;
+				}
+				var l =3D (ts[b]+ps[b])/2;
+
+				// picker pos
+				if (!this.pickerSmartPosition) {
+					var pp =3D [
+						tp[a],
+						tp[b]+ts[b]-l+l*c
+					];
+				} else {
+					var pp =3D [
+						-vp[a]+tp[a]+ps[a] > vs[a] ?
+							(-vp[a]+tp[a]+ts[a]/2 > vs[a]/2 && tp[a]+ts[a]-ps[a] >=3D 0 ? =
+tp[a]+ts[a]-ps[a] : tp[a]) :
+							tp[a],
+						-vp[b]+tp[b]+ts[b]+ps[b]-l+l*c > vs[b] ?
+							(-vp[b]+tp[b]+ts[b]/2 > vs[b]/2 && tp[b]+ts[b]-l-l*c >=3D 0 ? =
+tp[b]+ts[b]-l-l*c : tp[b]+ts[b]-l+l*c) :
+							(tp[b]+ts[b]-l+l*c >=3D 0 ? tp[b]+ts[b]-l+l*c : =
+tp[b]+ts[b]-l-l*c)
+					];
+				}
+				drawPicker(pp[a], pp[b]);
+			}
+		};
+
+
+		this.importColor =3D function() {
+			if(!valueElement) {
+				this.exportColor();
+			} else {
+				if(!this.adjust) {
+					if(!this.fromString(valueElement.value, leaveValue)) {
+						styleElement.style.backgroundImage =3D =
+styleElement.jscStyle.backgroundImage;
+						styleElement.style.backgroundColor =3D =
+styleElement.jscStyle.backgroundColor;
+						styleElement.style.color =3D styleElement.jscStyle.color;
+						this.exportColor(leaveValue | leaveStyle);
+					}
+				} else if(!this.required && /^\s*$/.test(valueElement.value)) {
+					valueElement.value =3D '';
+					styleElement.style.backgroundImage =3D =
+styleElement.jscStyle.backgroundImage;
+					styleElement.style.backgroundColor =3D =
+styleElement.jscStyle.backgroundColor;
+					styleElement.style.color =3D styleElement.jscStyle.color;
+					this.exportColor(leaveValue | leaveStyle);
+
+				} else if(this.fromString(valueElement.value)) {
+					// OK
+				} else {
+					this.exportColor();
+				}
+			}
+		};
+
+
+		this.exportColor =3D function(flags) {
+			if(!(flags & leaveValue) && valueElement) {
+				var value =3D this.toString();
+				if(this.caps) { value =3D value.toUpperCase(); }
+				if(this.hash) { value =3D '#'+value; }
+				valueElement.value =3D value;
+			}
+			if(!(flags & leaveStyle) && styleElement) {
+				styleElement.style.backgroundImage =3D "none";
+				styleElement.style.backgroundColor =3D
+					'#'+this.toString();
+				styleElement.style.color =3D
+					0.213 * this.rgb[0] +
+					0.715 * this.rgb[1] +
+					0.072 * this.rgb[2]
+					< 0.5 ? '#FFF' : '#000';
+			}
+			if(!(flags & leavePad) && isPickerOwner()) {
+				redrawPad();
+			}
+			if(!(flags & leaveSld) && isPickerOwner()) {
+				redrawSld();
+			}
+		};
+
+
+		this.fromHSV =3D function(h, s, v, flags) { // null =3D don't change
+			if(h !=3D=3D null) { h =3D Math.max(0.0, this.minH, Math.min(6.0, =
+this.maxH, h)); }
+			if(s !=3D=3D null) { s =3D Math.max(0.0, this.minS, Math.min(1.0, =
+this.maxS, s)); }
+			if(v !=3D=3D null) { v =3D Math.max(0.0, this.minV, Math.min(1.0, =
+this.maxV, v)); }
+
+			this.rgb =3D HSV_RGB(
+				h=3D=3D=3Dnull ? this.hsv[0] : (this.hsv[0]=3Dh),
+				s=3D=3D=3Dnull ? this.hsv[1] : (this.hsv[1]=3Ds),
+				v=3D=3D=3Dnull ? this.hsv[2] : (this.hsv[2]=3Dv)
+			);
+
+			this.exportColor(flags);
+		};
+
+
+		this.fromRGB =3D function(r, g, b, flags) { // null =3D don't change
+			if(r !=3D=3D null) { r =3D Math.max(0.0, Math.min(1.0, r)); }
+			if(g !=3D=3D null) { g =3D Math.max(0.0, Math.min(1.0, g)); }
+			if(b !=3D=3D null) { b =3D Math.max(0.0, Math.min(1.0, b)); }
+
+			var hsv =3D RGB_HSV(
+				r=3D=3D=3Dnull ? this.rgb[0] : r,
+				g=3D=3D=3Dnull ? this.rgb[1] : g,
+				b=3D=3D=3Dnull ? this.rgb[2] : b
+			);
+			if(hsv[0] !=3D=3D null) {
+				this.hsv[0] =3D Math.max(0.0, this.minH, Math.min(6.0, this.maxH, =
+hsv[0]));
+			}
+			if(hsv[2] !=3D=3D 0) {
+				this.hsv[1] =3D hsv[1]=3D=3D=3Dnull ? null : Math.max(0.0, =
+this.minS, Math.min(1.0, this.maxS, hsv[1]));
+			}
+			this.hsv[2] =3D hsv[2]=3D=3D=3Dnull ? null : Math.max(0.0, this.minV, =
+Math.min(1.0, this.maxV, hsv[2]));
+
+			// update RGB according to final HSV, as some values might be trimmed
+			var rgb =3D HSV_RGB(this.hsv[0], this.hsv[1], this.hsv[2]);
+			this.rgb[0] =3D rgb[0];
+			this.rgb[1] =3D rgb[1];
+			this.rgb[2] =3D rgb[2];
+
+			this.exportColor(flags);
+		};
+
+
+		this.fromString =3D function(hex, flags) {
+			var m =3D hex.match(/^\W*([0-9A-F]{3}([0-9A-F]{3})?)\W*$/i);
+			if(!m) {
+				return false;
+			} else {
+				if(m[1].length =3D=3D=3D 6) { // 6-char notation
+					this.fromRGB(
+						parseInt(m[1].substr(0,2),16) / 255,
+						parseInt(m[1].substr(2,2),16) / 255,
+						parseInt(m[1].substr(4,2),16) / 255,
+						flags
+					);
+				} else { // 3-char notation
+					this.fromRGB(
+						parseInt(m[1].charAt(0)+m[1].charAt(0),16) / 255,
+						parseInt(m[1].charAt(1)+m[1].charAt(1),16) / 255,
+						parseInt(m[1].charAt(2)+m[1].charAt(2),16) / 255,
+						flags
+					);
+				}
+				return true;
+			}
+		};
+
+
+		this.toString =3D function() {
+			return (
+				(0x100 | Math.round(255*this.rgb[0])).toString(16).substr(1) +
+				(0x100 | Math.round(255*this.rgb[1])).toString(16).substr(1) +
+				(0x100 | Math.round(255*this.rgb[2])).toString(16).substr(1)
+			);
+		};
+
+
+		function RGB_HSV(r, g, b) {
+			var n =3D Math.min(Math.min(r,g),b);
+			var v =3D Math.max(Math.max(r,g),b);
+			var m =3D v - n;
+			if(m =3D=3D=3D 0) { return [ null, 0, v ]; }
+			var h =3D r=3D=3D=3Dn ? 3+(b-g)/m : (g=3D=3D=3Dn ? 5+(r-b)/m : =
+1+(g-r)/m);
+			return [ h=3D=3D=3D6?0:h, m/v, v ];
+		}
+
+
+		function HSV_RGB(h, s, v) {
+			if(h =3D=3D=3D null) { return [ v, v, v ]; }
+			var i =3D Math.floor(h);
+			var f =3D i%2 ? h-i : 1-(h-i);
+			var m =3D v * (1 - s);
+			var n =3D v * (1 - s*f);
+			switch(i) {
+				case 6:
+				case 0: return [v,n,m];
+				case 1: return [n,v,m];
+				case 2: return [m,v,n];
+				case 3: return [m,n,v];
+				case 4: return [n,m,v];
+				case 5: return [v,m,n];
+			}
+		}
+
+
+		function removePicker() {
+			delete jscolor.picker.owner;
+			=
+document.getElementsByTagName('body')[0].removeChild(jscolor.picker.boxB)=
+;
+		}
+
+
+		function drawPicker(x, y) {
+			if(!jscolor.picker) {
+				jscolor.picker =3D {
+					box : document.createElement('div'),
+					boxB : document.createElement('div'),
+					pad : document.createElement('div'),
+					padB : document.createElement('div'),
+					padM : document.createElement('div'),
+					sld : document.createElement('div'),
+					sldB : document.createElement('div'),
+					sldM : document.createElement('div'),
+					btn : document.createElement('div'),
+					btnS : document.createElement('span'),
+					btnT : document.createTextNode(THIS.pickerCloseText)
+				};
+				for(var i=3D0,segSize=3D4; i<jscolor.images.sld[1]; i+=3DsegSize) {
+					var seg =3D document.createElement('div');
+					seg.style.height =3D segSize+'px';
+					seg.style.fontSize =3D '1px';
+					seg.style.lineHeight =3D '0';
+					jscolor.picker.sld.appendChild(seg);
+				}
+				jscolor.picker.sldB.appendChild(jscolor.picker.sld);
+				jscolor.picker.box.appendChild(jscolor.picker.sldB);
+				jscolor.picker.box.appendChild(jscolor.picker.sldM);
+				jscolor.picker.padB.appendChild(jscolor.picker.pad);
+				jscolor.picker.box.appendChild(jscolor.picker.padB);
+				jscolor.picker.box.appendChild(jscolor.picker.padM);
+				jscolor.picker.btnS.appendChild(jscolor.picker.btnT);
+				jscolor.picker.btn.appendChild(jscolor.picker.btnS);
+				jscolor.picker.box.appendChild(jscolor.picker.btn);
+				jscolor.picker.boxB.appendChild(jscolor.picker.box);
+			}
+
+			var p =3D jscolor.picker;
+
+			// controls interaction
+			p.box.onmouseup =3D
+			p.box.onmouseout =3D function() { target.focus(); };
+			p.box.onmousedown =3D function() { abortBlur=3Dtrue; };
+			p.box.onmousemove =3D function(e) {
+				if (holdPad || holdSld) {
+					holdPad && setPad(e);
+					holdSld && setSld(e);
+					if (document.selection) {
+						document.selection.empty();
+					} else if (window.getSelection) {
+						window.getSelection().removeAllRanges();
+					}
+					dispatchImmediateChange();
+				}
+			};
+			p.padM.onmouseup =3D
+			p.padM.onmouseout =3D function() { if(holdPad) { holdPad=3Dfalse; =
+jscolor.fireEvent(valueElement,'change'); } };
+			p.padM.onmousedown =3D function(e) {
+				// if the slider is at the bottom, move it up
+				switch(modeID) {
+					case 0: if (THIS.hsv[2] =3D=3D=3D 0) { THIS.fromHSV(null, null, =
+1.0); }; break;
+					case 1: if (THIS.hsv[1] =3D=3D=3D 0) { THIS.fromHSV(null, 1.0, =
+null); }; break;
+				}
+				holdPad=3Dtrue;
+				setPad(e);
+				dispatchImmediateChange();
+			};
+			p.sldM.onmouseup =3D
+			p.sldM.onmouseout =3D function() { if(holdSld) { holdSld=3Dfalse; =
+jscolor.fireEvent(valueElement,'change'); } };
+			p.sldM.onmousedown =3D function(e) {
+				holdSld=3Dtrue;
+				setSld(e);
+				dispatchImmediateChange();
+			};
+
+			// picker
+			var dims =3D getPickerDims(THIS);
+			p.box.style.width =3D dims[0] + 'px';
+			p.box.style.height =3D dims[1] + 'px';
+
+			// picker border
+			p.boxB.style.position =3D 'absolute';
+			p.boxB.style.clear =3D 'both';
+			p.boxB.style.left =3D x+'px';
+			p.boxB.style.top =3D y+'px';
+			p.boxB.style.zIndex =3D THIS.pickerZIndex;
+			p.boxB.style.border =3D THIS.pickerBorder+'px solid';
+			p.boxB.style.borderColor =3D THIS.pickerBorderColor;
+			p.boxB.style.background =3D THIS.pickerFaceColor;
+
+			// pad image
+			p.pad.style.width =3D jscolor.images.pad[0]+'px';
+			p.pad.style.height =3D jscolor.images.pad[1]+'px';
+
+			// pad border
+			p.padB.style.position =3D 'absolute';
+			p.padB.style.left =3D THIS.pickerFace+'px';
+			p.padB.style.top =3D THIS.pickerFace+'px';
+			p.padB.style.border =3D THIS.pickerInset+'px solid';
+			p.padB.style.borderColor =3D THIS.pickerInsetColor;
+
+			// pad mouse area
+			p.padM.style.position =3D 'absolute';
+			p.padM.style.left =3D '0';
+			p.padM.style.top =3D '0';
+			p.padM.style.width =3D THIS.pickerFace + 2*THIS.pickerInset + =
+jscolor.images.pad[0] + jscolor.images.arrow[0] + 'px';
+			p.padM.style.height =3D p.box.style.height;
+			p.padM.style.cursor =3D 'crosshair';
+
+			// slider image
+			p.sld.style.overflow =3D 'hidden';
+			p.sld.style.width =3D jscolor.images.sld[0]+'px';
+			p.sld.style.height =3D jscolor.images.sld[1]+'px';
+
+			// slider border
+			p.sldB.style.display =3D THIS.slider ? 'block' : 'none';
+			p.sldB.style.position =3D 'absolute';
+			p.sldB.style.right =3D THIS.pickerFace+'px';
+			p.sldB.style.top =3D THIS.pickerFace+'px';
+			p.sldB.style.border =3D THIS.pickerInset+'px solid';
+			p.sldB.style.borderColor =3D THIS.pickerInsetColor;
+
+			// slider mouse area
+			p.sldM.style.display =3D THIS.slider ? 'block' : 'none';
+			p.sldM.style.position =3D 'absolute';
+			p.sldM.style.right =3D '0';
+			p.sldM.style.top =3D '0';
+			p.sldM.style.width =3D jscolor.images.sld[0] + =
+jscolor.images.arrow[0] + THIS.pickerFace + 2*THIS.pickerInset + 'px';
+			p.sldM.style.height =3D p.box.style.height;
+			try {
+				p.sldM.style.cursor =3D 'pointer';
+			} catch(eOldIE) {
+				p.sldM.style.cursor =3D 'hand';
+			}
+
+			// "close" button
+			function setBtnBorder() {
+				var insetColors =3D THIS.pickerInsetColor.split(/\s+/);
+				var pickerOutsetColor =3D insetColors.length < 2 ? insetColors[0] : =
+insetColors[1] + ' ' + insetColors[0] + ' ' + insetColors[0] + ' ' + =
+insetColors[1];
+				p.btn.style.borderColor =3D pickerOutsetColor;
+			}
+			p.btn.style.display =3D THIS.pickerClosable ? 'block' : 'none';
+			p.btn.style.position =3D 'absolute';
+			p.btn.style.left =3D THIS.pickerFace + 'px';
+			p.btn.style.bottom =3D THIS.pickerFace + 'px';
+			p.btn.style.padding =3D '0 15px';
+			p.btn.style.height =3D '18px';
+			p.btn.style.border =3D THIS.pickerInset + 'px solid';
+			setBtnBorder();
+			p.btn.style.color =3D THIS.pickerButtonColor;
+			p.btn.style.font =3D '12px sans-serif';
+			p.btn.style.textAlign =3D 'center';
+			try {
+				p.btn.style.cursor =3D 'pointer';
+			} catch(eOldIE) {
+				p.btn.style.cursor =3D 'hand';
+			}
+			p.btn.onmousedown =3D function () {
+				THIS.hidePicker();
+			};
+			p.btnS.style.lineHeight =3D p.btn.style.height;
+
+			// load images in optimal order
+			switch(modeID) {
+				case 0: var padImg =3D 'hs.png'; break;
+				case 1: var padImg =3D 'hv.png'; break;
+			}
+			p.padM.style.backgroundImage =3D =
+"url('"+jscolor.getDir()+"cross.gif')";
+			p.padM.style.backgroundRepeat =3D "no-repeat";
+			p.sldM.style.backgroundImage =3D =
+"url('"+jscolor.getDir()+"arrow.gif')";
+			p.sldM.style.backgroundRepeat =3D "no-repeat";
+			p.pad.style.backgroundImage =3D "url('"+jscolor.getDir()+padImg+"')";
+			p.pad.style.backgroundRepeat =3D "no-repeat";
+			p.pad.style.backgroundPosition =3D "0 0";
+
+			// place pointers
+			redrawPad();
+			redrawSld();
+
+			jscolor.picker.owner =3D THIS;
+			document.getElementsByTagName('body')[0].appendChild(p.boxB);
+		}
+
+
+		function getPickerDims(o) {
+			var dims =3D [
+				2*o.pickerInset + 2*o.pickerFace + jscolor.images.pad[0] +
+					(o.slider ? 2*o.pickerInset + 2*jscolor.images.arrow[0] + =
+jscolor.images.sld[0] : 0),
+				o.pickerClosable ?
+					4*o.pickerInset + 3*o.pickerFace + jscolor.images.pad[1] + =
+o.pickerButtonHeight :
+					2*o.pickerInset + 2*o.pickerFace + jscolor.images.pad[1]
+			];
+			return dims;
+		}
+
+
+		function redrawPad() {
+			// redraw the pad pointer
+			switch(modeID) {
+				case 0: var yComponent =3D 1; break;
+				case 1: var yComponent =3D 2; break;
+			}
+			var x =3D Math.round((THIS.hsv[0]/6) * (jscolor.images.pad[0]-1));
+			var y =3D Math.round((1-THIS.hsv[yComponent]) * =
+(jscolor.images.pad[1]-1));
+			jscolor.picker.padM.style.backgroundPosition =3D
+				(THIS.pickerFace+THIS.pickerInset+x - =
+Math.floor(jscolor.images.cross[0]/2)) + 'px ' +
+				(THIS.pickerFace+THIS.pickerInset+y - =
+Math.floor(jscolor.images.cross[1]/2)) + 'px';
+
+			// redraw the slider image
+			var seg =3D jscolor.picker.sld.childNodes;
+
+			switch(modeID) {
+				case 0:
+					var rgb =3D HSV_RGB(THIS.hsv[0], THIS.hsv[1], 1);
+					for(var i=3D0; i<seg.length; i+=3D1) {
+						seg[i].style.backgroundColor =3D 'rgb('+
+							(rgb[0]*(1-i/seg.length)*100)+'%,'+
+							(rgb[1]*(1-i/seg.length)*100)+'%,'+
+							(rgb[2]*(1-i/seg.length)*100)+'%)';
+					}
+					break;
+				case 1:
+					var rgb, s, c =3D [ THIS.hsv[2], 0, 0 ];
+					var i =3D Math.floor(THIS.hsv[0]);
+					var f =3D i%2 ? THIS.hsv[0]-i : 1-(THIS.hsv[0]-i);
+					switch(i) {
+						case 6:
+						case 0: rgb=3D[0,1,2]; break;
+						case 1: rgb=3D[1,0,2]; break;
+						case 2: rgb=3D[2,0,1]; break;
+						case 3: rgb=3D[2,1,0]; break;
+						case 4: rgb=3D[1,2,0]; break;
+						case 5: rgb=3D[0,2,1]; break;
+					}
+					for(var i=3D0; i<seg.length; i+=3D1) {
+						s =3D 1 - 1/(seg.length-1)*i;
+						c[1] =3D c[0] * (1 - s*f);
+						c[2] =3D c[0] * (1 - s);
+						seg[i].style.backgroundColor =3D 'rgb('+
+							(c[rgb[0]]*100)+'%,'+
+							(c[rgb[1]]*100)+'%,'+
+							(c[rgb[2]]*100)+'%)';
+					}
+					break;
+			}
+		}
+
+
+		function redrawSld() {
+			// redraw the slider pointer
+			switch(modeID) {
+				case 0: var yComponent =3D 2; break;
+				case 1: var yComponent =3D 1; break;
+			}
+			var y =3D Math.round((1-THIS.hsv[yComponent]) * =
+(jscolor.images.sld[1]-1));
+			jscolor.picker.sldM.style.backgroundPosition =3D
+				'0 ' + (THIS.pickerFace+THIS.pickerInset+y - =
+Math.floor(jscolor.images.arrow[1]/2)) + 'px';
+		}
+
+
+		function isPickerOwner() {
+			return jscolor.picker && jscolor.picker.owner =3D=3D=3D THIS;
+		}
+
+
+		function blurTarget() {
+			if(valueElement =3D=3D=3D target) {
+				THIS.importColor();
+			}
+			if(THIS.pickerOnfocus) {
+				THIS.hidePicker();
+			}
+		}
+
+
+		function blurValue() {
+			if(valueElement !=3D=3D target) {
+				THIS.importColor();
+			}
+		}
+
+
+		function setPad(e) {
+			var mpos =3D jscolor.getRelMousePos(e);
+			var x =3D mpos.x - THIS.pickerFace - THIS.pickerInset;
+			var y =3D mpos.y - THIS.pickerFace - THIS.pickerInset;
+			switch(modeID) {
+				case 0: THIS.fromHSV(x*(6/(jscolor.images.pad[0]-1)), 1 - =
+y/(jscolor.images.pad[1]-1), null, leaveSld); break;
+				case 1: THIS.fromHSV(x*(6/(jscolor.images.pad[0]-1)), null, 1 - =
+y/(jscolor.images.pad[1]-1), leaveSld); break;
+			}
+		}
+
+
+		function setSld(e) {
+			var mpos =3D jscolor.getRelMousePos(e);
+			var y =3D mpos.y - THIS.pickerFace - THIS.pickerInset;
+			switch(modeID) {
+				case 0: THIS.fromHSV(null, null, 1 - y/(jscolor.images.sld[1]-1), =
+leavePad); break;
+				case 1: THIS.fromHSV(null, 1 - y/(jscolor.images.sld[1]-1), null, =
+leavePad); break;
+			}
+		}
+
+
+		function dispatchImmediateChange() {
+			if (THIS.onImmediateChange) {
+				var callback;
+				if (typeof THIS.onImmediateChange =3D=3D=3D 'string') {
+					callback =3D new Function (THIS.onImmediateChange);
+				} else {
+					callback =3D THIS.onImmediateChange;
+				}
+				callback.call(THIS);
+			}
+		}
+
+
+		var THIS =3D this;
+		var modeID =3D this.pickerMode.toLowerCase()=3D=3D=3D'hvs' ? 1 : 0;
+		var abortBlur =3D false;
+		var
+			valueElement =3D jscolor.fetchElement(this.valueElement),
+			styleElement =3D jscolor.fetchElement(this.styleElement);
+		var
+			holdPad =3D false,
+			holdSld =3D false;
+		var
+			leaveValue =3D 1<<0,
+			leaveStyle =3D 1<<1,
+			leavePad =3D 1<<2,
+			leaveSld =3D 1<<3;
+
+		// target
+		jscolor.addEvent(target, 'focus', function() {
+			if(THIS.pickerOnfocus) { THIS.showPicker(); }
+		});
+		jscolor.addEvent(target, 'blur', function() {
+			if(!abortBlur) {
+				window.setTimeout(function(){ abortBlur || blurTarget(); =
+abortBlur=3Dfalse; }, 0);
+			} else {
+				abortBlur =3D false;
+			}
+		});
+
+		// valueElement
+		if(valueElement) {
+			var updateField =3D function() {
+				THIS.fromString(valueElement.value, leaveValue);
+				dispatchImmediateChange();
+			};
+			jscolor.addEvent(valueElement, 'keyup', updateField);
+			jscolor.addEvent(valueElement, 'input', updateField);
+			jscolor.addEvent(valueElement, 'blur', blurValue);
+			valueElement.setAttribute('autocomplete', 'off');
+		}
+
+		// styleElement
+		if(styleElement) {
+			styleElement.jscStyle =3D {
+				backgroundImage : styleElement.style.backgroundImage,
+				backgroundColor : styleElement.style.backgroundColor,
+				color : styleElement.style.color
+			};
+		}
+
+		// require images
+		switch(modeID) {
+			case 0: jscolor.requireImage('hs.png'); break;
+			case 1: jscolor.requireImage('hv.png'); break;
+		}
+		jscolor.requireImage('cross.gif');
+		jscolor.requireImage('arrow.gif');
+
+		this.importColor();
+	}
+
+};
+
+
+jscolor.install();
+
+------=_NextPart_000_002E_01CED7B3.97710F50--

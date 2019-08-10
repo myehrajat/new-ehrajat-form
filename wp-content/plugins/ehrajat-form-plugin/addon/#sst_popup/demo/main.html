@@ -1,0 +1,38 @@
+
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<html>
+<head>
+<title>Demo of Passing of value from Child to parent window</title>
+<META NAME="DESCRIPTION" CONTENT="Demo for sending value from Child window to parent window ">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<META NAME="KEYWORDS" CONTENT="Demo script, demo parent to child">
+<link rel="stylesheet" href="../images/all11.css" type="text/css">
+</head>
+<body>
+
+Here is the demo, Click the button ( take care of popup blocker of your browser ) and enter your name in child window opened. Then once closed it will be available at parent window. 
+<br><br>
+<form method=post action='' name=f1>
+<table>
+<tr>
+    <td ><font size=2 face='Verdana'>Your Name</font><input onFocus=window.open("child.html","Ratting","width=550,height=170,left=150,top=200,toolbar=1,status=1,"); type=text name='p_name'  size='8'>&nbsp;<a href="javascript:void(0);" NAME="My Window Name" title=" My title here " >Click here to open the child window</a> 
+
+</td></tr>
+</table></form>
+
+
+<br><br>
+<p class='demo'><a href="child.html">Return to tutorial on Data shifting from Child to Parent window</a></p>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-621868-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

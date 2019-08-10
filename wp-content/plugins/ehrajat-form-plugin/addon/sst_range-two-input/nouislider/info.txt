@@ -1,0 +1,6 @@
+rtl jquery ui slider rtl:
+http://keith-wood.name/rtlSliders.html
+
+
+see:
+http://ionden.com/a/plugins/ion.rangeSlider/demo_advanced.html
