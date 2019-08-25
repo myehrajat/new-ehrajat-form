@@ -149,4 +149,56 @@ class basic {
 	 *version 1.0.0
 	 * this function is set option
 	 **************************************************/
+	function is_absoulute_url( $url){
+		$pattern = "/^(?:ftp|https?|feed):\/\/(?:(?:(?:[\w\.\-\+!$&'\(\)*\+,;=]|%[0-9a-f]{2})+:)*
+		(?:[\w\.\-\+%!$&'\(\)*\+,;=]|%[0-9a-f]{2})+@)?(?:
+		(?:[a-z0-9\-\.]|%[0-9a-f]{2})+|(?:\[(?:[0-9a-f]{0,4}:)*(?:[0-9a-f]{0,4})\]))(?::[0-9]+)?(?:[\/|\?]
+		(?:[\w#!:\.\?\+=&@$'~*,;\/\(\)\[\]\-]|%[0-9a-f]{2})*)?$/xi";
+
+		return (bool) preg_match($pattern, $url);
+	}
+	function is_alphanumeric($string){
+		if (!preg_match('/[^A-Za-z0-9]/', $string)){ // '/[^a-z\d]/i' should also work.
+			return true;
+		}else{
+			return false;
+		}
+	}
+	function is_alphahyphen($string){
+		if (!preg_match('/[^A-Za-z-]/', $string)){ 
+			return true;
+		}else{
+			return false;
+		}
+	}
+	function is_alpha($string){
+		if (!preg_match('/[^A-Za-z]/', $string)){ 
+			return true;
+		}else{
+			return false;
+		}
+	}
+	function has_not_space($string){
+		if(preg_replace('/[\t\n\r\s]+/', '', $string)==$string){
+			return false;
+		}else{
+			return true;
+		}
+	}
+	function is_ascii($string){
+		if(mb_detect_encoding($string, 'ASCII', true)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+ 	function has_html_prevented_chars($string){
+		// check contain these ",',>,/,= 
+		if(strpos($string,'"')===false and strpos($string,"'")===false  and strpos($string,">")===false  and strpos($string,"/")===false ){
+			return false;
+		}else{
+			return true;
+		}
+	}
+
 }

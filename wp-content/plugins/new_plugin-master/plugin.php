@@ -29,7 +29,9 @@ sst_glob_includer(ADDON_REGISTER_PATH);
 
 //include all files inside CREATOR_PATH defined in config.php
 sst_glob_includer(CREATOR_PATH);
-//sst_create_input( 1 );
+$global_attr = new global_attr ;
+
+$global_attr->sst_create_attr_html_global(1);
 //die;
 
-sst_text( 1 );
+//sst_text( 1 );

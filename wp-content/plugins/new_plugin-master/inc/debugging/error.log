@@ -358,3 +358,1635 @@ id provided for get_by_id is not correct.Can not find id:"3" in table:"wp_tt_att
 SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
 id provided for get_by_id is not correct.Can not find id:"3" in table:"wp_tt_attr_html_global_style".
 
+[2019-08-11 11:09:18am]SOUREC FUNC:get_by_id=>sst_create_attr_html_global_styles=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+id provided for get_by_id is not correct.Can not find id:"3" in table:"wp_tt_attr_html_global_style".
+
+[2019-08-11 11:09:27am]SOUREC FUNC:get_by_id=>sst_create_attr_html_global_styles=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+id provided for get_by_id is not correct.Can not find id:"3" in table:"wp_tt_attr_html_global_style".
+
+[2019-08-11 11:09:34am]SOUREC FUNC:get_by_id=>sst_create_attr_html_global_styles=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+id provided for get_by_id is not correct.Can not find id:"3" in table:"wp_tt_attr_html_global_style".
+
+[2019-08-11 11:16:23am]SOUREC FUNC:get_by_id=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\addon\sst_text\sst_text.php
+id provided for get_by_id is not correct.Can not find id:"1" in table:"wp_tt_input".
+
+[2019-08-11 11:16:23am]SOUREC FUNC:make_num=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+id you have provided is empty.
+
+[2019-08-11 11:16:23am]SOUREC FUNC:is_num=>get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\commons\class_common.php
+id you have provided is empty.
+
+[2019-08-11 11:16:23am]SOUREC FUNC:get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+ids provided in get_by_id() must be only number and we will not fix it.
+
+[2019-08-11 11:17:02am]SOUREC FUNC:get_by_id=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\addon\sst_text\sst_text.php
+id provided for get_by_id is not correct.Can not find id:"1" in table:"wp_tt_input".
+
+[2019-08-11 11:17:02am]SOUREC FUNC:make_num=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+id you have provided is empty.
+
+[2019-08-11 11:17:02am]SOUREC FUNC:is_num=>get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\commons\class_common.php
+id you have provided is empty.
+
+[2019-08-11 11:17:02am]SOUREC FUNC:get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+ids provided in get_by_id() must be only number and we will not fix it.
+
+[2019-08-11 12:29:11pm]SOUREC FUNC:get_by_id=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\addon\sst_text\sst_text.php
+id provided for get_by_id is not correct.Can not find id:"1" in table:"wp_tt_input".
+
+[2019-08-11 12:29:11pm]SOUREC FUNC:make_num=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+id you have provided is empty.
+
+[2019-08-11 12:29:11pm]SOUREC FUNC:is_num=>get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\commons\class_common.php
+id you have provided is empty.
+
+[2019-08-11 12:29:11pm]SOUREC FUNC:get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+ids provided in get_by_id() must be only number and we will not fix it.
+
+[2019-08-11 12:29:11pm]SOUREC FUNC:make_num=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+id you have provided is empty.
+
+[2019-08-11 12:29:11pm]SOUREC FUNC:is_num=>get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\commons\class_common.php
+id you have provided is empty.
+
+[2019-08-11 12:29:11pm]SOUREC FUNC:get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+ids provided in get_by_id() must be only number and we will not fix it.
+
+[2019-08-11 12:49:40pm]SOUREC FUNC:get_by_id=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\addon\sst_text\sst_text.php
+id provided for get_by_id is not correct.Can not find id:"1" in table:"wp_tt_input".
+
+[2019-08-11 12:49:40pm]SOUREC FUNC:make_num=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+id you have provided is empty.
+
+[2019-08-11 12:49:40pm]SOUREC FUNC:is_num=>get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\commons\class_common.php
+id you have provided is empty.
+
+[2019-08-11 12:49:40pm]SOUREC FUNC:get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+ids provided in get_by_id() must be only number and we will not fix it.
+
+[2019-08-11 12:49:40pm]SOUREC FUNC:make_num=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+id you have provided is empty.
+
+[2019-08-11 12:49:40pm]SOUREC FUNC:is_num=>get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\commons\class_common.php
+id you have provided is empty.
+
+[2019-08-11 12:49:40pm]SOUREC FUNC:get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+ids provided in get_by_id() must be only number and we will not fix it.
+
+[2019-08-11 12:53:53pm]SOUREC FUNC:get_by_id=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\addon\sst_text\sst_text.php
+id provided for get_by_id is not correct.Can not find id:"1" in table:"wp_tt_input".
+
+[2019-08-11 12:53:53pm]SOUREC FUNC:make_num=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+id you have provided is empty.
+
+[2019-08-11 12:53:53pm]SOUREC FUNC:is_num=>get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\commons\class_common.php
+id you have provided is empty.
+
+[2019-08-11 12:53:53pm]SOUREC FUNC:get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+ids provided in get_by_id() must be only number and we will not fix it.
+
+[2019-08-11 12:53:53pm]SOUREC FUNC:make_num=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+id you have provided is empty.
+
+[2019-08-11 12:53:53pm]SOUREC FUNC:is_num=>get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\commons\class_common.php
+id you have provided is empty.
+
+[2019-08-11 12:53:53pm]SOUREC FUNC:get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+ids provided in get_by_id() must be only number and we will not fix it.
+
+[2019-08-11 01:03:16pm]SOUREC FUNC:get_by_id=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\addon\sst_text\sst_text.php
+id provided for get_by_id is not correct.Can not find id:"1" in table:"wp_tt_input".
+
+[2019-08-11 01:03:16pm]SOUREC FUNC:make_num=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+id you have provided is empty.
+
+[2019-08-11 01:03:16pm]SOUREC FUNC:is_num=>get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\commons\class_common.php
+id you have provided is empty.
+
+[2019-08-11 01:03:16pm]SOUREC FUNC:get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+ids provided in get_by_id() must be only number and we will not fix it.
+
+[2019-08-11 01:03:16pm]SOUREC FUNC:make_num=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+id you have provided is empty.
+
+[2019-08-11 01:03:16pm]SOUREC FUNC:is_num=>get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\commons\class_common.php
+id you have provided is empty.
+
+[2019-08-11 01:03:16pm]SOUREC FUNC:get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+ids provided in get_by_id() must be only number and we will not fix it.
+
+[2019-08-11 01:07:30pm]SOUREC FUNC:get_by_id=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\addon\sst_text\sst_text.php
+id provided for get_by_id is not correct.Can not find id:"1" in table:"wp_tt_input".
+
+[2019-08-11 01:07:30pm]SOUREC FUNC:make_num=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+id you have provided is empty.
+
+[2019-08-11 01:07:30pm]SOUREC FUNC:is_num=>get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\commons\class_common.php
+id you have provided is empty.
+
+[2019-08-11 01:07:30pm]SOUREC FUNC:get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+ids provided in get_by_id() must be only number and we will not fix it.
+
+[2019-08-11 01:07:30pm]SOUREC FUNC:make_num=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+id you have provided is empty.
+
+[2019-08-11 01:07:30pm]SOUREC FUNC:is_num=>get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\commons\class_common.php
+id you have provided is empty.
+
+[2019-08-11 01:07:30pm]SOUREC FUNC:get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+ids provided in get_by_id() must be only number and we will not fix it.
+
+[2019-08-11 01:45:48pm]SOUREC FUNC:get_by_id=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\addon\sst_text\sst_text.php
+id provided for get_by_id is not correct.Can not find id:"1" in table:"wp_tt_input".
+
+[2019-08-11 01:45:48pm]SOUREC FUNC:make_num=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+id you have provided is empty.
+
+[2019-08-11 01:45:48pm]SOUREC FUNC:is_num=>get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\commons\class_common.php
+id you have provided is empty.
+
+[2019-08-11 01:45:48pm]SOUREC FUNC:get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+ids provided in get_by_id() must be only number and we will not fix it.
+
+[2019-08-11 01:45:48pm]SOUREC FUNC:make_num=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+id you have provided is empty.
+
+[2019-08-11 01:45:48pm]SOUREC FUNC:is_num=>get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\commons\class_common.php
+id you have provided is empty.
+
+[2019-08-11 01:45:48pm]SOUREC FUNC:get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+ids provided in get_by_id() must be only number and we will not fix it.
+
+[2019-08-11 03:02:25pm]SOUREC FUNC:get_by_id=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\addon\sst_text\sst_text.php
+id provided for get_by_id is not correct.Can not find id:"1" in table:"wp_tt_input".
+
+[2019-08-11 03:02:25pm]SOUREC FUNC:make_num=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+id you have provided is empty.
+
+[2019-08-11 03:02:25pm]SOUREC FUNC:is_num=>get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\commons\class_common.php
+id you have provided is empty.
+
+[2019-08-11 03:02:25pm]SOUREC FUNC:get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+ids provided in get_by_id() must be only number and we will not fix it.
+
+[2019-08-11 03:02:25pm]SOUREC FUNC:make_num=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+id you have provided is empty.
+
+[2019-08-11 03:02:25pm]SOUREC FUNC:is_num=>get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\commons\class_common.php
+id you have provided is empty.
+
+[2019-08-11 03:02:25pm]SOUREC FUNC:get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+ids provided in get_by_id() must be only number and we will not fix it.
+
+[2019-08-11 03:02:43pm]SOUREC FUNC:get_by_id=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\addon\sst_text\sst_text.php
+id provided for get_by_id is not correct.Can not find id:"1" in table:"wp_tt_input".
+
+[2019-08-11 03:02:43pm]SOUREC FUNC:make_num=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+id you have provided is empty.
+
+[2019-08-11 03:02:43pm]SOUREC FUNC:is_num=>get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\commons\class_common.php
+id you have provided is empty.
+
+[2019-08-11 03:02:43pm]SOUREC FUNC:get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+ids provided in get_by_id() must be only number and we will not fix it.
+
+[2019-08-11 03:02:43pm]SOUREC FUNC:make_num=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+id you have provided is empty.
+
+[2019-08-11 03:02:43pm]SOUREC FUNC:is_num=>get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\commons\class_common.php
+id you have provided is empty.
+
+[2019-08-11 03:02:43pm]SOUREC FUNC:get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+ids provided in get_by_id() must be only number and we will not fix it.
+
+[2019-08-11 03:03:10pm]SOUREC FUNC:get_by_id=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\addon\sst_text\sst_text.php
+id provided for get_by_id is not correct.Can not find id:"1" in table:"wp_tt_input".
+
+[2019-08-11 03:03:10pm]SOUREC FUNC:make_num=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+id you have provided is empty.
+
+[2019-08-11 03:03:10pm]SOUREC FUNC:is_num=>get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\commons\class_common.php
+id you have provided is empty.
+
+[2019-08-11 03:03:10pm]SOUREC FUNC:get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+ids provided in get_by_id() must be only number and we will not fix it.
+
+[2019-08-11 03:03:10pm]SOUREC FUNC:make_num=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+id you have provided is empty.
+
+[2019-08-11 03:03:10pm]SOUREC FUNC:is_num=>get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\commons\class_common.php
+id you have provided is empty.
+
+[2019-08-11 03:03:10pm]SOUREC FUNC:get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+ids provided in get_by_id() must be only number and we will not fix it.
+
+[2019-08-11 03:03:46pm]SOUREC FUNC:get_by_id=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\addon\sst_text\sst_text.php
+id provided for get_by_id is not correct.Can not find id:"1" in table:"wp_tt_input".
+
+[2019-08-11 03:03:46pm]SOUREC FUNC:make_num=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+id you have provided is empty.
+
+[2019-08-11 03:03:46pm]SOUREC FUNC:is_num=>get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\commons\class_common.php
+id you have provided is empty.
+
+[2019-08-11 03:03:46pm]SOUREC FUNC:get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+ids provided in get_by_id() must be only number and we will not fix it.
+
+[2019-08-11 03:03:46pm]SOUREC FUNC:make_num=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+id you have provided is empty.
+
+[2019-08-11 03:03:46pm]SOUREC FUNC:is_num=>get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\commons\class_common.php
+id you have provided is empty.
+
+[2019-08-11 03:03:46pm]SOUREC FUNC:get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\new-form-dev\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+ids provided in get_by_id() must be only number and we will not fix it.
+
+[2019-08-14 05:24:24pm]SOUREC FUNC:get_by_id=>sst_text=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\addon\sst_text\sst_text.php
+id provided for get_by_id is not correct.Can not find id:"1" in table:"wp_tt_input".
+
+[2019-08-14 05:24:24pm]SOUREC FUNC:make_num=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+id you have provided is empty.
+
+[2019-08-14 05:24:24pm]SOUREC FUNC:is_num=>get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\commons\class_common.php
+id you have provided is empty.
+
+[2019-08-14 05:24:24pm]SOUREC FUNC:get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+ids provided in get_by_id() must be only number and we will not fix it.
+
+[2019-08-14 05:24:24pm]SOUREC FUNC:make_num=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+id you have provided is empty.
+
+[2019-08-14 05:24:24pm]SOUREC FUNC:is_num=>get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\commons\class_common.php
+id you have provided is empty.
+
+[2019-08-14 05:24:24pm]SOUREC FUNC:get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+ids provided in get_by_id() must be only number and we will not fix it.
+
+[2019-08-14 05:24:26pm]SOUREC FUNC:get_by_id=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\addon\sst_text\sst_text.php
+id provided for get_by_id is not correct.Can not find id:"1" in table:"wp_tt_input".
+
+[2019-08-14 05:24:26pm]SOUREC FUNC:make_num=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+id you have provided is empty.
+
+[2019-08-14 05:24:26pm]SOUREC FUNC:is_num=>get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\commons\class_common.php
+id you have provided is empty.
+
+[2019-08-14 05:24:26pm]SOUREC FUNC:get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+ids provided in get_by_id() must be only number and we will not fix it.
+
+[2019-08-14 05:24:26pm]SOUREC FUNC:make_num=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+id you have provided is empty.
+
+[2019-08-14 05:24:26pm]SOUREC FUNC:is_num=>get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\commons\class_common.php
+id you have provided is empty.
+
+[2019-08-14 05:24:26pm]SOUREC FUNC:get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+ids provided in get_by_id() must be only number and we will not fix it.
+
+[2019-08-14 05:25:24pm]SOUREC FUNC:get_by_id=>sst_text=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\addon\sst_text\sst_text.php
+id provided for get_by_id is not correct.Can not find id:"1" in table:"wp_tt_input".
+
+[2019-08-14 05:25:24pm]SOUREC FUNC:make_num=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+id you have provided is empty.
+
+[2019-08-14 05:25:24pm]SOUREC FUNC:is_num=>get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\commons\class_common.php
+id you have provided is empty.
+
+[2019-08-14 05:25:24pm]SOUREC FUNC:get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+ids provided in get_by_id() must be only number and we will not fix it.
+
+[2019-08-14 05:25:24pm]SOUREC FUNC:make_num=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+id you have provided is empty.
+
+[2019-08-14 05:25:24pm]SOUREC FUNC:is_num=>get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\commons\class_common.php
+id you have provided is empty.
+
+[2019-08-14 05:25:24pm]SOUREC FUNC:get_by_id=>sst_create_attr_html_global=>sst_text=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\sst_create_appearances.php
+ids provided in get_by_id() must be only number and we will not fix it.
+
+[2019-08-24 10:28:44am]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+autocapitalize value can be none | off | on | sentences | words | characters but you have provide sth else!
+
+[2019-08-24 10:28:45am]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+autocapitalize value can be none | off | on | sentences | words | characters but you have provide sth else!
+
+[2019-08-24 05:07:07pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+autocapitalize value can be none | off | on | sentences | words | characters but you have provide sth else!
+
+[2019-08-24 05:07:07pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+contenteditable must have true|false values you provide sth else!
+
+[2019-08-24 05:07:07pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dir must have rtl|ltr|auto values you provide sth else!
+
+[2019-08-24 05:07:07pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+draggable must have true|false values you provide sth else!
+
+[2019-08-24 05:07:07pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dropzone must have copy|move|link values you provide sth else!
+
+[2019-08-24 05:07:07pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+hidden must have "hidden" values you provide sth else!
+
+[2019-08-24 05:07:07pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+inputmode must have none|text|decimal|numeric|tel|search|email|url values you provide sth else!
+
+[2019-08-24 05:07:07pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+Custom element names must contain a hyphen. Example: unicorn-cake
+
+[2019-08-24 05:07:07pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+itemtype must be url you provide not valid one.
+
+[2019-08-24 05:07:08pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+autocapitalize value can be none | off | on | sentences | words | characters but you have provide sth else!
+
+[2019-08-24 05:07:08pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+contenteditable must have true|false values you provide sth else!
+
+[2019-08-24 05:07:08pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dir must have rtl|ltr|auto values you provide sth else!
+
+[2019-08-24 05:07:08pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+draggable must have true|false values you provide sth else!
+
+[2019-08-24 05:07:08pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dropzone must have copy|move|link values you provide sth else!
+
+[2019-08-24 05:07:08pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+hidden must have "hidden" values you provide sth else!
+
+[2019-08-24 05:07:08pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+inputmode must have none|text|decimal|numeric|tel|search|email|url values you provide sth else!
+
+[2019-08-24 05:07:08pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+Custom element names must contain a hyphen. Example: unicorn-cake
+
+[2019-08-24 05:07:08pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+itemtype must be url you provide not valid one.
+
+[2019-08-24 05:07:33pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+autocapitalize value can be none | off | on | sentences | words | characters but you have provide sth else!
+
+[2019-08-24 05:07:33pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+contenteditable must have true|false values you provide sth else!
+
+[2019-08-24 05:07:33pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dir must have rtl|ltr|auto values you provide sth else!
+
+[2019-08-24 05:07:33pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+draggable must have true|false values you provide sth else!
+
+[2019-08-24 05:07:33pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dropzone must have copy|move|link values you provide sth else!
+
+[2019-08-24 05:07:33pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+hidden must have "hidden" values you provide sth else!
+
+[2019-08-24 05:07:33pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+inputmode must have none|text|decimal|numeric|tel|search|email|url values you provide sth else!
+
+[2019-08-24 05:07:33pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+Custom element names must contain a hyphen. Example: unicorn-cake
+
+[2019-08-24 05:07:33pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+itemtype must be url you provide not valid one.
+
+[2019-08-24 05:07:34pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+autocapitalize value can be none | off | on | sentences | words | characters but you have provide sth else!
+
+[2019-08-24 05:07:34pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+contenteditable must have true|false values you provide sth else!
+
+[2019-08-24 05:07:34pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dir must have rtl|ltr|auto values you provide sth else!
+
+[2019-08-24 05:07:34pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+draggable must have true|false values you provide sth else!
+
+[2019-08-24 05:07:34pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dropzone must have copy|move|link values you provide sth else!
+
+[2019-08-24 05:07:34pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+hidden must have "hidden" values you provide sth else!
+
+[2019-08-24 05:07:34pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+inputmode must have none|text|decimal|numeric|tel|search|email|url values you provide sth else!
+
+[2019-08-24 05:07:34pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+Custom element names must contain a hyphen. Example: unicorn-cake
+
+[2019-08-24 05:07:34pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+itemtype must be url you provide not valid one.
+
+[2019-08-24 05:09:34pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+autocapitalize value can be none | off | on | sentences | words | characters but you have provide sth else!
+
+[2019-08-24 05:09:34pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+contenteditable must have true|false values you provide sth else!
+
+[2019-08-24 05:09:34pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dir must have rtl|ltr|auto values you provide sth else!
+
+[2019-08-24 05:09:34pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+draggable must have true|false values you provide sth else!
+
+[2019-08-24 05:09:34pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dropzone must have copy|move|link values you provide sth else!
+
+[2019-08-24 05:09:34pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+hidden must have "hidden" values you provide sth else!
+
+[2019-08-24 05:09:34pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+inputmode must have none|text|decimal|numeric|tel|search|email|url values you provide sth else!
+
+[2019-08-24 05:09:34pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+Custom element names must contain a hyphen. Example: unicorn-cake
+
+[2019-08-24 05:09:34pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+itemtype must be url you provide not valid one.
+
+[2019-08-24 05:11:35pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+autocapitalize value can be none | off | on | sentences | words | characters but you have provide sth else!
+
+[2019-08-24 05:11:35pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+contenteditable must have true|false values you provide sth else!
+
+[2019-08-24 05:11:35pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dir must have rtl|ltr|auto values you provide sth else!
+
+[2019-08-24 05:11:35pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+draggable must have true|false values you provide sth else!
+
+[2019-08-24 05:11:35pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dropzone must have copy|move|link values you provide sth else!
+
+[2019-08-24 05:11:35pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+hidden must have "hidden" values you provide sth else!
+
+[2019-08-24 05:11:35pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+inputmode must have none|text|decimal|numeric|tel|search|email|url values you provide sth else!
+
+[2019-08-24 05:11:35pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+Custom element names must contain a hyphen. Example: unicorn-cake
+
+[2019-08-24 05:11:35pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+itemtype must be url you provide not valid one.
+
+[2019-08-24 05:13:36pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+autocapitalize value can be none | off | on | sentences | words | characters but you have provide sth else!
+
+[2019-08-24 05:13:36pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+contenteditable must have true|false values you provide sth else!
+
+[2019-08-24 05:13:36pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dir must have rtl|ltr|auto values you provide sth else!
+
+[2019-08-24 05:13:36pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+draggable must have true|false values you provide sth else!
+
+[2019-08-24 05:13:36pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dropzone must have copy|move|link values you provide sth else!
+
+[2019-08-24 05:13:36pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+hidden must have "hidden" values you provide sth else!
+
+[2019-08-24 05:13:36pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+inputmode must have none|text|decimal|numeric|tel|search|email|url values you provide sth else!
+
+[2019-08-24 05:13:36pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+Custom element names must contain a hyphen. Example: unicorn-cake
+
+[2019-08-24 05:13:36pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+itemtype must be url you provide not valid one.
+
+[2019-08-24 05:15:37pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+autocapitalize value can be none | off | on | sentences | words | characters but you have provide sth else!
+
+[2019-08-24 05:15:37pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+contenteditable must have true|false values you provide sth else!
+
+[2019-08-24 05:15:37pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dir must have rtl|ltr|auto values you provide sth else!
+
+[2019-08-24 05:15:37pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+draggable must have true|false values you provide sth else!
+
+[2019-08-24 05:15:37pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dropzone must have copy|move|link values you provide sth else!
+
+[2019-08-24 05:15:37pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+hidden must have "hidden" values you provide sth else!
+
+[2019-08-24 05:15:37pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+inputmode must have none|text|decimal|numeric|tel|search|email|url values you provide sth else!
+
+[2019-08-24 05:15:37pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+Custom element names must contain a hyphen. Example: unicorn-cake
+
+[2019-08-24 05:15:37pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+itemtype must be url you provide not valid one.
+
+[2019-08-24 06:51:02pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+autocapitalize value can be none | off | on | sentences | words | characters but you have provide sth else!
+
+[2019-08-24 06:51:02pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+contenteditable must have true|false values you provide sth else!
+
+[2019-08-24 06:51:02pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dir must have rtl|ltr|auto values you provide sth else!
+
+[2019-08-24 06:51:02pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+draggable must have true|false values you provide sth else!
+
+[2019-08-24 06:51:02pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dropzone must have copy|move|link values you provide sth else!
+
+[2019-08-24 06:51:02pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+hidden must have "hidden" values you provide sth else!
+
+[2019-08-24 06:51:02pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+inputmode must have none|text|decimal|numeric|tel|search|email|url values you provide sth else!
+
+[2019-08-24 06:51:02pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+Custom element names must contain a hyphen. Example: unicorn-cake
+
+[2019-08-24 06:51:02pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+itemtype must be url you provide not valid one.
+
+[2019-08-24 06:51:02pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+lang code cant be more than three letters and less than two letters.
+
+[2019-08-24 06:51:03pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+autocapitalize value can be none | off | on | sentences | words | characters but you have provide sth else!
+
+[2019-08-24 06:51:03pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+contenteditable must have true|false values you provide sth else!
+
+[2019-08-24 06:51:03pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dir must have rtl|ltr|auto values you provide sth else!
+
+[2019-08-24 06:51:03pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+draggable must have true|false values you provide sth else!
+
+[2019-08-24 06:51:03pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dropzone must have copy|move|link values you provide sth else!
+
+[2019-08-24 06:51:03pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+hidden must have "hidden" values you provide sth else!
+
+[2019-08-24 06:51:03pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+inputmode must have none|text|decimal|numeric|tel|search|email|url values you provide sth else!
+
+[2019-08-24 06:51:03pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+Custom element names must contain a hyphen. Example: unicorn-cake
+
+[2019-08-24 06:51:03pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+itemtype must be url you provide not valid one.
+
+[2019-08-24 06:51:03pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+lang code cant be more than three letters and less than two letters.
+
+[2019-08-24 06:51:24pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+autocapitalize value can be none | off | on | sentences | words | characters but you have provide sth else!
+
+[2019-08-24 06:51:24pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+contenteditable must have true|false values you provide sth else!
+
+[2019-08-24 06:51:24pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dir must have rtl|ltr|auto values you provide sth else!
+
+[2019-08-24 06:51:24pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+draggable must have true|false values you provide sth else!
+
+[2019-08-24 06:51:24pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dropzone must have copy|move|link values you provide sth else!
+
+[2019-08-24 06:51:24pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+hidden must have "hidden" values you provide sth else!
+
+[2019-08-24 06:51:24pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+inputmode must have none|text|decimal|numeric|tel|search|email|url values you provide sth else!
+
+[2019-08-24 06:51:24pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+Custom element names must contain a hyphen. Example: unicorn-cake
+
+[2019-08-24 06:51:24pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+itemtype must be url you provide not valid one.
+
+[2019-08-24 06:51:24pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+lang code cant be more than three letters and less than two letters.
+
+[2019-08-24 06:52:19pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+autocapitalize value can be none | off | on | sentences | words | characters but you have provide sth else!
+
+[2019-08-24 06:52:19pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+contenteditable must have true|false values you provide sth else!
+
+[2019-08-24 06:52:19pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dir must have rtl|ltr|auto values you provide sth else!
+
+[2019-08-24 06:52:19pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+draggable must have true|false values you provide sth else!
+
+[2019-08-24 06:52:19pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dropzone must have copy|move|link values you provide sth else!
+
+[2019-08-24 06:52:19pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+hidden must have "hidden" values you provide sth else!
+
+[2019-08-24 06:52:19pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+inputmode must have none|text|decimal|numeric|tel|search|email|url values you provide sth else!
+
+[2019-08-24 06:52:19pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+Custom element names must contain a hyphen. Example: unicorn-cake
+
+[2019-08-24 06:52:19pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+itemtype must be url you provide not valid one.
+
+[2019-08-24 06:52:19pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+lang code cant be more than three letters and less than two letters.
+
+[2019-08-24 06:52:39pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+autocapitalize value can be none | off | on | sentences | words | characters but you have provide sth else!
+
+[2019-08-24 06:52:39pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+contenteditable must have true|false values you provide sth else!
+
+[2019-08-24 06:52:39pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dir must have rtl|ltr|auto values you provide sth else!
+
+[2019-08-24 06:52:39pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+draggable must have true|false values you provide sth else!
+
+[2019-08-24 06:52:39pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dropzone must have copy|move|link values you provide sth else!
+
+[2019-08-24 06:52:39pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+hidden must have "hidden" values you provide sth else!
+
+[2019-08-24 06:52:39pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+inputmode must have none|text|decimal|numeric|tel|search|email|url values you provide sth else!
+
+[2019-08-24 06:52:39pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+Custom element names must contain a hyphen. Example: unicorn-cake
+
+[2019-08-24 06:52:39pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+itemtype must be url you provide not valid one.
+
+[2019-08-24 06:52:39pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+lang code cant be more than three letters and less than two letters.
+
+[2019-08-24 06:53:49pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+autocapitalize value can be none | off | on | sentences | words | characters but you have provide sth else!
+
+[2019-08-24 06:53:49pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+contenteditable must have true|false values you provide sth else!
+
+[2019-08-24 06:53:49pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dir must have rtl|ltr|auto values you provide sth else!
+
+[2019-08-24 06:53:49pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+draggable must have true|false values you provide sth else!
+
+[2019-08-24 06:53:49pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dropzone must have copy|move|link values you provide sth else!
+
+[2019-08-24 06:53:49pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+hidden must have "hidden" values you provide sth else!
+
+[2019-08-24 06:53:49pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+inputmode must have none|text|decimal|numeric|tel|search|email|url values you provide sth else!
+
+[2019-08-24 06:53:49pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+Custom element names must contain a hyphen. Example: unicorn-cake
+
+[2019-08-24 06:53:49pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+itemtype must be url you provide not valid one.
+
+[2019-08-24 06:53:49pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+lang code cant be more than three letters and less than two letters.
+
+[2019-08-24 06:57:26pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+autocapitalize value can be none | off | on | sentences | words | characters but you have provide sth else!
+
+[2019-08-24 06:57:26pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+contenteditable must have true|false values you provide sth else!
+
+[2019-08-24 06:57:26pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dir must have rtl|ltr|auto values you provide sth else!
+
+[2019-08-24 06:57:26pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+draggable must have true|false values you provide sth else!
+
+[2019-08-24 06:57:26pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dropzone must have copy|move|link values you provide sth else!
+
+[2019-08-24 06:57:26pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+hidden must have "hidden" values you provide sth else!
+
+[2019-08-24 06:57:26pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+inputmode must have none|text|decimal|numeric|tel|search|email|url values you provide sth else!
+
+[2019-08-24 06:57:26pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+Custom element names must contain a hyphen. Example: unicorn-cake
+
+[2019-08-24 06:57:26pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+itemtype must be url you provide not valid one.
+
+[2019-08-24 06:57:26pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+lang code cant be more than three letters and less than two letters.
+
+[2019-08-24 06:57:27pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+autocapitalize value can be none | off | on | sentences | words | characters but you have provide sth else!
+
+[2019-08-24 06:57:27pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+contenteditable must have true|false values you provide sth else!
+
+[2019-08-24 06:57:27pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dir must have rtl|ltr|auto values you provide sth else!
+
+[2019-08-24 06:57:27pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+draggable must have true|false values you provide sth else!
+
+[2019-08-24 06:57:27pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dropzone must have copy|move|link values you provide sth else!
+
+[2019-08-24 06:57:27pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+hidden must have "hidden" values you provide sth else!
+
+[2019-08-24 06:57:27pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+inputmode must have none|text|decimal|numeric|tel|search|email|url values you provide sth else!
+
+[2019-08-24 06:57:27pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+Custom element names must contain a hyphen. Example: unicorn-cake
+
+[2019-08-24 06:57:27pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+itemtype must be url you provide not valid one.
+
+[2019-08-24 06:57:27pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+lang code cant be more than three letters and less than two letters.
+
+[2019-08-24 09:15:34pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+autocapitalize value can be none | off | on | sentences | words | characters but you have provide sth else!
+
+[2019-08-24 09:15:34pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+contenteditable must have true|false values you provide sth else!
+
+[2019-08-24 09:15:34pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dir must have rtl|ltr|auto values you provide sth else!
+
+[2019-08-24 09:15:34pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+draggable must have true|false values you provide sth else!
+
+[2019-08-24 09:15:34pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dropzone must have copy|move|link values you provide sth else!
+
+[2019-08-24 09:15:34pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+hidden must have "hidden" values you provide sth else!
+
+[2019-08-24 09:15:34pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+inputmode must have none|text|decimal|numeric|tel|search|email|url values you provide sth else!
+
+[2019-08-24 09:15:34pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+Custom element names must contain a hyphen. Example: unicorn-cake
+
+[2019-08-24 09:15:34pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+itemtype must be url you provide not valid one.
+
+[2019-08-24 09:15:35pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+autocapitalize value can be none | off | on | sentences | words | characters but you have provide sth else!
+
+[2019-08-24 09:15:35pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+contenteditable must have true|false values you provide sth else!
+
+[2019-08-24 09:15:35pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dir must have rtl|ltr|auto values you provide sth else!
+
+[2019-08-24 09:15:35pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+draggable must have true|false values you provide sth else!
+
+[2019-08-24 09:15:35pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dropzone must have copy|move|link values you provide sth else!
+
+[2019-08-24 09:15:35pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+hidden must have "hidden" values you provide sth else!
+
+[2019-08-24 09:15:35pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+inputmode must have none|text|decimal|numeric|tel|search|email|url values you provide sth else!
+
+[2019-08-24 09:15:35pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+Custom element names must contain a hyphen. Example: unicorn-cake
+
+[2019-08-24 09:15:35pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+itemtype must be url you provide not valid one.
+
+[2019-08-24 09:15:37pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+autocapitalize value can be none | off | on | sentences | words | characters but you have provide sth else!
+
+[2019-08-24 09:15:37pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+contenteditable must have true|false values you provide sth else!
+
+[2019-08-24 09:15:37pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dir must have rtl|ltr|auto values you provide sth else!
+
+[2019-08-24 09:15:37pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+draggable must have true|false values you provide sth else!
+
+[2019-08-24 09:15:37pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dropzone must have copy|move|link values you provide sth else!
+
+[2019-08-24 09:15:37pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+hidden must have "hidden" values you provide sth else!
+
+[2019-08-24 09:15:37pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+inputmode must have none|text|decimal|numeric|tel|search|email|url values you provide sth else!
+
+[2019-08-24 09:15:37pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+Custom element names must contain a hyphen. Example: unicorn-cake
+
+[2019-08-24 09:15:37pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+itemtype must be url you provide not valid one.
+
+[2019-08-24 09:15:55pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+autocapitalize value can be none | off | on | sentences | words | characters but you have provide sth else!
+
+[2019-08-24 09:15:55pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+contenteditable must have true|false values you provide sth else!
+
+[2019-08-24 09:15:55pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dir must have rtl|ltr|auto values you provide sth else!
+
+[2019-08-24 09:15:55pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+draggable must have true|false values you provide sth else!
+
+[2019-08-24 09:15:55pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dropzone must have copy|move|link values you provide sth else!
+
+[2019-08-24 09:15:55pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+hidden must have "hidden" values you provide sth else!
+
+[2019-08-24 09:15:55pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+inputmode must have none|text|decimal|numeric|tel|search|email|url values you provide sth else!
+
+[2019-08-24 09:15:55pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+Custom element names must not conatin any type of space.
+
+[2019-08-24 09:15:55pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+itemtype must be url you provide not valid one.
+
+[2019-08-24 09:16:07pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+autocapitalize value can be none | off | on | sentences | words | characters but you have provide sth else!
+
+[2019-08-24 09:16:07pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+contenteditable must have true|false values you provide sth else!
+
+[2019-08-24 09:16:07pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dir must have rtl|ltr|auto values you provide sth else!
+
+[2019-08-24 09:16:07pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+draggable must have true|false values you provide sth else!
+
+[2019-08-24 09:16:07pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dropzone must have copy|move|link values you provide sth else!
+
+[2019-08-24 09:16:07pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+hidden must have "hidden" values you provide sth else!
+
+[2019-08-24 09:16:07pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+inputmode must have none|text|decimal|numeric|tel|search|email|url values you provide sth else!
+
+[2019-08-24 09:16:07pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+Custom element names must not conatin any type of space.
+
+[2019-08-24 09:16:07pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+itemtype must be url you provide not valid one.
+
+[2019-08-24 09:19:36pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+autocapitalize value can be none | off | on | sentences | words | characters but you have provide sth else!
+
+[2019-08-24 09:19:36pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+contenteditable must have true|false values you provide sth else!
+
+[2019-08-24 09:19:36pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dir must have rtl|ltr|auto values you provide sth else!
+
+[2019-08-24 09:19:36pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+draggable must have true|false values you provide sth else!
+
+[2019-08-24 09:19:36pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dropzone must have copy|move|link values you provide sth else!
+
+[2019-08-24 09:19:36pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+hidden must have "hidden" values you provide sth else!
+
+[2019-08-24 09:19:36pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+inputmode must have none|text|decimal|numeric|tel|search|email|url values you provide sth else!
+
+[2019-08-24 09:19:36pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+id must not contain space.
+
+[2019-08-24 09:19:36pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+Custom element names must not conatin any type of space.
+
+[2019-08-24 09:19:36pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+itemtype must be url you provide not valid one.
+
+[2019-08-24 09:21:37pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+autocapitalize value can be none | off | on | sentences | words | characters but you have provide sth else!
+
+[2019-08-24 09:21:37pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+contenteditable must have true|false values you provide sth else!
+
+[2019-08-24 09:21:37pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dir must have rtl|ltr|auto values you provide sth else!
+
+[2019-08-24 09:21:37pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+draggable must have true|false values you provide sth else!
+
+[2019-08-24 09:21:37pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dropzone must have copy|move|link values you provide sth else!
+
+[2019-08-24 09:21:37pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+hidden must have "hidden" values you provide sth else!
+
+[2019-08-24 09:21:37pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+inputmode must have none|text|decimal|numeric|tel|search|email|url values you provide sth else!
+
+[2019-08-24 09:21:37pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+id must not contain space.
+
+[2019-08-24 09:21:37pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+Custom element names must not conatin any type of space.
+
+[2019-08-24 09:21:37pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+itemtype must be url you provide not valid one.
+
+[2019-08-24 09:23:38pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+autocapitalize value can be none | off | on | sentences | words | characters but you have provide sth else!
+
+[2019-08-24 09:23:38pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+contenteditable must have true|false values you provide sth else!
+
+[2019-08-24 09:23:38pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dir must have rtl|ltr|auto values you provide sth else!
+
+[2019-08-24 09:23:38pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+draggable must have true|false values you provide sth else!
+
+[2019-08-24 09:23:38pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dropzone must have copy|move|link values you provide sth else!
+
+[2019-08-24 09:23:38pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+hidden must have "hidden" values you provide sth else!
+
+[2019-08-24 09:23:38pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+inputmode must have none|text|decimal|numeric|tel|search|email|url values you provide sth else!
+
+[2019-08-24 09:23:38pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+id must not contain space.
+
+[2019-08-24 09:23:38pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+Custom element names must not conatin any type of space.
+
+[2019-08-24 09:23:38pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+itemtype must be url you provide not valid one.
+
+[2019-08-24 09:25:38pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+autocapitalize value can be none | off | on | sentences | words | characters but you have provide sth else!
+
+[2019-08-24 09:25:38pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+contenteditable must have true|false values you provide sth else!
+
+[2019-08-24 09:25:38pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dir must have rtl|ltr|auto values you provide sth else!
+
+[2019-08-24 09:25:38pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+draggable must have true|false values you provide sth else!
+
+[2019-08-24 09:25:38pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dropzone must have copy|move|link values you provide sth else!
+
+[2019-08-24 09:25:38pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+hidden must have "hidden" values you provide sth else!
+
+[2019-08-24 09:25:38pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+inputmode must have none|text|decimal|numeric|tel|search|email|url values you provide sth else!
+
+[2019-08-24 09:25:38pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+id must not contain space.
+
+[2019-08-24 09:25:38pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+Custom element names must not conatin any type of space.
+
+[2019-08-24 09:25:38pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+itemtype must be url you provide not valid one.
+
+[2019-08-24 09:58:45pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+autocapitalize value can be none | off | on | sentences | words | characters but you have provide sth else!
+
+[2019-08-24 09:58:45pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+contenteditable must have true|false values you provide sth else!
+
+[2019-08-24 09:58:45pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+id must not contain space.
+
+[2019-08-24 09:58:45pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dir must have rtl|ltr|auto values you provide sth else!
+
+[2019-08-24 09:58:45pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+draggable must have true|false values you provide sth else!
+
+[2019-08-24 09:58:45pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dropzone must have copy|move|link values you provide sth else!
+
+[2019-08-24 09:58:45pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+hidden must have "hidden" values you provide sth else!
+
+[2019-08-24 09:58:45pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+inputmode must have none|text|decimal|numeric|tel|search|email|url values you provide sth else!
+
+[2019-08-24 09:58:45pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+id must not contain space.
+
+[2019-08-24 09:58:45pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+Custom element names must not conatin any type of space.
+
+[2019-08-24 09:58:45pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+itemtype must be url you provide not valid one.
+
+[2019-08-24 09:58:45pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+slot name cant have space.
+
+[2019-08-24 09:58:45pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+spellcheck must have true|false values you provide sth else!
+
+[2019-08-24 09:58:46pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+autocapitalize value can be none | off | on | sentences | words | characters but you have provide sth else!
+
+[2019-08-24 09:58:46pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+contenteditable must have true|false values you provide sth else!
+
+[2019-08-24 09:58:46pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+id must not contain space.
+
+[2019-08-24 09:58:46pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dir must have rtl|ltr|auto values you provide sth else!
+
+[2019-08-24 09:58:46pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+draggable must have true|false values you provide sth else!
+
+[2019-08-24 09:58:46pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dropzone must have copy|move|link values you provide sth else!
+
+[2019-08-24 09:58:46pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+hidden must have "hidden" values you provide sth else!
+
+[2019-08-24 09:58:46pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+inputmode must have none|text|decimal|numeric|tel|search|email|url values you provide sth else!
+
+[2019-08-24 09:58:46pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+id must not contain space.
+
+[2019-08-24 09:58:46pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+Custom element names must not conatin any type of space.
+
+[2019-08-24 09:58:46pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+itemtype must be url you provide not valid one.
+
+[2019-08-24 09:58:46pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+slot name cant have space.
+
+[2019-08-24 09:58:46pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+spellcheck must have true|false values you provide sth else!
+
+[2019-08-24 09:59:01pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+autocapitalize value can be none | off | on | sentences | words | characters but you have provide sth else!
+
+[2019-08-24 09:59:01pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+contenteditable must have true|false values you provide sth else!
+
+[2019-08-24 09:59:01pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+id must not contain space.
+
+[2019-08-24 09:59:01pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dir must have rtl|ltr|auto values you provide sth else!
+
+[2019-08-24 09:59:01pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+draggable must have true|false values you provide sth else!
+
+[2019-08-24 09:59:01pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dropzone must have copy|move|link values you provide sth else!
+
+[2019-08-24 09:59:01pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+hidden must have "hidden" values you provide sth else!
+
+[2019-08-24 09:59:01pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+inputmode must have none|text|decimal|numeric|tel|search|email|url values you provide sth else!
+
+[2019-08-24 09:59:01pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+id must not contain space.
+
+[2019-08-24 09:59:01pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+Custom element names must not conatin any type of space.
+
+[2019-08-24 09:59:01pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+itemtype must be url you provide not valid one.
+
+[2019-08-24 09:59:01pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+slot name cant have space.
+
+[2019-08-24 09:59:01pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+spellcheck must have true|false values you provide sth else!
+
+[2019-08-24 09:59:12pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+autocapitalize value can be none | off | on | sentences | words | characters but you have provide sth else!
+
+[2019-08-24 09:59:12pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+contenteditable must have true|false values you provide sth else!
+
+[2019-08-24 09:59:12pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+id must not contain space.
+
+[2019-08-24 09:59:12pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dir must have rtl|ltr|auto values you provide sth else!
+
+[2019-08-24 09:59:12pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+draggable must have true|false values you provide sth else!
+
+[2019-08-24 09:59:12pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dropzone must have copy|move|link values you provide sth else!
+
+[2019-08-24 09:59:12pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+hidden must have "hidden" values you provide sth else!
+
+[2019-08-24 09:59:12pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+inputmode must have none|text|decimal|numeric|tel|search|email|url values you provide sth else!
+
+[2019-08-24 09:59:12pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+id must not contain space.
+
+[2019-08-24 09:59:12pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+Custom element names must not conatin any type of space.
+
+[2019-08-24 09:59:12pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+itemtype must be url you provide not valid one.
+
+[2019-08-24 09:59:12pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+slot name cant have space.
+
+[2019-08-24 09:59:12pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+spellcheck must have true|false values you provide sth else!
+
+[2019-08-24 10:54:10pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+autocapitalize value can be none | off | on | sentences | words | characters but you have provide sth else!
+
+[2019-08-24 10:54:10pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+contenteditable must have true|false values you provide sth else!
+
+[2019-08-24 10:54:10pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+id must not contain space.
+
+[2019-08-24 10:54:10pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dir must have rtl|ltr|auto values you provide sth else!
+
+[2019-08-24 10:54:10pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+draggable must have true|false values you provide sth else!
+
+[2019-08-24 10:54:10pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+dropzone must have copy|move|link values you provide sth else!
+
+[2019-08-24 10:54:10pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+hidden must have "hidden" values you provide sth else!
+
+[2019-08-24 10:54:10pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+inputmode must have none|text|decimal|numeric|tel|search|email|url values you provide sth else!
+
+[2019-08-24 10:54:10pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+id must not contain space.
+
+[2019-08-24 10:54:10pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+Custom element names must not conatin any type of space.
+
+[2019-08-24 10:54:10pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+itemtype must be url you provide not valid one.
+
+[2019-08-24 10:54:10pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+slot name cant have space.
+
+[2019-08-24 10:54:10pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+spellcheck must have true|false values you provide sth else!
+
+[2019-08-24 10:54:10pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+tabindex must be number!
+
+[2019-08-24 10:54:10pm]SOUREC FUNC:create_simple_attr=>create_multiple_attrs=>sst_create_attr_html_global=>include_once=>require_once=>require_once=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\new_plugin-master\inc\creators\input\class_attr.php
+translate must have yes|no values you provide sth else!
+

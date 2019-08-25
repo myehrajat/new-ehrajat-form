@@ -18,7 +18,9 @@ function sst_text($input_id,$vals=NULL){
 	$global_attr = sst_create_attr_html_global($obj_input->attr_html_global_id);
 	
 	dbg($global_attr);
-	
+	$specific_attr = sst_create_attr_html_global($obj_input->attr_html_global_id);
+	dbg($specific_attr);
+	die;
 	/*
 	$obj_input = sst_get_by_id($input_id,$GLOBALS['sst_tables']['input_type']);
 	//GLOBAL create label="qwerty" title="qwerty"  style="qwerty" class="qwerty"

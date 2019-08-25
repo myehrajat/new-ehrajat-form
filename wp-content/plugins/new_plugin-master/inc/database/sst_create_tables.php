@@ -72,7 +72,7 @@ function sst_create_tables() {
 	"`id` INT(10) NOT NULL auto_increment," .
 	"`epithet` VARCHAR(255) NOT NULL," .
 	"`slug` VARCHAR(255) NOT NULL," .
-	"`itemprop` VARCHAR(255) NOT NULL," .
+	"`itemprop` VARCHAR(255) NOT NULL COMMENT 'Values:URL | String.NOTE: Disallow \':\' characters in non-URL values.Space and \'.\' is not allowed.'," .
 	"`description`  LONGTEXT DEFAULT NULL," .
 	"`owner` VARCHAR(255) DEFAULT NULL," .
 	"`created` DATETIME NOT NULL DEFAULT NOW()," .
@@ -83,7 +83,7 @@ function sst_create_tables() {
 	"`id` INT(10) NOT NULL auto_increment," .
 	"`epithet` VARCHAR(255) NOT NULL," .
 	"`slug` VARCHAR(255) NOT NULL," .
-	"`itemref` VARCHAR(255) NOT NULL," .
+	"`itemref` VARCHAR(255) NOT NULL COMMENT 'Values:Id of other HTML element. Id rules: any string but with there are limitations as id\'s value must not contain whitespace (spaces, tabs etc.) .Using characters except ASCII letters, digits, _, - and . may cause compatibility problems, as they weren\'t allowed in HTML 4. Though this restriction has been lifted in HTML5, an ID should start with a letter for compatibility.'," .
 	"`description`  LONGTEXT DEFAULT NULL," .
 	"`owner` VARCHAR(255) DEFAULT NULL," .
 	"`created` DATETIME NOT NULL DEFAULT NOW()," .
@@ -95,9 +95,9 @@ function sst_create_tables() {
 	"`id` INT(10) NOT NULL auto_increment," .
 	"`epithet` VARCHAR(255) NOT NULL," .
 	"`slug` VARCHAR(255) NOT NULL," .
-	"`css_attribute` VARCHAR(255) NOT NULL," .
-	"`css_value` VARCHAR(255) NOT NULL," .
-	"`important` VARCHAR(255) NOT NULL," .
+	"`css_attribute` VARCHAR(255) NOT NULL COMMENT 'Values:properties defined in https://www.w3.org/Style/CSS/all-properties.en.html'," .
+	"`css_value` VARCHAR(255) NOT NULL COMMENT 'Values:CSS properties values'," .
+	"`important` VARCHAR(255) NOT NULL COMMENT 'Values:true | false'," .
 	"`description`  LONGTEXT DEFAULT NULL," .
 	"`owner` VARCHAR(255) DEFAULT NULL," .
 	"`created` DATETIME NOT NULL DEFAULT NOW()," .
@@ -115,43 +115,46 @@ function sst_create_tables() {
 	"`modified` DATETIME NOT NULL DEFAULT NOW(),
         PRIMARY KEY id  (`id`)) $collate_charset;";
 
-	
-	##################################################
+	################################################################################################################################
+	# Global Attributes
+	# These attributes is not specific to inputs and is for all HTML elements
+	################################################################################################################################
 	$sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'attr_html_global' ] . " (" .
 	"`id` INT(10) NOT NULL auto_increment," .
 	"`epithet` VARCHAR(255) NOT NULL," .
 	"`slug` VARCHAR(255) NOT NULL," .
-	"`accesskey` VARCHAR(255) NOT NULL," .
-	"`autocapitalize` VARCHAR(255) NOT NULL," .
-	"`class_ids` VARCHAR(255) NOT NULL," .
-	"`contenteditable` VARCHAR(255) NOT NULL," .
-	"`contextmenu` VARCHAR(255) NOT NULL," .
-	"`data_ids` VARCHAR(255) NOT NULL," .
-	"`dir` VARCHAR(255) NOT NULL," .
-	"`draggable` VARCHAR(255) NOT NULL," .
-	"`dropzone` VARCHAR(255) NOT NULL," .
-	"`hidden` VARCHAR(255) NOT NULL," .
-	"`the_id` VARCHAR(255) NOT NULL," .
-	"`inputmode` VARCHAR(255) NOT NULL," .
-	"`is` VARCHAR(255) NOT NULL," .
-	"`itemid` VARCHAR(255) NOT NULL," .
-	"`itemprop_ids` VARCHAR(255) NOT NULL," .
-	"`itemref_ids` VARCHAR(255) NOT NULL," .
-	"`itemscope` VARCHAR(255) NOT NULL," .
-	"`itemtype` VARCHAR(255) NOT NULL," .
-	"`lang` VARCHAR(255) NOT NULL," .
-	"`onevent_ids` VARCHAR(255) NOT NULL," .
-	"`slot` VARCHAR(255) NOT NULL," .
-	"`spellcheck` VARCHAR(255) NOT NULL," .
-	"`style_ids` VARCHAR(255) NOT NULL," .
-	"`tabindex` VARCHAR(255) NOT NULL," .
-	"`title` VARCHAR(255) NOT NULL," .
-	"`translate` VARCHAR(255) NOT NULL," .
+	"`accesskey` VARCHAR(255) NOT NULL COMMENT 'Values:Single characters Usage:Access element by pressing ALT+Single characters'," .
+	"`autocapitalize` VARCHAR(255) NOT NULL COMMENT 'Values:off or none(No capitalize letter) | on or sentences(First letter of sentence) | words(First letter of words) | characters(ALL characters uppercase)'," .
+	"`class_ids` VARCHAR(255) NOT NULL COMMENT 'Values:Ids of attr_html_global_class table this support complex ids.'," .
+	"`contenteditable` VARCHAR(255) NOT NULL COMMENT 'Values:true | false.'," .
+	"`contextmenu` VARCHAR(255) NOT NULL COMMENT 'NOTE:This is obsolete Values:The id name of <menu> element'," .
+	"`data_ids` VARCHAR(255) NOT NULL COMMENT 'Values:Ids of attr_html_global_data table this support complex ids.'," .
+	"`dir` VARCHAR(255) NOT NULL COMMENT 'Values:ltr | rtl | auto. NOTE: IE/Edge does not support the auto keyword on elements'," .
+	"`draggable` VARCHAR(255) NOT NULL COMMENT 'Values:true | false | auto.'," .
+	"`dropzone` VARCHAR(255) NOT NULL COMMENT 'Values:copy | move | link. NOTE:The most of browser not support this attribute (Samsung browser supports). This is This is an experimental technology.'," .
+	"`hidden` VARCHAR(255) NOT NULL COMMENT 'Values:true | false.'," .
+	"`the_id` VARCHAR(255) NOT NULL COMMENT 'Values:Any string but with there are limitations as id\'s value must not contain whitespace (spaces, tabs etc.) .Using characters except ASCII letters, digits, _, - and . may cause compatibility problems, as they weren\'t allowed in HTML 4. Though this restriction has been lifted in HTML5, an ID should start with a letter for compatibility.'," .
+	"`inputmode` VARCHAR(255) NOT NULL COMMENT 'Values:none | text | decimal | numeric | tel | search | email | url.'," .
+	"`is` VARCHAR(255) NOT NULL COMMENT 'Values:JS custom element defined. Specified custom element name has been successfully defined in the document, and extends the element type it is being applied to it. Custom element names should start with a-z and contain a-z and at least one - with optionally 0-9.You should not use the x-, polymer-, ng- prefixes. Visit:https://github.com/sindresorhus/validate-element-name'," .
+	"`itemid` VARCHAR(255) NOT NULL COMMENT 'Values:The Whatwg.org definition specifies that an itemid must be a URL. However, URN may also be used. Note:An itemid attribute can only be specified for an element that has both itemscope and itemtype attributes'," .
+	"`itemprop_ids` VARCHAR(255) NOT NULL COMMENT 'Values:Ids of attr_html_global_itemprop table this support complex ids.'," .
+	"`itemref_ids` VARCHAR(255) NOT NULL COMMENT 'Values:Ids of attr_html_global_itemref table this support complex ids. NOTE: Itemref attribute can only be specified on elements that have an itemscope attribute specified.'," .
+	"`itemscope` VARCHAR(255) NOT NULL COMMENT 'Values:Not NULL value define itemscope. NOTE:Itemscope has no value at all'," .
+	"`itemtype` VARCHAR(255) NOT NULL COMMENT 'Values:URL. URL to schema project defined type see:http://schema.org/Thing'," .
+	"`lang` VARCHAR(255) NOT NULL COMMENT 'Values:Language code,may with hyphen-separated language subtags.Visit registerd languages:http://www.iana.org/assignments/language-subtag-registry/language-subtag-registry.And visit this github project to see and search all subtag language codes:https://r12a.github.io/app-subtags/'," .
+	"`onevent_ids` VARCHAR(255) NOT NULL COMMENT 'Values:Ids of attr_html_event table this support complex ids'," .
+	"`slot` VARCHAR(255) NOT NULL COMMENT 'Values:The name of slot element.this follow the rule of attribute name value.This is an experimental technology'," .
+	"`spellcheck` VARCHAR(255) NOT NULL COMMENT 'Values:true | false.'," .
+	"`style_ids` VARCHAR(255) NOT NULL COMMENT 'Values:Ids of attr_html_global_style table this support complex ids.'," .
+	"`tabindex` VARCHAR(255) NOT NULL COMMENT 'Values:-1 (Unreachable by tab) | 0 (Make reachable by tab) | Positive numbers (Sequence of reaching by tab).'," .
+	"`title` VARCHAR(255) NOT NULL COMMENT 'Values:No limitation even multiline is acceptable.'," .
+	"`translate` VARCHAR(255) NOT NULL COMMENT 'Values:yes | no.'," .
 	"`description`  LONGTEXT DEFAULT NULL," .
 	"`owner` VARCHAR(255) DEFAULT NULL," .
 	"`created` DATETIME NOT NULL DEFAULT NOW()," .
 	"`modified` DATETIME NOT NULL DEFAULT NOW(),
-    PRIMARY KEY id  (`id`)) $collate_charset;";
+    PRIMARY KEY id  (`id`)) $collate_charset ".
+	" COMMENT 'This table contain all HTML5 global tags this mean ALL not only input elements.'";
 	##################################################
 	/*
 	$sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'attr_input_common' ] . " (" .
@@ -175,6 +178,7 @@ function sst_create_tables() {
 	"`id` INT(10) NOT NULL auto_increment," .
 	"`epithet` VARCHAR(255) NOT NULL," .
 	"`slug` VARCHAR(255) NOT NULL," .
+	"`autofocus` VARCHAR(255) NOT NULL," .
 	"`checked` VARCHAR(255) NOT NULL," .
 	"`required` VARCHAR(255) NOT NULL," .
 	"`description`  LONGTEXT DEFAULT NULL," .
@@ -188,6 +192,7 @@ function sst_create_tables() {
 	"`epithet` VARCHAR(255) NOT NULL," .
 	"`slug` VARCHAR(255) NOT NULL," .
 	"`autocomplete` VARCHAR(255) NOT NULL," .
+	"`autofocus` VARCHAR(255) NOT NULL," .
 	"`list` VARCHAR(255) NOT NULL," .
 	"`description`  LONGTEXT DEFAULT NULL," .
 	"`owner` VARCHAR(255) DEFAULT NULL," .
@@ -200,6 +205,7 @@ function sst_create_tables() {
 	"`epithet` VARCHAR(255) NOT NULL," .
 	"`slug` VARCHAR(255) NOT NULL," .
 	"`accept_ids` VARCHAR(255) NOT NULL," .
+	"`autofocus` VARCHAR(255) NOT NULL," .
 	"`multiple` VARCHAR(255) NOT NULL," .
 	"`required` VARCHAR(255) NOT NULL," .
 	"`description`  LONGTEXT DEFAULT NULL," .
@@ -212,6 +218,7 @@ function sst_create_tables() {
 	"`id` INT(10) NOT NULL auto_increment," .
 	"`epithet` VARCHAR(255) NOT NULL," .
 	"`slug` VARCHAR(255) NOT NULL," .
+	"`autofocus` VARCHAR(255) NOT NULL," .
 	"`formaction` VARCHAR(255) NOT NULL," .
 	"`formenctype` VARCHAR(255) NOT NULL," .
 	"`formmethod` VARCHAR(255) NOT NULL," .
@@ -228,6 +235,7 @@ function sst_create_tables() {
 	"`epithet` VARCHAR(255) NOT NULL," .
 	"`slug` VARCHAR(255) NOT NULL," .
 	"`autocomplete` VARCHAR(255) NOT NULL," .
+	"`autofocus` VARCHAR(255) NOT NULL," .
 	"`list` VARCHAR(255) NOT NULL," .
 	"`max` VARCHAR(255) NOT NULL," .
 	"`min` VARCHAR(255) NOT NULL," .
@@ -244,6 +252,7 @@ function sst_create_tables() {
 	"`epithet` VARCHAR(255) NOT NULL," .
 	"`slug` VARCHAR(255) NOT NULL," .
 	"`autocomplete` VARCHAR(255) NOT NULL," .
+	"`autofocus` VARCHAR(255) NOT NULL," .
 	"`list` VARCHAR(255) NOT NULL," .
 	"`max` VARCHAR(255) NOT NULL," .
 	"`min` VARCHAR(255) NOT NULL," .
@@ -261,6 +270,7 @@ function sst_create_tables() {
 	"`epithet` VARCHAR(255) NOT NULL," .
 	"`slug` VARCHAR(255) NOT NULL," .
 	"`autocomplete` VARCHAR(255) NOT NULL," .
+	"`autofocus` VARCHAR(255) NOT NULL," .
 	"`maxlength` VARCHAR(255) NOT NULL," .
 	"`minlength` VARCHAR(255) NOT NULL," .
 	"`pattern` VARCHAR(255) NOT NULL," .
@@ -279,6 +289,7 @@ function sst_create_tables() {
 	"`epithet` VARCHAR(255) NOT NULL," .
 	"`slug` VARCHAR(255) NOT NULL," .
 	"`autocomplete` VARCHAR(255) NOT NULL," .
+	"`autofocus` VARCHAR(255) NOT NULL," .
 	"`list` VARCHAR(255) NOT NULL," .
 	"`max` VARCHAR(255) NOT NULL," .
 	"`min` VARCHAR(255) NOT NULL," .
@@ -297,6 +308,7 @@ function sst_create_tables() {
 	"`epithet` VARCHAR(255) NOT NULL," .
 	"`slug` VARCHAR(255) NOT NULL," .
 	"`alt` VARCHAR(255) NOT NULL," .
+	"`autofocus` VARCHAR(255) NOT NULL," .
 	"`formaction` VARCHAR(255) NOT NULL," .
 	"`formenctype` VARCHAR(255) NOT NULL," .
 	"`formmethod` VARCHAR(255) NOT NULL," .
@@ -316,6 +328,7 @@ function sst_create_tables() {
 	"`epithet` VARCHAR(255) NOT NULL," .
 	"`slug` VARCHAR(255) NOT NULL," .
 	"`autocomplete` VARCHAR(255) NOT NULL," .
+	"`autofocus` VARCHAR(255) NOT NULL," .
 	"`list` VARCHAR(255) NOT NULL," .
 	"`maxlength` VARCHAR(255) NOT NULL," .
 	"`minlength` VARCHAR(255) NOT NULL," .
@@ -335,6 +348,7 @@ function sst_create_tables() {
 	"`epithet` VARCHAR(255) NOT NULL," .
 	"`slug` VARCHAR(255) NOT NULL," .
 	"`autocomplete` VARCHAR(255) NOT NULL," .
+	"`autofocus` VARCHAR(255) NOT NULL," .
 	"`list` VARCHAR(255) NOT NULL," .
 	"`maxlength` VARCHAR(255) NOT NULL," .
 	"`minlength` VARCHAR(255) NOT NULL," .
@@ -354,7 +368,8 @@ function sst_create_tables() {
 	"`id` INT(10) NOT NULL auto_increment," .
 	"`epithet` VARCHAR(255) NOT NULL," .
 	"`slug` VARCHAR(255) NOT NULL," .
-	"`autocomplete` VARCHAR(255) NOT NULL," .	
+	"`autocomplete` VARCHAR(255) NOT NULL," .
+	"`autofocus` VARCHAR(255) NOT NULL," .
 	"`dirname` VARCHAR(255) NOT NULL," .
 	"`list` VARCHAR(255) NOT NULL," .
 	"`maxlength` VARCHAR(255) NOT NULL," .
@@ -400,14 +415,13 @@ function sst_create_tables() {
 	"`id` INT(10) NOT NULL auto_increment," .
 	"`epithet` VARCHAR(255) NOT NULL," .
 	"`slug` VARCHAR(255) NOT NULL," .
-	"`autofocus` VARCHAR(255) NOT NULL," .
 	"`disabled` VARCHAR(255) NOT NULL," .
 	"`form` VARCHAR(255) NOT NULL," .
 	"`name` VARCHAR(255) NOT NULL," .
 	"`type` VARCHAR(255) NOT NULL," .
 	"`value` VARCHAR(255) NOT NULL," .
-	"`attr_html_global_id` VARCHAR(255) NOT NULL," .
-	"`attr_input_specific_id` VARCHAR(255) NOT NULL," .
+	"`attr_html_global_id` VARCHAR(255) NOT NULL," .//these include all html global attributes
+	"`attr_input_specific_id` VARCHAR(255) NOT NULL," .//these include input type specific ones
 	"`label_id_before` VARCHAR(255) NOT NULL," .
 	"`label_id_after` VARCHAR(255) NOT NULL," .
 	"`meta_ids` VARCHAR(255) NOT NULL," .
