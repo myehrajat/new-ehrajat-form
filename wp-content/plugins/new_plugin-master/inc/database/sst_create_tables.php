@@ -123,7 +123,7 @@ function sst_create_tables() {
 	"`id` INT(10) NOT NULL auto_increment," .
 	"`epithet` VARCHAR(255) NOT NULL," .
 	"`slug` VARCHAR(255) NOT NULL," .
-	"`accesskey` VARCHAR(255) NOT NULL COMMENT 'Values:Single characters Usage:Access element by pressing ALT+Single characters'," .
+	"`accesskey` VARCHAR(255) NOT NULL COMMENT 'Values:visit:https://html.spec.whatwg.org/dev/interaction.html#the-accesskey-attribute'," .
 	"`autocapitalize` VARCHAR(255) NOT NULL COMMENT 'Values:off or none(No capitalize letter) | on or sentences(First letter of sentence) | words(First letter of words) | characters(ALL characters uppercase)'," .
 	"`class_ids` VARCHAR(255) NOT NULL COMMENT 'Values:Ids of attr_html_global_class table this support complex ids.'," .
 	"`contenteditable` VARCHAR(255) NOT NULL COMMENT 'Values:true | false.'," .
@@ -149,6 +149,23 @@ function sst_create_tables() {
 	"`tabindex` VARCHAR(255) NOT NULL COMMENT 'Values:-1 (Unreachable by tab) | 0 (Make reachable by tab) | Positive numbers (Sequence of reaching by tab).'," .
 	"`title` VARCHAR(255) NOT NULL COMMENT 'Values:No limitation even multiline is acceptable.'," .
 	"`translate` VARCHAR(255) NOT NULL COMMENT 'Values:yes | no.'," .
+	"`description`  LONGTEXT DEFAULT NULL," .
+	"`owner` VARCHAR(255) DEFAULT NULL," .
+	"`created` DATETIME NOT NULL DEFAULT NOW()," .
+	"`modified` DATETIME NOT NULL DEFAULT NOW(),
+    PRIMARY KEY id  (`id`)) $collate_charset ".
+	" COMMENT 'This table contain all HTML5 global tags this mean ALL not only input elements.'";
+
+	################################################################################################################################
+	# Global Attributes
+	# These attributes is not specific to inputs and is for all HTML elements
+	################################################################################################################################
+	$sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'attr_input_custom' ] . " (" .
+	"`id` INT(10) NOT NULL auto_increment," .
+	"`epithet` VARCHAR(255) NOT NULL," .
+	"`slug` VARCHAR(255) NOT NULL," .
+	"`attr_name` VARCHAR(255) NOT NULL," .
+	"`attr_value` VARCHAR(255) NOT NULL," .
 	"`description`  LONGTEXT DEFAULT NULL," .
 	"`owner` VARCHAR(255) DEFAULT NULL," .
 	"`created` DATETIME NOT NULL DEFAULT NOW()," .
@@ -368,17 +385,17 @@ function sst_create_tables() {
 	"`id` INT(10) NOT NULL auto_increment," .
 	"`epithet` VARCHAR(255) NOT NULL," .
 	"`slug` VARCHAR(255) NOT NULL," .
-	"`autocomplete` VARCHAR(255) NOT NULL," .
-	"`autofocus` VARCHAR(255) NOT NULL," .
-	"`dirname` VARCHAR(255) NOT NULL," .
-	"`list` VARCHAR(255) NOT NULL," .
-	"`maxlength` VARCHAR(255) NOT NULL," .
-	"`minlength` VARCHAR(255) NOT NULL," .
-	"`pattern` VARCHAR(255) NOT NULL," .
-	"`placeholder` VARCHAR(255) NOT NULL," .
-	"`readonly` VARCHAR(255) NOT NULL," .
-	"`required` VARCHAR(255) NOT NULL," .
-	"`size` VARCHAR(255) NOT NULL," .
+	"`autocomplete` VARCHAR(255) NOT NULL COMMENT 'Values:can contain one, two or three part space seperated,{generic,person,contact} {sectio-*} {opt}.the part of section and opt is optional and opt name must be matched by its type of generic,person,contact. visit:https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete'," .
+	"`autofocus` VARCHAR(255) NOT NULL COMMENT 'Values:autofocus'," .
+	"`dirname` VARCHAR(255) NOT NULL COMMENT 'Values:any+.dir. to making it easy we attach it .dir automatically so you dont attach .dir'," .
+	"`list` VARCHAR(255) NOT NULL COMMENT 'Values:id of datalist element.'," .
+	"`maxlength` VARCHAR(255) NOT NULL COMMENT 'Values:any number positive and negative, negative means no limit zero applied to prevent typing.'," .
+	"`minlength` VARCHAR(255) NOT NULL COMMENT 'Values:any number positive and negative, negative means no limit zero applied to prevent typing.'," .
+	"`pattern` VARCHAR(255) NOT NULL COMMENT 'Values:Regular expression pattern'," .
+	"`placeholder` VARCHAR(255) NOT NULL COMMENT 'Values:any string'," .
+	"`readonly` VARCHAR(255) NOT NULL COMMENT 'Values:readonly'," .
+	"`required` VARCHAR(255) NOT NULL COMMENT 'Values:required'," .
+	"`size` VARCHAR(255) NOT NULL COMMENT 'Values:any number positive and negative,zero and negative means default.'," .
 	"`description`  LONGTEXT DEFAULT NULL," .
 	"`owner` VARCHAR(255) DEFAULT NULL," .
 	"`created` DATETIME NOT NULL DEFAULT NOW()," .
@@ -386,7 +403,7 @@ function sst_create_tables() {
         PRIMARY KEY id  (`id`)) $collate_charset;";
 	##################################################
 	##################################################
-	$sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'language' ] . " (" .
+	$sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS['sst_tables']['language'] . " (" .
 	"`id` INT(10) NOT NULL auto_increment," .
 	"`epithet` VARCHAR(255) NOT NULL," .
 	"`slug` VARCHAR(255) NOT NULL," .
@@ -415,13 +432,14 @@ function sst_create_tables() {
 	"`id` INT(10) NOT NULL auto_increment," .
 	"`epithet` VARCHAR(255) NOT NULL," .
 	"`slug` VARCHAR(255) NOT NULL," .
-	"`disabled` VARCHAR(255) NOT NULL," .
-	"`form` VARCHAR(255) NOT NULL," .
-	"`name` VARCHAR(255) NOT NULL," .
-	"`type` VARCHAR(255) NOT NULL," .
-	"`value` VARCHAR(255) NOT NULL," .
+	"`disabled` VARCHAR(255) NOT NULL COMMENT 'Values:disabled'," .
+	"`form` VARCHAR(255) NOT NULL COMMENT 'Values:id of form'," .
+	"`name` VARCHAR(255) NOT NULL COMMENT 'Values:any string.Other than isindex, any non-empty value for name is allowed. The name _charset_ is special which applying in hidden input name return user encoding.'," .//
+	"`type_id` VARCHAR(255) NOT NULL COMMENT 'Values:id of input type'," .//id of input_type table
+	"`value` VARCHAR(255) NOT NULL COMMENT 'Values:any string'," .
 	"`attr_html_global_id` VARCHAR(255) NOT NULL," .//these include all html global attributes
 	"`attr_input_specific_id` VARCHAR(255) NOT NULL," .//these include input type specific ones
+	"`attr_input_custom_ids` VARCHAR(255) NOT NULL," .//these include input type specific ones
 	"`label_id_before` VARCHAR(255) NOT NULL," .
 	"`label_id_after` VARCHAR(255) NOT NULL," .
 	"`meta_ids` VARCHAR(255) NOT NULL," .
@@ -748,3 +766,4 @@ function sst_create_tables() {
 	}
 }
 sst_create_tables();
+	

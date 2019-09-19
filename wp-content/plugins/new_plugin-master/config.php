@@ -38,20 +38,20 @@ global $wpdb;
 /*prefix for database tables it will append wp db prefix*/
 define('DBPREFIX','tt_');
 /*by overriding we ignore your wpdb settings*/
-define('OVERRIDE_CHARSET','true');
+define('OVERRIDE_CHARSET',True);
 define('CHARSET','utf8');
 /*by overriding we ignore your wpdb settings*/
-define('OVERRIDE_COLLATION','true');
+define('OVERRIDE_COLLATION',True);
 define('COLLATION','utf8_general_ci');
 /*GLOBALS['sst_tables'] will be set*/
 /* drop all core tables on deactivation*/
 ##### FALSE IS RECOMMENDED ####
-define('DROP_ON_DEACTIVATION','false');
+define('DROP_ON_DEACTIVATION', False);
 /* drop vals core tables on deactivation it like a backup of you inputs*/
 ##### FALSE IS STRONGLY RECOMMENDED ####
-define('DONT_DROP_VALS','false');
+define('DONT_DROP_VALS', True );
 ##### ALLOW TO SHOW WPDB QUERY ERRORS ####
-$wpdb->show_errors = true;
+$wpdb->show_errors = True;
 
 #############################################
 # MISC
@@ -59,6 +59,7 @@ $wpdb->show_errors = true;
 /* autofix mistyped ids eg make 1,2-5,zz-3,13id,mocl to 1,2-5,-3,13 */
 ##### TRUE IS STRONGLY RECOMMENDED ####
 define('STRICT_VALID_IDS','true');
+define('EVAL_STR','%%E%%');
 
 require_once( DBPATH.'table_names.php');
 

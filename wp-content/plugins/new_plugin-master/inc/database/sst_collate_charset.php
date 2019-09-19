@@ -23,3 +23,6 @@ function sst_collate_charset() {
 	return $set_charset . $collate;
 
 }
+
+
+

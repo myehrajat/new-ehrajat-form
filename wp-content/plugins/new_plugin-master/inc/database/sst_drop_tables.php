@@ -6,8 +6,8 @@
 
 function sst_drop_tables() {
 	global $wpdb;
-	if ( DROP_ON_DEACTIVATION ) {
-		if(DONT_DROP_VALS){
+	if ( DROP_ON_DEACTIVATION === True ) {
+		if(DONT_DROP_VALS === True){
 			 unset($GLOBALS[ 'sst_tables' ]['vals']);
 		}
 		foreach ( $GLOBALS[ 'sst_tables' ] as $table_query ) {
@@ -20,3 +20,5 @@ function sst_drop_tables() {
 		}
 	}
 }
+
+

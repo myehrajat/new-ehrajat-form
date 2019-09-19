@@ -1,4 +1,5 @@
 <?php
+
 /**************************************************
 *version 1.0.0
 *these function create one input
@@ -66,3 +67,5 @@ class input extends common{
 				sst_error_log( 'incorrect type id :"' . $obj_input->type_id . '" provided for input id:"' . $input_id . '".' );
 			}
 }*/
+
+
