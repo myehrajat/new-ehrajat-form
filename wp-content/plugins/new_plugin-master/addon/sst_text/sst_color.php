@@ -5,7 +5,7 @@
 **************************************************/
 
 $sst['html_type']='color';
-$sst['type']='color';
+$sst['type']='simple-color';
 $sst['function']='sst_color';
 $sst['epithet']='Color Field';
 $sst['description']='This is simple dat input type as a HTML code!';

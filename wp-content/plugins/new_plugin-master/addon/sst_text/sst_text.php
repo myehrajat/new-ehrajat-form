@@ -5,7 +5,7 @@
 **************************************************/
 
 $sst['html_type']='text';
-$sst['type']='text';
+$sst['type']='simple-text';
 $sst['function']='sst_text';
 $sst['epithet']='Text Field';
 $sst['description']='This is simple text input type as a HTML code!';

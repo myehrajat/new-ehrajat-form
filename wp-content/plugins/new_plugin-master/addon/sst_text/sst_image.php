@@ -5,7 +5,7 @@
 **************************************************/
 
 $sst['html_type']='image';
-$sst['type']='image';
+$sst['type']='simple-image';
 $sst['function']='sst_image';
 $sst['epithet']='Image Field';
 $sst['description']='This is simple image input type as a HTML code!';

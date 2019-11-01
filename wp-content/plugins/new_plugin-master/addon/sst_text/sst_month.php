@@ -5,7 +5,7 @@
 **************************************************/
 
 $sst['html_type']='month';
-$sst['type']='month';
+$sst['type']='simple-month';
 $sst['function']='sst_month';
 $sst['epithet']='Month Field';
 $sst['description']='This is simple dat input type as a HTML code!';

@@ -5,7 +5,7 @@
 **************************************************/
 
 $sst['html_type']='datetime';
-$sst['type']='datetime';
+$sst['type']='simple-datetime';
 $sst['function']='sst_datetime';
 $sst['epithet']='Datetime Field';
 $sst['description']='This is simple dat input type as a HTML code!';

@@ -5,7 +5,7 @@
 **************************************************/
 
 $sst['html_type']='number';
-$sst['type']='number';
+$sst['type']='simple-number';
 $sst['function']='sst_number';
 $sst['epithet']='Number Field';
 $sst['description']='This is simple number input type as a HTML code!';

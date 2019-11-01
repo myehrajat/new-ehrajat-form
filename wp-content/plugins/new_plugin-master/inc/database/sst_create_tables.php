@@ -21,6 +21,27 @@ function sst_create_tables() {
 	"`modified` DATETIME NOT NULL DEFAULT NOW(),
         PRIMARY KEY id  (`id`)) $collate_charset;";
 	##################################################
+	$sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'attr_input_attr_list' ] . " (" .
+	"`id` INT(10) NOT NULL auto_increment," .
+	"`epithet` VARCHAR(255) NOT NULL," .
+	"`slug` VARCHAR(255) NOT NULL," .
+	"`source_type` VARCHAR(255) DEFAULT NULL COMMENT 'Values:query | json_url | value'," .
+	"`disabled` VARCHAR(255) DEFAULT NULL," .
+	"`label` VARCHAR(255) DEFAULT NULL," .
+	"`value` VARCHAR(255) DEFAULT NULL," .
+	"`query` LONGTEXT DEFAULT NULL," .//query will override value
+	"`query_label_function` LONGTEXT DEFAULT NULL," .
+	"`query_value_function` LONGTEXT DEFAULT NULL," .
+	"`json_url` LONGTEXT DEFAULT NULL," .
+	"`json_label_pointer` VARCHAR(255) DEFAULT NULL," .
+	"`json_value_pointer` VARCHAR(255) DEFAULT NULL," .
+	"`attr_html_global_id` VARCHAR(255) DEFAULT NULL," .
+	"`description`  LONGTEXT DEFAULT NULL," .
+	"`owner` VARCHAR(255) DEFAULT NULL," .
+	"`created` DATETIME NOT NULL DEFAULT NOW()," .
+	"`modified` DATETIME NOT NULL DEFAULT NOW(),
+        PRIMARY KEY id  (`id`)) $collate_charset;";
+	##################################################
 	$sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'attr_html_event_jsfunction' ] . " (" .
 	"`id` INT(10) NOT NULL auto_increment," .
 	"`epithet` VARCHAR(255) NOT NULL," .
@@ -115,7 +136,46 @@ function sst_create_tables() {
 	"`modified` DATETIME NOT NULL DEFAULT NOW(),
         PRIMARY KEY id  (`id`)) $collate_charset;";
 
-	################################################################################################################################
+	##################################################
+	$sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'attr_input_select_optgroup' ] . " (" .
+	"`id` INT(10) NOT NULL auto_increment," .
+	"`epithet` VARCHAR(255) NOT NULL," .
+	"`slug` VARCHAR(255) NOT NULL," .
+	"`label` VARCHAR(255) NOT NULL," .
+	"`option_ids` VARCHAR(255) NOT NULL," .
+	"`attr_html_global_id` VARCHAR(255) DEFAULT NULL," .
+	"`description` LONGTEXT DEFAULT NULL," .
+	"`owner` VARCHAR(255) DEFAULT NULL," .
+	"`created` DATETIME NOT NULL DEFAULT NOW()," .
+	"`modified` DATETIME NOT NULL DEFAULT NOW(),
+        PRIMARY KEY id  (`id`)) $collate_charset;";
+
+	##################################################
+	$sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'attr_input_select_options' ] . " (" .
+	"`id` INT(10) NOT NULL auto_increment," .
+	"`epithet` VARCHAR(255) NOT NULL," .
+	"`slug` VARCHAR(255) NOT NULL," .
+	"`source_type` VARCHAR(255) DEFAULT NULL COMMENT 'Values:query | json_url | value'," .
+	"`text` VARCHAR(255) NOT NULL," .
+	"`disabled` VARCHAR(255) NOT NULL," .
+	"`label` VARCHAR(255) NOT NULL," .
+	"`selected` VARCHAR(255) NOT NULL," .
+	"`value` VARCHAR(255) NOT NULL," .
+	"`query` LONGTEXT DEFAULT NULL," .
+	"`query_text_function` LONGTEXT DEFAULT NULL," .
+	"`query_label_function` LONGTEXT DEFAULT NULL," .
+	"`query_value_function` LONGTEXT DEFAULT NULL," .
+	"`json_url` LONGTEXT DEFAULT NULL," .
+	"`json_text_pointer` VARCHAR(255) DEFAULT NULL," .
+	"`json_label_pointer` VARCHAR(255) DEFAULT NULL," .
+	"`json_value_pointer` VARCHAR(255) DEFAULT NULL," .
+	"`attr_html_global_id` VARCHAR(255) DEFAULT NULL," .
+	"`description`  LONGTEXT DEFAULT NULL," .
+	"`owner` VARCHAR(255) DEFAULT NULL," .
+	"`created` DATETIME NOT NULL DEFAULT NOW()," .
+	"`modified` DATETIME NOT NULL DEFAULT NOW(),
+        PRIMARY KEY id  (`id`)) $collate_charset;";
+
 	# Global Attributes
 	# These attributes is not specific to inputs and is for all HTML elements
 	################################################################################################################################
@@ -190,6 +250,26 @@ function sst_create_tables() {
 	"`modified` DATETIME NOT NULL DEFAULT NOW(),
         PRIMARY KEY id  (`id`)) $collate_charset;";
 		*/
+			
+
+	##################################################
+	$sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'attr_input_select' ] . " (" .
+	"`id` INT(10) NOT NULL auto_increment," .
+	"`epithet` VARCHAR(255) NOT NULL," .
+	"`slug` VARCHAR(255) NOT NULL," .
+	"`unselected_text` VARCHAR(255) NOT NULL," .
+	"`autocomplete` VARCHAR(255) NOT NULL," .
+	"`autofocus` VARCHAR(255) NOT NULL," .
+	"`multiple` VARCHAR(255) NOT NULL," .
+	"`required` VARCHAR(255) NOT NULL," .
+	"`size` VARCHAR(255) NOT NULL," .
+	"`optgroup_ids` VARCHAR(255) NOT NULL," .
+	"`option_ids` VARCHAR(255) NOT NULL," .
+	"`description`  LONGTEXT DEFAULT NULL," .
+	"`owner` VARCHAR(255) DEFAULT NULL," .
+	"`created` DATETIME NOT NULL DEFAULT NOW()," .
+	"`modified` DATETIME NOT NULL DEFAULT NOW(),
+        PRIMARY KEY id  (`id`)) $collate_charset;";
 	##################################################
 	$sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'attr_input_checkbox_radio' ] . " (" .
 	"`id` INT(10) NOT NULL auto_increment," .
@@ -211,6 +291,7 @@ function sst_create_tables() {
 	"`autocomplete` VARCHAR(255) NOT NULL," .
 	"`autofocus` VARCHAR(255) NOT NULL," .
 	"`list` VARCHAR(255) NOT NULL," .
+	"`list_ids` VARCHAR(255) NOT NULL," .
 	"`description`  LONGTEXT DEFAULT NULL," .
 	"`owner` VARCHAR(255) DEFAULT NULL," .
 	"`created` DATETIME NOT NULL DEFAULT NOW()," .
@@ -223,6 +304,7 @@ function sst_create_tables() {
 	"`slug` VARCHAR(255) NOT NULL," .
 	"`accept_ids` VARCHAR(255) NOT NULL," .
 	"`autofocus` VARCHAR(255) NOT NULL," .
+	"`capture` VARCHAR(255) NOT NULL," .
 	"`multiple` VARCHAR(255) NOT NULL," .
 	"`required` VARCHAR(255) NOT NULL," .
 	"`description`  LONGTEXT DEFAULT NULL," .
@@ -254,6 +336,8 @@ function sst_create_tables() {
 	"`autocomplete` VARCHAR(255) NOT NULL," .
 	"`autofocus` VARCHAR(255) NOT NULL," .
 	"`list` VARCHAR(255) NOT NULL," .
+	"`list_ids` VARCHAR(255) NOT NULL," .
+	"`max` VARCHAR(255) NOT NULL," .
 	"`max` VARCHAR(255) NOT NULL," .
 	"`min` VARCHAR(255) NOT NULL," .
 	"`multiple` VARCHAR(255) NOT NULL," .
@@ -271,6 +355,7 @@ function sst_create_tables() {
 	"`autocomplete` VARCHAR(255) NOT NULL," .
 	"`autofocus` VARCHAR(255) NOT NULL," .
 	"`list` VARCHAR(255) NOT NULL," .
+	"`list_ids` VARCHAR(255) NOT NULL," .
 	"`max` VARCHAR(255) NOT NULL," .
 	"`min` VARCHAR(255) NOT NULL," .
 	"`readonly` VARCHAR(255) NOT NULL," .
@@ -308,6 +393,7 @@ function sst_create_tables() {
 	"`autocomplete` VARCHAR(255) NOT NULL," .
 	"`autofocus` VARCHAR(255) NOT NULL," .
 	"`list` VARCHAR(255) NOT NULL," .
+	"`list_ids` VARCHAR(255) NOT NULL," .
 	"`max` VARCHAR(255) NOT NULL," .
 	"`min` VARCHAR(255) NOT NULL," .
 	"`placeholder` VARCHAR(255) NOT NULL," .
@@ -347,6 +433,7 @@ function sst_create_tables() {
 	"`autocomplete` VARCHAR(255) NOT NULL," .
 	"`autofocus` VARCHAR(255) NOT NULL," .
 	"`list` VARCHAR(255) NOT NULL," .
+	"`list_ids` VARCHAR(255) NOT NULL," .
 	"`maxlength` VARCHAR(255) NOT NULL," .
 	"`minlength` VARCHAR(255) NOT NULL," .
 	"`pattern` VARCHAR(255) NOT NULL," .
@@ -367,6 +454,7 @@ function sst_create_tables() {
 	"`autocomplete` VARCHAR(255) NOT NULL," .
 	"`autofocus` VARCHAR(255) NOT NULL," .
 	"`list` VARCHAR(255) NOT NULL," .
+	"`list_ids` VARCHAR(255) NOT NULL," .
 	"`maxlength` VARCHAR(255) NOT NULL," .
 	"`minlength` VARCHAR(255) NOT NULL," .
 	"`multiple` VARCHAR(255) NOT NULL," .
@@ -389,6 +477,7 @@ function sst_create_tables() {
 	"`autofocus` VARCHAR(255) NOT NULL COMMENT 'Values:autofocus'," .
 	"`dirname` VARCHAR(255) NOT NULL COMMENT 'Values:any+.dir. to making it easy we attach it .dir automatically so you dont attach .dir'," .
 	"`list` VARCHAR(255) NOT NULL COMMENT 'Values:id of datalist element.'," .
+	"`list_ids` VARCHAR(255) NOT NULL COMMENT 'Values:id of datalist element.'," .
 	"`maxlength` VARCHAR(255) NOT NULL COMMENT 'Values:any number positive and negative, negative means no limit zero applied to prevent typing.'," .
 	"`minlength` VARCHAR(255) NOT NULL COMMENT 'Values:any number positive and negative, negative means no limit zero applied to prevent typing.'," .
 	"`pattern` VARCHAR(255) NOT NULL COMMENT 'Values:Regular expression pattern'," .
@@ -403,17 +492,26 @@ function sst_create_tables() {
         PRIMARY KEY id  (`id`)) $collate_charset;";
 	##################################################
 	##################################################
-	$sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS['sst_tables']['language'] . " (" .
+	$sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'attr_input_textarea' ] . " (" .
 	"`id` INT(10) NOT NULL auto_increment," .
 	"`epithet` VARCHAR(255) NOT NULL," .
 	"`slug` VARCHAR(255) NOT NULL," .
-	"`language` VARCHAR(255) NOT NULL," .
-	"`direction` VARCHAR(255) NOT NULL," .
-	"`description`  LONGTEXT DEFAULT NULL," .
+	"`text`  LONGTEXT DEFAULT NULL," .
+	"`autocomplete` VARCHAR(255) NOT NULL," .
+	"`cols` VARCHAR(255) NOT NULL," .
+	"`maxlength` VARCHAR(255) NOT NULL," .
+	"`minlength` VARCHAR(255) NOT NULL," .
+	"`placeholder` VARCHAR(255) NOT NULL," .
+	"`readonly` VARCHAR(255) NOT NULL," .
+	"`required` VARCHAR(255) NOT NULL," .
+	"`rows` VARCHAR(255) NOT NULL," .
+	"`wrap` VARCHAR(255) NOT NULL," .
+	"`description` LONGTEXT DEFAULT NULL," .
 	"`owner` VARCHAR(255) DEFAULT NULL," .
 	"`created` DATETIME NOT NULL DEFAULT NOW()," .
 	"`modified` DATETIME NOT NULL DEFAULT NOW(),
-        PRIMARY KEY id  (`id`)) $collate_charset;";
+        PRIMARY KEY id  (`id`)) $collate_charset;";					
+
 	##################################################
 	$sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'input_type' ] . " (" .
 	"`id` INT(10) NOT NULL auto_increment," .

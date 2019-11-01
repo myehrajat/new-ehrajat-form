@@ -29,33 +29,14 @@ sst_glob_includer(ADDON_REGISTER_PATH);
 
 //include all files inside CREATOR_PATH defined in config.php
 sst_glob_includer(CREATOR_PATH);
-/*
-$global_attr = new global_attr(1) ;
-$specific_attr = new specific_attr(2,'text') ;
-$common_attr = new common_attr(1) ;
-$ids = new ids('1-12,-2-3');
 
-dbg($ids->ids[6]);
-dbg($specific_attr);
-dbg($global_attr);
-dbg($common_attr);
-*/
-$global = new global_attr(1);
-dbg($global->global_attr);
-$specific = new specific_attr(1,'text');
-dbg($specific->specific_attr);
-$common = new common_attr(1);
-dbg($common->common_attr);
-$common = new custom_attr('1-2');
-dbg($common->custom_attr);
-
-$input_attr = new input_attr(1);
-dbg($input_attr->attr);
-
-$input = new input(2);
-echo($input->input);
-//dbg($input);
-
+for ($x = 1; $x <= 23; $x++) {
+	//$input = new input($x);
+	//echo($input->input.'<br>');
+}
+//	$input = new input(1);
+$input = new input(23);
+	echo($input->input.'<br>');
 die;
 
 //sst_text( 1 );

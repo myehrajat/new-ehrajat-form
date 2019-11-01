@@ -5,7 +5,7 @@
 **************************************************/
 
 $sst['html_type']='file';
-$sst['type']='file';
+$sst['type']='simple-file';
 $sst['function']='sst_file';
 $sst['epithet']='File Field';
 $sst['description']='This is simple file input type as a HTML code!';

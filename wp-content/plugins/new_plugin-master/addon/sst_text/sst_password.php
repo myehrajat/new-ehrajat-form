@@ -5,7 +5,7 @@
 **************************************************/
 
 $sst['html_type']='password';
-$sst['type']='password';
+$sst['type']='simple-password';
 $sst['function']='sst_password';
 $sst['epithet']='Password Field';
 $sst['description']='This is simple password input type as a HTML code!';

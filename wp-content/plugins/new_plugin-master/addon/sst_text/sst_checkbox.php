@@ -5,7 +5,7 @@
 **************************************************/
 
 $sst['html_type']='checkbox';
-$sst['type']='checkbox';
+$sst['type']='simple-checkbox';
 $sst['function']='sst_checkbox';
 $sst['epithet']='Checkbox Field';
 $sst['description']='This is simple dat input type as a HTML code!';

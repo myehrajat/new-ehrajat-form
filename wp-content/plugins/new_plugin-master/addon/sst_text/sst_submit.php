@@ -5,7 +5,7 @@
 **************************************************/
 
 $sst['html_type']='submit';
-$sst['type']='submit';
+$sst['type']='simple-submit';
 $sst['function']='sst_submit';
 $sst['epithet']='Submit Field';
 $sst['description']='This is simple submit input type as a HTML code!';

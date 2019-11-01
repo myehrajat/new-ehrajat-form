@@ -5,7 +5,7 @@
 **************************************************/
 
 $sst['html_type']='tel';
-$sst['type']='tel';
+$sst['type']='simple-tel';
 $sst['function']='sst_tel';
 $sst['epithet']='Tel Field';
 $sst['description']='This is simple tel input type as a HTML code!';

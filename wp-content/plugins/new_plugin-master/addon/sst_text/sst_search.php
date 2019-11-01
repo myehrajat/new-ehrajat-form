@@ -5,7 +5,7 @@
 **************************************************/
 
 $sst['html_type']='search';
-$sst['type']='search';
+$sst['type']='simple-search';
 $sst['function']='sst_search';
 $sst['epithet']='Search Field';
 $sst['description']='This is simple search input type as a HTML code!';

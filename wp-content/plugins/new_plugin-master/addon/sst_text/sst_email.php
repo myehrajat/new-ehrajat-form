@@ -5,7 +5,7 @@
 **************************************************/
 
 $sst['html_type']='email';
-$sst['type']='email';
+$sst['type']='simple-email';
 $sst['function']='sst_email';
 $sst['epithet']='Email Field';
 $sst['description']='This is simple email input type as a HTML code!';

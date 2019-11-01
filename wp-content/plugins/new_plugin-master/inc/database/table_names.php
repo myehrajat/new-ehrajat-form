@@ -8,6 +8,7 @@ $full_prefix = $wpdb->prefix.DBPREFIX;
 	$GLOBALS['sst_tables']['options'] = $full_prefix.'options';
 	$GLOBALS['sst_tables']['attr_html_event_jsfunction'] = $full_prefix.'attr_html_event_jsfunction';
 
+	$GLOBALS['sst_tables']['attr_input_attr_list'] = $full_prefix.'attr_input_attr_list';
 	$GLOBALS['sst_tables']['attr_html_event'] = $full_prefix.'attr_html_event';
 	$GLOBALS['sst_tables']['attr_html_global_class'] = $full_prefix.'attr_html_global_class';
 	$GLOBALS['sst_tables']['attr_html_global_data'] = $full_prefix.'attr_html_global_data';
@@ -31,7 +32,10 @@ $full_prefix = $wpdb->prefix.DBPREFIX;
 	$GLOBALS['sst_tables']['attr_input_tel_url'] = $full_prefix.'attr_input_tel_url';
 	$GLOBALS['sst_tables']['attr_input_email'] = $full_prefix.'attr_input_email';
 	$GLOBALS['sst_tables']['attr_input_text_search'] = $full_prefix.'attr_input_text_search';
-	$GLOBALS['sst_tables']['language'] = $full_prefix.'language';
+	$GLOBALS[ 'sst_tables' ][ 'attr_input_select' ] = $full_prefix.'attr_input_select';
+	$GLOBALS[ 'sst_tables' ][ 'attr_input_textarea' ] = $full_prefix.'attr_input_textarea';
+	$GLOBALS[ 'sst_tables' ][ 'attr_input_select_optgroup' ] = $full_prefix.'attr_input_select_optgroup';
+	$GLOBALS[ 'sst_tables' ][ 'attr_input_select_options' ] = $full_prefix.'attr_input_select_options';
 
 $GLOBALS['sst_tables']['input_type'] = $full_prefix.'input_types';
 $GLOBALS['sst_tables']['input'] = $full_prefix.'input';

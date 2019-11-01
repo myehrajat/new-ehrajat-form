@@ -5,7 +5,7 @@
 **************************************************/
 
 $sst['html_type']='radio';
-$sst['type']='radio';
+$sst['type']='simple-radio';
 $sst['function']='sst_radio';
 $sst['epithet']='Radio Field';
 $sst['description']='This is simple dat input type as a HTML code!';

@@ -1,6 +1,7 @@
 <?php
 class str {
 
+
     /**************************************************
      *version 1.0.0
      * this function check is minus or not check number or not
@@ -55,7 +56,15 @@ class str {
 
         return ( bool )preg_match( $pattern, $url );
     }
-
+	//https://www.texelate.co.uk/blog/validate-a-url-path-with-php
+    function is_relative_url( $path ) {
+		$result = filter_var('http://www.example.com' . $path, FILTER_VALIDATE_URL);
+    	if ($result === false) {
+        	return false;
+		} else {
+			return true;
+    	}
+	}
     function is_alphanumeric( $string ) {
         if ( !preg_match( '/[^A-Za-z0-9]/', $string ) ) { // '/[^a-z\d]/i' should also work.
             return true;
@@ -129,6 +138,52 @@ class str {
             return true;
         }
     }
+	//using for max and min in date time related fileds
+	function check_date($date){
+		$date_elements = explode('-',$date);
+		
+		if(checkdate ( settype($date_elements[1],'int'), settype($date_elements[2],'int'), settype($date_elements[0],'int'))){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	function check_time($time){
+		$time_elements = explode(':',$time);
+		if(($time_elements[0]>=0 or $time_elements[0]<=24) and ($time_elements[1]>=0 or $time_elements[1]<=59) and count($time_elements)==2){
+			return true;
+		}elseif(($time_elements[0]>=0 or $time_elements[0]<=24) and ($time_elements[1]>=0 or $time_elements[1]<=59)and ($time_elements[2]>=0 or $time_elements[2]<=59) and count($time_elements)==3){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	function check_datetime($datetime){
+		$datetime = strtoupper($datetime);
+		$datetime_elements = explode('T',$datetime);
+		if($this->check_date($datetime_elements[0]) and $this->check_time($datetime_elements[1]) and count($datetime_elements)==2){
+			return true;
+		}else{
+			return false;//date error
+		}
+	}
+	function check_week($week){
+		$week = strtoupper($week);
+		$week_elements = explode('-W',$week);
+		if($this->check_date($week_elements.'-01-01') and ($week_elements>=1 or $week_elements<=53) and count($week_elements)==2){
+			return true;
+		}else{
+			return false;//date error
+		}
+	}
+	//https://stackoverflow.com/questions/1252693/using-str-replace-so-that-it-only-acts-on-the-first-match
+	function str_replace_first($from, $to, $content)
+		{
+			$from = '/'.preg_quote($from, '/').'/';
+
+			return preg_replace($from, $to, $content, 1);
+		}
+
 }
 class ids extends str {
     var $ids;
@@ -272,9 +327,11 @@ class ids extends str {
         return $this->starts_with( $string, EVAL_STR );
     }
 
-    function run_eval( $ecode ) {
+    function run_eval( $ecode,$a=NULL ) {
+		$eval_var = $a;
         $ecode = str_replace( EVAL_STR, '', $ecode );
         try {
+			//dbg($ecode );
             $result = eval( $ecode );
         } catch ( Throwable $error ) {
             sst_error_log( 'eval string has syntax error.' );
@@ -282,9 +339,9 @@ class ids extends str {
         }
         return $result;
     }
-function is_eval_run($string){
+function is_eval_run($string,$a=NULL){
         if ( $this->is_eval_str( $string ) ) {
-            $result = $this->run_eval( $string );
+            $result = $this->run_eval( $string,$a );
         } else {
             $result = $string;
         }
@@ -387,7 +444,6 @@ class common extends ids {
         }
         return $return;
     }
-
 
     /**************************************************
      *version 1.0.0

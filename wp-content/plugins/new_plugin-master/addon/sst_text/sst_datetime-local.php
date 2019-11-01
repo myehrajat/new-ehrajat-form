@@ -5,7 +5,7 @@
 **************************************************/
 
 $sst['html_type']='datetime-local';
-$sst['type']='datetime-local';
+$sst['type']='simple-datetime-local';
 $sst['function']='sst_datetime_local';
 $sst['epithet']='Datetime-local Field';
 $sst['description']='This is simple datetime-local input type as a HTML code!';

@@ -5,7 +5,7 @@
 **************************************************/
 
 $sst['html_type']='range';
-$sst['type']='range';
+$sst['type']='simple-range';
 $sst['function']='sst_range';
 $sst['epithet']='Range Field';
 $sst['description']='This is simple range input type as a HTML code!';

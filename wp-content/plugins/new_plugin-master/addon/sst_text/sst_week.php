@@ -5,7 +5,7 @@
 **************************************************/
 
 $sst['html_type']='week';
-$sst['type']='week';
+$sst['type']='simple-week';
 $sst['function']='sst_week';
 $sst['epithet']='Week Field';
 $sst['description']='This is simple dat input type as a HTML code!';
