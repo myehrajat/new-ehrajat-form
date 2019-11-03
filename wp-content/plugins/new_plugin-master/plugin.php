@@ -35,7 +35,7 @@ for ($x = 1; $x <= 23; $x++) {
 	//echo($input->input.'<br>');
 }
 //	$input = new input(1);
-$input = new input(23);
+$input = new input(1);
 	echo($input->input.'<br>');
 die;
 

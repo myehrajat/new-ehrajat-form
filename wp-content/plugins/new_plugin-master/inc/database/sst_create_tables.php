@@ -220,7 +220,7 @@ function sst_create_tables() {
 	# Global Attributes
 	# These attributes is not specific to inputs and is for all HTML elements
 	################################################################################################################################
-	$sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'attr_input_custom' ] . " (" .
+	$sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'attr_custom' ] . " (" .
 	"`id` INT(10) NOT NULL auto_increment," .
 	"`epithet` VARCHAR(255) NOT NULL," .
 	"`slug` VARCHAR(255) NOT NULL," .
@@ -537,7 +537,7 @@ function sst_create_tables() {
 	"`value` VARCHAR(255) NOT NULL COMMENT 'Values:any string'," .
 	"`attr_html_global_id` VARCHAR(255) NOT NULL," .//these include all html global attributes
 	"`attr_input_specific_id` VARCHAR(255) NOT NULL," .//these include input type specific ones
-	"`attr_input_custom_ids` VARCHAR(255) NOT NULL," .//these include input type specific ones
+	"`attr_custom_ids` VARCHAR(255) NOT NULL," .//these include input type specific ones
 	"`label_id_before` VARCHAR(255) NOT NULL," .
 	"`label_id_after` VARCHAR(255) NOT NULL," .
 	"`meta_ids` VARCHAR(255) NOT NULL," .
@@ -548,77 +548,22 @@ function sst_create_tables() {
 	"`created` DATETIME NOT NULL DEFAULT NOW()," .
 	"`modified` DATETIME NOT NULL DEFAULT NOW(),
         PRIMARY KEY id  (`id`)) $collate_charset;";
+	##################################################
+	$sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'outer_tag' ] . " (" .
+	"`id` INT(10) NOT NULL auto_increment," .
+	"`epithet` VARCHAR(255) NOT NULL," .
+	"`slug` VARCHAR(255) NOT NULL," .
+	"`tag` VARCHAR(255) NOT NULL," .
+	"`attr_html_global_id` VARCHAR(255) NOT NULL," .
+	"`attr_custom_ids` VARCHAR(255) NOT NULL," .
+	"`description` LONGTEXT NOT NULL," .
+	"`owner` VARCHAR(255) DEFAULT NULL," .
+	"`created` DATETIME NOT NULL DEFAULT NOW()," .
+	"`modified` DATETIME NOT NULL DEFAULT NOW(),
+        PRIMARY KEY id  (`id`)) $collate_charset;";
 
 	
 	/*
-	##################################################
-	$sql[] = "CREATE TABLE IF NOT EXISTS  " . $GLOBALS[ 'sst_tables' ][ 'select_options' ] . " (" .
-	"`id` INT(10) NOT NULL auto_increment," .
-	"`epithet` VARCHAR(255) NOT NULL," .
-	"`slug` VARCHAR(255) NOT NULL," .
-	"`type` VARCHAR(255) NOT NULL," . //option or optgroup
-	"`label` VARCHAR(255) NOT NULL," .
-	"`content` VARCHAR(255) NOT NULL," .
-	"`value` VARCHAR(255) NOT NULL," .
-	"`optgroup_id` VARCHAR(255) DEFAULT NULL," . //if all options are in optgroups use only the top level optgroups ids
-	"`order_type` VARCHAR(255) NOT NULL," . //define the order type ascending/ descending/ non
-	"`selected` VARCHAR(255) NOT NULL," .
-	"`language_id` VARCHAR(255) NOT NULL," .
-	"`event_ids` VARCHAR(255) NOT NULL," .
-	"`appearance_id` VARCHAR(255) NOT NULL," .
-	"`disabled` VARCHAR(255) NOT NULL," .
-	"`the_id`  VARCHAR(255) DEFAULT NULL," . //this is an attribute of field but is here
-	"`meta_ids` VARCHAR(255) NOT NULL," .
-	"`description`  LONGTEXT DEFAULT NULL," .
-	"`owner` VARCHAR(255) DEFAULT NULL," .
-	"`created` DATETIME NOT NULL DEFAULT NOW()," .
-	"`modified` DATETIME NOT NULL DEFAULT NOW(),
-        PRIMARY KEY id  (`id`)) $collate_charset;";
-	##################################################
-
-	$sql[] = "CREATE TABLE IF NOT EXISTS  " . $GLOBALS[ 'sst_tables' ][ 'standard' ] . " (" .
-	"`id` INT(10) NOT NULL auto_increment," .
-	"`epithet` VARCHAR(255) NOT NULL," .
-	"`slug` VARCHAR(255) NOT NULL," .
-	"`value` LONGTEXT NOT NULL," .
-	"`option_ids` VARCHAR(255) NOT NULL," .
-	"`order_type` VARCHAR(255) NOT NULL," . //define the order type ascending/ descending/ non
-	"`checked` VARCHAR(255) NOT NULL," .
-	"`max` VARCHAR(255) NOT NULL," . //ADDED NEW HTML5
-	"`min` VARCHAR(255) NOT NULL," . //ADDED NEW HTML5
-	"`pattern` VARCHAR(255) NOT NULL," . //ADDED NEW HTML5
-	"`required` VARCHAR(255) NOT NULL," . //ADDED NEW HTML5
-	"`step` VARCHAR(255) NOT NULL," . //ADDED NEW HTML5
-	"`maxlength` VARCHAR(255) NOT NULL," .
-	"`size` VARCHAR(255) NOT NULL," .
-	"`cols` VARCHAR(255) NOT NULL," .
-	"`rows` VARCHAR(255) NOT NULL," .
-	"`wrap` VARCHAR(255) NOT NULL," .
-	"`label` VARCHAR(255) NOT NULL," .
-	"`content` LONGTEXT NOT NULL," .
-	"`multiple` VARCHAR(255) NOT NULL," .
-	"`disabled` VARCHAR(255) NOT NULL," .
-	"`readonly` VARCHAR(255) NOT NULL," .
-	"`alt` VARCHAR(255) NOT NULL," .
-	"`scr` VARCHAR(255) NOT NULL," .
-	"`ismap` VARCHAR(255) NOT NULL," .
-	"`usemap` VARCHAR(255) NOT NULL," .
-	"`dynscr` VARCHAR(255) NOT NULL," .
-	"`loop` VARCHAR(255) NOT NULL," .
-	"`datafld` VARCHAR(255) NOT NULL," .
-	"`datascr` VARCHAR(255) NOT NULL," .
-	"`height` VARCHAR(255) NOT NULL," .
-	"`width` VARCHAR(255) NOT NULL," .
-	"`hspace` VARCHAR(255) NOT NULL," .
-	"`vspace` VARCHAR(255) NOT NULL," .
-	"`meta_ids` VARCHAR(255) NOT NULL," .
-	"`standard_db_id` VARCHAR(255) NOT NULL," .
-	"`standard_condition_ids` VARCHAR(255) NOT NULL," .
-	"`description`  LONGTEXT DEFAULT NULL," .
-	"`owner` VARCHAR(255) DEFAULT NULL," .
-	"`created` DATETIME NOT NULL DEFAULT NOW()," .
-	"`modified` DATETIME NOT NULL DEFAULT NOW(),
-        PRIMARY KEY id  (`id`)) $collate_charset;";
 	##################################################
 	$sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'standard_db' ] . " (" .
 	"`id` INT(10) NOT NULL auto_increment," .

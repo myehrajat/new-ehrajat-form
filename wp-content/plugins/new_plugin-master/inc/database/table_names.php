@@ -16,7 +16,7 @@ $full_prefix = $wpdb->prefix.DBPREFIX;
 	$GLOBALS['sst_tables']['attr_html_global_itemref'] = $full_prefix.'attr_html_global_itemref';
 	$GLOBALS['sst_tables']['attr_html_global_style'] = $full_prefix.'attr_html_global_style';
 	$GLOBALS['sst_tables']['attr_input_file_accept'] = $full_prefix.'attr_input_file_accept';
-	$GLOBALS[ 'sst_tables' ][ 'attr_input_custom' ] = $full_prefix.'attr_input_custom';
+	$GLOBALS[ 'sst_tables' ][ 'attr_custom' ] = $full_prefix.'attr_custom';
 		
 	$GLOBALS['sst_tables']['attr_html_global'] = $full_prefix.'attr_html_global';
 	$GLOBALS['sst_tables']['attr_input_common'] = $full_prefix.'attr_input_common';
@@ -39,7 +39,7 @@ $full_prefix = $wpdb->prefix.DBPREFIX;
 
 $GLOBALS['sst_tables']['input_type'] = $full_prefix.'input_types';
 $GLOBALS['sst_tables']['input'] = $full_prefix.'input';
-
+$GLOBALS[ 'sst_tables' ][ 'outer_tag' ] =  $full_prefix.'input';
 
 
 /*

@@ -801,7 +801,7 @@ CREATE TABLE `wp_tt_input`  (
   `value` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'Values:any string',
   `attr_html_global_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `attr_input_specific_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `attr_input_custom_ids` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `attr_custom_ids` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `label_id_before` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `label_id_after` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `meta_ids` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,

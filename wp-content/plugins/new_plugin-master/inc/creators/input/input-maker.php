@@ -926,7 +926,7 @@ class attr extends attr_validation {
                     $result_attr = $this->create_attribute( $attr_name, $attr_value );
                     break;
                 default:
-                    // $result_attr = $this->create_attribute( $attr_name, $attr_value );
+                    $result_attr = $this->create_attribute( $attr_name, $attr_value );
                     break;
             }
         } else {
@@ -1873,7 +1873,6 @@ class specific_attr extends attr {
         return $po;
     }
 }
-
 class custom_attr extends attr {
     var $custom_attr;
 
@@ -1881,14 +1880,18 @@ class custom_attr extends attr {
         $custom_attr_ids_arr = $this->get_ids( $custom_attr_ids );
         if ( !empty( $custom_attr_ids_arr ) ) {
             foreach ( $custom_attr_ids_arr as $custom_id ) {
-                $custom_obj = $this->get_by_id( $custom_id, $GLOBALS[ 'sst_tables' ][ 'attr_input_custom' ] );
+                $custom_obj = $this->get_by_id( $custom_id, $GLOBALS[ 'sst_tables' ][ 'attr_custom' ] );
+				//dbg($custom_obj);
                 if ( !empty( $custom_obj ) ) {
                     $custom_attr_arr[ $custom_obj->attr_name ] = $custom_obj->attr_value;
+					//
                 } else {
                     sst_error_log( 'custom attr object cant retrieve.' );
                 }
             }
+			//dbg($custom_attr_arr);
             $this->custom_attr = $this->create_multiple_attrs( $custom_attr_arr );
+			//dbg( $this->custom_attr);
         } else {
             return NULL;
         }
@@ -1950,7 +1953,7 @@ class input_attr extends attr {
                     $this->list_elements = $this->specific_attr_obj->list_elements;
                 }
 
-                $this->custom_attr_ids = $this->input_obj->attr_input_custom_ids;
+                $this->custom_attr_ids = $this->input_obj->attr_custom_ids;
                 $this->custom_attr_obj = new custom_attr( $this->custom_attr_ids );
                 $this->custom_attr = $this->custom_attr_obj->custom_attr;
 
@@ -2017,7 +2020,6 @@ class input extends input_attr {
                 $this->input .= '</select>';
                 break;
             case "textarea":
-				//dbg($this);
                 $this->input = '<textarea ' . $this->attr . '>';
                 $this->input .= $this->text;
                 $this->input .= '</textarea>';
