@@ -39,7 +39,7 @@ $full_prefix = $wpdb->prefix.DBPREFIX;
 
 $GLOBALS['sst_tables']['input_type'] = $full_prefix.'input_types';
 $GLOBALS['sst_tables']['input'] = $full_prefix.'input';
-$GLOBALS[ 'sst_tables' ][ 'outer_tag' ] =  $full_prefix.'input';
+$GLOBALS[ 'sst_tables' ][ 'field' ] =  $full_prefix.'field';
 
 
 /*

@@ -11,11 +11,34 @@
  Target Server Version : 100316
  File Encoding         : 65001
 
- Date: 01/11/2019 01:04:13
+ Date: 04/11/2019 22:40:31
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for wp_tt_attr_custom
+-- ----------------------------
+DROP TABLE IF EXISTS `wp_tt_attr_custom`;
+CREATE TABLE `wp_tt_attr_custom`  (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `epithet` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `slug` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `attr_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `attr_value` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `description` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `owner` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `created` datetime(0) NOT NULL DEFAULT current_timestamp(0),
+  `modified` datetime(0) NOT NULL DEFAULT current_timestamp(0),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'This table contain all HTML5 global tags this mean ALL not only input elements.' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of wp_tt_attr_custom
+-- ----------------------------
+INSERT INTO `wp_tt_attr_custom` VALUES (1, '', '', 'custom_attr1', 'custom_value1', NULL, NULL, '2019-09-17 08:01:52', '2019-09-17 08:01:52');
+INSERT INTO `wp_tt_attr_custom` VALUES (2, '', '', 'custom_attr2', 'custom_value2', NULL, NULL, '2019-09-17 08:02:00', '2019-09-17 08:02:00');
 
 -- ----------------------------
 -- Table structure for wp_tt_attr_html_event
@@ -251,9 +274,9 @@ CREATE TABLE `wp_tt_attr_input_attr_list`  (
 -- ----------------------------
 -- Records of wp_tt_attr_input_attr_list
 -- ----------------------------
-INSERT INTO `wp_tt_attr_input_attr_list` VALUES (1, '', '', NULL, NULL, NULL, '', NULL, NULL, NULL, 'http://localhost/wp-content/plugins/new_plugin-master/sample.json.php', 'example[$i][$i]->options[0]->model', 'example[$i][$i]->options[0]->car', '%%E%%return \'1\';', NULL, NULL, '2019-10-19 13:41:32', '2019-10-19 13:41:32');
-INSERT INTO `wp_tt_attr_input_attr_list` VALUES (2, '', '', NULL, NULL, NULL, NULL, 'SELECT * FROM wp_tt_input_types', 'return $a->epithet;', 'return $a->html_type;', NULL, NULL, NULL, '%%E%%return \'1\';', NULL, NULL, '2019-10-19 13:41:35', '2019-10-19 13:41:35');
-INSERT INTO `wp_tt_attr_input_attr_list` VALUES (3, '', '', NULL, NULL, 'label', 'value', NULL, NULL, NULL, NULL, NULL, NULL, '%%E%%return \'1\';', NULL, NULL, '2019-10-19 13:41:40', '2019-10-19 13:41:40');
+INSERT INTO `wp_tt_attr_input_attr_list` VALUES (1, '', '', 'json', 'disabled', NULL, '', NULL, NULL, NULL, 'http://localhost/wp-content/plugins/new_plugin-master/sample.json.php', 'example[$i][$i]->options[0]->model', 'example[$i][$i]->options[0]->car', '%%E%%return \'1\';', NULL, NULL, '2019-10-19 13:41:32', '2019-10-19 13:41:32');
+INSERT INTO `wp_tt_attr_input_attr_list` VALUES (2, '', '', 'query', NULL, NULL, NULL, 'SELECT * FROM wp_tt_input_types', 'return $a->epithet;', 'return $a->html_type;', NULL, NULL, NULL, '%%E%%return \'1\';', NULL, NULL, '2019-10-19 13:41:35', '2019-10-19 13:41:35');
+INSERT INTO `wp_tt_attr_input_attr_list` VALUES (3, '', '', 'value', NULL, 'label', 'value', NULL, NULL, NULL, NULL, NULL, NULL, '%%E%%return \'1\';', NULL, NULL, '2019-10-19 13:41:40', '2019-10-19 13:41:40');
 INSERT INTO `wp_tt_attr_input_attr_list` VALUES (4, '', '', NULL, NULL, NULL, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-10-23 16:40:04', '2019-10-23 16:40:04');
 INSERT INTO `wp_tt_attr_input_attr_list` VALUES (5, '', '', NULL, NULL, NULL, '3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-10-23 16:40:08', '2019-10-23 16:40:08');
 INSERT INTO `wp_tt_attr_input_attr_list` VALUES (6, '', '', NULL, NULL, NULL, '9', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-10-23 16:40:10', '2019-10-23 16:40:10');
@@ -321,29 +344,6 @@ CREATE TABLE `wp_tt_attr_input_color`  (
 -- Records of wp_tt_attr_input_color
 -- ----------------------------
 INSERT INTO `wp_tt_attr_input_color` VALUES (1, 'Color Attr', 'Color -attr', 'on', 'autofocus', 'the-list-id', '20-22', 'Color Attr', 'Myehrajat', '2019-10-19 09:07:28', '2019-10-19 09:07:28');
-
--- ----------------------------
--- Table structure for wp_tt_attr_input_custom
--- ----------------------------
-DROP TABLE IF EXISTS `wp_tt_attr_input_custom`;
-CREATE TABLE `wp_tt_attr_input_custom`  (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `epithet` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `slug` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `attr_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `attr_value` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `description` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-  `owner` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `created` datetime(0) NOT NULL DEFAULT current_timestamp(0),
-  `modified` datetime(0) NOT NULL DEFAULT current_timestamp(0),
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = 'This table contain all HTML5 global tags this mean ALL not only input elements.' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of wp_tt_attr_input_custom
--- ----------------------------
-INSERT INTO `wp_tt_attr_input_custom` VALUES (1, '', '', 'custom_attr1', 'custom_value1', NULL, NULL, '2019-09-17 08:01:52', '2019-09-17 08:01:52');
-INSERT INTO `wp_tt_attr_input_custom` VALUES (2, '', '', 'custom_attr2', 'custom_value2', NULL, NULL, '2019-09-17 08:02:00', '2019-09-17 08:02:00');
 
 -- ----------------------------
 -- Table structure for wp_tt_attr_input_date_time_related
@@ -603,7 +603,7 @@ CREATE TABLE `wp_tt_attr_input_select`  (
 -- ----------------------------
 -- Records of wp_tt_attr_input_select
 -- ----------------------------
-INSERT INTO `wp_tt_attr_input_select` VALUES (1, 'Select Test', '', 'انتخاب کنید', 'on', 'autofocus', '', 'required', '1', '1', '2-3', NULL, NULL, '2019-10-24 18:23:49', '2019-10-24 18:23:49');
+INSERT INTO `wp_tt_attr_input_select` VALUES (1, 'Select Test', '', 'انتخاب کنید', 'on', 'autofocus', '', 'required', '1', '1-2', '1-3', NULL, NULL, '2019-10-24 18:23:49', '2019-10-24 18:23:49');
 
 -- ----------------------------
 -- Table structure for wp_tt_attr_input_select_optgroup
@@ -621,12 +621,13 @@ CREATE TABLE `wp_tt_attr_input_select_optgroup`  (
   `created` datetime(0) NOT NULL DEFAULT current_timestamp(0),
   `modified` datetime(0) NOT NULL DEFAULT current_timestamp(0),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of wp_tt_attr_input_select_optgroup
 -- ----------------------------
 INSERT INTO `wp_tt_attr_input_select_optgroup` VALUES (1, '', '', 'first group', '1', '%%E%%return \'1\';', NULL, NULL, '2019-10-24 18:24:02', '2019-10-24 18:24:02');
+INSERT INTO `wp_tt_attr_input_select_optgroup` VALUES (2, '', '', 'seco', '2', '%%E%%return \'1\';', NULL, NULL, '2019-11-03 15:59:37', '2019-11-03 15:59:37');
 
 -- ----------------------------
 -- Table structure for wp_tt_attr_input_select_options
@@ -753,7 +754,7 @@ CREATE TABLE `wp_tt_attr_input_text_search`  (
 -- ----------------------------
 -- Records of wp_tt_attr_input_text_search
 -- ----------------------------
-INSERT INTO `wp_tt_attr_input_text_search` VALUES (1, 'Text Attr', 'text-attr', 'name billing section-a', 'autofocus', 'textdirection', 'text-list-id', '2', '20', '4', '[a-z A-Z 0-9]', 'Place Holder', '', 'required', '35', 'this is sepecifc attr for text', 'Myehrajat', '2019-09-17 05:41:24', '0000-00-00 00:00:00');
+INSERT INTO `wp_tt_attr_input_text_search` VALUES (1, 'Text Attr', 'text-attr', 'name billing section-a', 'autofocus', 'textdirection', 'text-list-id', '1-3', '20', '4', '[a-z A-Z 0-9]', 'Place Holder', '', 'required', '35', 'this is sepecifc attr for text', 'Myehrajat', '2019-09-17 05:41:24', '0000-00-00 00:00:00');
 INSERT INTO `wp_tt_attr_input_text_search` VALUES (2, 'Search Attr', 'search-attr', 'on', 'autofocus', 'textdirection', 'list-id', '1-3', '20', '4', '[a-z A-Z 0-9]', 'Place Holder', '', 'required', '35', 'this is sepecifc attr for text', 'Myehrajat', '2019-10-19 12:15:30', '2019-10-19 12:15:30');
 
 -- ----------------------------
@@ -817,7 +818,7 @@ CREATE TABLE `wp_tt_input`  (
 -- ----------------------------
 -- Records of wp_tt_input
 -- ----------------------------
-INSERT INTO `wp_tt_input` VALUES (1, 'Test Text Input', 'test-text', '', 'form_id', 'textfield', '1', 'Value Data', '%%E%%return \'1\';', '%%E%%return \'1\';', '%%E%%return \'1-2\';', '%%E%%return \'1-2\';', '%%E%%return \'1-2\';', '%%E%%return \'1-2\';', '', NULL, NULL, 'Myehrajat', '2019-09-17 05:38:00', '2019-09-17 05:38:00');
+INSERT INTO `wp_tt_input` VALUES (1, 'Test Text Input', 'test-text', '', 'form_id', 'textfield', '1', 'Value Data', '', '%%E%%return \'1\';', '', '%%E%%return \'1-2\';', '%%E%%return \'1-2\';', '%%E%%return \'1-2\';', '', NULL, NULL, 'Myehrajat', '2019-09-17 05:38:00', '2019-09-17 05:38:00');
 INSERT INTO `wp_tt_input` VALUES (2, 'Test Search Input', 'test-search', '', 'form_id', 'searchfield', '2', 'Value Data', '%%E%%return \'1\';', '%%E%%return \'2\';', '%%E%%return \'1-2\';', '%%E%%return \'1-2\';', '%%E%%return \'1-2\';', '%%E%%return \'1-2\';', '', NULL, NULL, 'Myehrajat', '2019-09-17 05:38:00', '2019-09-17 05:38:00');
 INSERT INTO `wp_tt_input` VALUES (3, 'Test Tel Input', 'test-tel', '', 'form_id', 'telfield', '3', 'Value Data', '%%E%%return \'1\';', '%%E%%return \'1\';', '%%E%%return \'1-2\';', '%%E%%return \'1-2\';', '%%E%%return \'1-2\';', '%%E%%return \'1-2\';', '', NULL, NULL, 'Myehrajat', '2019-09-17 05:38:00', '2019-09-17 05:38:00');
 INSERT INTO `wp_tt_input` VALUES (4, 'Test URL Input', 'test-url', '', 'form_id', 'urlfield', '4', 'Value Data', '%%E%%return \'1\';', '%%E%%return \'1\';', '%%E%%return \'1-2\';', '%%E%%return \'1-2\';', '%%E%%return \'1-2\';', '%%E%%return \'1-2\';', '', NULL, NULL, 'Myehrajat', '2019-09-17 05:38:00', '2019-09-17 05:38:00');

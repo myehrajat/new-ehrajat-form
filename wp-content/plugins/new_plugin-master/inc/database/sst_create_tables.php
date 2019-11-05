@@ -548,6 +548,24 @@ function sst_create_tables() {
 	"`created` DATETIME NOT NULL DEFAULT NOW()," .
 	"`modified` DATETIME NOT NULL DEFAULT NOW(),
         PRIMARY KEY id  (`id`)) $collate_charset;";
+	
+	##################################################
+	$sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'field' ] . " (" .
+	"`id` INT(10) NOT NULL auto_increment," .
+	"`epithet` VARCHAR(255) NOT NULL," .
+	"`slug` VARCHAR(255) NOT NULL," .
+	"`input_ids` VARCHAR(255) NOT NULL," .
+	"`variable_ids` VARCHAR(255) NOT NULL," .
+	"`before_input` VARCHAR(255) NOT NULL," .
+	"`after_input` VARCHAR(255) NOT NULL," .
+	"`description` LONGTEXT NOT NULL," .
+	"`owner` VARCHAR(255) DEFAULT NULL," .
+	"`created` DATETIME NOT NULL DEFAULT NOW()," .
+	"`modified` DATETIME NOT NULL DEFAULT NOW(),
+        PRIMARY KEY id  (`id`)) $collate_charset;";
+
+	
+	/*
 	##################################################
 	$sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'outer_tag' ] . " (" .
 	"`id` INT(10) NOT NULL auto_increment," .
@@ -562,7 +580,7 @@ function sst_create_tables() {
 	"`modified` DATETIME NOT NULL DEFAULT NOW(),
         PRIMARY KEY id  (`id`)) $collate_charset;";
 
-	
+	*/
 	/*
 	##################################################
 	$sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'standard_db' ] . " (" .

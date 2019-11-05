@@ -186,9 +186,9 @@ class str {
 
 }
 class ids extends str {
-    var $ids;
-    var $ids_parts;
-    var $ids_str;
+    private $ids;
+    private $ids_parts;
+    private  $ids_str;
 
     function __construct( $string = NULL ) {
         $this->get_ids( $string );
@@ -405,6 +405,16 @@ function is_eval_run($string,$a=NULL){
         }
         return $this->ids;
     }
+	function random_string($length = 12) {
+		$str = "";
+		$characters = array_merge(range('A','Z'), range('a','z'), range('0','9'));
+		$max = count($characters) - 1;
+		for ($i = 0; $i < $length; $i++) {
+			$rand = mt_rand(0, $max);
+			$str .= $characters[$rand];
+		}
+		return $str;
+	}
 }
 
 class common extends ids {

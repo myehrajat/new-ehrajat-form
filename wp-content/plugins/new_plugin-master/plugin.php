@@ -31,12 +31,11 @@ sst_glob_includer(ADDON_REGISTER_PATH);
 sst_glob_includer(CREATOR_PATH);
 
 for ($x = 1; $x <= 23; $x++) {
-	//$input = new input($x);
-	//echo($input->input.'<br>');
+	$input = new input_attr($x);
+	echo $input->render().'<br>';
 }
-//	$input = new input(1);
-$input = new input(1);
-	echo($input->input.'<br>');
+//$input = new input_attr(1);
+//echo $input->render().'<br>';
 die;
 
 //sst_text( 1 );
