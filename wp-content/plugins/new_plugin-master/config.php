@@ -62,6 +62,9 @@ define('STRICT_VALID_IDS','true');
 define('EVAL_STR','%%E%%');
 
 require_once( DBPATH.'table_names.php');
-
-
+#############################################
+# VISIBILTY
+#############################################
+define('DEFAULT_SHOW_OR_HIDE','hide');
+define('DEFAULT_ENABLE_OR_DISABLE','disable');
 

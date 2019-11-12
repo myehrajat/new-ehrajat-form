@@ -263,6 +263,7 @@ function sst_create_tables() {
 	"`multiple` VARCHAR(255) NOT NULL," .
 	"`required` VARCHAR(255) NOT NULL," .
 	"`size` VARCHAR(255) NOT NULL," .
+	"`show_first` VARCHAR(255) NOT NULL," .
 	"`optgroup_ids` VARCHAR(255) NOT NULL," .
 	"`option_ids` VARCHAR(255) NOT NULL," .
 	"`description`  LONGTEXT DEFAULT NULL," .
@@ -530,6 +531,7 @@ function sst_create_tables() {
 	"`id` INT(10) NOT NULL auto_increment," .
 	"`epithet` VARCHAR(255) NOT NULL," .
 	"`slug` VARCHAR(255) NOT NULL," .
+	"`tag_id` VARCHAR(255) NOT NULL," .
 	"`disabled` VARCHAR(255) NOT NULL COMMENT 'Values:disabled'," .
 	"`form` VARCHAR(255) NOT NULL COMMENT 'Values:id of form'," .
 	"`name` VARCHAR(255) NOT NULL COMMENT 'Values:any string.Other than isindex, any non-empty value for name is allowed. The name _charset_ is special which applying in hidden input name return user encoding.'," .//
@@ -538,11 +540,6 @@ function sst_create_tables() {
 	"`attr_html_global_id` VARCHAR(255) NOT NULL," .//these include all html global attributes
 	"`attr_input_specific_id` VARCHAR(255) NOT NULL," .//these include input type specific ones
 	"`attr_custom_ids` VARCHAR(255) NOT NULL," .//these include input type specific ones
-	"`label_id_before` VARCHAR(255) NOT NULL," .
-	"`label_id_after` VARCHAR(255) NOT NULL," .
-	"`meta_ids` VARCHAR(255) NOT NULL," .
-	"`pack_id` VARCHAR(255) NOT NULL," .
-	"`controller_id`  VARCHAR(255) DEFAULT NULL," . //this is an attribute of field but is here
 	"`description`  LONGTEXT DEFAULT NULL," .
 	"`owner` VARCHAR(255) DEFAULT NULL," .
 	"`created` DATETIME NOT NULL DEFAULT NOW()," .
@@ -550,14 +547,54 @@ function sst_create_tables() {
         PRIMARY KEY id  (`id`)) $collate_charset;";
 	
 	##################################################
+	$sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'tags' ] . " (" .
+	"`id` INT(10) NOT NULL auto_increment," .
+	"`epithet` VARCHAR(255) NOT NULL," .
+	"`slug` VARCHAR(255) NOT NULL," .
+	"`tag_before` VARCHAR(255) NOT NULL," .
+	"`tag_after` VARCHAR(255) NOT NULL," .
+	"`parent_tag_id` VARCHAR(255) NOT NULL," .
+	"`description` LONGTEXT NOT NULL," .
+	"`owner` VARCHAR(255) DEFAULT NULL," .
+	"`created` DATETIME NOT NULL DEFAULT NOW()," .
+	"`modified` DATETIME NOT NULL DEFAULT NOW(),
+        PRIMARY KEY id  (`id`)) $collate_charset;";
+
+	##################################################
 	$sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'field' ] . " (" .
 	"`id` INT(10) NOT NULL auto_increment," .
 	"`epithet` VARCHAR(255) NOT NULL," .
 	"`slug` VARCHAR(255) NOT NULL," .
 	"`input_ids` VARCHAR(255) NOT NULL," .
-	"`variable_ids` VARCHAR(255) NOT NULL," .
-	"`before_input` VARCHAR(255) NOT NULL," .
-	"`after_input` VARCHAR(255) NOT NULL," .
+	"`tag_id` VARCHAR(255) NOT NULL," .
+	"`user_access_id` VARCHAR(255) NOT NULL," .
+	"`description` LONGTEXT NOT NULL," .
+	"`owner` VARCHAR(255) DEFAULT NULL," .
+	"`created` DATETIME NOT NULL DEFAULT NOW()," .
+	"`modified` DATETIME NOT NULL DEFAULT NOW(),
+        PRIMARY KEY id  (`id`)) $collate_charset;";
+
+	##################################################
+	$sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'user_access' ] . " (" .
+	"`id` INT(10) NOT NULL auto_increment," .
+	"`epithet` VARCHAR(255) NOT NULL," .
+	"`slug` VARCHAR(255) NOT NULL," .
+	"`default_show_or_hide` VARCHAR(255) NOT NULL," .
+	"`except_show_or_hide` VARCHAR(255) NOT NULL," .
+	"`default_enable_or_disable` VARCHAR(255) NOT NULL," .
+	"`except_enable_or_disable` VARCHAR(255) NOT NULL," .
+	"`description` LONGTEXT NOT NULL," .
+	"`owner` VARCHAR(255) DEFAULT NULL," .
+	"`created` DATETIME NOT NULL DEFAULT NOW()," .
+	"`modified` DATETIME NOT NULL DEFAULT NOW(),
+        PRIMARY KEY id  (`id`)) $collate_charset;";
+	##################################################
+	$sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'variable' ] . " (" .
+	"`id` INT(10) NOT NULL auto_increment," .
+	"`epithet` VARCHAR(255) NOT NULL," .
+	"`slug` VARCHAR(255) NOT NULL," .
+	"`name` VARCHAR(255) NOT NULL," .
+	"`value` VARCHAR(255) NOT NULL," .
 	"`description` LONGTEXT NOT NULL," .
 	"`owner` VARCHAR(255) DEFAULT NULL," .
 	"`created` DATETIME NOT NULL DEFAULT NOW()," .

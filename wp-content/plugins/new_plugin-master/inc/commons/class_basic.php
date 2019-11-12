@@ -396,7 +396,7 @@ function is_eval_run($string,$a=NULL){
                 sst_error_log( 'the id that you have provided return nothing after processing.' );
                 $result_ids = NULL;
             }
-            if ( $single_id == TRUE and $count_result == 1 ) {
+            if ( $single_id == TRUE) {
                 $result_ids = $result_ids[ 0 ];
             }
             $this->ids = $result_ids;
@@ -418,6 +418,10 @@ function is_eval_run($string,$a=NULL){
 }
 
 class common extends ids {
+	var $user_id;
+	function __construct(){
+		$this->get_current_user_id();
+	}
     /**************************************************
      *version 1.0.0
      * this function return only numbers
@@ -469,6 +473,10 @@ class common extends ids {
     	noncharacter:https://infra.spec.whatwg.org/#noncharacter
     test by:https://www.regextester.com/103704
     */
-
+	function get_current_user_id(){
+		require_once(ABSPATH.'wp-includes/pluggable.php');
+		$this->user_id = get_current_user_id();
+		return $this->user_id;
+	}
 
 }

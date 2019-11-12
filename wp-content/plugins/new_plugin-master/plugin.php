@@ -29,14 +29,15 @@ sst_glob_includer(ADDON_REGISTER_PATH);
 
 //include all files inside CREATOR_PATH defined in config.php
 sst_glob_includer(CREATOR_PATH);
-
-for ($x = 1; $x <= 23; $x++) {
-	$input = new input_attr($x);
-	echo $input->render().'<br>';
+function test_inputs(){
+	for ($x = 1; $x <= 23; $x++) {
+		$input = new input($x);
+		echo $input->render().'<br>';
+	}
 }
-//$input = new input_attr(1);
+//$input = new input(1);
 //echo $input->render().'<br>';
-die;
+//die;
 
 //sst_text( 1 );
 
