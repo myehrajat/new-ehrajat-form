@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Themes - Twenty Seventeen package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-01-16 14:02:55+0000\n"
+"PO-Revision-Date: 2019-11-12 10:35:16+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,24 +17,24 @@ msgstr "دو هزار و هفده همراه با سربرگ ویدوئی و ت�
 
 #. Theme Name of the theme
 msgid "Twenty Seventeen"
-msgstr "دوهزاروهفده"
+msgstr "دو هزار و هفده"
 
 #: template-parts/footer/footer-widgets.php:18
 msgid "Footer"
-msgstr "پانوشت"
+msgstr "پابرگ"
 
 #: functions.php:338
 msgid "Add widgets here to appear in your sidebar on blog posts and archive pages."
-msgstr "ابزارک‌ها را اینجا اضافه کنید تا در ناحیه کناری نوشته‌های وبلاگ و برگه بایگانی نمایان شود."
+msgstr "ابزارک‌ها را اینجا اضافه کنید تا در نوار کناری نوشته‌های بلاگ و برگه‌های بایگانی نمایان شوند."
 
 #: sidebar.php:18 functions.php:336
 msgid "Blog Sidebar"
-msgstr "ناحیه کناری وبلاگ"
+msgstr "نوار کناری بلاگ"
 
 #: template-parts/navigation/navigation-top.php:31
 #: template-parts/header/site-branding.php:34
 msgid "Scroll down to content"
-msgstr "پایین رفتن تا رسیدن به محتوا"
+msgstr "به سوی محتوا"
 
 #: functions.php:179
 msgctxt "Theme starter content"
@@ -53,23 +53,23 @@ msgstr "اسپرسو"
 
 #: inc/custom-header.php:128
 msgid "Pause background video"
-msgstr "توقف ویدیوی پس‌زمینه"
+msgstr "توقف ویدیوی زمینه"
 
 #: inc/custom-header.php:127
 msgid "Play background video"
-msgstr "پخش ویدیوی پس‌زمینه"
+msgstr "پخش ویدیوی زمینه"
 
 #: inc/template-tags.php:151
 msgid "Front Page Section %1$s Placeholder"
-msgstr "نگهدارنده‌ی مکان %1$s صفحه اول"
+msgstr "نگهدارنده‌ٔ مکان %1$s صفحهٔ اول"
 
 #: inc/customizer.php:109
 msgid "When the two-column layout is assigned, the page title is in one column and content is in the other."
-msgstr "هنگام انتخاب قالب دوستونه، عنوان برگه در یک ستون و محتوا در ستون دیگر قرار می‌گیرد."
+msgstr "با انتخاب چیدمان دوستونه، عنوان برگه در یک ستون و محتوا در ستون دیگر قرار می‌گیرد."
 
 #: single.php:34
 msgid "Next Post"
-msgstr "نوشته‌ی بعدی"
+msgstr "نوشته‌ٔ بعدی"
 
 #: index.php:27
 msgid "Posts"
@@ -96,7 +96,7 @@ msgstr "<span class=\"screen-reader-text\">نوشته‌شده در</span> %s"
 #. translators: %s: post author
 #: inc/template-tags.php:21
 msgid "by %s"
-msgstr "توسط %s"
+msgstr "از %s"
 
 #: inc/icon-functions.php:44
 msgid "Please define an SVG icon filename."
@@ -218,7 +218,7 @@ msgstr "جستجو برای "
 
 #: search.php:19
 msgid "Search Results for: %s"
-msgstr ""
+msgstr "نتایج جستجوی «%s»"
 
 #. translators: %s: Name of current post
 #: template-parts/page/content-front-page-panels.php:45
@@ -241,7 +241,7 @@ msgstr "دوهزاروهفده دستکم به وردپرس ۴٫۷ نیاز دا
 #. translators: %s: Name of current post
 #: inc/template-tags.php:117
 msgid "Edit<span class=\"screen-reader-text\"> \"%s\"</span>"
-msgstr ""
+msgstr "ویرایش <span class=\"screen-reader-text\">«%s»</span>"
 
 #: template-parts/page/content-page.php:26
 #: template-parts/post/content-audio.php:91 template-parts/post/content.php:64
@@ -255,7 +255,7 @@ msgstr "صفحه‌ها:"
 msgid "Menu"
 msgstr "گزینگان"
 
-#: header.php:27
+#: header.php:28
 msgid "Skip to content"
 msgstr "رفتن به محتوا"
 
@@ -288,13 +288,13 @@ msgstr "دیدگاه‌ها بسته شده‌اند."
 msgctxt "comments title"
 msgid "%1$s Reply to &ldquo;%2$s&rdquo;"
 msgid_plural "%1$s Replies to &ldquo;%2$s&rdquo;"
-msgstr[0] ""
+msgstr[0] "%1$s دیدگاه دربارهٔ «%2$s»"
 
 #. translators: %s: post title
 #: comments.php:37
 msgctxt "comments title"
 msgid "One Reply to &ldquo;%s&rdquo;"
-msgstr ""
+msgstr "یک دیدگاه دربارهٔ «%s»"
 
 #: archive.php:50 search.php:47 index.php:54
 msgid "Page"

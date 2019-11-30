@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Themes - Twenty Sixteen package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-01-16 14:04:38+0000\n"
+"PO-Revision-Date: 2019-11-13 22:41:47+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,61 +19,61 @@ msgstr "دوهزار و شانزده"
 msgid "Twenty Sixteen is a modernized take on an ever-popular WordPress layout — the horizontal masthead with an optional right sidebar that works perfectly for blogs and websites. It has custom color options with beautiful default color schemes, a harmonious fluid grid using a mobile-first approach, and impeccable polish in every detail. Twenty Sixteen will make your WordPress look beautiful everywhere."
 msgstr "دوهزاروشانزده برداشتی مدرن از پوسته‌های همیشگی وردپرس، با سربرگی افقی و نوار کناری اختیاری، مناسب برای وبلاگ‌ها و سایت‌ها است. این پوسته دارای گزینه‌های رنگ سفارشی و پوسته‌های رنگی پیشفرض زیبا و دارای صفحه‌بندی سیال و سازگار با موبایل است. دوهزاروشانزده وردپرس شما را از همیشه زیباتر خواهد کرد."
 
-#: functions.php:202
-msgid "Bright Red"
-msgstr ""
-
-#: functions.php:197
-msgid "Dark Red"
-msgstr ""
-
-#: functions.php:192
-msgid "Medium Brown"
-msgstr ""
-
-#: functions.php:187
-msgid "Dark Brown"
-msgstr ""
-
-#: functions.php:182
-msgid "Light Blue"
-msgstr ""
+#: functions.php:172
+msgid "Blue Gray"
+msgstr "خاکستری آبی"
 
 #: functions.php:177
 msgid "Bright Blue"
-msgstr ""
+msgstr "آبی درخشان"
 
-#: functions.php:172
-msgid "Blue Gray"
-msgstr ""
+#: functions.php:202
+msgid "Bright Red"
+msgstr "قرمز درخشان"
 
-#: functions.php:167
-msgid "White"
-msgstr ""
-
-#: functions.php:162
-msgid "Light Gray"
-msgstr ""
-
-#: functions.php:157
-msgid "Medium Gray"
-msgstr ""
+#: functions.php:187
+msgid "Dark Brown"
+msgstr "قهوه‌ای تیره"
 
 #: functions.php:152
 msgid "Dark Gray"
-msgstr ""
+msgstr "خاکستری تیره"
+
+#: functions.php:197
+msgid "Dark Red"
+msgstr "قرمز تیره"
+
+#: functions.php:182
+msgid "Light Blue"
+msgstr "آبی روشن"
+
+#: functions.php:162
+msgid "Light Gray"
+msgstr "خاکستری روشن"
+
+#: functions.php:192
+msgid "Medium Brown"
+msgstr "قهوه‌ای متوسط"
+
+#: functions.php:157
+msgid "Medium Gray"
+msgstr "خاکستری متوسط"
+
+#: functions.php:167
+msgid "White"
+msgstr "سفید"
 
 #. translators: %s: Name of current post
-#: inc/template-tags.php:194 template-parts/content.php:29
-msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
-msgstr "ادامه خواندن<span class=\"screen-reader-text\"> \"%s\"</span>"
-
-#. translators: %s: Name of current post
-#: image.php:88 template-parts/content.php:53
-#: template-parts/content-single.php:47 template-parts/content-search.php:28
-#: template-parts/content-search.php:43 template-parts/content-page.php:39
+#: template-parts/content.php:53 template-parts/content-page.php:39
+#: template-parts/content-search.php:28 template-parts/content-search.php:43
+#: template-parts/content-single.php:47 image.php:88
 msgid "Edit<span class=\"screen-reader-text\"> \"%s\"</span>"
 msgstr "ویرایش<span class=\"screen-reader-text\"> \"%s\"</span>"
+
+#. translators: %s: Name of current post
+#: template-parts/content.php:29 inc/template-tags.php:194
+msgid "Continue reading<span class=\"screen-reader-text\"> \"%s\"</span>"
+msgstr "ادامه خواندن<span class=\"screen-reader-text\"> \"%s\"</span>"
 
 #: inc/customizer.php:345
 msgid "Red"
@@ -100,13 +100,13 @@ msgctxt "label"
 msgid "Search for:"
 msgstr "جستجو برای:"
 
-#: footer.php:30
-msgid "Footer Social Links Menu"
-msgstr "فهرست پیوند شبکه‌های اجتماعی پابرگ"
-
 #: footer.php:17
 msgid "Footer Primary Menu"
 msgstr "فهرست اصلی پابرگ"
+
+#: footer.php:30
+msgid "Footer Social Links Menu"
+msgstr "فهرست پیوند شبکه‌های اجتماعی پابرگ"
 
 #: functions.php:267
 msgid "Add widgets here to appear in your sidebar."
@@ -144,13 +144,13 @@ msgstr "نویسنده:"
 msgid "Previous post:"
 msgstr "نوشته قبلی:"
 
-#: single.php:41
-msgid "Previous"
-msgstr "قبلی"
-
 #: single.php:39
 msgid "Next post:"
 msgstr "نوشته بعدی:"
+
+#: single.php:41
+msgid "Previous"
+msgstr "قبلی"
 
 #: single.php:38
 msgid "Next"
@@ -206,17 +206,17 @@ msgstr "خاکستری"
 msgid "Dark"
 msgstr "تیره"
 
-#: inc/customizer.php:221
-msgid "Main Text Color"
-msgstr "رنگ متن اصلی"
+#: inc/customizer.php:242
+msgid "Secondary Text Color"
+msgstr "رنگ متن دوم"
 
 #: inc/customizer.php:315
 msgid "Default"
 msgstr "پیشفرض"
 
-#: inc/customizer.php:242
-msgid "Secondary Text Color"
-msgstr "رنگ متن دوم"
+#: inc/customizer.php:221
+msgid "Main Text Color"
+msgstr "رنگ متن اصلی"
 
 #: inc/customizer.php:200
 msgid "Link Color"
@@ -226,11 +226,6 @@ msgstr "رنگ پیوند"
 msgid "Page Background Color"
 msgstr "رنگ زمینه صفحه"
 
-#: single.php:31 image.php:107
-msgctxt "Parent post link"
-msgid "<span class=\"meta-nav\">Published in</span><span class=\"post-title\">%title</span>"
-msgstr "<span class=\"meta-nav\">منتشر شده در</span><span class=\"post-title\">%title</span>"
-
 #: inc/back-compat.php:41 inc/back-compat.php:54 inc/back-compat.php:72
 msgid "Twenty Sixteen requires at least WordPress version 4.4. You are running version %s. Please upgrade and try again."
 msgstr "دوهزاروشانزده دستکم به وردپرس ۴٫۴ نیاز دارد. شما در حال حاضر از نگارش %s استفاده می‌کنید. لطفا پس از به‌روزرسانی، دوباره تلاش کنید."
@@ -239,13 +234,18 @@ msgstr "دوهزاروشانزده دستکم به وردپرس ۴٫۴ نیاز 
 msgid "Base Color Scheme"
 msgstr "طرح رنگ پایه"
 
+#: single.php:31 image.php:107
+msgctxt "Parent post link"
+msgid "<span class=\"meta-nav\">Published in</span><span class=\"post-title\">%title</span>"
+msgstr "<span class=\"meta-nav\">منتشر شده در</span><span class=\"post-title\">%title</span>"
+
 #: image.php:77
 msgctxt "Used before full size attachment link."
 msgid "Full size"
 msgstr "اندازه کامل"
 
-#: image.php:58 template-parts/content.php:36
-#: template-parts/content-single.php:26 template-parts/content-page.php:24
+#: template-parts/content.php:36 template-parts/content-page.php:24
+#: template-parts/content-single.php:26 image.php:58
 msgid "Pages:"
 msgstr "صفحه‌ها:"
 
@@ -257,11 +257,11 @@ msgstr "عکس بعدی"
 msgid "Previous Image"
 msgstr "عکس پیشین"
 
-#: header.php:49
+#: header.php:50
 msgid "Menu"
 msgstr "فهرست"
 
-#: header.php:27
+#: header.php:28
 msgid "Skip to content"
 msgstr "پرش به محتوا"
 
@@ -272,26 +272,6 @@ msgstr "بازکردن زیرفهرست"
 #: functions.php:408
 msgid "collapse child menu"
 msgstr "بستن زیرفهرست"
-
-#. translators: If there are characters in your language that are not supported
-#. by Inconsolata, translate this to 'off'. Do not translate into your own
-#. language.
-#: functions.php:327
-msgctxt "Inconsolata font: on or off"
-msgid "on"
-msgstr "off"
-
-#: functions.php:277
-msgid "Content Bottom 1"
-msgstr "زیرِ محتوا ۱"
-
-#: functions.php:279 functions.php:291
-msgid "Appears at the bottom of the content on posts and pages."
-msgstr "زیر محتوای نوشته‌ها و برگه‌ها نمایش داده خواهد شد"
-
-#: functions.php:289
-msgid "Content Bottom 2"
-msgstr "زیرِ محتوا ۲"
 
 #. translators: If there are characters in your language that are not supported
 #. by Merriweather, translate this to 'off'. Do not translate into your own
@@ -309,15 +289,35 @@ msgctxt "Montserrat font: on or off"
 msgid "on"
 msgstr "روشن"
 
+#. translators: If there are characters in your language that are not supported
+#. by Inconsolata, translate this to 'off'. Do not translate into your own
+#. language.
+#: functions.php:327
+msgctxt "Inconsolata font: on or off"
+msgid "on"
+msgstr "off"
+
+#: functions.php:289
+msgid "Content Bottom 2"
+msgstr "زیرِ محتوا ۲"
+
+#: functions.php:279 functions.php:291
+msgid "Appears at the bottom of the content on posts and pages."
+msgstr "زیر محتوای نوشته‌ها و برگه‌ها نمایش داده خواهد شد"
+
+#: functions.php:277
+msgid "Content Bottom 1"
+msgstr "زیرِ محتوا ۱"
+
 #: functions.php:265
 msgid "Sidebar"
 msgstr "ستون‌کناری"
 
-#: header.php:66 functions.php:93
+#: functions.php:93 header.php:67
 msgid "Social Links Menu"
 msgstr "فهرست پیوند های شبکه‌های اجتماعی"
 
-#: header.php:53 functions.php:92
+#: functions.php:92 header.php:54
 msgid "Primary Menu"
 msgstr "فهرست اصلی"
 
@@ -336,17 +336,17 @@ msgid "%1$s thought on &ldquo;%2$s&rdquo;"
 msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
 msgstr[0] "%1$s دیدگاه برای &ldquo;%2$s&rdquo;"
 
-#: index.php:50 archive.php:53 search.php:41 image.php:62
-#: template-parts/content.php:40 template-parts/content-single.php:30
-#: template-parts/content-page.php:28
+#: archive.php:53 template-parts/content.php:40
+#: template-parts/content-page.php:28 template-parts/content-single.php:30
+#: search.php:41 index.php:50 image.php:62
 msgid "Page"
 msgstr "برگه"
 
-#: index.php:49 archive.php:52 search.php:40
+#: archive.php:52 search.php:40 index.php:49
 msgid "Next page"
 msgstr "صفحه بعدی"
 
-#: index.php:48 archive.php:51 search.php:39
+#: archive.php:51 search.php:39 index.php:48
 msgid "Previous page"
 msgstr "صفحه قبلی"
 
@@ -358,13 +358,13 @@ msgstr "به نظر می‌رسد چیزی اینجا نیست. مایل هست�
 msgid "Oops! That page can&rsquo;t be found."
 msgstr "اوه! صفحه مورد نظر پیدا نشد."
 
-#. Theme URI of the theme
-msgid "https://wordpress.org/themes/twentysixteen/"
-msgstr "https://wordpress.org/themes/twentysixteen/"
-
 #. Author of the theme
 msgid "the WordPress team"
 msgstr "گروه وردپرس"
+
+#. Theme URI of the theme
+msgid "https://wordpress.org/themes/twentysixteen/"
+msgstr "https://wordpress.org/themes/twentysixteen/"
 
 #. Author URI of the theme
 #: footer.php:60
