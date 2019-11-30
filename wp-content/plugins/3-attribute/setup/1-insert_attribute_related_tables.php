@@ -12,6 +12,8 @@ class insert_attribute_related_tables extends database {
     }
 
     function table_names() {
+		global $wpdb;
+
         /************GLOBAL AND RELATED ATTRIBUTE TABLES*************/
         $GLOBALS[ 'sst_tables' ][ 'attr_html_global' ] = $this->full_prefix . 'attr_html_global';
         $GLOBALS[ 'sst_tables' ][ 'attr_html_event' ] = $this->full_prefix . 'attr_html_event';
@@ -50,6 +52,8 @@ class insert_attribute_related_tables extends database {
     }
 
     function insert_tables() {
+		global $wpdb;
+
         ##################################################
         $sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'attr_input_attr_list' ] . " (" .
         "`id` INT(10) NOT NULL auto_increment," .

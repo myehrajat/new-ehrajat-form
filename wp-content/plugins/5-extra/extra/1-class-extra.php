@@ -18,23 +18,41 @@ class extra extends database {
 			(function($){
 
 				jQuery(document).ready(function(){
+					jQuery("#<?php echo $remove_random_id; ?>").hide();						
 					jQuery.noConflict();
 					jQuery("#<?php echo $add_random_id; ?>").click(function(){
-						var inputs = jQuery("sst-input[id='<?php echo $unique_id; ?>'");
+						var inputs = jQuery("sst-input[id='<?php echo $unique_id; ?>']");
 						var lastIndex = inputs.length - 1;
-						var input = inputs[lastIndex];
-						if(inputs.length <= <?php echo $extra; ?>){
-							var hideInput = jQuery(input.outerHTML).insertAfter(input).hide();
-							hideInput.fadeIn(300);
-						}
-					});
-					jQuery("#<?php echo $remove_random_id; ?>").click(function(){
-						var input = jQuery("sst-input[id='<?php echo $unique_id; ?>'");
-						if(input.length>1){
-							input.last().fadeOut(200,function() { input.last().remove() ; });
-						}
-					});
+						var input = inputs.last();
+						/*you can add even more*/
+						if(inputs.length < <?php echo $extra; ?>){
+						  // console.log(input[0].outerHTML);
+							var hidedInput = jQuery(input[0].outerHTML).insertAfter(input[0]).hide();
+							//alert(input[0].outerHTML);
 
+							hidedInput.show(300);
+							jQuery("#<?php echo $remove_random_id; ?>").fadeIn(300);	
+						/*you added the last*/
+						}else if(inputs.length == <?php echo $extra; ?>){
+							var hidedInput = jQuery(input[0].outerHTML).insertAfter(input[0]).hide();
+							hidedInput.show(300);
+							jQuery("#<?php echo $add_random_id; ?>").hide(200);
+							jQuery("#<?php echo $remove_random_id; ?>").fadeIn(300);	
+						}
+					});
+					
+					jQuery("#<?php echo $remove_random_id; ?>").click(function(){
+						var input = jQuery("sst-input[id='<?php echo $unique_id; ?>']");
+						/* you can delete more*/
+						if(input.length>2){
+							input.last().fadeOut(200,function() { input.last().remove() ; });
+							jQuery("#<?php echo $remove_random_id; ?>").fadeIn(300);	
+						}else if(input.length==2){
+							input.last().fadeOut(200,function() { input.last().remove() ; });
+							jQuery("#<?php echo $remove_random_id; ?>").hide();
+						}
+						jQuery("#<?php echo $add_random_id; ?>").fadeIn(300);
+					});
 				});
 
 			})(jQuery);

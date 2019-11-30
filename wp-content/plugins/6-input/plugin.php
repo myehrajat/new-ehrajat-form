@@ -26,8 +26,6 @@ define('EXTRA_CONTROLLER_POSITION','after');
 #############################################
 # VISIBILTY
 #############################################
-define( 'DEFAULT_SHOW_OR_HIDE', 'hide' );
-define( 'DEFAULT_ENABLE_OR_DISABLE', 'disable' );
 glob_includer(INPUT_SETUP_PATH);
 new insert_input_related_tables;
 glob_includer(INPUT_FUNC_PATH);

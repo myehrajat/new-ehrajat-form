@@ -2,10 +2,13 @@
 interface common_interface {
 
     function get_by_id( $id, $table_name );
+    function get_by_col( $col,$val, $table_name);
 
     function get_current_user_id();
 
     function file_get_contents_with_timer( $url, $timer = NULL );
+
+    function render_attrs( array $attrs );
 }
 class common extends ids
 implements common_interface {
@@ -51,6 +54,29 @@ implements common_interface {
         }
         return $return;
     }
+    function get_by_col( $col,$val, $table_name ) {
+        global $wpdb;
+            if ( $table_name ) {
+                $sql = "SELECT * FROM `" . $table_name . "` WHERE `".$col."`= '" .$val . "' LIMIT 1";
+                $results = $wpdb->get_results( $sql );
+                if ( $wpdb->last_error !== '' ) {
+                    $this->error_log( 'get_by_id MYSQL query failed due to syntax error.' );
+                    $return = false;
+                } else {
+                    if ( !empty( $results ) ) {
+                        $return = $results[ 0 ];
+                    } else {
+                        $this->error_log( 'id provided for get_by_col is not correct.Can not find '.$col.':"' . $val . '" in table:"' . $table_name . '".' );
+                        $return = false;
+                    }
+                }
+            } else {
+                $this->error_log( 'table name NOT provided in get_by_id().' );
+                $return = false;
+
+            }
+        return $return;
+    }
 
     /**************************************************
      *version 1.0.0
@@ -74,13 +100,20 @@ implements common_interface {
 
     function file_get_contents_with_timer( $url, $timer = NULL ) {
         if ( $timer == NULL ) {
-            $result =  file_get_contents( $url );
+            $result = file_get_contents( $url );
         } else {
             $default_socket_timeout = ini_get( 'default_socket_timeout' );
             ini_set( 'default_socket_timeout', $timer );
-            $result =  file_get_contents( $url );
+            $result = file_get_contents( $url );
             ini_set( 'default_socket_timeout', $default_socket_timeout );
         }
         return $result;
+    }
+
+    function render_attrs( array $attrs ) {
+        foreach ( $attrs as $attr_name => $attr_value ) {
+            $all_attrs .= ' ' . $attr_name . '="' . $attr_value . '"';
+        }
+        return $all_attrs;
     }
 }

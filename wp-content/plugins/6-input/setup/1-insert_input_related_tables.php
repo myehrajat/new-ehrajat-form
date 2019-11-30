@@ -19,6 +19,8 @@ class insert_input_related_tables extends database {
     }
 
     function insert_tables() {
+		global $wpdb;
+
 		##################################################
         $sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'options' ] . " (" .
         "`id` INT(10) NOT NULL auto_increment," .

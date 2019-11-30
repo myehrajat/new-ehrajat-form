@@ -17,7 +17,6 @@ class input extends render {
             $this->input_obj = $this->get_by_id( $input_id, $GLOBALS[ 'sst_tables' ][ 'input' ] );
             if ( !empty( $this->input_obj ) ) {
                 $this->all_attributes( $input_id );
-                $this->input_data[ 'tag' ] = $this->create_tag_data( $this->input_obj->tag_id );
 
             } else {
 
@@ -162,7 +161,7 @@ class input extends render {
             case "datetime":
             case "color":
                 $datalist = $this->render_datalist();
-                $this->input = '<input' . $this->render_attrs( $this->input_data[ 'attrs' ] ) . '>'.$datalist . $this->input_data[ 'tag' ][ 'after' ] ;
+                $this->input = '<input' . $this->render_attrs( $this->input_data[ 'attrs' ] ) . '>'.$datalist ;
                 break;
             case "select":
                 $select_list = $this->render_select_list();
@@ -174,7 +173,7 @@ class input extends render {
                 $this->input .= '</textarea>';
                 break;
         }
-        $input = '<sst-input id="'.$this->input_data[ 'unique_id' ].'">'.$this->render_tag( $this->input_data[ 'tag' ][ 'before' ], $this->input, $this->input_data[ 'tag' ][ 'after' ] ).'</sst-input>';
+        $input = '<sst-input id="'.$this->input_data[ 'unique_id' ].'">'.$this->render_tag( $this->input, $this->input_obj->tag_id ).'</sst-input>';
 		if(EXTRA_CONTROLLER_POSITION == 'before'){
 			$input = $this->input_data[ 'extra_add_controller' ].$this->input_data[ 'extra_remove_controller' ].$input;
 		}elseif(EXTRA_CONTROLLER_POSITION == 'after'){
@@ -187,10 +186,4 @@ class input extends render {
 
     }
 
-    function render_attrs( array $attrs ) {
-        foreach ( $attrs as $attr_name => $attr_value ) {
-            $all_attrs .= ' ' . $attr_name . '="' . $attr_value . '"';
-        }
-        return $all_attrs;
-    }
 }

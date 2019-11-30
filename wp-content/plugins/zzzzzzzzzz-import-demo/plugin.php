@@ -57,6 +57,10 @@ function test_inputs( $inupt_id = NULL ) {
 
 function test_attributes() {}
 function test(){
-test_inputs( 1 );
+	$f = new field(1);
+	//dbg($f);
+echo $f->render();
+//test_inputs( 1 );
+//test_inputs( 2 );
 }
 add_action ('wp_head','test');
