@@ -15,6 +15,7 @@
  */
 
 get_header();
+/*
 ?>
 
 	<section id="primary" class="content-area">
@@ -45,3 +46,4 @@ get_header();
 
 <?php
 get_footer();
+*/

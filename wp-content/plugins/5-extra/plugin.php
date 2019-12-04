@@ -18,8 +18,9 @@ plugin_load_order(__FILE__);
 define( 'EXTRA_PLUGIN_PATH', __DIR__ . '/' );
 define( 'EXTRA_PLUGIN_FILE', basename( __FILE__ ) );
 define('EXTRA_FUNC_PATH',__DIR__.'/extra/');
-define('EXTRA_PLUGIN_ADD_ICON_URL',plugin_dir_url( __FILE__ ).'add.png');
-define('EXTRA_PLUGIN_REMOVE_ICON_URL',plugin_dir_url( __FILE__ ).'remove.png');
+define('EXTRA_PLUGIN_ASSET_URL',plugin_dir_url( __FILE__ ).'asset/');
+define('EXTRA_PLUGIN_ADD_ICON_URL',plugin_dir_url( __FILE__ ).'asset/add.png');
+define('EXTRA_PLUGIN_REMOVE_ICON_URL',plugin_dir_url( __FILE__ ).'asset/remove.png');
 
 //define('IS_INPUT_PLUGIN_ACTIVE',in_array(PLUGIN_FOLDER.'/'.PLUGIN_FILE, apply_filters('active_plugins', get_option('active_plugins'))));
 #############################################

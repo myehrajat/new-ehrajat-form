@@ -423,7 +423,7 @@ implements attribute_input_validator_interface {
     function attr_name( $attr_value ) {
         if ( $attr_value <> 'isindex' ) {
             if ( !empty( $attr_value ) ) {
-                return $this->create_attribute( 'name', $attr_value.'[]' );
+                return $this->create_attribute( 'name', $attr_value );
             } else {
                 $this->error_log( 'name cant be empty.' );
                 return NULL;

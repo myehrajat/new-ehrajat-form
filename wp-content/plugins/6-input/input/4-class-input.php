@@ -113,26 +113,38 @@ class input extends render {
             $this->input_data[ 'access' ][ 'editable' ] = $access->editable;
             $this->input_data[ 'access' ][ 'addable' ] = $access->addable;
         }
+
         $this->input_data[ 'unique_id' ] = $this->random_string( 12 );
         if ( class_exists( 'extra' ) ) {
-            $extra = new extra( $this->input_obj->extra,$this->input_data[ 'unique_id' ] );
-           $this->input_data[ 'extra_add_controller' ] = $extra->extra_add_controller;
-           $this->input_data[ 'extra_remove_controller' ] = $extra->extra_remove_controller;
+            if ( $this->input_obj->extra > 0 ) {
+				//dbg($this->input_data[ 'attrs' ]['name']); 
+				$this->input_data[ 'attrs' ]['name'] = $this->input_data[ 'attrs' ]['name'].'[0]';
+                $this->input_data[ 'unique_id' ] = $this->input_data[ 'unique_id' ] . '≪0≫';
+            }
+            $this->input_data[ 'extra_max' ] = $this->input_obj->extra;
         }
 
     }
 
     function render() {
-		if($this->input_data[ 'access' ][ 'visbile' ] == 'no' and $_REQUEST['mode']=='view'){
-			return '';
-		}
-		if($this->input_data[ 'access' ][ 'editable' ] == 'no' and $_REQUEST['mode']=='edit'){
+		 $extra = new extra( 'sst-input', $this->input_obj->extra, $this->input_data[ 'unique_id' ] );
+            $this->input_data[ 'extra_add_controller' ] = $extra->extra_add_controller;
+            $this->input_data[ 'extra_remove_controller' ] = $extra->extra_remove_controller;
 
-			$this->input_data[ 'disabled' ] = 'disabled';
-		}
-		if($this->input_data[ 'access' ][ 'addable' ] == 'no' and $_REQUEST['mode']=='add'){
-			return '';
-		}
+		//dbg($this->input_data[ 'unique_id' ]);
+        if ( $this->input_data[ 'access' ][ 'visbile' ] == 'no'
+            and $_REQUEST[ 'mode' ] == 'view' ) {
+            return '';
+        }
+        if ( $this->input_data[ 'access' ][ 'editable' ] == 'no'
+            and $_REQUEST[ 'mode' ] == 'edit' ) {
+
+            $this->input_data[ 'disabled' ] = 'disabled';
+        }
+        if ( $this->input_data[ 'access' ][ 'addable' ] == 'no'
+            and $_REQUEST[ 'mode' ] == 'add' ) {
+            return '';
+        }
         switch ( $this->input_data[ 'input_html_type' ] ) {
 
             case "hidden":
@@ -161,7 +173,7 @@ class input extends render {
             case "datetime":
             case "color":
                 $datalist = $this->render_datalist();
-                $this->input = '<input' . $this->render_attrs( $this->input_data[ 'attrs' ] ) . '>'.$datalist ;
+                $this->input = '<input' . $this->render_attrs( $this->input_data[ 'attrs' ] ) . '>' . $datalist;
                 break;
             case "select":
                 $select_list = $this->render_select_list();
@@ -173,15 +185,18 @@ class input extends render {
                 $this->input .= '</textarea>';
                 break;
         }
-        $input = '<sst-input id="'.$this->input_data[ 'unique_id' ].'">'.$this->render_tag( $this->input, $this->input_obj->tag_id ).'</sst-input>';
-		if(EXTRA_CONTROLLER_POSITION == 'before'){
-			$input = $this->input_data[ 'extra_add_controller' ].$this->input_data[ 'extra_remove_controller' ].$input;
-		}elseif(EXTRA_CONTROLLER_POSITION == 'after'){
-			$input = $input.$this->input_data[ 'extra_add_controller' ].$this->input_data[ 'extra_remove_controller' ];
-		}else{
-			$input = $input.$this->input_data[ 'extra_add_controller' ].$this->input_data[ 'extra_remove_controller' ];
-		}
-		$this->input =  $input ;
+        $input = $this->render_tag( $this->input, $this->input_obj->tag_id );
+        if ( EXTRA_CONTROLLER_POSITION == 'before' ) {
+            $input = $this->input_data[ 'extra_add_controller' ] . /*$this->input_data[ 'extra_remove_controller' ].*/ $input;
+        } elseif ( EXTRA_CONTROLLER_POSITION == 'after' ) {
+                $input = $input . $this->input_data[ 'extra_add_controller' ]; //.$this->input_data[ 'extra_remove_controller' ];
+            } else {
+                $input = $input . $this->input_data[ 'extra_add_controller' ]; //.$this->input_data[ 'extra_remove_controller' ];
+            }
+            //dbg($this->input_data[ 'unique_id' ]);
+        $input = '<sst-input id="' . $this->input_data[ 'unique_id' ] . '" >' . $input . '</sst-input>';
+
+        $this->input = $input;
         return $this->input;
 
     }
