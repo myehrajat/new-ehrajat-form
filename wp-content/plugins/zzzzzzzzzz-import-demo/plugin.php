@@ -54,7 +54,6 @@ function test_inputs( $inupt_id = NULL ) {
     }
 
 }
-
 function test_attributes() {}
 function test(){
 	$f = new field(1);

@@ -11,12 +11,6 @@
 /*
 use this plugin in head of all plugin related to this to correctly load plugin for using its functionality
 */
-function dbg($var,$die = true){
-	echo '<pre>';
-	var_dump($var);
-	echo '</pre>';
-	if($die){die;}
-}
 //not work
 function plugin_load_order($__FILE__){
 	/*
@@ -44,6 +38,7 @@ use if($GLOBALS['plugins_loaded']==true){ to be sure all plugins loaded the do e
 	define('DEBUG_PLUGIN_FILE',basename(__FILE__));
 	/*debugging folder function path*/
 	define('DEBUG_FUNC_PATH',__DIR__.'/debug/');
+	define('DEBUG_PLUGIN_ASSET_URL',plugin_dir_url( __FILE__ ).'asset/');
 #############################################
 # Debugging & Logging Settings
 #############################################

@@ -1,20 +1,51 @@
 <?php
 class render extends database {
     #todo : validate html tags
-    function create_tag_data( $tag_id ) {
-        $tag_id = $this->get_ids( $tag_id, true );
-        if ( !empty( $tag_id ) ) {
-            $tag_obj = $this->get_by_id( $tag_id, $GLOBALS[ 'sst_tables' ][ 'tags' ] );
-            if ( !empty( $tag_obj ) ) {
-                return array( 'before' => $tag_obj->tag_before, 'after' => $tag_obj->tag_after );
+
+    function create_tag_data( $tag_id, $child_before = '', $child_after = '' ) {
+        if ( !isset( $tag_ids ) ) {
+            static $tag_ids = array();
+        }
+        if ( !in_array( $tag_id, $tag_ids ) ) {
+            $tag_ids[] = $tag_id;
+            $tag_id = $this->get_ids( $tag_id, true );
+            if ( !empty( $tag_id ) ) {
+                $tag_obj = $this->get_by_id( $tag_id, $GLOBALS[ 'sst_tables' ][ 'tags' ] );
+                if ( $tag_obj->parent_tag_id ) {
+                    if ( $this->is_positive_number( $tag_obj->parent_tag_id ) ) {
+                        $new_child_before .= $tag_obj->tag_before . $child_before;
+                        $new_child_after .= $tag_obj->tag_after . $child_after;
+                        $result = $this->create_tag_data( $tag_obj->parent_tag_id, $new_child_before, $new_child_after );
+						return $result;
+                    } else {
+                        $before = $child_before;
+                        $after = $child_after;
+                        return array( 'before' => $before, 'after' => $after );
+                        $this->error_log( 'your parent tag id is not correct.' );
+                    }
+                } else {
+                    $before = $tag_obj->tag_before . $child_before;
+                    $after = $tag_obj->tag_after . $child_after;
+                    return array( 'before' => $before, 'after' => $after );
+                }
+            } else {
+                $before = $child_before;
+                $after = $child_after;
+                return array( 'before' => $before, 'after' => $after );
+                $this->error_log( 'your parent tag id is empty.' );
             }
+        } else {
+            $before = $child_before;
+            $after = $child_after;
+            return array( 'before' => $before, 'after' => $after );
+            $this->error_log( 'your parent tag id has been created before and this make an loop without end.' );
         }
     }
 
     function replace_all_variable_short_codes( $str, $between_start = '{var:', $between_end = '}' ) {
         global $wpdb;
         if ( !empty( $str ) ) {
-            preg_match_all( '/' . addslashes( $between_start ) . '(.*?)' . addslashes( $between_end) . '/', $str, $matches );
+            preg_match_all( '/' . addslashes( $between_start ) . '(.*?)' . addslashes( $between_end ) . '/', $str, $matches );
             foreach ( $matches[ 1 ] as $k => $match ) {
                 $var_obj = $this->get_by_col( 'name', $match, $GLOBALS[ 'sst_tables' ][ 'variable' ] );
                 $str = str_replace( $matches[ 0 ][ $k ], $var_obj->value, $str );
@@ -26,7 +57,7 @@ class render extends database {
     function replace_attribute_short_codes( $str, $between_start = '{attr:', $between_end = '}' ) {
         global $wpdb;
         if ( !empty( $str ) ) {
-            preg_match_all( '/' . addslashes( $between_start ) . '(.*?)' .addslashes(  $between_end) . '/', $str, $matches );
+            preg_match_all( '/' . addslashes( $between_start ) . '(.*?)' . addslashes( $between_end ) . '/', $str, $matches );
             foreach ( $matches[ 1 ] as $k => $match ) {
                 $str = str_replace( $matches[ 0 ][ $k ], $this->input_data[ 'attrs' ][ $match ], $str );
             }
@@ -34,15 +65,14 @@ class render extends database {
         return $str;
     }
 
-    function render_tag(  $element, $tag_id ) {
-		$tag = $this->create_tag_data( $tag_id );
+    function render_tag( $element, $tag_id ) {
+        $tag = $this->create_tag_data( $tag_id );
+        $before = $this->replace_all_variable_short_codes( $tag[ 'before' ] );
+        $after = $this->replace_all_variable_short_codes( $tag[ 'after' ] );
 
-		$before = $this->replace_all_variable_short_codes( $tag['before'] );
-        $after = $this->replace_all_variable_short_codes($tag['after'] );
-		
 
         $before = $this->replace_attribute_short_codes( $before );
-        $after = $this->replace_attribute_short_codes( $after);
+        $after = $this->replace_attribute_short_codes( $after );
         return $before . $element . $after;
     }
 

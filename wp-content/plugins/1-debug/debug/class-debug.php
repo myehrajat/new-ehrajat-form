@@ -52,9 +52,9 @@ class debug{
 	/*
 	$die => die after debugging
 	*/
-	function dbg( $var, $die = false,$identifier=false, $textarea = false ) {
+	function dbg( $var, $die = true,$identifier=false, $textarea = true ) {
 		if ( $textarea ) {
-			echo '<textarea rows="50" cols="500">';
+			echo '<textarea id="debug_area">';
 		}
 		echo '<pre>';
 		if($identifier){
@@ -71,6 +71,51 @@ class debug{
 	}
 
 }
+	function dbg( $var, $die = true,$identifier=false, $textarea = true ) {
+		if ( $textarea ) {
+			echo '<script src="'.DEBUG_PLUGIN_ASSET_URL . 'autosize-master/dist/autosize.min.js"></script>';
+			echo '<script src="'.DEBUG_PLUGIN_ASSET_URL . 'debug-textarea-resize.js"></script>';
+			echo '<textarea  id="debug_area">';
+		}
+		echo '<pre>';
+		if($identifier){
+			echo '<strong>' . $identifier . '</strong>';	
+		}
+		var_dump( $var );
+		echo '</pre>';
+		if ( $textarea ) {
+			echo '</textarea></br>';
+		}
+		if ( $die ) {
+			die;
+		}
+	}
+
+function textarea_resize_enqueued() {
+    add_action( 'wp_enqueue_scripts', 'load_textarea_resize' );
+}
+
+function load_textarea_resize() {
+    if ( !wp_script_is( 'sst-textarea-resize', 'enqueued' ) ) {
+        wp_register_script( 'sst-textarea-resize', DEBUG_PLUGIN_ASSET_URL . 'autosize-master/dist/autosize.min.js', array( 'jquery' ), '1.0' );
+        wp_enqueue_script( 'sst-textarea-resize' );
+    }
+}
+textarea_resize_enqueued();
+
+function debug_textarea_resize_enqueued() {
+    add_action( 'wp_enqueue_scripts', 'load_debug_textarea_resize' );
+}
+
+function load_debug_textarea_resize() {
+    if ( !wp_script_is( 'sst-debug-textarea-resize', 'enqueued' ) ) {
+        wp_register_script( 'sst-debug-textarea-resize', DEBUG_PLUGIN_ASSET_URL . 'debug-textarea-resize.js', array( 'jquery' ), '1.0' );
+        wp_enqueue_script( 'sst-debug-textarea-resize' );
+    }
+}
+debug_textarea_resize_enqueued();
+
+
 /**************************************************
 *version 1.0.0
 *this vars if for showing errors
