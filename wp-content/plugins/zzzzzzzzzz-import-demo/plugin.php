@@ -54,16 +54,31 @@ function test_inputs( $inupt_id = NULL ) {
     }
 
 }
-function test_attributes() {}
-function test(){
-	$f = new field(1);
-	//$f = new input(1);
-	//dbg($f);
-echo $f->render();
-//test_inputs( 1 );
-//test_inputs( 2 );
+function test_attributes() {
+	
 }
-add_action ('wp_head','test');
+function test_input_ref(){
+	//$f = new ReflectionClass(new input(24));
+	//dbg($f->getProperties(ReflectionProperty::IS_PUBLIC));
+	//dbg($f->getProperties(ReflectionProperty::IS_PROTECTED));
+	//dbg($f->getProperties(ReflectionProperty::IS_PRIVATE));
+	$f = new input(24);
+	dbg($f->input_data);
+
+}
+function test_input(){
+	$f = new input(24);
+	echo $f->render();
+}
+function test_block(){
+	$f = new block(1);
+	echo $f->render();
+}
+	//$f = new field(1);
+
+add_action ('wp_head','test_block');
+//add_action ('wp_head','test_input');
+//add_action ('wp_head','test_input');
 
 
 

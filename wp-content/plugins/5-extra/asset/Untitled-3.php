@@ -120,6 +120,10 @@ class input extends render {
                 $this->input_data[ 'unique_id' ] = $this->input_data[ 'unique_id' ] . '≪0≫';
             }
             $this->input_data['extra'][ 'max' ] = $this->input_obj->extra;
+			$extra = new extra(  $this->input_data['extra'][ 'max' ], $this->input_data[ 'unique_id' ] );
+			$this->input_data[ 'extra']['add_controller' ] = $extra->extra_add_controller;
+			$this->input_data[ 'extra']['remove_controller' ] = $extra->extra_remove_controller;
+			$this->input_data[ 'extra']['controller_position' ] = EXTRA_CONTROLLER_POSITION;        
 		}
 		$this->input_data['tag']['tag_id'] = $this->input_obj->tag_id;
         $tags = $this->render_tag( $this->input_data['tag']['tag_id'],$this->input_data[ 'attrs' ] );

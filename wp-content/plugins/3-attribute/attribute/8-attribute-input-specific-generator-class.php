@@ -290,7 +290,7 @@ class attribute_input_specific_generator extends attribute_input_common_generato
                         'rows' => $this->specific_obj->rows,
                         'wrap' => $this->specific_obj->wrap,
                     ), $this->input_html_type );
-                    $this->text = $this->specific_obj->text;
+                    $this->input_data['text'] = $this->specific_obj->text;
                     break;
             }
         } else {

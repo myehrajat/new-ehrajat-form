@@ -12,7 +12,8 @@ interface common_interface {
 }
 class common extends ids
 implements common_interface {
-    var $user_id;
+    public $user_id;
+    public $mode;
 
     function __construct() {
         parent::__construct();
@@ -116,4 +117,10 @@ implements common_interface {
         }
         return $all_attrs;
     }
+	function get_mode(){
+		$this->mode = strtolower($_REQUEST['mode']);
+		if(!isset($_REQUEST['mode'])){
+			$this->mode = 'add';
+		}
+	} 
 }

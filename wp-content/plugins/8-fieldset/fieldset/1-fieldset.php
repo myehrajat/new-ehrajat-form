@@ -1,6 +1,6 @@
 <?php
 
-class field extends render {
+class fieldset extends render {
     var $field_data;
     var $field_obj;
 

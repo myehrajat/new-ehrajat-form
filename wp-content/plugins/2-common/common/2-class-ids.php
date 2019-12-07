@@ -35,8 +35,8 @@ class ids extends str implements ids_interface {
     function __construct( $string = NULL ) {
 		parent::__construct();
         $this->get_ids( $string );
-    }
 
+    }
     function is_exculsive_ids( $str ) {
         if ( $this->is_numerichyphen( $str ) ) {
             if ( $this->starts_with( $str, '-' ) ) {

@@ -4,7 +4,7 @@
  *these are tables which is created by the plugin
  **************************************************/
 
-class insert_field_tables extends database {
+class insert_block_tables extends database {
     function __construct() {
 		parent::__construct();
         $this->table_names();
@@ -12,16 +12,18 @@ class insert_field_tables extends database {
     }
 
     function table_names() {
-        $GLOBALS[ 'sst_tables' ][ 'field' ]  = $this->full_prefix . 'field';
+        $GLOBALS[ 'sst_tables' ][ 'block' ]  = $this->full_prefix . 'block';
     }
 
     function insert_tables() {
 		global $wpdb;
-        $sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'field' ] . " (" .
+        $sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'block' ] . " (" .
         "`id` INT(10) NOT NULL auto_increment," .
         "`epithet` VARCHAR(255) NOT NULL," .
         "`slug` VARCHAR(255) NOT NULL," .
         "`input_ids` VARCHAR(255) NOT NULL," .
+        "`fieldset_ids` VARCHAR(255) NOT NULL," .
+        "`block_ids` VARCHAR(255) NOT NULL," .
         "`tag_id` VARCHAR(255) NOT NULL," .
         "`access_id` VARCHAR(255) NOT NULL," .
         "`extra` VARCHAR(255) NOT NULL," .

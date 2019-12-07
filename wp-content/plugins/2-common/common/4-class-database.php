@@ -13,8 +13,8 @@ interface database_interface {
 }
 class database extends common implements database_interface {
 	
-    public $collate_charset;
-    public $full_prefix;
+    protected $collate_charset;
+    protected $full_prefix;
 
     function __construct() {
 		parent::__construct();

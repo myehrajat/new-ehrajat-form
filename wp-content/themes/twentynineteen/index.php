@@ -45,5 +45,5 @@ get_header();
 	</section><!-- .content-area -->
 
 <?php
-get_footer();
 */
+get_footer();

@@ -54,7 +54,7 @@ class debug{
 	*/
 	function dbg( $var, $die = true,$identifier=false, $textarea = true ) {
 		if ( $textarea ) {
-			echo '<textarea id="debug_area">';
+			echo '<textarea id="debug_area" cols="188">';
 		}
 		echo '<pre>';
 		if($identifier){
@@ -75,7 +75,7 @@ class debug{
 		if ( $textarea ) {
 			echo '<script src="'.DEBUG_PLUGIN_ASSET_URL . 'autosize-master/dist/autosize.min.js"></script>';
 			echo '<script src="'.DEBUG_PLUGIN_ASSET_URL . 'debug-textarea-resize.js"></script>';
-			echo '<textarea  id="debug_area">';
+			echo '<textarea  id="debug_area"  cols="188">';
 		}
 		echo '<pre>';
 		if($identifier){

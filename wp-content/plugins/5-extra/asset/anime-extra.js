@@ -2,7 +2,7 @@
 jQuery(document).ready(function () {
 	
 	function change_tag_ids(sst){
-		sst.tag_names = ['input-tag','field-tag','fieldset-tag','block-tag','form-tag','sst-input','sst-field'];
+		sst.tag_names = ['input-tag','field-tag','fieldset-tag','block-tag','form-tag','sst-block','sst-input'];
 		sst.source_element_length = sst.clone_source_element.id.length;
 		sst.to_replace_in_middle = sst.new_clone_target_id.substr(sst.unique_id_length);
 		sst.j = 0;
@@ -67,24 +67,28 @@ jQuery(document).ready(function () {
 		 console.log(sst.max_extra);
 		 console.log(sst.clone_source_last_number );
 		 if(sst.max_extra> sst.clone_source_last_number ){
-			 jQuery(sst.clone_source_element.outerHTML).insertAfter("#"+sst.clone_source_element.id);
+			 jQuery(sst.clone_source_element.outerHTML).insertAfter("#"+sst.clone_source_element.id).hide();
 			 sst.clone_target_element = jQuery("#"+sst.unique+sst.source_identifier)[1];
 			 sst.clone_target_last_number = sst.clone_source_last_number-1+2;
 			 sst.target_identifier = sst.source_identifier.slice(0,-sst.clone_source_last_number.toString().length-1).concat(sst.clone_target_last_number+"≫");		 
 			 //replace new number to newly added id
 			 sst.new_clone_target_id = sst.clone_target_element.id.slice(0,-sst.clone_source_last_number.toString().length-1).concat(sst.clone_target_last_number+"≫");
 			 jQuery(sst.clone_target_element).attr('id',sst.new_clone_target_id );
+
 			 change_controller_ids(sst);
 			 change_tag_ids(sst);
 			 change_input_names(sst);
+			 
+
 			 jQuery(this).hide();
 			 jQuery("#"+sst.unique+sst.source_identifier+sst.remove_contoller_prefix).hide();
 			 jQuery("#"+sst.unique+sst.target_identifier+sst.remove_contoller_prefix).show();
 			 if(sst.max_extra-1 == sst.clone_source_last_number){
 			 	jQuery("#"+sst.unique+sst.target_identifier+sst.add_contoller_prefix).hide();
 			 }
+			 jQuery(sst.clone_target_element).removeAttr('style');
 		 }
-		 
+
 	 });
 	function show_add_for_previous(sst){
 		sst.num_to_show_controller = sst.clone_source_last_number-1;
@@ -102,9 +106,10 @@ jQuery(document).ready(function () {
 		 sst.source_identifier = this.id.substr(sst.unique_id_length).split('_')[0];
 		 sst.source_element_id = sst.unique+sst.source_identifier;
 		 sst.clone_source_last_number = sst.source_element_id.match(/(≪.*?≫)/g).pop().slice(1,-1);
-		 jQuery("#"+sst.unique+sst.source_identifier)[0].remove();
-		 show_add_for_previous(sst);
-		 
+		 jQuery("#"+sst.unique+sst.source_identifier).hide('slow', function(){ 
+			 jQuery("#"+sst.unique+sst.source_identifier).remove(); 
+			 show_add_for_previous(sst);
+		 });
 	 });
 });
 
