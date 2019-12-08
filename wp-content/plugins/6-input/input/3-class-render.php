@@ -68,8 +68,10 @@ class render extends database {
     function render_tag( $tag_id ,$attrs=NULL, $element=NULL) {
 		
         $tag = $this->create_tag_data( $tag_id );
+		
         $before = $this->replace_all_variable_short_codes( $tag[ 'before' ] );
         $after = $this->replace_all_variable_short_codes( $tag[ 'after' ] );
+		//if( $tag_id==27){dbg($before);}
 
 		if(!empty($attrs)){
 			$before = $this->replace_attribute_short_codes( $before ,$attrs);
@@ -219,9 +221,11 @@ class render extends database {
 
 	}
 	function render_block($block_data){
-		        if ( $block_data == NULL ) {
+		 
+		 if ( $block_data == NULL ) {
             $block_data = $this->block_data;
         }
+
         if ( $block_data[ 'extra' ][ 'max' ] > 0 ) {
             $extra = new extra( $block_data[ 'extra' ][ 'max' ], $block_data[ 'unique_id' ] );
             $block_data[ 'extra' ][ 'add_controller' ] = $extra->extra_add_controller;
@@ -229,7 +233,6 @@ class render extends database {
             $block_data[ 'extra' ][ 'controller_position' ] = EXTRA_CONTROLLER_POSITION;
 
         }
-		//dbg($block_data);
         if ( $block_data[ 'access' ][ 'visbile' ] == 'no'
             and $this->mode == 'view' ) {
             return '';
@@ -246,7 +249,9 @@ class render extends database {
         foreach ( $block_data[ 'inputs_data' ] as $input_data ) {
             $inputs .= $this->render_input( $input_data );
         }
+
         $block = $block_data[ 'tag' ][ 'before' ] . $inputs . $input_data[ 'tag' ][ 'after' ];
+		//dbg($block_data[ 'tag' ]);
         if ( $block_data[ 'extra' ][ 'controller_position' ] == 'before' ) {
             $block = $block_data[ 'extra' ][ 'add_controller' ] . $block_data[ 'extra' ][ 'remove_controller' ] . $block;
         } elseif ( $block_data[ 'extra' ][ 'controller_position' ] == 'after' ) {
