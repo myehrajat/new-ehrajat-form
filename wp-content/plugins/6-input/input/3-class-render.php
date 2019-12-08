@@ -225,7 +225,7 @@ class render extends database {
 		 if ( $block_data == NULL ) {
             $block_data = $this->block_data;
         }
-
+//dbg($block_data );
         if ( $block_data[ 'extra' ][ 'max' ] > 0 ) {
             $extra = new extra( $block_data[ 'extra' ][ 'max' ], $block_data[ 'unique_id' ] );
             $block_data[ 'extra' ][ 'add_controller' ] = $extra->extra_add_controller;

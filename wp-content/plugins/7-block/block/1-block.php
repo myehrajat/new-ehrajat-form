@@ -6,8 +6,9 @@ class block extends render {
 
     function __construct( $block_id ) {
         $this->get_block_object( $block_id );
-        $this->create_inputs();
-        // $this->create_blocks();
+        //$this->create_inputs();
+        dbg($this->create_block( $block_id ));
+        //dbg($this->bd);
         // $this->create_fieldsets();
     }
 
@@ -21,12 +22,29 @@ class block extends render {
         }
     }
 
+    function create_block( $block_id ) {
+        $this->get_block_object( $block_id );
+        $bds[] = $block_id;
+
+        if ( !empty( $this->block_obj->block_ids ) ) {
+            $child_block_ids = $this->get_ids( $this->block_obj->block_ids );
+            foreach ( $child_block_ids as $k => $child_block_id ) {
+                $children[] = $child_block_id;
+				$bds['children'][] =  $this->create_block( $child_block_id );
+
+            }
+        }else{
+			
+		}
+		;
+		return $bds;
+
+    }
+
     function create_inputs() {
         if ( !empty( $this->block_obj ) ) {
             $this->block_data[ 'input_ids' ] = $this->get_ids( $this->block_obj->input_ids );
             if ( !empty( $this->block_data[ 'input_ids' ] ) ) {
-
-
                 $this->block_data[ 'unique_id' ] = $this->random_string( 12 );
                 if ( class_exists( 'extra' ) ) {
                     if ( $this->block_obj->extra > 0 ) {
@@ -43,8 +61,6 @@ class block extends render {
                         }
                     }
                 }
-
-
                 if ( class_exists( 'access' ) ) {
                     $access = new access( $this->block_obj->access_id );
                     $this->block_data[ 'access' ][ 'visbile' ] = $access->visible;
