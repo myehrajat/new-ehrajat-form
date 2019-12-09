@@ -39,6 +39,7 @@ use if($GLOBALS['plugins_loaded']==true){ to be sure all plugins loaded the do e
 	/*debugging folder function path*/
 	define('DEBUG_FUNC_PATH',__DIR__.'/debug/');
 	define('DEBUG_PLUGIN_ASSET_URL',plugin_dir_url( __FILE__ ).'asset/');
+	define('DEBUG_PLUGIN_ASSET_PATH',DEBUG_PLUGIN_PATH.'asset/');
 #############################################
 # Debugging & Logging Settings
 #############################################

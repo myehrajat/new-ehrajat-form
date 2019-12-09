@@ -116,10 +116,10 @@ class input extends render {
         if ( class_exists( 'extra' ) ) {
             if ( $this->input_obj->extra > 0 ) {
                 //dbg($this->input_data[ 'attrs' ]['name']); 
-                $this->input_data[ 'attrs' ][ 'name' ] = $this->input_data[ 'attrs' ][ 'name' ] . '[0]';
-                $this->input_data[ 'unique_id' ] = $this->input_data[ 'unique_id' ] . '≪0≫';
+               // $this->input_data[ 'attrs' ][ 'name' ] = $this->input_data[ 'attrs' ][ 'name' ] . '[0]';
+               // $this->input_data[ 'unique_id' ] = $this->input_data[ 'unique_id' ] . '≪0≫';
             }
-            $this->input_data['extra'][ 'max' ] = $this->input_obj->extra;
+            //$this->input_data['extra'][ 'max' ] = $this->input_obj->extra;
 		}
 		$this->input_data['tag']['tag_id'] = $this->input_obj->tag_id;
         $tags = $this->render_tag( $this->input_data['tag']['tag_id'],$this->input_data[ 'attrs' ] );
