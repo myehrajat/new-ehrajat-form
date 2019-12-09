@@ -81,8 +81,8 @@ function test_fieldset(){
 }
 	//$f = new field(1);
 
-add_action ('wp_head','test_fieldset');
-//add_action ('wp_head','test_block');
+//add_action ('wp_head','test_fieldset');
+add_action ('wp_head','test_block');
 //add_action ('wp_head','test_input');
 //add_action ('wp_head','test_input');
 

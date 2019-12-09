@@ -239,14 +239,14 @@ class ids extends str implements ids_interface {
                 $count_result = count( $result_ids );
             } else {
                 $this->error_log( 'the id that you have provided return nothing after processing.' );
-                $result_ids = NULL;
+                $result_ids = array();
             }
             if ( $single_id == TRUE ) {
                 $result_ids = $result_ids[ 0 ];
             }
             $this->ids = $result_ids;
         } else {
-            $this->ids = NULL;
+            $this->ids = array();
         }
         return $this->ids;
     }

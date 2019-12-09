@@ -5,16 +5,35 @@ class fieldset extends render {
     private $fieldset_obj;
     static $prevent_loop;
 
-    function __construct( $fieldset_id ) {
-        $this->prevent_loop = array();
+    function __construct( $fieldset_id ,$force_prevent_loop=array()) {
+        $this->prevent_loop = $force_prevent_loop;
+		
         $this->get_fieldset_object( $fieldset_id );
         $this->fieldset_data = $this->create_fieldset_structure( $fieldset_id );
-        krm( $this->fieldset_data );
+       // $this->create_fieldset_structure( $fieldset_id );
+       // krm( $this->fieldset_data );
 
         // $this->create_fieldsets();
     }
-    /*
-     */
+	function create_blocks( $fielset_ids_str ) {
+		$block_fieldset_id_cause_forever_loop = array();
+        $all_blocks = array();
+
+        $block_ids = $this->get_ids( $fielset_ids_str );
+        foreach ( $block_ids as $block_id ) {
+            $block_obj = $this->get_by_id( $block_id, $GLOBALS[ 'sst_tables' ][ 'block' ] );
+            $block_fieldset_ids = $this->get_ids( $block_obj->fieldset_ids );
+            foreach ( $block_fieldset_ids as $block_fieldset_id ) {
+				if ( in_array( $block_fieldset_id, $this->prevent_loop ) == true ) {
+					$block_fieldset_id_cause_forever_loop[] = $block_fieldset_id;
+                    $this->error_log( 'the fieldset_id of ' . $this->fieldset_obj->id . ' has his a block_id which cause forever loop . the block_id ' . $block_id . ' which is triggered by fieldset has fieldset id in block definition which in fieldset previously created and again fieldset trigger block and block trigger fieldset which is a loop forever.' );
+				}
+			}
+             $fielset = new block(  $block_id , $block_fieldset_id_cause_forever_loop );
+             $all_blocks[] = $fielset->block_data;
+        }
+        return $all_blocks;
+    }
     function create_fieldset_structure( $fieldset_id, $parent_fieldset = NULL ) {
         $fieldset_obj = $this->get_fieldset_object( $fieldset_id );
         $all_fieldsets[ $fieldset_id ] = $this->create_inputs( $fieldset_obj ); //$fieldset_id;
@@ -32,6 +51,7 @@ class fieldset extends render {
         }
 
         $this->prevent_loop[ $fieldset_id ] = $fieldset_id;
+        $all_fieldsets[ $fieldset_id ][ 'blocks_data' ] = $this->create_blocks( $this->fieldset_obj->block_ids );
         if ( !empty( $this->fieldset_obj->fieldset_ids ) ) {
             $child_fieldset_ids = $this->get_ids( $this->fieldset_obj->fieldset_ids );
             foreach ( $child_fieldset_ids as $k => $child_fieldset_id ) {
