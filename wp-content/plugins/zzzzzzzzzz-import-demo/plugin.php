@@ -75,8 +75,14 @@ function test_block(){
 	echo $f->render();
 }
 	//$f = new field(1);
+function test_fieldset(){
+	$f = new fieldset(1);
+	echo $f->render();
+}
+	//$f = new field(1);
 
-add_action ('wp_head','test_block');
+add_action ('wp_head','test_fieldset');
+//add_action ('wp_head','test_block');
 //add_action ('wp_head','test_input');
 //add_action ('wp_head','test_input');
 

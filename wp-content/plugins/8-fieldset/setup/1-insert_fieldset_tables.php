@@ -26,6 +26,7 @@ class insert_fieldset_tables extends database {
         "`form` VARCHAR(255) NOT NULL," .
         "`name` VARCHAR(255) NOT NULL," .
         "`attr_html_global_id` VARCHAR(255) NOT NULL," .
+        "`attr_custom_ids` VARCHAR(255) NOT NULL," .
         "`legend_id` VARCHAR(255) NOT NULL," .
         "`input_ids` VARCHAR(255) NOT NULL," .
         "`block_ids` VARCHAR(255) NOT NULL," .
@@ -45,6 +46,7 @@ class insert_fieldset_tables extends database {
         "`slug` VARCHAR(255) NOT NULL," .
         "`text` VARCHAR(255) NOT NULL," .
         "`attr_html_global_id` VARCHAR(255) NOT NULL," .
+        "`attr_custom_ids` VARCHAR(255) NOT NULL," .
         "`tag_id` VARCHAR(255) NOT NULL," .
         "`description` LONGTEXT NOT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .

@@ -8,7 +8,7 @@ class block extends render {
 		$this->prevent_loop = array();
         $this->get_block_object( $block_id );
        	$this->block_data = $this->create_block_structure( $block_id );
-		krm($this->block_data);
+		//krm($this->block_data);
 		
         // $this->create_fieldsets();
     }
@@ -79,7 +79,7 @@ class block extends render {
                     $this->block_data[ 'access' ][ 'editable' ] = $access->editable;
                     $this->block_data[ 'access' ][ 'addable' ] = $access->addable;
                 }
-                $this->block_data[ 'tag' ][ 'tag_id' ] = $block_obj->tag_id;
+                $this->block_data[ 'tag' ][ 'tag_id' ] = $this->get_ids($block_obj->tag_id,true);
                 $tags = $this->render_tag( $this->block_data[ 'tag' ][ 'tag_id' ] );
                 $this->block_data[ 'tag' ][ 'before' ] = $tags[ 'before' ];
                 $this->block_data[ 'tag' ][ 'after' ] = $tags[ 'after' ];

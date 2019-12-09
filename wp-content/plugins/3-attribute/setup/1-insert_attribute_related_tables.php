@@ -555,7 +555,6 @@ class insert_attribute_related_tables extends database {
         "`attr_input_specific_id` VARCHAR(255) NOT NULL," . //these include input type specific ones
         "`attr_custom_ids` VARCHAR(255) NOT NULL," . //these include input type specific ones
         "`access_id` VARCHAR(255) NOT NULL," .
-        "`extra` VARCHAR(255) NOT NULL," .
         "`description`  LONGTEXT DEFAULT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .
         "`created` DATETIME NOT NULL DEFAULT NOW()," .

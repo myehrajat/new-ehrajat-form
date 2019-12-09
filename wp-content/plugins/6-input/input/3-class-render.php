@@ -264,4 +264,8 @@ class render extends database {
         return $block;
 
     }
+	    function render_fieldset( $fieldset_data ) {
+			
+		}
+
 }
