@@ -6,6 +6,10 @@ class render extends database {
         if ( !isset( $tag_ids ) ) {
             static $tag_ids = array();
         }
+        if ( debug_backtrace()[ 1 ][ 'function' ] !== __FUNCTION__ ) {
+            $tag_ids = array();
+        }
+
         if ( !in_array( $tag_id, $tag_ids ) ) {
             $tag_ids[] = $tag_id;
             $tag_id = $this->get_ids( $tag_id, true );
@@ -68,7 +72,6 @@ class render extends database {
     function render_tag( $tag_id, $attrs = NULL, $element = NULL ) {
 
         $tag = $this->create_tag_data( $tag_id );
-
         $before = $this->replace_all_variable_short_codes( $tag[ 'before' ] );
         $after = $this->replace_all_variable_short_codes( $tag[ 'after' ] );
         //if( $tag_id==27){dbg($before);}
@@ -225,13 +228,7 @@ class render extends database {
         if ( $block_data == NULL ) {
             $block_data = $this->block_data;
         }
-        if ( $block_data[ 'extra' ][ 'max' ] > 0 ) {
-            $extra = new extra( $block_data[ 'extra' ][ 'max' ], $block_data[ 'unique_id' ] );
-            $block_data[ 'extra' ][ 'add_controller' ] = $extra->extra_add_controller;
-            $block_data[ 'extra' ][ 'remove_controller' ] = $extra->extra_remove_controller;
-            $block_data[ 'extra' ][ 'controller_position' ] = EXTRA_CONTROLLER_POSITION;
-
-        }
+        $block_data = $this->generate_extra_data( $block_data );
         if ( $block_data[ 'access' ][ 'visbile' ] == 'no'
             and $this->mode == 'view' ) {
             return '';
@@ -247,25 +244,99 @@ class render extends database {
         }
         if ( isset( $block_data[ 'inputs_data' ] ) ) {
             foreach ( $block_data[ 'inputs_data' ] as $input_data ) {
-                $inputs .= $this->render_input( $input_data );
+                $elements['input'] = $inputs . $this->render_input( $input_data );
             }
         }
-        $block = $block_data[ 'tag' ][ 'before' ] . $inputs . $input_data[ 'tag' ][ 'after' ];
-        //dbg($block_data[ 'tag' ]);
-        if ( $block_data[ 'extra' ][ 'controller_position' ] == 'before' ) {
-            $block = $block_data[ 'extra' ][ 'add_controller' ] . $block_data[ 'extra' ][ 'remove_controller' ] . $block;
-        } elseif ( $block_data[ 'extra' ][ 'controller_position' ] == 'after' ) {
-            $block = $block . $block_data[ 'extra' ][ 'add_controller' ] . $block_data[ 'extra' ][ 'remove_controller' ];
-        } else {
-            $block = $block . $block_data[ 'extra' ][ 'add_controller' ] . $block_data[ 'extra' ][ 'remove_controller' ];
+        if ( !empty( $block_data[ 'fieldsets_data' ] ) ) {
+            $fieldsets = '';
+            foreach ( $block_data[ 'fieldsets_data' ] as $fieldsets_data ) {
+                $elements['fieldset'] = $fieldsets . $this->render_fieldset( $fieldsets_data );
+            }
         }
-
-        $block = '<sst-block id="' . $block_data[ 'unique_id' ] . '">' . $block . '</sst-block>';
-        return $block;
+        if ( !empty( $block_data[ 'childern' ] ) ) {
+            foreach ( $block_data[ 'childern' ] as $new_block_data ) {
+                 $elements['block'] = $this->render_block( $new_block_data );
+            }
+        }
+		$block_prefix = '<sst-block id="' . $block_data[ 'unique_id' ] . '">'.$this->render_extra( $fieldset_data[ 'extra' ], 'before' ) .$block_data[ 'tag' ][ 'before' ];
+        $block =  $elements[$block_data[ 'show_first' ]] .$elements[$block_data[ 'show_second' ]] . $elements[$block_data[ 'show_third' ]] ;
+        $block_suffix =  $block_data[ 'tag' ][ 'after' ].$this->render_extra( $fieldset_data[ 'extra' ], 'after' ) .'</sst-block>';
+        return $block_prefix.$block.$block_suffix;
 
     }
-	    function render_fieldset( $fieldset_data ) {
-			
-		}
 
+    function render_fieldset( $fieldset_data ) {
+        if ( $fieldset_data == NULL ) {
+            $fieldset_data = $this->fieldset_data;
+        }
+        $fieldset_data = $this->generate_extra_data( $fieldset_data );
+        if ( $fieldset_data[ 'access' ][ 'visbile' ] == 'no'
+            and $this->mode == 'view' ) {
+            return '';
+        }
+        if ( $fieldset_data[ 'access' ][ 'editable' ] == 'no'
+            and $this->mode == 'edit' ) {
+            //mode is global so in input mode is edit and all inputs are disabled
+            $fieldset_data[ 'disabled' ] = 'disabled';
+        }
+        if ( $fieldset_data[ 'access' ][ 'addable' ] == 'no'
+            and $this->mode == 'add' ) {
+            return '';
+        }
+        if ( isset( $fieldset_data[ 'inputs_data' ] ) ) {
+            foreach ( $fieldset_data[ 'inputs_data' ] as $input_data ) {
+                $elements['input'] = $inputs . $this->render_input( $input_data );
+            }
+        }
+        if ( !empty( $fieldset_data[ 'blocks_data' ] ) ) {
+            $blocks = '';
+            foreach ( $fieldset_data[ 'blocks_data' ] as $blocks_data ) {
+                $elements['block'] = $blocks . $this->render_block( $blocks_data );
+            }
+        }
+        if ( !empty( $fieldset_data[ 'childern' ] ) ) {
+            foreach ( $fieldset_data[ 'childern' ] as $new_fieldset_data ) {
+               $elements['fieldset'] = $this->render_fieldset( $new_fieldset_data );
+            }
+        }
+        $fieldset_prefix = '<sst-fieldset id="' . $fieldset_data[ 'unique_id' ] . '">' . $this->render_extra( $fieldset_data[ 'extra' ], 'before' ) . $fieldset_data[ 'tag' ][ 'before' ] . '<fieldset ' . $this->render_attrs( $fieldset_data[ 'attrs' ] ) . '>' . $this->render_legend( $fieldset_data[ 'legend' ] );
+
+        $fieldset =  $elements[$block_data[ 'show_first' ]] .$elements[$block_data[ 'show_second' ]] . $elements[$block_data[ 'show_third' ]] ;
+
+
+        $fieldset_suffix = '</fieldset>' . $fieldset_data[ 'tag' ][ 'after' ] . $this->render_extra( $fieldset_data[ 'extra' ], 'after' ) . '</sst-fieldset>';
+
+        return $fieldset_prefix . $fieldset . $fieldset_suffix;
+
+    }
+
+    function render_legend( $legend ) {
+        $txt = $this->replace_all_variable_short_codes( $legend[ 'text' ] );
+        $txt = $this->replace_attribute_short_codes( $legend[ 'text' ], $legend[ 'attrs' ] );
+        $rendered_legend = $legend[ 'tag' ][ 'before' ] . '<legend ' . $this->render_attrs( $legend[ 'attrs' ] ) . '>' . $txt . '</legend>' . $legend[ 'tag' ][ 'after' ];
+        return $rendered_legend;
+    }
+
+    function render_extra( $extra, $current_position ) {
+        $extra_controller = $extra[ 'add_controller' ] . $extra[ 'remove_controller' ];
+        if ( $extra[ 'controller_position' ] == $current_position ) {
+            return $extra_controller;
+        }
+
+    }
+
+    function generate_extra_data( $data ) {
+        if ( $data[ 'extra' ][ 'max' ] > 0 ) {
+            $extra = new extra( $data[ 'extra' ][ 'max' ], $data[ 'unique_id' ] );
+            $data[ 'extra' ][ 'add_controller' ] = $extra->extra_add_controller;
+            $data[ 'extra' ][ 'remove_controller' ] = $extra->extra_remove_controller;
+            $data[ 'extra' ][ 'controller_position' ] = EXTRA_CONTROLLER_POSITION;
+            if ( EXTRA_CONTROLLER_POSITION == 'after'
+                or EXTRA_CONTROLLER_POSITION == 'before' ) {
+                $data[ 'extra' ][ 'controller_position' ] = 'after';
+            }
+
+        }
+		return $data;
+    }
 }

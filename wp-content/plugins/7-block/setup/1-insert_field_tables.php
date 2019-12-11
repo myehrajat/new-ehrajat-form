@@ -21,6 +21,9 @@ class insert_block_tables extends database {
         "`id` INT(10) NOT NULL auto_increment," .
         "`epithet` VARCHAR(255) NOT NULL," .
         "`slug` VARCHAR(255) NOT NULL," .
+        "`show_first` VARCHAR(255) NOT NULL," .
+        "`show_second` VARCHAR(255) NOT NULL," .
+        "`show_third` VARCHAR(255) NOT NULL," .
         "`input_ids` VARCHAR(255) NOT NULL," .
         "`fieldset_ids` VARCHAR(255) NOT NULL," .
         "`block_ids` VARCHAR(255) NOT NULL," .

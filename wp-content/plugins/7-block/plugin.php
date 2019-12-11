@@ -25,6 +25,18 @@ define('BLOCK_CONTROLLER_POSITION','after');
 #############################################
 # VISIBILTY
 #############################################
+define('BLOCK_SHOW_FIRST','input');
+define('BLOCK_SHOW_SECOND','block');
+define('BLOCK_SHOW_THIRD','fieldset');
+
 glob_includer(BLOCK_SETUP_PATH);
 new insert_block_tables;
 glob_includer(BLOCK_FUNC_PATH);
+
+
+
+
+
+
+
+

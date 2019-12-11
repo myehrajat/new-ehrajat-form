@@ -25,6 +25,11 @@ define('FIELDSET_CONTROLLER_POSITION','after');
 #############################################
 # VISIBILTY
 #############################################
+define('FIELDSET_SHOW_FIRST','input');
+define('FIELDSET_SHOW_SECOND','block');
+define('FIELDSET_SHOW_THIRD','fieldset');
+
 glob_includer(FIELDSET_SETUP_PATH);
 new insert_fieldset_tables;
 glob_includer(FIELDSET_FUNC_PATH);
+

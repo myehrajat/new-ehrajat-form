@@ -28,6 +28,9 @@ class insert_fieldset_tables extends database {
         "`attr_html_global_id` VARCHAR(255) NOT NULL," .
         "`attr_custom_ids` VARCHAR(255) NOT NULL," .
         "`legend_id` VARCHAR(255) NOT NULL," .
+        "`show_first` VARCHAR(255) NOT NULL," .
+        "`show_second` VARCHAR(255) NOT NULL," .
+        "`show_third` VARCHAR(255) NOT NULL," .
         "`input_ids` VARCHAR(255) NOT NULL," .
         "`block_ids` VARCHAR(255) NOT NULL," .
         "`fieldset_ids` VARCHAR(255) NOT NULL," .
