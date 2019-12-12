@@ -13,9 +13,9 @@ class access extends database {
         $GLOBALS[ 'sst_tables' ][ 'user_access' ] = $this->full_prefix . 'user_access';
 	 }
 
-	function restrict_access( $user_access_id){
+	function restrict_access( $user_access_id_str){
 		
-       $user_access_id =  $this->get_ids(  $user_access_id,true );
+       $user_access_id =  $this->get_ids(  $user_access_id_str,true );
 		if(!empty($user_access_id)){
             $this->user_access_obj = $this->get_by_id( $user_access_id , $GLOBALS[ 'sst_tables' ][ 'user_access' ] );
 			//dbg($this->user_access_obj );
@@ -102,7 +102,7 @@ class access extends database {
 				return NULL;
 			}
 		}else{
-            $this->error_log( 'user_access_id after proceesing return enpty id.' );
+            $this->error_log( 'user_access_id after proceesing return empty id. You have provided this id:'.$user_access_id_str.' .' );
             return NULL;
 		}
 		

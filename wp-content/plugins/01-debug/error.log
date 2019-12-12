@@ -1,0 +1,92 @@
+[2019-12-12 02:45:50am]Source Function:attr_pattern=>create_simple_attr=>create_multiple_attrs=>create_attr_input_specific=>__construct=>specific_atrributes=>all_attributes=>__construct=>create_inputs=>create_block_structure=>__construct=>test_block=>apply_filters=>do_action=>do_action=>wp_head=>require_once=>load_template=>locate_template=>get_header=>include=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\3-attribute\attribute\4-attribute-generator.php
+pattern is not valid!
+
+[2019-12-12 02:45:50am]Source Function:restrict_access=>__construct=>all_attributes=>__construct=>create_inputs=>create_block_structure=>__construct=>test_block=>apply_filters=>do_action=>do_action=>wp_head=>require_once=>load_template=>locate_template=>get_header=>include=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\4-access\access\1-class-access.php
+user_access_id after proceesing return empty id. You have provided this id: .
+
+[2019-12-12 02:45:50am]Source Function:attr_pattern=>create_simple_attr=>create_multiple_attrs=>create_attr_input_specific=>__construct=>specific_atrributes=>all_attributes=>__construct=>create_inputs=>create_block_structure=>__construct=>test_block=>apply_filters=>do_action=>do_action=>wp_head=>require_once=>load_template=>locate_template=>get_header=>include=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\3-attribute\attribute\4-attribute-generator.php
+pattern is not valid!
+
+[2019-12-12 02:45:50am]Source Function:restrict_access=>__construct=>all_attributes=>__construct=>create_inputs=>create_block_structure=>__construct=>test_block=>apply_filters=>do_action=>do_action=>wp_head=>require_once=>load_template=>locate_template=>get_header=>include=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\4-access\access\1-class-access.php
+user_access_id after proceesing return empty id. You have provided this id: .
+
+[2019-12-12 02:45:50am]Source Function:restrict_access=>__construct=>create_inputs=>create_block_structure=>__construct=>test_block=>apply_filters=>do_action=>do_action=>wp_head=>require_once=>load_template=>locate_template=>get_header=>include=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\4-access\access\1-class-access.php
+default_view must match enable or disable.
+
+[2019-12-12 02:45:50am]Source Function:attr_pattern=>create_simple_attr=>create_multiple_attrs=>create_attr_input_specific=>__construct=>specific_atrributes=>all_attributes=>__construct=>create_inputs=>create_fieldset_structure=>__construct=>create_fieldsets=>create_block_structure=>__construct=>test_block=>apply_filters=>do_action=>do_action=>wp_head=>require_once=>load_template=>locate_template=>get_header=>include=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\3-attribute\attribute\4-attribute-generator.php
+pattern is not valid!
+
+[2019-12-12 02:45:50am]Source Function:restrict_access=>__construct=>all_attributes=>__construct=>create_inputs=>create_fieldset_structure=>__construct=>create_fieldsets=>create_block_structure=>__construct=>test_block=>apply_filters=>do_action=>do_action=>wp_head=>require_once=>load_template=>locate_template=>get_header=>include=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\4-access\access\1-class-access.php
+user_access_id after proceesing return empty id. You have provided this id: .
+
+[2019-12-12 02:45:50am]Source Function:attr_pattern=>create_simple_attr=>create_multiple_attrs=>create_attr_input_specific=>__construct=>specific_atrributes=>all_attributes=>__construct=>create_inputs=>create_fieldset_structure=>__construct=>create_fieldsets=>create_block_structure=>__construct=>test_block=>apply_filters=>do_action=>do_action=>wp_head=>require_once=>load_template=>locate_template=>get_header=>include=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\3-attribute\attribute\4-attribute-generator.php
+pattern is not valid!
+
+[2019-12-12 02:45:50am]Source Function:restrict_access=>__construct=>all_attributes=>__construct=>create_inputs=>create_fieldset_structure=>__construct=>create_fieldsets=>create_block_structure=>__construct=>test_block=>apply_filters=>do_action=>do_action=>wp_head=>require_once=>load_template=>locate_template=>get_header=>include=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\4-access\access\1-class-access.php
+user_access_id after proceesing return empty id. You have provided this id: .
+
+[2019-12-12 02:45:50am]Source Function:restrict_access=>__construct=>create_inputs=>create_fieldset_structure=>__construct=>create_fieldsets=>create_block_structure=>__construct=>test_block=>apply_filters=>do_action=>do_action=>wp_head=>require_once=>load_template=>locate_template=>get_header=>include=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\4-access\access\1-class-access.php
+user_access_id after proceesing return empty id. You have provided this id: .
+
+[2019-12-12 02:45:50am]Source Function:attr_pattern=>create_simple_attr=>create_multiple_attrs=>create_attr_input_specific=>__construct=>specific_atrributes=>all_attributes=>__construct=>create_inputs=>create_fieldset_structure=>create_fieldset_structure=>__construct=>create_fieldsets=>create_block_structure=>__construct=>test_block=>apply_filters=>do_action=>do_action=>wp_head=>require_once=>load_template=>locate_template=>get_header=>include=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\3-attribute\attribute\4-attribute-generator.php
+pattern is not valid!
+
+[2019-12-12 02:45:50am]Source Function:restrict_access=>__construct=>all_attributes=>__construct=>create_inputs=>create_fieldset_structure=>create_fieldset_structure=>__construct=>create_fieldsets=>create_block_structure=>__construct=>test_block=>apply_filters=>do_action=>do_action=>wp_head=>require_once=>load_template=>locate_template=>get_header=>include=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\4-access\access\1-class-access.php
+user_access_id after proceesing return empty id. You have provided this id: .
+
+[2019-12-12 02:45:50am]Source Function:restrict_access=>__construct=>create_inputs=>create_fieldset_structure=>create_fieldset_structure=>__construct=>create_fieldsets=>create_block_structure=>__construct=>test_block=>apply_filters=>do_action=>do_action=>wp_head=>require_once=>load_template=>locate_template=>get_header=>include=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\4-access\access\1-class-access.php
+user_access_id after proceesing return empty id. You have provided this id: .
+
+[2019-12-12 02:45:50am]Source Function:attr_pattern=>create_simple_attr=>create_multiple_attrs=>create_attr_input_specific=>__construct=>specific_atrributes=>all_attributes=>__construct=>create_inputs=>create_block_structure=>create_block_structure=>__construct=>test_block=>apply_filters=>do_action=>do_action=>wp_head=>require_once=>load_template=>locate_template=>get_header=>include=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\3-attribute\attribute\4-attribute-generator.php
+pattern is not valid!
+
+[2019-12-12 02:45:50am]Source Function:restrict_access=>__construct=>all_attributes=>__construct=>create_inputs=>create_block_structure=>create_block_structure=>__construct=>test_block=>apply_filters=>do_action=>do_action=>wp_head=>require_once=>load_template=>locate_template=>get_header=>include=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\4-access\access\1-class-access.php
+user_access_id after proceesing return empty id. You have provided this id: .
+
+[2019-12-12 02:45:50am]Source Function:restrict_access=>__construct=>create_inputs=>create_block_structure=>create_block_structure=>__construct=>test_block=>apply_filters=>do_action=>do_action=>wp_head=>require_once=>load_template=>locate_template=>get_header=>include=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\4-access\access\1-class-access.php
+default_view must match enable or disable.
+
+[2019-12-12 02:45:50am]Source Function:get_by_id=>create_legend_data=>create_inputs=>create_fieldset_structure=>__construct=>create_fieldsets=>create_block_structure=>create_block_structure=>__construct=>test_block=>apply_filters=>do_action=>do_action=>wp_head=>require_once=>load_template=>locate_template=>get_header=>include=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\8-fieldset\fieldset\1-fieldset.php
+id provided for get_by_id is not correct.Can not find id:"3" in table:"wp_tt_legend".
+
+[2019-12-12 02:45:50am]Source Function:attr_pattern=>create_simple_attr=>create_multiple_attrs=>create_attr_input_specific=>__construct=>specific_atrributes=>all_attributes=>__construct=>create_inputs=>create_fieldset_structure=>__construct=>create_fieldsets=>create_block_structure=>create_block_structure=>__construct=>test_block=>apply_filters=>do_action=>do_action=>wp_head=>require_once=>load_template=>locate_template=>get_header=>include=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\3-attribute\attribute\4-attribute-generator.php
+pattern is not valid!
+
+[2019-12-12 02:45:50am]Source Function:restrict_access=>__construct=>all_attributes=>__construct=>create_inputs=>create_fieldset_structure=>__construct=>create_fieldsets=>create_block_structure=>create_block_structure=>__construct=>test_block=>apply_filters=>do_action=>do_action=>wp_head=>require_once=>load_template=>locate_template=>get_header=>include=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\4-access\access\1-class-access.php
+user_access_id after proceesing return empty id. You have provided this id: .
+
+[2019-12-12 02:45:50am]Source Function:restrict_access=>__construct=>create_inputs=>create_fieldset_structure=>__construct=>create_fieldsets=>create_block_structure=>create_block_structure=>__construct=>test_block=>apply_filters=>do_action=>do_action=>wp_head=>require_once=>load_template=>locate_template=>get_header=>include=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\4-access\access\1-class-access.php
+user_access_id after proceesing return empty id. You have provided this id: .
+
+[2019-12-12 02:45:50am]Source Function:attr_pattern=>create_simple_attr=>create_multiple_attrs=>create_attr_input_specific=>__construct=>specific_atrributes=>all_attributes=>__construct=>create_inputs=>create_block_structure=>create_block_structure=>create_block_structure=>__construct=>test_block=>apply_filters=>do_action=>do_action=>wp_head=>require_once=>load_template=>locate_template=>get_header=>include=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\3-attribute\attribute\4-attribute-generator.php
+pattern is not valid!
+
+[2019-12-12 02:45:50am]Source Function:restrict_access=>__construct=>all_attributes=>__construct=>create_inputs=>create_block_structure=>create_block_structure=>create_block_structure=>__construct=>test_block=>apply_filters=>do_action=>do_action=>wp_head=>require_once=>load_template=>locate_template=>get_header=>include=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\4-access\access\1-class-access.php
+user_access_id after proceesing return empty id. You have provided this id: .
+
+[2019-12-12 02:45:50am]Source Function:restrict_access=>__construct=>create_inputs=>create_block_structure=>create_block_structure=>create_block_structure=>__construct=>test_block=>apply_filters=>do_action=>do_action=>wp_head=>require_once=>load_template=>locate_template=>get_header=>include=>require_once=>require=>
+SOUREC FILE:E:\ehrajat-form-dev-html5\htdocs\wp-content\plugins\4-access\access\1-class-access.php
+default_view must match enable or disable.
+

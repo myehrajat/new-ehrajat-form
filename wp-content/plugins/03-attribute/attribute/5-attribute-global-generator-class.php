@@ -32,7 +32,7 @@ class attribute_global_generator extends attribute_generator implements attribut
                 $this->global_obj = NULL;
             }
         } else {
-            $this->error_log( 'global attrs id provided is empty string.' );
+            //$this->error_log( 'global attrs id provided is empty string.' );
             $this->global_obj = NULL;
             $this->input_data[ 'attrs' ] = array();
             return $this->input_data[ 'attrs' ];

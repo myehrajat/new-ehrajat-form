@@ -109,12 +109,16 @@ implements attribute_basic_interface {
     }
 
     function create_int_attribute( $attr_name, $attr_value ) {
-        if ( ctype_digit( $attr_value ) ) { //negative is also allowed
-            return $this->create_attribute( $attr_name, $attr_value );
-        } else {
-            $this->error_log( $attr_name . ' must be integer.' );
-            return NULL;
-        }
+		if(!empty($attr_value)){
+			if ( ctype_digit( $attr_value ) ) { //negative is also allowed
+				return $this->create_attribute( $attr_name, $attr_value );
+			} else {
+				$this->error_log( $attr_name . ' must be integer. you have provide :'.$attr_value.' .' );
+				return NULL;
+			}
+		}else{
+			return NULL;
+		}
     }
 
     function create_int_positive_attribute( $attr_name, $attr_value ) {
