@@ -185,7 +185,7 @@ class fieldset extends render {
                 }
                 if ( class_exists( 'access' ) ) {
                     $access = new access( $fieldset_obj->access_id );
-                    $this->fieldset_data[ 'access' ][ 'visbile' ] = $access->visible;
+                    $this->fieldset_data[ 'access' ][ 'visible' ] = $access->visible;
                     $this->fieldset_data[ 'access' ][ 'editable' ] = $access->editable;
                     $this->fieldset_data[ 'access' ][ 'addable' ] = $access->addable;
                 }

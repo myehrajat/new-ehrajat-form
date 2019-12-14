@@ -231,7 +231,8 @@ implements attribute_input_validator_interface {
     }
     //
     function attr_formtarget( $attr_value ) {
-        $enumerated_values = array( '_self', '_blank', '_parent', '' );
+		//_top is deprecated
+        $enumerated_values = array( '_self', '_blank', '_parent','_top');
         return $this->create_enumerated_attribute( 'formtarget', $attr_value, $enumerated_values );
     }
     //https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/image#height

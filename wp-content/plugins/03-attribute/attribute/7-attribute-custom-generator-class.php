@@ -17,10 +17,11 @@ class attribute_custom_generator extends attribute_global_generator implements a
                     $this->error_log( 'custom attr object cant retrieve.' );
                 }
             }
-            $this->create_multiple_attrs( $custom_attr_arr );
+
+            $this->create_multiple_attrs( $custom_attr_arr ,'custom');
         } else {
             $this->input_data[ 'attrs' ] = array();
             return $this->input_data[ 'attrs' ];
         }
-		}
+	}
 }

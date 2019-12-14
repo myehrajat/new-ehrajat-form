@@ -3,7 +3,7 @@ interface attribute_generator_interface{
 	function create_simple_attr( $attr_name, $attr_value, $html_input_type );
 	function create_multiple_attrs( $attr_name_value, $html_input_type = NULL );
 }
-class attribute_generator extends attribute_input_validator implements attribute_generator_interface {
+class attribute_generator extends attribute_form_validator implements attribute_generator_interface {
     /*
     Class Description:this is for creating multiple of attributes eg specific and global or common
     */
@@ -214,8 +214,29 @@ class attribute_generator extends attribute_input_validator implements attribute
                 case "type":
                     $result_attr = $this->create_attribute( $attr_name, $attr_value );
                     break;
+                    /*******************************************
+                    FORM SPECIFIC ATTRIBUTES
+                    ********************************************/
+                case "accept-charset":
+                    $result_attr = $this->attr_accept_charset( $attr_value );
+                    break;
+                case "action":
+                    $result_attr = $this->attr_action( $attr_value );
+                    break;
+                case "enctype":
+                    $result_attr = $this->attr_enctype(  $attr_value );
+                    break;
+                case "method":
+                    $result_attr = $this->attr_method(  $attr_value );
+                    break;
+                case "novalidate":
+                    $result_attr = $this->attr_novalidate( $attr_value );
+                    break;
+                case "target":
+                    $result_attr = $this->attr_target(  $attr_value );
+                    break;
                 default:
-                    $result_attr = $this->create_attribute( $attr_name, $attr_value );
+                    $result_attr = $this->create_attribute( $attr_name,$attr_value );
                     break;
             }
         } else {

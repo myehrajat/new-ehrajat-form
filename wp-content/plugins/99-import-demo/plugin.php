@@ -63,7 +63,7 @@ function test_input_ref(){
 	//dbg($f->getProperties(ReflectionProperty::IS_PROTECTED));
 	//dbg($f->getProperties(ReflectionProperty::IS_PRIVATE));
 	$f = new input(24);
-	dbg($f->input_data);
+	echo $f->render();
 
 }
 function test_input(){
@@ -77,12 +77,18 @@ function test_block(){
 	//$f = new field(1);
 function test_fieldset(){
 	$f = new fieldset(1);
+	krm($f);
+	echo $f->render();
+}
+function test_form(){
+	$f = new form(1);
 	echo $f->render();
 }
 	//$f = new field(1);
 
+add_action ('wp_head','test_form');
 //add_action ('wp_head','test_fieldset');
-add_action ('wp_head','test_block');
+//add_action ('wp_head','test_block');
 //add_action ('wp_head','test_input');
 //add_action ('wp_head','test_input');
 

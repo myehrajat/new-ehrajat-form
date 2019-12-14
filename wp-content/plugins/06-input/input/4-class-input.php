@@ -107,7 +107,7 @@ class input extends render {
         );
         if ( class_exists( 'access' ) ) {
             $access = new access( $this->input_obj->access_id );
-            $this->input_data[ 'access' ][ 'visbile' ] = $access->visible;
+            $this->input_data[ 'access' ][ 'visible' ] = $access->visible;
             $this->input_data[ 'access' ][ 'editable' ] = $access->editable;
             $this->input_data[ 'access' ][ 'addable' ] = $access->addable;
         }

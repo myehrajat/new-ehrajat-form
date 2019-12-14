@@ -156,7 +156,7 @@ class render extends database {
             $input_data[ 'extra' ][ 'controller_position' ] = EXTRA_CONTROLLER_POSITION;
         }
         //dbg($input_data );
-        if ( $input_data[ 'access' ][ 'visbile' ] == 'no'
+        if ( $input_data[ 'access' ][ 'visible' ] == 'no'
             and $this->mode == 'view' ) {
             return '';
         }
@@ -229,7 +229,7 @@ class render extends database {
             $block_data = $this->block_data;
         }
         $block_data = $this->generate_extra_data( $block_data );
-        if ( $block_data[ 'access' ][ 'visbile' ] == 'no'
+        if ( $block_data[ 'access' ][ 'visible' ] == 'no'
             and $this->mode == 'view' ) {
             return '';
         }
@@ -270,7 +270,7 @@ class render extends database {
             $fieldset_data = $this->fieldset_data;
         }
         $fieldset_data = $this->generate_extra_data( $fieldset_data );
-        if ( $fieldset_data[ 'access' ][ 'visbile' ] == 'no'
+        if ( $fieldset_data[ 'access' ][ 'visible' ] == 'no'
             and $this->mode == 'view' ) {
             return '';
         }
@@ -339,4 +339,42 @@ class render extends database {
         }
 		return $data;
     }
+	function render_form($form_data){
+        if ( $form_data == NULL ) {
+            $form_data = $this->form_data;
+        }
+        if ( $form_data[ 'access' ][ 'editable' ] == 'no'
+            and $this->mode == 'edit' ) {
+            //mode is global so in input mode is edit and all inputs are disabled
+            $form_data[ 'disabled' ] = 'disabled';
+        }
+        if ( $form_data[ 'access' ][ 'addable' ] == 'no'
+            and $this->mode == 'add' ) {
+            return '';
+        }
+        if ( isset( $form_data[ 'inputs_data' ] ) ) {
+            foreach ( $form_data[ 'inputs_data' ] as $input_data ) {
+                $elements['input'] = $inputs . $this->render_input( $input_data );
+            }
+        }
+        if ( !empty( $form_data[ 'blocks_data' ] ) ) {
+            foreach ( $form_data[ 'blocks_data' ] as $blocks_data ) {
+                $elements['block'] = $blocks . $this->render_block( $blocks_data );
+            }
+        }
+        if ( !empty( $form_data[ 'fieldsets_data' ] ) ) {
+            foreach ( $form_data[ 'fieldsets_data' ] as $fieldset_data ) {
+               $elements['fieldset'] = $this->render_fieldset( $fieldset_data );
+            }
+        }
+        $form_prefix = '<sst-form id="' . $form_data[ 'unique_id' ] . '">' . $form_data[ 'tag' ][ 'before' ] . '<form ' . $this->render_attrs( $form_data[ 'attrs' ] ) . '>';
+
+        $form =  $elements[$form_data[ 'show_first' ]] .$elements[$form_data[ 'show_second' ]] . $elements[$form_data[ 'show_third' ]] ;
+
+
+        $form_suffix = '</form>' . $form_data[ 'tag' ][ 'after' ] . '</sst-form>';
+        return $form_prefix . $form . $form_suffix;
+		
+
+	}
 }

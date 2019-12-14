@@ -133,7 +133,7 @@ class block extends render {
                 }
                 if ( class_exists( 'access' ) ) {
                     $access = new access( $block_obj->access_id );
-                    $this->block_data[ 'access' ][ 'visbile' ] = $access->visible;
+                    $this->block_data[ 'access' ][ 'visible' ] = $access->visible;
                     $this->block_data[ 'access' ][ 'editable' ] = $access->editable;
                     $this->block_data[ 'access' ][ 'addable' ] = $access->addable;
                 }
