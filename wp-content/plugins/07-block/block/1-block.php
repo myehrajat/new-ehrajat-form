@@ -1,6 +1,6 @@
 <?php
 
-class block extends render {
+class block extends data_creator {
     var $block_data;
     private $block_obj;
     static $prevent_loop;
@@ -37,39 +37,6 @@ class block extends render {
         return $all_fieldsets;
     }
 
-	function set_show_order($block){
-		$available_options = array('input','block','fieldset');
-		
-		$show_first = strtolower($this->block_obj->show_first);
-		if(in_array($show_first,$available_options)==true){
-			$block[ 'show_first' ]  = $show_first;
-		}elseif(in_array(BLOCK_SHOW_FIRST,$available_options)==true){
-			$block[ 'show_first' ]  = BLOCK_SHOW_FIRST;
-		}else{
-			$block[ 'show_first' ]  = 'input';
-		}
-		unset($available_options[$block[ 'show_first' ]]);
-		
-		$show_second = strtolower($this->block_obj->show_second);
-		if(in_array($show_second,$available_options)==true){
-			$block[ 'show_second' ]  = $show_second;
-		}elseif(in_array(BLOCK_SHOW_SECOND,$available_options)==true){
-			$block[ 'show_second' ]  = BLOCK_SHOW_SECOND;
-		}else{
-			$block[ 'show_second' ]  = 'block';
-		}
-		unset($available_options[$block[ 'show_second' ]]);
-
-		$show_third = strtolower($this->block_obj->show_third);
-		if(in_array($show_third,$available_options)==true){
-			$block[ 'show_third' ]  = $show_third;
-		}elseif(in_array(BLOCK_SHOW_THIRD,$available_options)==true){
-			$block[ 'show_third' ]  = BLOCK_SHOW_THIRD;
-		}else{
-			$block[ 'show_third' ]  = 'fieldset';
-		}
-		return $block;
-	}
     function create_block_structure( $block_id, $parent_block = NULL ) {
         $block_obj = $this->get_block_object( $block_id );
         $all_blocks[ $block_id ] = $this->create_inputs( $block_obj ); //$block_id;
@@ -79,7 +46,8 @@ class block extends render {
         } else {
             $all_blocks[ $block_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] = $parent_block[ 'extra' ][ 'unique_id_suffix_repeat' ];
         }
-		$all_blocks[ $block_id ] = $this->set_show_order($all_blocks[ $block_id ]);
+		$all_blocks[ $block_id ] = $this->create_show_order_data($all_blocks[ $block_id ],$block_obj,'block');
+		//$all_blocks[ $block_id ] = $this->set_show_order($all_blocks[ $block_id ]);
         $all_blocks[ $block_id ][ 'extra' ][ 'max' ] = $this->block_obj->extra;
         $all_blocks[ $block_id ][ 'unique_id' ] = $all_blocks[ $block_id ][ 'unique_id' ] . str_repeat( '≪0≫', $all_blocks[ $block_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] );
         foreach ( $all_blocks[ $block_id ][ 'inputs_data' ] as $l => $input ) {
@@ -126,22 +94,14 @@ class block extends render {
             $this->block_data[ 'id' ] = $block_obj->id;
             $this->block_data[ 'input_ids' ] = $this->get_ids( $block_obj->input_ids );
             if ( !empty( $this->block_data[ 'input_ids' ] ) ) {
-                $this->block_data[ 'unique_id' ] = $this->random_string( 12 );
+				$this->block_data = $this->create_unique_id_data($this->block_data);
                 foreach ( $this->block_data[ 'input_ids' ] as $k => $input_id ) {
                     $input_obj = new input( $input_id );
                     $this->block_data[ 'inputs_data' ][] = $input_obj->input_data;
                 }
-                if ( class_exists( 'access' ) ) {
-                    $access = new access( $block_obj->access_id );
-                    $this->block_data[ 'access' ][ 'visible' ] = $access->visible;
-                    $this->block_data[ 'access' ][ 'editable' ] = $access->editable;
-                    $this->block_data[ 'access' ][ 'addable' ] = $access->addable;
-                }
-                $this->block_data[ 'tag' ][ 'tag_id' ] = $this->get_ids( $block_obj->tag_id, true );
-                $tags = $this->render_tag( $this->block_data[ 'tag' ][ 'tag_id' ] );
-                $this->block_data[ 'tag' ][ 'before' ] = $tags[ 'before' ];
-                $this->block_data[ 'tag' ][ 'after' ] = $tags[ 'after' ];
-                //dbg( $this->block_data[ 'tag' ]);
+				$this->block_data = $this->create_access_data($this->block_data,$block_obj);
+				$this->block_data = $this->create_tag_data($this->block_data,$block_obj);
+
             } else {
                 $this->error_log( 'no input ids after processing input ids of your block.' );
                 return NULL;

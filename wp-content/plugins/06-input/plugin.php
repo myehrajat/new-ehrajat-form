@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:ehrajat 6 input functionality
+ * Plugin Name:ehrajat 06 input functionality
  * Plugin URI: http://ehrajat.com
  * Description: make and manage forms easily
  * Version: 1.0.0
@@ -20,6 +20,8 @@ define( 'INPUT_PLUGIN_FILE', basename( __FILE__ ) );
 define('INPUT_FUNC_PATH',__DIR__.'/input/');
 define('INPUT_SETUP_PATH',__DIR__.'/setup/');
 define( 'INPUT_ADDON_PATH', __DIR__ . '/addon/' );
+define('INPUT_AUTO_GENERATE_INPUT_ID','yes');
+
 define('EXTRA_CONTROLLER_POSITION','after');
 
 //define('IS_INPUT_PLUGIN_ACTIVE',in_array(PLUGIN_FOLDER.'/'.PLUGIN_FILE, apply_filters('active_plugins', get_option('active_plugins'))));

@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:ehrajat 9 form functionality
+ * Plugin Name:ehrajat 09 form functionality
  * Plugin URI: http://ehrajat.com
  * Description: make and manage forms easily
  * Version: 1.0.0

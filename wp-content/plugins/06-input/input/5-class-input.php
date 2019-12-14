@@ -1,14 +1,14 @@
 <?php
 
-class input extends render {
+class input extends data_creator {
 		public $input_data;
 
     private $common_attr_obj;
     private $global_attr_obj;
     private $specific_attr_obj;
     private $custom_attr_obj;
-    private $input_obj;
-
+    public $input_obj;
+	
     function __construct( $input_id = NULL ) {
 
         $input_id = $this->get_ids( $input_id, true );
@@ -27,7 +27,6 @@ class input extends render {
             $this->error_log( 'input id is empty or after processing is empty.' );
             return NULL;
         }
-
     }
 
     function common_atrributes( string $input_id ) {
@@ -97,22 +96,19 @@ class input extends render {
         if ( empty( $this->custom_attr_obj->input_data[ 'attrs' ] ) ) {
             $this->custom_attr_obj->input_data[ 'attrs' ] = array();
         }
+		 $this->global_attr_obj->input_data[ 'attrs' ] = $this->autogenerate_id( $this->global_attr_obj->input_data[ 'attrs' ]);
         //dbg($this->specific_atrributes->input_data[ 'attrs' ]);
-
         $this->input_data[ 'attrs' ] = array_merge(
             $this->global_attr_obj->input_data[ 'attrs' ],
             $this->common_attr_obj->input_data[ 'attrs' ],
             $this->custom_attr_obj->input_data[ 'attrs' ],
             $this->specific_attr_obj->input_data[ 'attrs' ]
         );
-        if ( class_exists( 'access' ) ) {
-            $access = new access( $this->input_obj->access_id );
-            $this->input_data[ 'access' ][ 'visible' ] = $access->visible;
-            $this->input_data[ 'access' ][ 'editable' ] = $access->editable;
-            $this->input_data[ 'access' ][ 'addable' ] = $access->addable;
-        }
-
-        $this->input_data[ 'unique_id' ] = $this->random_string( 12 );
+		
+		$this->input_data = $this->create_access_data($this->input_data,$this->input_obj);
+		$this->input_data = $this->create_unique_id_data($this->input_data);
+		$this->input_data = $this->create_own_data_data($this->input_data);
+		$this->input_data = $this->create_tag_data($this->input_data,$this->input_obj);
         if ( class_exists( 'extra' ) ) {
             if ( $this->input_obj->extra > 0 ) {
                 //dbg($this->input_data[ 'attrs' ]['name']); 
@@ -121,13 +117,13 @@ class input extends render {
             }
             //$this->input_data['extra'][ 'max' ] = $this->input_obj->extra;
 		}
-		$this->input_data['tag']['tag_id'] = $this->input_obj->tag_id;
-        $tags = $this->render_tag( $this->input_data['tag']['tag_id'],$this->input_data[ 'attrs' ] );
-		$this->input_data['tag']['before'] = $tags['before'];
-		$this->input_data['tag']['after'] = $tags['after'];
-
     }
-
+	function autogenerate_id($attrs){
+		if(INPUT_AUTO_GENERATE_INPUT_ID == 'yes' and !isset($attrs['id']) or empty($attrs['id'])){
+			$attrs['id'] = $this->random_string( 12 );
+		}
+		return $attrs;
+	}
 	function render($input_data = NULL) {
 		return $this->render_input($input_data);
 	}

@@ -126,7 +126,7 @@ class input extends render {
 			$this->input_data[ 'extra']['controller_position' ] = EXTRA_CONTROLLER_POSITION;        
 		}
 		$this->input_data['tag']['tag_id'] = $this->input_obj->tag_id;
-        $tags = $this->render_tag( $this->input_data['tag']['tag_id'],$this->input_data[ 'attrs' ] );
+        $tags = $this->render_tag( $this->input_data['tag']['tag_id'],$this->input_data);
 		$this->input_data['tag']['before'] = $tags['before'];
 		$this->input_data['tag']['after'] = $tags['after'];
 

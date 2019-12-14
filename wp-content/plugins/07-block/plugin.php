@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:ehrajat 7 block functionality
+ * Plugin Name:ehrajat 07 block functionality
  * Plugin URI: http://ehrajat.com
  * Description: make and manage forms easily
  * Version: 1.0.0
@@ -28,6 +28,10 @@ define('BLOCK_CONTROLLER_POSITION','after');
 define('BLOCK_SHOW_FIRST','input');
 define('BLOCK_SHOW_SECOND','block');
 define('BLOCK_SHOW_THIRD','fieldset');
+
+define('GENERAL_SHOW_FIRST','input');
+define('GENERAL_SHOW_SECOND','block');
+define('GENERAL_SHOW_THIRD','fieldset');
 
 glob_includer(BLOCK_SETUP_PATH);
 new insert_block_tables;

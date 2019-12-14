@@ -1,6 +1,6 @@
 <?php
 
-class fieldset extends render {
+class fieldset extends data_creator {
     var $fieldset_data;
     private $fieldset_obj;
     static $prevent_loop;
@@ -37,40 +37,7 @@ class fieldset extends render {
         }
         return $all_blocks;
     }
-	function set_show_order($fieldset){
-		$available_options = array('input','block','fieldset');
-		
-		$show_first = strtolower($this->fieldset_obj->show_first);
-		if(in_array($show_first,$available_options)==true){
-			$fieldset[ 'show_first' ]  = $show_first;
-		}elseif(in_array(FIELDSET_SHOW_FIRST,$available_options)==true){
-			$fieldset[ 'show_first' ]  = FIELDSET_SHOW_FIRST;
-		}else{
-			$fieldset[ 'show_first' ]  = 'input';
-		}
-		unset($available_options[$fieldset[ 'show_first' ]]);
-		
-		$show_second = strtolower($this->fieldset_obj->show_second);
-		if(in_array($show_second,$available_options)==true){
-			$fieldset[ 'show_second' ]  = $show_second;
-		}elseif(in_array(FIELDSET_SHOW_SECOND,$available_options)==true){
-			$fieldset[ 'show_second' ]  = FIELDSET_SHOW_SECOND;
-		}else{
-			$fieldset[ 'show_second' ]  = 'block';
-		}
-		unset($available_options[$fieldset[ 'show_second' ]]);
 
-		$show_third = strtolower($this->fieldset_obj->show_third);
-		if(in_array($show_third,$available_options)==true){
-			$fieldset[ 'show_third' ]  = $show_third;
-		}elseif(in_array(FIELDSET_SHOW_THIRD,$available_options)==true){
-			$fieldset[ 'show_third' ]  = FIELDSET_SHOW_THIRD;
-		}else{
-			$fieldset[ 'show_third' ]  = 'fieldset';
-		}
-		return $fieldset;
-	}
-	
     function create_fieldset_structure( $fieldset_id, $parent_fieldset = NULL ) {
         $fieldset_obj = $this->get_fieldset_object( $fieldset_id );
         $all_fieldsets[ $fieldset_id ] = $this->create_inputs( $fieldset_obj ); //$fieldset_id;
@@ -80,7 +47,7 @@ class fieldset extends render {
         } else {
             $all_fieldsets[ $fieldset_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] = $parent_fieldset[ 'extra' ][ 'unique_id_suffix_repeat' ];
         }
-		$all_fieldsets[ $fieldset_id ] = $this->set_show_order($all_fieldsets[ $fieldset_id ]);
+		$all_fieldsets[ $fieldset_id ] = $this->create_show_order_data($all_fieldsets[ $fieldset_id ], $fieldset_obj,'fieldset');
         $all_fieldsets[ $fieldset_id ][ 'extra' ][ 'max' ] = $this->fieldset_obj->extra;
         $all_fieldsets[ $fieldset_id ][ 'unique_id' ] = $all_fieldsets[ $fieldset_id ][ 'unique_id' ] . str_repeat( '≪0≫', $all_fieldsets[ $fieldset_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] );
         foreach ( $all_fieldsets[ $fieldset_id ][ 'inputs_data' ] as $l => $input ) {
@@ -121,14 +88,8 @@ class fieldset extends render {
 			}
 			$this->fieldset_data[ 'legend' ]['attrs'] =  array_merge( $global_attr_obj->input_data[ 'attrs' ] ,$custom_attr_obj->input_data[ 'attrs' ]);
 			$this->fieldset_data[ 'legend' ]['text'] = $legend_obj->text;
-            $this->fieldset_data[ 'legend' ][ 'tag' ][ 'tag_id' ] = $this->get_ids($legend_obj->tag_id,true);
-
-            $tags = $this->render_tag( $this->fieldset_data[ 'legend' ][ 'tag' ][ 'tag_id' ],$this->fieldset_data[ 'legend' ]['attrs'] );
-			//krm($this->fieldset_data[ 'legend' ][ 'tag' ][ 'tag_id' ]);
-			//krm($tags);
-
-            $this->fieldset_data[ 'legend' ][ 'tag' ][ 'before' ] = $tags[ 'before' ];
-            $this->fieldset_data[ 'legend' ][ 'tag' ][ 'after' ] = $tags[ 'after' ];
+			
+			$this->fieldset_data[ 'legend' ] = $this->create_tag_data($this->fieldset_data[ 'legend' ],$legend_obj);
         } else {
             $this->error_log( 'fieldset id is empty or is not positive int.' );
             return NULL;
@@ -178,22 +139,14 @@ class fieldset extends render {
 			$this->create_legend_data($this->get_ids( $fieldset_obj->legend_id ,true));
 			
             if ( !empty( $this->fieldset_data[ 'input_ids' ] ) ) {
-                $this->fieldset_data[ 'unique_id' ] = $this->random_string( 12 );
+				$this->fieldset_data = $this->create_unique_id_data($this->fieldset_data);
                 foreach ( $this->fieldset_data[ 'input_ids' ] as $k => $input_id ) {
                     $input_obj = new input( $input_id );
                     $this->fieldset_data[ 'inputs_data' ][] = $input_obj->input_data;
                 }
-                if ( class_exists( 'access' ) ) {
-                    $access = new access( $fieldset_obj->access_id );
-                    $this->fieldset_data[ 'access' ][ 'visible' ] = $access->visible;
-                    $this->fieldset_data[ 'access' ][ 'editable' ] = $access->editable;
-                    $this->fieldset_data[ 'access' ][ 'addable' ] = $access->addable;
-                }
-                $this->fieldset_data[ 'tag' ][ 'tag_id' ] = $this->get_ids($fieldset_obj->tag_id,true);
-                $tags = $this->render_tag( $this->fieldset_data[ 'tag' ][ 'tag_id' ] );
-                $this->fieldset_data[ 'tag' ][ 'before' ] = $tags[ 'before' ];
-                $this->fieldset_data[ 'tag' ][ 'after' ] = $tags[ 'after' ];
-                //dbg( $this->fieldset_data[ 'tag' ]);
+				$this->fieldset_data = $this->create_access_data($this->fieldset_data,$fieldset_obj);
+				
+				$this->fieldset_data = $this->create_tag_data($this->fieldset_data,$fieldset_obj);
             } else {
                 $this->error_log( 'no input ids after processing input ids of your fieldset.' );
                 return NULL;

@@ -2,7 +2,7 @@
 class render extends database {
     #todo : validate html tags
 
-    function create_tag_data( $tag_id, $child_before = '', $child_after = '' ) {
+    function create_tag( $tag_id, $child_before = '', $child_after = '' ) {
         if ( !isset( $tag_ids ) ) {
             static $tag_ids = array();
         }
@@ -19,7 +19,7 @@ class render extends database {
                     if ( $this->is_positive_number( $tag_obj->parent_tag_id ) ) {
                         $new_child_before .= $tag_obj->tag_before . $child_before;
                         $new_child_after .= $tag_obj->tag_after . $child_after;
-                        $result = $this->create_tag_data( $tag_obj->parent_tag_id, $new_child_before, $new_child_after );
+                        $result = $this->create_tag( $tag_obj->parent_tag_id, $new_child_before, $new_child_after );
                         return $result;
                     } else {
                         $before = $child_before;
@@ -68,17 +68,29 @@ class render extends database {
         }
         return $str;
     }
+    function replace_own_data_short_codes( $str, $own_data, $between_start = '{own-data:', $between_end = '}' ) {
+        global $wpdb;
+        if ( !empty( $str ) ) {
+            preg_match_all( '/' . addslashes( $between_start ) . '(.*?)' . addslashes( $between_end ) . '/', $str, $matches );
+            foreach ( $matches[ 1 ] as $k => $match ) {
+                $str = str_replace( $matches[ 0 ][ $k ], $own_data[ $match ], $str );
+            }
+        }
+        return $str;
+    }
+    function render_tag( $tag_id, $data = NULL, $element = NULL ) {
 
-    function render_tag( $tag_id, $attrs = NULL, $element = NULL ) {
-
-        $tag = $this->create_tag_data( $tag_id );
+        $tag = $this->create_tag( $tag_id );
         $before = $this->replace_all_variable_short_codes( $tag[ 'before' ] );
         $after = $this->replace_all_variable_short_codes( $tag[ 'after' ] );
         //if( $tag_id==27){dbg($before);}
-
-        if ( !empty( $attrs ) ) {
-            $before = $this->replace_attribute_short_codes( $before, $attrs );
-            $after = $this->replace_attribute_short_codes( $after, $attrs );
+		if ( !empty( $data['own_data'] ) ) {
+			$before = $this->replace_own_data_short_codes( $before,$data['own_data'] );
+			$after = $this->replace_own_data_short_codes( $after,$data['own_data'] );
+		}
+		if ( !empty( $data['attrs'] ) ) {
+            $before = $this->replace_attribute_short_codes( $before, $data['attrs'] );
+            $after = $this->replace_attribute_short_codes( $after, $data['attrs'] );
         }
         if ( !empty( $element ) ) {
             return $before . $element . $after;
@@ -228,7 +240,7 @@ class render extends database {
         if ( $block_data == NULL ) {
             $block_data = $this->block_data;
         }
-        $block_data = $this->generate_extra_data( $block_data );
+        $block_data = $this->create_extra_data( $block_data );
         if ( $block_data[ 'access' ][ 'visible' ] == 'no'
             and $this->mode == 'view' ) {
             return '';
@@ -259,7 +271,7 @@ class render extends database {
             }
         }
 		$block_prefix = '<sst-block id="' . $block_data[ 'unique_id' ] . '">'.$this->render_extra( $fieldset_data[ 'extra' ], 'before' ) .$block_data[ 'tag' ][ 'before' ];
-        $block =  $elements[$block_data[ 'show_first' ]] .$elements[$block_data[ 'show_second' ]] . $elements[$block_data[ 'show_third' ]] ;
+        $block =  $elements[$block_data['order'][ 'show_first' ]] .$elements[$block_data['order'][ 'show_second' ]] . $elements[$block_data['order'][ 'show_third' ]] ;
         $block_suffix =  $block_data[ 'tag' ][ 'after' ].$this->render_extra( $fieldset_data[ 'extra' ], 'after' ) .'</sst-block>';
         return $block_prefix.$block.$block_suffix;
 
@@ -269,7 +281,7 @@ class render extends database {
         if ( $fieldset_data == NULL ) {
             $fieldset_data = $this->fieldset_data;
         }
-        $fieldset_data = $this->generate_extra_data( $fieldset_data );
+        $fieldset_data = $this->create_extra_data( $fieldset_data );
         if ( $fieldset_data[ 'access' ][ 'visible' ] == 'no'
             and $this->mode == 'view' ) {
             return '';
@@ -301,7 +313,7 @@ class render extends database {
         }
         $fieldset_prefix = '<sst-fieldset id="' . $fieldset_data[ 'unique_id' ] . '">' . $this->render_extra( $fieldset_data[ 'extra' ], 'before' ) . $fieldset_data[ 'tag' ][ 'before' ] . '<fieldset ' . $this->render_attrs( $fieldset_data[ 'attrs' ] ) . '>' . $this->render_legend( $fieldset_data[ 'legend' ] );
 
-        $fieldset =  $elements[$block_data[ 'show_first' ]] .$elements[$block_data[ 'show_second' ]] . $elements[$block_data[ 'show_third' ]] ;
+        $fieldset =  $elements[$block_data['order'][ 'show_first' ]] .$elements[$block_data['order'][ 'show_second' ]] . $elements[$block_data['order'][ 'show_third' ]] ;
 
 
         $fieldset_suffix = '</fieldset>' . $fieldset_data[ 'tag' ][ 'after' ] . $this->render_extra( $fieldset_data[ 'extra' ], 'after' ) . '</sst-fieldset>';
@@ -325,21 +337,9 @@ class render extends database {
 
     }
 
-    function generate_extra_data( $data ) {
-        if ( $data[ 'extra' ][ 'max' ] > 0 ) {
-            $extra = new extra( $data[ 'extra' ][ 'max' ], $data[ 'unique_id' ] );
-            $data[ 'extra' ][ 'add_controller' ] = $extra->extra_add_controller;
-            $data[ 'extra' ][ 'remove_controller' ] = $extra->extra_remove_controller;
-            $data[ 'extra' ][ 'controller_position' ] = EXTRA_CONTROLLER_POSITION;
-            if ( EXTRA_CONTROLLER_POSITION == 'after'
-                or EXTRA_CONTROLLER_POSITION == 'before' ) {
-                $data[ 'extra' ][ 'controller_position' ] = 'after';
-            }
 
-        }
-		return $data;
-    }
 	function render_form($form_data){
+		//krm($form_data);
         if ( $form_data == NULL ) {
             $form_data = $this->form_data;
         }
@@ -369,7 +369,7 @@ class render extends database {
         }
         $form_prefix = '<sst-form id="' . $form_data[ 'unique_id' ] . '">' . $form_data[ 'tag' ][ 'before' ] . '<form ' . $this->render_attrs( $form_data[ 'attrs' ] ) . '>';
 
-        $form =  $elements[$form_data[ 'show_first' ]] .$elements[$form_data[ 'show_second' ]] . $elements[$form_data[ 'show_third' ]] ;
+        $form =  $elements[$form_data['order'][ 'show_first' ]] .$elements[$form_data['order'][ 'show_second' ]] . $elements[$form_data['order'][ 'show_third' ]] ;
 
 
         $form_suffix = '</form>' . $form_data[ 'tag' ][ 'after' ] . '</sst-form>';

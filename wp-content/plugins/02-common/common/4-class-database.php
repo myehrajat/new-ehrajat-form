@@ -136,6 +136,7 @@ class database extends common implements database_interface {
 	function create_tables(array $sql_array){
 		global $wpdb;
 		foreach ( $sql_array as $table_query ) {
+//			krm($table_query);
 			$wpdb->query( $table_query );
 			if ( $wpdb->last_error !== '' ) {
 				echo $GLOBALS[ 'sst_errors' ][ 0 ];

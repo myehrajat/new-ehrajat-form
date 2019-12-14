@@ -96,5 +96,23 @@ add_action ('wp_head','test_form');
 
 
 
+add_action('init', 'my_register_styles');
 
+function my_register_styles() {
+    wp_register_style( 'style1', 'https://cdn.jsdelivr.net/gh/siwalikm/quick-form-css@2.2.2/qfc-light.css' );
+    wp_register_style( 'style2', 'https://cdn.jsdelivr.net/gh/siwalikm/quick-form-css@2.2.2/qfc-dark.css' );
+}
 
+add_action( 'wp_enqueue_scripts', 'my_enqueue_styles' );
+
+function my_enqueue_styles() {
+    if ( is_front_page() ) {
+        wp_enqueue_style( 'style1' );
+        //wp_enqueue_style( 'style2' );
+    } elseif ( is_page_template( 'special.php' ) ) {
+       // wp_enqueue_style( 'style1' );
+       // wp_enqueue_style( 'style2' );
+    } else {
+      //  wp_enqueue_style( 'style1' );
+    }
+}

@@ -1,5 +1,5 @@
 <?php
-class form extends render {
+class form extends data_creator {
     function __construct( $form_id_str ) {
         $this->get_form_object( $form_id_str );
         $this->form_data[ 'id' ] = $this->form_obj->id;
@@ -7,12 +7,17 @@ class form extends render {
         $this->create_form_inputs(); //$this->form_data['inputs']
         $this->create_form_blocks(); //$this->form_data['blocks']
         $this->create_form_fieldsets(); //$this->form_data['fieldsets']
-        $this->create_form_unique_id(); //$this->form_data['unique_id']
-        $this->create_form_access(); //$this->form_data['unique_id']
-        $this->create_form_tag(); //$this->form_data['unique_id']
-        $this->set_show_order(); //$this->form_data['unique_id']
+        $this->form_data = $this->create_unique_id_data( $this->form_data ); //$this->form_data['unique_id']
+        $this->form_data = $this->create_access_data( $this->form_data, $this->form_obj );
+		//krm($this->form_data);
+		//krm($this->form_obj);
+		//die;
+        $this->form_data = $this->create_tag_data($this->form_data,$this->form_obj); //$this->form_data['unique_id']
+		//krm($this->form_data);
+		//die;
+		$this->form_data = $this->create_show_order_data($this->form_data, $this->form_obj ,'form');
 
-        krm( $this->form_data );
+       // krm( $this->form_data );
 
     }
 
@@ -88,60 +93,8 @@ class form extends render {
         $this->form_data[ 'fieldsets_data' ] = $fieldsets;
     }
 
-    function create_form_unique_id() {
-        $this->form_data[ 'unique_id' ] = $this->random_string( 12 );
-    }
 
-    function create_form_access() {
-		
-        if ( class_exists( 'access' ) ) {
-            $access = new access( $this->form_obj->access_id );
-            $this->form_data[ 'access' ][ 'visible' ] = $access->visible;
-            $this->form_data[ 'access' ][ 'editable' ] = $access->editable;
-            $this->form_data[ 'access' ][ 'addable' ] = $access->addable;
-        }
-    }
 
-    function create_form_tag() {
-        $this->form_data[ 'tag' ][ 'tag_id' ] = $this->get_ids( $this->form_obj->tag_id, true );
-        $tags = $this->render_tag( $this->form_data[ 'tag' ][ 'tag_id' ] );
-        $this->form_data[ 'tag' ][ 'before' ] = $tags[ 'before' ];
-        $this->form_data[ 'tag' ][ 'after' ] = $tags[ 'after' ];
-    }
-
-    function set_show_order() {
-		$available_options = array('input','block','fieldset');
-		
-		$show_first = strtolower($this->form_obj->show_first);
-		if(in_array($show_first,$available_options)==true){
-			$this->form_data[ 'show_first' ]  = $show_first;
-		}elseif(in_array(FORM_SHOW_FIRST,$available_options)==true){
-			$this->form_data[ 'show_first' ]  = FORM_SHOW_FIRST;
-		}else{
-			$this->form_data[ 'show_first' ]  = 'input';
-		}
-		unset($available_options[$this->form_data[ 'show_first' ]]);
-		
-		$show_second = strtolower($this->form_data->show_second);
-		if(in_array($show_second,$available_options)==true){
-			$this->form_data[ 'show_second' ]  = $show_second;
-		}elseif(in_array(FORM_SHOW_SECOND,$available_options)==true){
-			$this->form_data[ 'show_second' ]  = FORM_SHOW_SECOND;
-		}else{
-			$this->form_data[ 'show_second' ]  = 'block';
-		}
-		unset($available_options[$block[ 'show_second' ]]);
-
-		$show_third = strtolower($this->form_data->show_third);
-		if(in_array($show_third,$available_options)==true){
-			$this->form_data[ 'show_third' ]  = $show_third;
-		}elseif(in_array(BLOCK_SHOW_THIRD,$available_options)==true){
-			$this->form_data[ 'show_third' ]  = FORM_SHOW_THIRD;
-		}else{
-			$this->form_data[ 'show_third' ]  = 'fieldset';
-		}
-		//return $block;
-    }
 
     function render( $form_data = NULL ) {
 

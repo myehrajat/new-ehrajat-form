@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: ehrajat 1 debug functionality
+ * Plugin Name: ehrajat 01 debug functionality
  * Plugin URI: http://ehrajat.com
  * Description: make and manage forms easily
  * Version: 1.0.0

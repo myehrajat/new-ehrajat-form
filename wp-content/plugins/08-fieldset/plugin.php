@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:ehrajat 8 fieldset functionality
+ * Plugin Name:ehrajat 08 fieldset functionality
  * Plugin URI: http://ehrajat.com
  * Description: make and manage forms easily
  * Version: 1.0.0

@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: ehrajat 3 attributes functionality
+ * Plugin Name: ehrajat 03 attributes functionality
  * Plugin URI: http://ehrajat.com
  * Description: make and manage forms easily
  * Version: 1.0.0
