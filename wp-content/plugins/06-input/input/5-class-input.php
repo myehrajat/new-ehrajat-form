@@ -10,6 +10,7 @@ class input extends data_creator {
     public $input_obj;
 	
     function __construct( $input_id = NULL ) {
+		parent::__construct();
 
         $input_id = $this->get_ids( $input_id, true );
         if ( !empty( $input_id ) ) {

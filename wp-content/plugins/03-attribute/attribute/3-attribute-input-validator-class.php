@@ -79,6 +79,10 @@ interface attribute_input_validator_interface {
 
 class attribute_input_validator extends attribute_global_validator
 implements attribute_input_validator_interface {
+	function __construct(){
+		parent::__construct();
+	}
+
     //https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/image#alt
     function attr_alt( $attr_value ) {
         return $this->create_attribute( 'alt', $attr_value );

@@ -18,6 +18,10 @@ interface attribute_form_validator_interface {
 
 class attribute_form_validator extends attribute_input_validator
 implements attribute_form_validator_interface {
+	function __construct(){
+		parent::__construct();
+	}
+
     //http://www.iana.org/assignments/character-sets/character-sets.xhtml
 	//wide range of charset name and in html4 space or comma delimited and in html5 only comma validating it is hard process
     function attr_accept_charset( $attr_value ) {

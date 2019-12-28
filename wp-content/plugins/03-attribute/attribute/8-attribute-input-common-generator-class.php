@@ -13,6 +13,8 @@ class attribute_input_common_generator extends attribute_custom_generator implem
     var $input_type;
 
     function __construct( string $input_id = NULL ) {
+				parent::__construct();
+
         $this->input_id = $this->get_ids( $input_id, true );
         if ( !empty( $this->input_id ) ) {
             $this->input_obj = $this->get_by_id( $this->input_id, $GLOBALS[ 'sst_tables' ][ 'input' ] );

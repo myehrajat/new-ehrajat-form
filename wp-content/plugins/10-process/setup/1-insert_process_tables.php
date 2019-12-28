@@ -36,12 +36,12 @@ class insert_process_tables extends database {
         "`epithet` VARCHAR(255) NOT NULL," .
         "`slug` VARCHAR(255) NOT NULL," .
 		"`condition` VARCHAR(255) NOT NULL," .
-        "`process_ids` VARCHAR(255) NOT NULL," .
+        "`process_id` VARCHAR(255) NOT NULL," .
         "`description` LONGTEXT NOT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .
         "`created` DATETIME NOT NULL DEFAULT NOW()," .
         "`modified` DATETIME NOT NULL DEFAULT NOW(),
-        PRIMARY KEY id  (`id`)) $this->collate_charset;";
+        PRIMARY KEY id  (`id`)) $this->collate_charset;";		
 		global $wpdb;
         $this->create_tables( $sql );
     }

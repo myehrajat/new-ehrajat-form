@@ -6,6 +6,8 @@ class fieldset extends data_creator {
     static $prevent_loop;
 
     function __construct( $fieldset_id ,$force_prevent_loop=array()) {
+				parent::__construct();
+
         $this->prevent_loop = $force_prevent_loop;
 		
         $this->get_fieldset_object( $fieldset_id );

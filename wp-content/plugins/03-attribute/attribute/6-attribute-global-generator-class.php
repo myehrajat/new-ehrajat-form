@@ -21,7 +21,8 @@ class attribute_global_generator extends attribute_generator implements attribut
     var $global_obj;
     var $global_attr;
 
-    function __construct( $attr_html_global_id ) {
+    function __construct( $attr_html_global_id =NULL) {
+		parent::__construct();
         if ( !empty( $attr_html_global_id ) ) {
             $attr_html_global_id = $this->get_ids( $attr_html_global_id, true );
             if ( !empty( $attr_html_global_id ) ) { //after trying to extract id from string eg eval code or complex string id

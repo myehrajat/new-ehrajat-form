@@ -6,6 +6,8 @@ class block extends data_creator {
     static $prevent_loop;
 
     function __construct( $block_id, $force_prevent_loop = array() ) {
+		parent::__construct();
+
         $this->prevent_loop = $force_prevent_loop;
         $this->get_block_object( $block_id );
         $this->block_data = $this->create_block_structure( $block_id );

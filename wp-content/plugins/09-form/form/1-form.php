@@ -1,6 +1,8 @@
 <?php
 class form extends data_creator {
     function __construct( $form_id_str ) {
+				parent::__construct();
+
         $this->get_form_object( $form_id_str );
         $this->form_data[ 'id' ] = $this->form_obj->id;
         $this->create_form_attrs(); //$this->form_data['attrs']
@@ -56,7 +58,7 @@ class form extends data_creator {
         $custom_attributs_obj = new attribute_custom_generator( $form_obj->attr_custom_ids );
         $custom_attributs = $custom_attributs_obj->input_data[ 'attrs' ];
 
-        $this->form_data[ 'attrs' ] = array_merge( $specific_attributs, $global_attributs, $custom_attributs );
+		$this->form_data[ 'attrs' ] = array_merge( $specific_attributs, $global_attributs, $custom_attributs );
         //krm($this->form_data['attrs']);
     }
 

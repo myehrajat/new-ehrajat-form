@@ -16,6 +16,8 @@ class attribute_input_specific_generator extends attribute_input_common_generato
     var $option_data;
 
     function __construct( string $attr_input_specific_id = NULL, string $input_html_type = NULL ) {
+				parent::__construct();
+
         $this->input_html_type = $input_html_type;
 
         $this->attr_input_specific_id = $this->get_ids( $attr_input_specific_id, true );

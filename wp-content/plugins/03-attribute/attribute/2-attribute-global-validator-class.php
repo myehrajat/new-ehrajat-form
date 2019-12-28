@@ -53,6 +53,9 @@ interface attribute_global_validator_interface {
 
 class attribute_global_validator extends attribute_basic
 implements attribute_global_validator_interface {
+	function __construct(){
+		parent::__construct();
+	}
 
     /**************************************************
      *version 1.0.0

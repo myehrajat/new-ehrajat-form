@@ -4,6 +4,10 @@ interface attribute_generator_interface{
 	function create_multiple_attrs( $attr_name_value, $html_input_type = NULL );
 }
 class attribute_generator extends attribute_form_validator implements attribute_generator_interface {
+	function __construct(){
+		parent::__construct();
+	}
+
     /*
     Class Description:this is for creating multiple of attributes eg specific and global or common
     */

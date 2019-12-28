@@ -18,6 +18,7 @@ implements common_interface {
     function __construct() {
         parent::__construct();
         $this->get_current_user_id();
+		$this->get_mode();
     }
     /**************************************************
      *version 1.0.0

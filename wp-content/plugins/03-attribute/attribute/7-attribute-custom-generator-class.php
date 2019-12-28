@@ -4,6 +4,8 @@ interface attribute_custom_generator_interface {
 }
 class attribute_custom_generator extends attribute_global_generator implements attribute_custom_generator_interface {
     function __construct(string $custom_attr_ids = NULL ) {
+				parent::__construct();
+
 		$this->create_custom_attrs($custom_attr_ids);
     }
 	function create_custom_attrs($custom_attr_ids){

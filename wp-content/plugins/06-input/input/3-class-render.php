@@ -1,7 +1,9 @@
 <?php
 class render extends database {
     #todo : validate html tags
-
+	function __construct(){
+				parent::__construct();
+	}
     function create_tag( $tag_id, $child_before = '', $child_after = '' ) {
         if ( !isset( $tag_ids ) ) {
             static $tag_ids = array();
@@ -256,13 +258,13 @@ class render extends database {
         }
         if ( isset( $block_data[ 'inputs_data' ] ) ) {
             foreach ( $block_data[ 'inputs_data' ] as $input_data ) {
-                $elements['input'] = $inputs . $this->render_input( $input_data );
+                $elements['input'] = $elements['input'] . $this->render_input( $input_data );
             }
         }
         if ( !empty( $block_data[ 'fieldsets_data' ] ) ) {
             $fieldsets = '';
             foreach ( $block_data[ 'fieldsets_data' ] as $fieldsets_data ) {
-                $elements['fieldset'] = $fieldsets . $this->render_fieldset( $fieldsets_data );
+                $elements['fieldset'] =  $elements['fieldset'] . $this->render_fieldset( $fieldsets_data );
             }
         }
         if ( !empty( $block_data[ 'childern' ] ) ) {
@@ -297,13 +299,13 @@ class render extends database {
         }
         if ( isset( $fieldset_data[ 'inputs_data' ] ) ) {
             foreach ( $fieldset_data[ 'inputs_data' ] as $input_data ) {
-                $elements['input'] = $inputs . $this->render_input( $input_data );
+                $elements['input'] =  $elements['input'] . $this->render_input( $input_data );
             }
         }
         if ( !empty( $fieldset_data[ 'blocks_data' ] ) ) {
             $blocks = '';
             foreach ( $fieldset_data[ 'blocks_data' ] as $blocks_data ) {
-                $elements['block'] = $blocks . $this->render_block( $blocks_data );
+                $elements['block'] = $elements['block']. $this->render_block( $blocks_data );
             }
         }
         if ( !empty( $fieldset_data[ 'childern' ] ) ) {
@@ -354,17 +356,17 @@ class render extends database {
         }
         if ( isset( $form_data[ 'inputs_data' ] ) ) {
             foreach ( $form_data[ 'inputs_data' ] as $input_data ) {
-                $elements['input'] = $inputs . $this->render_input( $input_data );
+                $elements['input'] = $elements['input'] . $this->render_input( $input_data );
             }
         }
         if ( !empty( $form_data[ 'blocks_data' ] ) ) {
             foreach ( $form_data[ 'blocks_data' ] as $blocks_data ) {
-                $elements['block'] = $blocks . $this->render_block( $blocks_data );
+                $elements['block'] = $elements['block'] . $this->render_block( $blocks_data );
             }
         }
         if ( !empty( $form_data[ 'fieldsets_data' ] ) ) {
             foreach ( $form_data[ 'fieldsets_data' ] as $fieldset_data ) {
-               $elements['fieldset'] = $this->render_fieldset( $fieldset_data );
+               $elements['fieldset'] = $elements['fieldset'].$this->render_fieldset( $fieldset_data );
             }
         }
         $form_prefix = '<sst-form id="' . $form_data[ 'unique_id' ] . '">' . $form_data[ 'tag' ][ 'before' ] . '<form ' . $this->render_attrs( $form_data[ 'attrs' ] ) . '>';
@@ -376,5 +378,13 @@ class render extends database {
         return $form_prefix . $form . $form_suffix;
 		
 
+	}
+	function render_process($process_data){
+
+		if ( $process_data == NULL ) {
+            $process_data = $this->process_data;
+        }
+//krm( $process_data);
+		return $this->render_form($process_data['form_data']);
 	}
 }

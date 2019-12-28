@@ -1,6 +1,9 @@
 <?php
 class data_creator extends render{
-	
+	function __construct(){
+				parent::__construct();
+
+	}
 	function create_own_data_data($data){
 		$data['own_data']['epithet']=$this->input_obj->epithet;
 		$data['own_data']['slug']=$this->input_obj->slug;

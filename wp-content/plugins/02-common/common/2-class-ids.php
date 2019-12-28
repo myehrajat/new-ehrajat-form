@@ -172,9 +172,10 @@ class ids extends str implements ids_interface {
 
     function run_eval( $ecode, $a = NULL ) {
         $eval_var = $a;
+        $vals = $a;
         $ecode = str_replace( EVAL_STR, '', $ecode );
         try {
-            //dbg($ecode );
+            //krm($ecode );
             $result = eval( $ecode );
         } catch ( Throwable $error ) {
             $this->error_log( 'eval string has syntax error.' );

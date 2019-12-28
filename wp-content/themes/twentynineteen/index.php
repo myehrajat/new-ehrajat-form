@@ -15,6 +15,7 @@
  */
 
 get_header();
+/*
 ?>
 <div style="padding:20px;"><form>
   <div class="form-group">

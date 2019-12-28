@@ -28,6 +28,7 @@ define('FORM_CONTROLLER_POSITION','after');
 define('FORM_SHOW_FIRST','input');
 define('FORM_SHOW_SECOND','block');
 define('FORM_SHOW_THIRD','fieldset');
+//define('FORM_DEFAULT_METHOD','post'); NOT used andywhere consider is implementation good idea or not
 
 glob_includer(FORM_SETUP_PATH);
 new insert_form_tables;

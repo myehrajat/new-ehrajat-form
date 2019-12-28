@@ -67,26 +67,36 @@ function test_input_ref(){
 
 }
 function test_input(){
-	$f = new input(24);
+	$f = new input(1);
 	echo $f->render();
 }
 function test_block(){
 	$f = new block(1);
+	//krm($f);
 	echo $f->render();
 }
 	//$f = new field(1);
 function test_fieldset(){
 	$f = new fieldset(1);
-	krm($f);
+	//krm($f);
 	echo $f->render();
 }
 function test_form(){
 	$f = new form(1);
+	//krm($f);
 	echo $f->render();
+}
+function test_process(){
+	//if(!isset($_REQUEST['__sst__step'])){
+	$f = new process(1);
+	//krm($f);
+	echo $f->render();
+	//}
 }
 	//$f = new field(1);
 
-add_action ('wp_head','test_form');
+add_action ('wp_head','test_process');
+//add_action ('wp_head','test_form');
 //add_action ('wp_head','test_fieldset');
 //add_action ('wp_head','test_block');
 //add_action ('wp_head','test_input');
@@ -99,8 +109,8 @@ add_action ('wp_head','test_form');
 add_action('init', 'my_register_styles');
 
 function my_register_styles() {
-    wp_register_style( 'style1', 'https://cdn.jsdelivr.net/gh/siwalikm/quick-form-css@2.2.2/qfc-light.css' );
-    wp_register_style( 'style2', 'https://cdn.jsdelivr.net/gh/siwalikm/quick-form-css@2.2.2/qfc-dark.css' );
+    //wp_register_style( 'style1', 'https://cdn.jsdelivr.net/gh/siwalikm/quick-form-css@2.2.2/qfc-light.css' );
+    //wp_register_style( 'style2', 'https://cdn.jsdelivr.net/gh/siwalikm/quick-form-css@2.2.2/qfc-dark.css' );
 }
 
 add_action( 'wp_enqueue_scripts', 'my_enqueue_styles' );

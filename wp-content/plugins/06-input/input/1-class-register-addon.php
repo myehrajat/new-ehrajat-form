@@ -1,6 +1,8 @@
 <?php
 class register_addon extends database {
 	function __construct(){
+				parent::__construct();
+
 		$this->auto_register();
 	}
   function auto_register() {

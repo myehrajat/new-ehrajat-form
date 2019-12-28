@@ -26,7 +26,9 @@ interface attribute_basic_interface {
 
 class attribute_basic extends database
 implements attribute_basic_interface {
-
+	function __construct(){
+		parent::__construct();
+	}
     /**
      Class Description:this class is for creating single attr and validate its value and name
      **/
