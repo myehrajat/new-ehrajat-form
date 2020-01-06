@@ -119,8 +119,8 @@ implements common_interface {
         return $all_attrs;
     }
 	function get_mode(){
-		$this->mode = strtolower($_REQUEST['mode']);
-		if(!isset($_REQUEST['mode'])){
+		$this->mode = strtolower($_REQUEST[COMMON_MODE_KEYWORD]);
+		if(!isset($_REQUEST[COMMON_MODE_KEYWORD])){
 			$this->mode = 'add';
 		}
 	} 

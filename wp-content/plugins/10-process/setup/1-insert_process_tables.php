@@ -14,6 +14,7 @@ class insert_process_tables extends database {
     function table_names() {
         $GLOBALS[ 'sst_tables' ][ 'process' ]  = $this->full_prefix . 'process';
         $GLOBALS[ 'sst_tables' ][ 'condition' ]  = $this->full_prefix . 'condition';
+        $GLOBALS[ 'sst_tables' ][ 'vals' ]  = $this->full_prefix . 'vals';
     }
 	
     function insert_tables() {
@@ -38,6 +39,16 @@ class insert_process_tables extends database {
 		"`condition` VARCHAR(255) NOT NULL," .
         "`process_id` VARCHAR(255) NOT NULL," .
         "`description` LONGTEXT NOT NULL," .
+        "`owner` VARCHAR(255) DEFAULT NULL," .
+        "`created` DATETIME NOT NULL DEFAULT NOW()," .
+        "`modified` DATETIME NOT NULL DEFAULT NOW(),
+        PRIMARY KEY id  (`id`)) $this->collate_charset;";		
+		global $wpdb;
+        $this->create_tables( $sql );
+        $sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'vals' ] . " (" .
+        "`id` INT(10) NOT NULL auto_increment," .
+        "`key` VARCHAR(255) NOT NULL UNIQUE," .
+        "`value` MEDIUMBLOB NOT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .
         "`created` DATETIME NOT NULL DEFAULT NOW()," .
         "`modified` DATETIME NOT NULL DEFAULT NOW(),

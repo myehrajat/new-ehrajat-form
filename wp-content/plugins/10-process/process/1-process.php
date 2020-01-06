@@ -1,57 +1,124 @@
 <?php
 class process extends data_creator {
     function __construct( $process_id_str ) {
-		parent::__construct();
-		$this->generate_vals();
-		//krm($this->vals);
-		$this->apply_conditions();
-		if($this->break!= true){
-			$this->get_process_object( $process_id_str );
-			$this->generate_process_data();
-		}
+        parent::__construct();
+        $this->generate_vals();
+        $this->apply_conditions();
+        if ( $this->break_class != true ) {
+            $this->get_process_object( $process_id_str );
+            $this->generate_process_data();
+
+        }
+
+
     }
-	function apply_conditions(){
-		//krm($this->vals);
-		if(!empty($this->vals['__sst__conditions'])){
-			//krm('dddddddd');
-        	$condition_ids = $this->get_ids( $this->vals['__sst__conditions'] );
-			$i=0;
-			foreach($condition_ids as $condition_id){
-				$condition_obj = $this->get_by_id( $condition_id, $GLOBALS[ 'sst_tables' ][ 'condition' ] );
-				$condition_process_id = $this->get_ids($condition_obj->process_id,true);
-				if($this->is_positive_number($condition_process_id)){
-					if($condition_obj->condition != 'else'){
-						if($i == 0){
-							$eval_condition_first = 'if('.$condition_obj->condition.'){$p = new process('.$condition_process_id.');echo $p->render();}';
-						}else{
-							$eval_condition_middle .= 'elseif('.$condition_obj->condition.'){$p = new process('.$condition_process_id.');echo $p->render();}';
-						}
-					}else{
-							$eval_condition_else = 'else{$p = new process('.$condition_process_id.');echo $p->render();}';
-					}
-					$i++;
-				}else{
+
+    function apply_conditions() {
+        if ( !empty( $_REQUEST[ '__sst__conditions' ] ) ) {
+            $condition_ids = $this->get_ids( $_REQUEST[ '__sst__conditions' ] );
+            $i = 0;
+            foreach ( $condition_ids as $condition_id ) {
+                $condition_obj = $this->get_by_id( $condition_id, $GLOBALS[ 'sst_tables' ][ 'condition' ] );
+                $condition_process_id = $this->get_ids( $condition_obj->process_id, true );
+                if ( $this->is_positive_number( $condition_process_id ) ) {
+                    if ( $condition_obj->condition != 'else' ) {
+                        if ( $i == 0 ) {
+                            $eval_condition_first = 'if(' . $condition_obj->condition . '){$p = new process(' . $condition_process_id . ');echo $p->render();}';
+                        } else {
+                            $eval_condition_middle .= 'elseif(' . $condition_obj->condition . '){$p = new process(' . $condition_process_id . ');echo $p->render();}';
+                        }
+                    } else {
+                        $eval_condition_else = 'else{$p = new process(' . $condition_process_id . ');echo $p->render();}';
+                    }
+                    $i++;
+                } else {
                     //$this->error_log( 'your condition id is not correct' );
-					//May be NULL MEANS END SO NO ERROR
-				}
-			}
-			$eval_condition = EVAL_STR.$eval_condition_first.$eval_condition_middle.$eval_condition_else;
-			//krm($eval_condition);
-			unset($this->vals['__sst__conditions']);
-			unset($_REQUEST['__sst__conditions']);
-			
-			$this->run_eval( $eval_condition, $this->vals );
-			$this->break = true;
-			//krm($eval_condition );
-			//$eval_condition = EVAL_STR;
-			
-		}
-	}
-	function generate_vals(){
-		if($_REQUEST['__sst__step']){
-			$this->vals = $_REQUEST;
-		}
-	}
+                    //May be NULL MEANS END SO NO ERROR
+                }
+            }
+            $eval_condition = EVAL_STR . $eval_condition_first . $eval_condition_middle . $eval_condition_else;
+            // krm($eval_condition);
+            unset( $_REQUEST[ '__sst__conditions' ] );
+            unset( $this->vals[ '__sst__conditions' ] );
+            //krm( $this->vals );
+            //die;
+
+            $this->run_eval( $eval_condition, $this->vals );
+            $this->break_class = true;
+            //krm($eval_condition );
+            //$eval_condition = EVAL_STR;
+
+        }
+    }
+
+    function generate_vals() {
+        $this->save_vals();
+    }
+
+    function save_vals() {
+        if ( isset( $_REQUEST[ '__sst__unique' ] ) ) {
+
+            global $wpdb;
+            $db_vals = $this->get_vals();
+            $form_vals = $_REQUEST;
+            $merged_vals = array_merge( $db_vals, $form_vals );
+            $vals = json_encode( $merged_vals );
+            if ( PROCESS_COMPRESS_VALS == true ) {
+                $vals = gzdeflate( $vals, 9 );
+            }
+            $vals = addslashes( $vals );
+            if ( empty( $db_vals ) ) {
+                $q = "INSERT INTO " . $GLOBALS[ 'sst_tables' ][ 'vals' ] .
+                " (`key`, `value`, `owner`, `created`, `modified`) 
+							VALUES ('" . $_REQUEST[ '__sst__unique' ] . "','" . $vals . "'," . $this->user_id . ",NOW(),NOW());";
+            } else {
+                $q = "UPDATE " . $GLOBALS[ 'sst_tables' ][ 'vals' ] .
+                " SET `value`='" . $vals . "', `owner`=" . $this->user_id . ", `modified`=NOW() WHERE `key`='" . $_REQUEST[ '__sst__unique' ] . "';";
+
+            }
+            $wpdb->query( $q );
+            $this->vals = $merged_vals;
+            return $this->vals;
+        } elseif ( $this->mode == 'edit'
+            or $this->mode == 'view' ) {
+            $record_id = $_REQUEST[ PROCESS_RECORD_ID_KEYWORD ];
+            $this->vals = $this->get_vals( $record_id );
+            //krm($this->vals );
+        }
+		$GLOBALS['vals'] = $this->vals;
+    }
+
+    function get_vals( $__sst__unique = NULL ) {
+        if ( $__sst__unique == NULL ) {
+            $__sst__unique = $_REQUEST[ '__sst__unique' ];
+        }
+        if ( !empty( $__sst__unique ) ) {
+            global $wpdb;
+            $q = "SELECT * FROM " . $GLOBALS[ 'sst_tables' ][ 'vals' ] . "  WHERE `key`='" . $__sst__unique . "' LIMIT 1;";
+            //krm( $q );
+            $results = $wpdb->get_results( $q );
+
+            if ( !empty( $results ) ) {
+                $dbvals = $results[ 0 ]->value;
+                $vals = $dbvals;
+                $vals = @ gzinflate( $dbvals );
+                if ( $vals === false ) {
+                    $vals = json_decode( $dbvals, TRUE );
+                } else {
+                    $vals = json_decode( $vals, TRUE );
+                }
+                if ( !is_array( $vals ) ) {
+                    $vals = array();
+                }
+            } else {
+                $vals = array();
+            }
+        } else {
+            $vals = array();
+        }
+        return $vals;
+    }
+
     function get_process_object( $process_id_str ) {
         $process_id = $this->get_ids( $process_id_str, true );
         if ( $this->is_positive_number( $process_id ) ) {
@@ -62,46 +129,51 @@ class process extends data_creator {
         }
     }
 
-	function generate_process_data(){
-		$form_obj = new form($this->process_obj->form_id);
-		$this->process_data['form_data'] = $form_obj->form_data;
-		$this->generate_step_now();
-		//$this->generate_roadmap();
-		//$this->generate_max_step();
-		$this->generate_super_unique();
-		$this->generate_condition_ids();
-	}
-	function generate_condition_ids(){
-		$this->process_data['form_data']['inputs_data'][] = array('input_type'=>'simple-hidden',
-													 'input_html_type'=>'hidden',
-													 'attrs'=>array('type'=>'hidden','name'=>'__sst__conditions','value'=>$this->process_obj->condition_ids) );
-	}
-	function generate_super_unique(){
-		if(!isset($this->vals)){
-			$__sst__unique = uniqid($this->user_id.'_',true) ; 
-		}else{
-			$__sst__unique = $this->vals['__sst__unique'];
-		}
-		$this->process_data['form_data']['inputs_data'][] = array('input_type'=>'simple-hidden',
-													 'input_html_type'=>'hidden',
-													 'attrs'=>array('type'=>'hidden','name'=>'__sst__unique','value'=>$__sst__unique) );
-	}
-	function generate_max_step(){
-		
-	}
-	function generate_step_now(){
-		if(!isset($this->vals)){
-			$__sst__step = 1 ; 
-		}else{
-			$__sst__step = $this->vals['__sst__step']+1;
-		}
+    function generate_process_data() {
+        $form_obj = new form( $this->process_obj->form_id );
+        $this->process_data[ 'form_data' ] = $form_obj->form_data;
+        $this->generate_step_now();
+        //$this->generate_roadmap();
+        //$this->generate_max_step();
+        $this->generate_super_unique();
+        $this->generate_condition_ids();
+    }
 
-		$this->process_data['form_data']['inputs_data'][] = array('input_type'=>'simple-hidden',
-													 'input_html_type'=>'hidden',
-													 'attrs'=>array('type'=>'hidden','name'=>'__sst__step','value'=>$__sst__step) );
-	}
-	function generate_roadmap($process_id=NULL){
-		/*static $roadmap;
+    function generate_condition_ids() {
+        $this->process_data[ 'form_data' ][ 'inputs_data' ][] = array( 'input_type' => 'simple-hidden',
+            'input_html_type' => 'hidden',
+            'attrs' => array( 'type' => 'hidden', 'name' => '__sst__conditions', 'value' => $this->process_obj->condition_ids ) );
+    }
+
+    function generate_super_unique() {
+        if ( !isset( $this->vals ) ) {
+            $__sst__unique = uniqid( $this->user_id . '_', true );
+        } else {
+            $__sst__unique = $this->vals[ '__sst__unique' ];
+        }
+        $this->process_data[ 'form_data' ][ 'inputs_data' ][] = array( 'input_type' => 'simple-hidden',
+            'input_html_type' => 'hidden',
+            'attrs' => array( 'type' => 'hidden', 'name' => '__sst__unique', 'value' => $__sst__unique ) );
+    }
+
+    function generate_max_step() {
+
+    }
+
+    function generate_step_now() {
+        if ( !isset( $this->vals ) ) {
+            $__sst__step = 1;
+        } else {
+            $__sst__step = $this->vals[ '__sst__step' ] + 1;
+        }
+
+        $this->process_data[ 'form_data' ][ 'inputs_data' ][] = array( 'input_type' => 'simple-hidden',
+            'input_html_type' => 'hidden',
+            'attrs' => array( 'type' => 'hidden', 'name' => '__sst__step', 'value' => $__sst__step ) );
+    }
+
+    function generate_roadmap( $process_id = NULL ) {
+        /*static $roadmap;
 		if(debug_backtrace()[ 1 ][ 'function' ] !== __FUNCTION__){
 			$process_obj = $this->process_obj;
 		}else{
@@ -120,10 +192,11 @@ class process extends data_creator {
 			
 		}
 		*/
-	}
-	function render( $process_data = NULL ) {
-		if($this->break!=true){
-        return $this->render_process( $process_data );
-		}
+    }
+
+    function render( $process_data = NULL ) {
+        if ( $this->break_class != true ) {
+            return $this->render_process( $process_data );
+        }
     }
 }

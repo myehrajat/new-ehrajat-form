@@ -20,6 +20,10 @@ define( 'PROCESS_PLUGIN_FILE', basename( __FILE__ ) );
 define('PROCESS_FUNC_PATH',__DIR__.'/process/');
 define('PROCESS_SETUP_PATH',__DIR__.'/setup/');
 
+
+define('PROCESS_COMPRESS_VALS',false);
+define('PROCESS_RECORD_ID_KEYWORD','record_id');
+
 //define('IS_INPUT_PLUGIN_ACTIVE',in_array(PLUGIN_FOLDER.'/'.PLUGIN_FILE, apply_filters('active_plugins', get_option('active_plugins'))));
 #############################################
 # VISIBILTY

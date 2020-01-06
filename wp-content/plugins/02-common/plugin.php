@@ -13,6 +13,7 @@ plugin_load_order(__FILE__);
  define('COMMON_PLUGIN_FILE',basename(__DIR__));
 /*common folder function path*/
 define('COMMON_FUNC_PATH',__DIR__.'/common/');
+define('COMMON_MODE_KEYWORD','mode');
 
 /**************************************************
 *version 1.0.0
