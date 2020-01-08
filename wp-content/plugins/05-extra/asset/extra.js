@@ -83,7 +83,8 @@ jQuery(document).ready(function () {
 			 	jQuery("#"+sst.unique+sst.target_identifier+sst.add_contoller_prefix).hide();
 			 }
 		 }
-		 
+		return false;
+
 	 });
 	function show_add_for_previous(sst){
 		sst.num_to_show_controller = sst.clone_source_last_number-1;
@@ -103,7 +104,7 @@ jQuery(document).ready(function () {
 		 sst.clone_source_last_number = sst.source_element_id.match(/(≪.*?≫)/g).pop().slice(1,-1);
 		 jQuery("#"+sst.unique+sst.source_identifier)[0].remove();
 		 show_add_for_previous(sst);
-		 
+		 return false;
 	 });
 });
 

@@ -34,12 +34,12 @@ class insert_input_related_tables extends database {
         ##################################################
         $sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'tags' ] . " (" .
         "`id` INT(10) NOT NULL auto_increment," .
-        "`epithet` VARCHAR(255) NOT NULL," .
-        "`slug` VARCHAR(255) NOT NULL," .
-        "`tag_before` VARCHAR(255) NOT NULL," .
-        "`tag_after` VARCHAR(255) NOT NULL," .
-        "`parent_tag_id` VARCHAR(255) NOT NULL," .
-        "`description` LONGTEXT NOT NULL," .
+        "`epithet` VARCHAR(255) DEFAULT NULL," .
+        "`slug` VARCHAR(255) DEFAULT NULL," .
+        "`tag_before` VARCHAR(255) DEFAULT NULL," .
+        "`tag_after` VARCHAR(255) DEFAULT NULL," .
+        "`parent_tag_id` VARCHAR(255) DEFAULT NULL," .
+        "`description` LONGTEXT DEFAULT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .
         "`created` DATETIME NOT NULL DEFAULT NOW()," .
         "`modified` DATETIME NOT NULL DEFAULT NOW(),
@@ -53,7 +53,20 @@ class insert_input_related_tables extends database {
         "`except_show_or_hide` VARCHAR(255) NOT NULL," .
         "`default_enable_or_disable` VARCHAR(255) NOT NULL," .
         "`except_enable_or_disable` VARCHAR(255) NOT NULL," .
-        "`description` LONGTEXT NOT NULL," .
+        "`description` LONGTEXT DEFAULT NULL," .
+        "`owner` VARCHAR(255) DEFAULT NULL," .
+        "`created` DATETIME NOT NULL DEFAULT NOW()," .
+        "`modified` DATETIME NOT NULL DEFAULT NOW(),
+        PRIMARY KEY id  (`id`)) $this->collate_charset;";
+        $this->create_tables( $sql );
+        ##################################################
+        $sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'variable' ] . " (" .
+        "`id` INT(10) NOT NULL auto_increment," .
+        "`epithet` VARCHAR(255) DEFAULT NULL," .
+        "`slug` VARCHAR(255) DEFAULT NULL," .
+        "`name` VARCHAR(255) NOT NULL," .
+        "`value` LONGTEXT NOT NULL," .
+        "`description` LONGTEXT DEFAULT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .
         "`created` DATETIME NOT NULL DEFAULT NOW()," .
         "`modified` DATETIME NOT NULL DEFAULT NOW(),

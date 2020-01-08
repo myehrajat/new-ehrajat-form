@@ -14,6 +14,7 @@ use this plugin in head of all plugin related to this to correctly load plugin f
 plugin_load_order( __FILE__ );
 //$input = new input(1);
 //echo $input->render().'<br>';
+
 if ( 1 == 2 ) {
     $query = '';
     $sqlScript = file( 'full.sql' );
@@ -95,7 +96,7 @@ function test_process(){
 }
 	//$f = new field(1);
 
-add_action ('wp_head','test_process');
+//add_action ('wp_head','test_process');
 //add_action ('wp_head','test_form');
 //add_action ('wp_head','test_fieldset');
 //add_action ('wp_head','test_block');

@@ -190,7 +190,7 @@ class insert_attribute_related_tables extends database {
         "`epithet` VARCHAR(255) NOT NULL," .
         "`slug` VARCHAR(255) NOT NULL," .
         "`source_type` VARCHAR(255) DEFAULT NULL COMMENT 'Values:query | json_url | value'," .
-        "`text` VARCHAR(255) NOT NULL," .
+        "`text` VARCHAR(255) DEFAULT NULL," .
         "`disabled` VARCHAR(255) NOT NULL," .
         "`label` VARCHAR(255) NOT NULL," .
         "`selected` VARCHAR(255) NOT NULL," .

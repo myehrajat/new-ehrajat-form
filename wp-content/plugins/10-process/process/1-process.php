@@ -37,28 +37,25 @@ class process extends data_creator {
                 }
             }
             $eval_condition = EVAL_STR . $eval_condition_first . $eval_condition_middle . $eval_condition_else;
-            // krm($eval_condition);
             unset( $_REQUEST[ '__sst__conditions' ] );
             unset( $this->vals[ '__sst__conditions' ] );
-            //krm( $this->vals );
-            //die;
-
             $this->run_eval( $eval_condition, $this->vals );
             $this->break_class = true;
-            //krm($eval_condition );
-            //$eval_condition = EVAL_STR;
-
         }
     }
 
     function generate_vals() {
         $this->save_vals();
     }
-
+	function save_files_to_vals(){
+		if(isset($_FILES)){
+				
+		}
+	}
     function save_vals() {
         if ( isset( $_REQUEST[ '__sst__unique' ] ) ) {
-
             global $wpdb;
+			$this->save_files_to_vals();
             $db_vals = $this->get_vals();
             $form_vals = $_REQUEST;
             $merged_vals = array_merge( $db_vals, $form_vals );
@@ -66,14 +63,13 @@ class process extends data_creator {
             if ( PROCESS_COMPRESS_VALS == true ) {
                 $vals = gzdeflate( $vals, 9 );
             }
-            $vals = addslashes( $vals );
             if ( empty( $db_vals ) ) {
-                $q = "INSERT INTO " . $GLOBALS[ 'sst_tables' ][ 'vals' ] .
+                $q = $wpdb->prepare("INSERT INTO " . $GLOBALS[ 'sst_tables' ][ 'vals' ] .
                 " (`key`, `value`, `owner`, `created`, `modified`) 
-							VALUES ('" . $_REQUEST[ '__sst__unique' ] . "','" . $vals . "'," . $this->user_id . ",NOW(),NOW());";
+							VALUES ('" . "%s" . "','" . "%s" . "'," . "%d" . ",NOW(),NOW());",array($_REQUEST[ '__sst__unique' ],$vals,$this->user_id));
             } else {
-                $q = "UPDATE " . $GLOBALS[ 'sst_tables' ][ 'vals' ] .
-                " SET `value`='" . $vals . "', `owner`=" . $this->user_id . ", `modified`=NOW() WHERE `key`='" . $_REQUEST[ '__sst__unique' ] . "';";
+                $q = $wpdb->prepare("UPDATE " . $GLOBALS[ 'sst_tables' ][ 'vals' ] .
+                " SET `value`='" ."%s" . "', `owner`=" ."%d". ", `modified`=NOW() WHERE `key`='" . "%s" . "';",array($vals , $this->user_id ,$_REQUEST[ '__sst__unique' ]));
 
             }
             $wpdb->query( $q );
@@ -83,9 +79,8 @@ class process extends data_creator {
             or $this->mode == 'view' ) {
             $record_id = $_REQUEST[ PROCESS_RECORD_ID_KEYWORD ];
             $this->vals = $this->get_vals( $record_id );
-            //krm($this->vals );
         }
-		$GLOBALS['vals'] = $this->vals;
+        $GLOBALS[ 'vals' ] = $this->vals;
     }
 
     function get_vals( $__sst__unique = NULL ) {
@@ -95,18 +90,18 @@ class process extends data_creator {
         if ( !empty( $__sst__unique ) ) {
             global $wpdb;
             $q = "SELECT * FROM " . $GLOBALS[ 'sst_tables' ][ 'vals' ] . "  WHERE `key`='" . $__sst__unique . "' LIMIT 1;";
-            //krm( $q );
             $results = $wpdb->get_results( $q );
-
             if ( !empty( $results ) ) {
                 $dbvals = $results[ 0 ]->value;
                 $vals = $dbvals;
                 $vals = @ gzinflate( $dbvals );
+				
                 if ( $vals === false ) {
                     $vals = json_decode( $dbvals, TRUE );
                 } else {
                     $vals = json_decode( $vals, TRUE );
                 }
+				$vals = stripslashes_deep($vals);
                 if ( !is_array( $vals ) ) {
                     $vals = array();
                 }
@@ -146,12 +141,18 @@ class process extends data_creator {
     }
 
     function generate_super_unique() {
+		global $wpdb;
         if ( !isset( $this->vals ) ) {
             $__sst__unique = uniqid( $this->user_id . '_', true );
+			 $q = "SELECT * FROM " . $GLOBALS[ 'sst_tables' ][ 'vals' ] . "  WHERE `key`='" . $__sst__unique . "' LIMIT 1;";
+			$results =  $wpdb->get_results($q);
+			if(!empty($results)){
+				$this->generate_super_unique();
+			}
         } else {
             $__sst__unique = $this->vals[ '__sst__unique' ];
         }
-        $this->process_data[ 'form_data' ][ 'inputs_data' ][] = array( 'input_type' => 'simple-hidden',
+			$this->process_data[ 'form_data' ][ 'inputs_data' ][] = array( 'input_type' => 'simple-hidden',
             'input_html_type' => 'hidden',
             'attrs' => array( 'type' => 'hidden', 'name' => '__sst__unique', 'value' => $__sst__unique ) );
     }

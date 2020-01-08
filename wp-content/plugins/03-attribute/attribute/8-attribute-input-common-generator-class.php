@@ -1,8 +1,9 @@
 <?php
-interface attribute_input_common_generator_interface{
+interface attribute_input_common_generator_interface {
     function create_attr_input_common();
 }
-class attribute_input_common_generator extends attribute_custom_generator implements attribute_input_common_generator_interface{
+class attribute_input_common_generator extends attribute_custom_generator
+implements attribute_input_common_generator_interface {
     var $input_id;
     var $input_obj;
     var $commom_attr;
@@ -13,7 +14,7 @@ class attribute_input_common_generator extends attribute_custom_generator implem
     var $input_type;
 
     function __construct( string $input_id = NULL ) {
-				parent::__construct();
+        parent::__construct();
 
         $this->input_id = $this->get_ids( $input_id, true );
         if ( !empty( $this->input_id ) ) {
@@ -51,10 +52,56 @@ class attribute_input_common_generator extends attribute_custom_generator implem
         }
     }
 
+    function change_value_by_vals() {
+        if ( isset( $GLOBALS[ 'vals' ][ $this->input_obj->name ] ) ) {
+            switch ( $this->input_html_type ) {
+                case "text":
+                case "search":
+                case "tel":
+                case "url":
+                case "submit":
+                case "range":
+                case "number":
+                case "image":
+                case "email":
+                case "date":
+                case "datetime-local":
+                case "month":
+                case "time":
+                case "week":
+                case "datetime":
+                case "color":
+                case "hidden":
+					$this->input_obj->value = $GLOBALS[ 'vals' ][ $this->input_obj->name ];
+                    break;
+                case "password":
+					if(strtolower(ATTRIBUTE_PASSWORD_VALUE) == 'yes' ){
+						$this->input_obj->value = $GLOBALS[ 'vals' ][ $this->input_obj->name ];
+					}
+                    break;
+                case "file":
+						$this->input_obj->value = $GLOBALS[ 'vals' ][ $this->input_obj->name ];
+                    break;
+                case "checkbox":
+                    break;
+                case "radio":
+                    break;
+                case "select":
+                    break;
+                case "textarea":
+                    break;
+            }
+        }
+    }
+
     function create_attr_input_common() {
         $attr_input_common_arr = array();
+        $this->change_value_by_vals();
         if ( $this->input_html_type != 'select'
             and $this->input_html_type != 'textarea' ) {
+            if ( isset( $GLOBALS[ 'vals' ][ $this->input_obj->name ] ) ) {
+                $this->input_obj->value = $GLOBALS[ 'vals' ][ $this->input_obj->name ];
+            }
             $common = $this->create_multiple_attrs( array(
                 'disabled' => $this->input_obj->disabled,
                 'form' => $this->input_obj->form,

@@ -1,7 +1,22 @@
-<fieldset disabled>
-<div style="background:#0217BB; padding:  44px"><legend align="center">sssssssssssssss</legend></div>
-<legend align="center" style="float: left"><div style="background: #C43335; padding:  44px">asdasdasd</div></legend>
-	<p><label>Customer name: <input></label></p>
- <p><label>Telephone: <input type=tel></label></p>
- <p><label>E-mail address: <input type=email></label></p>
-	   </fieldset>
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>demo for extra</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
+<script src="extra.js"></script>
+</head>
+<?php
+	echo '<pre>';
+var_dump( $_FILES );	echo '</pre>';
+
+?>
+
+<body>
+<form method="post" enctype="multipart/form-data" >
+  <input name=nn[] type="file">
+  <input name=nn[] type="file">
+  <input type="submit" value="sub">
+</form>
+</body>
+</html>
