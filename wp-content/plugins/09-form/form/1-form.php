@@ -4,6 +4,7 @@ class form extends data_creator {
 				parent::__construct();
 
         $this->get_form_object( $form_id_str );
+		//krm($this->form_obj);
         $this->form_data[ 'id' ] = $this->form_obj->id;
         $this->create_form_attrs(); //$this->form_data['attrs']
         $this->create_form_inputs(); //$this->form_data['inputs']
@@ -11,16 +12,10 @@ class form extends data_creator {
         $this->create_form_fieldsets(); //$this->form_data['fieldsets']
         $this->form_data = $this->create_unique_id_data( $this->form_data ); //$this->form_data['unique_id']
         $this->form_data = $this->create_access_data( $this->form_data, $this->form_obj );
-		//krm($this->form_data);
-		//krm($this->form_obj);
-		//die;
-        $this->form_data = $this->create_tag_data($this->form_data,$this->form_obj); //$this->form_data['unique_id']
-		//krm($this->form_data);
-		//die;
+
+		$this->form_data = $this->create_tag_data($this->form_data,$this->form_obj); //$this->form_data['unique_id']
+
 		$this->form_data = $this->create_show_order_data($this->form_data, $this->form_obj ,'form');
-
-       // krm( $this->form_data );
-
     }
 
 
@@ -54,12 +49,11 @@ class form extends data_creator {
 
         $global_attributs_obj = new attribute_global_generator( $this->get_ids( $form_obj->attr_html_global_id, true ) );
         $global_attributs = $global_attributs_obj->input_data[ 'attrs' ];
-        //krm($form_obj->attr_custom_ids);
-        $custom_attributs_obj = new attribute_custom_generator( $form_obj->attr_custom_ids );
-        $custom_attributs = $custom_attributs_obj->input_data[ 'attrs' ];
 
+		$custom_attributs_obj = new attribute_custom_generator( $form_obj->attr_custom_ids );
+        $custom_attributs = $custom_attributs_obj->input_data[ 'attrs' ];
+		
 		$this->form_data[ 'attrs' ] = array_merge( $specific_attributs, $global_attributs, $custom_attributs );
-        //krm($this->form_data['attrs']);
     }
 
     function create_form_blocks() {

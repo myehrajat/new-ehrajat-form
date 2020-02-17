@@ -6,6 +6,7 @@ interface attribute_generator_interface{
 class attribute_generator extends attribute_form_validator implements attribute_generator_interface {
 	function __construct(){
 		parent::__construct();
+		
 	}
 
     /*

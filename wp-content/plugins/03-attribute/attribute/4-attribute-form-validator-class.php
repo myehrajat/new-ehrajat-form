@@ -32,7 +32,7 @@ implements attribute_form_validator_interface {
     }
     function attr_enctype( $attr_value ) {
 		$enumerated_values = array('application/x-www-form-urlencoded','multipart/form-data','text/plain');
-        return $this->create_enumerated_attribute( 'method', $attr_value, $enumerated_values );
+        return $this->create_enumerated_attribute( 'enctype', $attr_value, $enumerated_values );
     }
     function attr_method( $attr_value ) {
         $enumerated_values = array( 'get', 'post', 'dialog' );

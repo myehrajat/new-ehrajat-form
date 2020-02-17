@@ -95,8 +95,10 @@ function test_process(){
 	//}
 }
 	//$f = new field(1);
-
-//add_action ('wp_head','test_process');
+//krm($_FILES);
+//krm($_POST);
+//krm($vals);
+add_action ('wp_head','test_process');
 //add_action ('wp_head','test_form');
 //add_action ('wp_head','test_fieldset');
 //add_action ('wp_head','test_block');

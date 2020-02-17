@@ -3,8 +3,11 @@ class process extends data_creator {
     function __construct( $process_id_str ) {
         parent::__construct();
         $this->generate_vals();
+		
         $this->apply_conditions();
-        if ( $this->break_class != true ) {
+
+		if ( $this->break_class != true ) {
+			//krm($this->vals);
             $this->get_process_object( $process_id_str );
             $this->generate_process_data();
 
@@ -39,6 +42,7 @@ class process extends data_creator {
             $eval_condition = EVAL_STR . $eval_condition_first . $eval_condition_middle . $eval_condition_else;
             unset( $_REQUEST[ '__sst__conditions' ] );
             unset( $this->vals[ '__sst__conditions' ] );
+			//krm($eval_condition);
             $this->run_eval( $eval_condition, $this->vals );
             $this->break_class = true;
         }
@@ -46,23 +50,37 @@ class process extends data_creator {
 
     function generate_vals() {
         $this->save_vals();
+		//krm($this->vals);
+		$GLOBALS[ 'vals' ] = $this->vals;
+		//krm($GLOBALS[ 'vals' ]);
+
     }
 	function save_files_to_vals(){
 		if(isset($_FILES)){
-				
+			if(!isset($this->vals[ '__sst__files' ])){
+				$files[ '__sst__files' ]=array();
+			}
+			$files[ '__sst__files' ] = array_merge($files[ '__sst__files' ], $_FILES);			
+		}else{
+			$files[ '__sst__files' ] =array();
 		}
+		return $files;
 	}
     function save_vals() {
         if ( isset( $_REQUEST[ '__sst__unique' ] ) ) {
             global $wpdb;
-			$this->save_files_to_vals();
             $db_vals = $this->get_vals();
+			//krm( $db_vals);
+			$files = $this->save_files_to_vals();
+			//krm( $files);
+
             $form_vals = $_REQUEST;
-            $merged_vals = array_merge( $db_vals, $form_vals );
+            $merged_vals = array_merge( $db_vals, $form_vals ,$files);
             $vals = json_encode( $merged_vals );
             if ( PROCESS_COMPRESS_VALS == true ) {
                 $vals = gzdeflate( $vals, 9 );
             }
+			
             if ( empty( $db_vals ) ) {
                 $q = $wpdb->prepare("INSERT INTO " . $GLOBALS[ 'sst_tables' ][ 'vals' ] .
                 " (`key`, `value`, `owner`, `created`, `modified`) 
@@ -80,7 +98,6 @@ class process extends data_creator {
             $record_id = $_REQUEST[ PROCESS_RECORD_ID_KEYWORD ];
             $this->vals = $this->get_vals( $record_id );
         }
-        $GLOBALS[ 'vals' ] = $this->vals;
     }
 
     function get_vals( $__sst__unique = NULL ) {
@@ -116,7 +133,9 @@ class process extends data_creator {
 
     function get_process_object( $process_id_str ) {
         $process_id = $this->get_ids( $process_id_str, true );
+		
         if ( $this->is_positive_number( $process_id ) ) {
+			$this->process_data[ 'id' ] = $process_id ;
             $this->process_obj = $this->get_by_id( $process_id, $GLOBALS[ 'sst_tables' ][ 'process' ] );
         } else {
             $this->error_log( 'process_id is empty or is not positive int.You have provided:' . $process_id_str );
@@ -126,18 +145,29 @@ class process extends data_creator {
 
     function generate_process_data() {
         $form_obj = new form( $this->process_obj->form_id );
+        
         $this->process_data[ 'form_data' ] = $form_obj->form_data;
         $this->generate_step_now();
         //$this->generate_roadmap();
         //$this->generate_max_step();
         $this->generate_super_unique();
         $this->generate_condition_ids();
+		$this->generate_data_action_ids();
     }
 
     function generate_condition_ids() {
+		if(!empty($this->process_obj->condition_ids)){
         $this->process_data[ 'form_data' ][ 'inputs_data' ][] = array( 'input_type' => 'simple-hidden',
             'input_html_type' => 'hidden',
             'attrs' => array( 'type' => 'hidden', 'name' => '__sst__conditions', 'value' => $this->process_obj->condition_ids ) );
+		}
+    }
+    function generate_data_action_ids() {
+		if(!empty($this->process_obj->data_action_ids)){
+        $this->process_data[ 'form_data' ][ 'inputs_data' ][] = array( 'input_type' => 'simple-hidden',
+            'input_html_type' => 'hidden',
+            'attrs' => array( 'type' => 'hidden', 'name' => '__sst__data_actions', 'value' => $this->process_obj->data_action_ids ) );
+		}
     }
 
     function generate_super_unique() {

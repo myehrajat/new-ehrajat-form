@@ -28,6 +28,7 @@ class attribute_basic extends database
 implements attribute_basic_interface {
 	function __construct(){
 		parent::__construct();
+		$this->input_data[ 'attrs' ] = array();
 	}
     /**
      Class Description:this class is for creating single attr and validate its value and name

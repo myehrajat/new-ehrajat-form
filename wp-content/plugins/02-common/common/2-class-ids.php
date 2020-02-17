@@ -174,6 +174,7 @@ class ids extends str implements ids_interface {
         $eval_var = $a;
         $vals = $a;
         $ecode = str_replace( EVAL_STR, '', $ecode );
+		//krm($vals);
         try {
             //krm($ecode );
             $result = eval( $ecode );

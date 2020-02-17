@@ -1,17 +1,17 @@
 /*
- Navicat MySQL Data Transfer
+ Navicat Premium Data Transfer
 
  Source Server         : shahab
  Source Server Type    : MySQL
  Source Server Version : 100316
  Source Host           : localhost:3306
- Source Schema         : ehrajat-dev
+ Source Schema         : ehrajat-dev-backup
 
  Target Server Type    : MySQL
  Target Server Version : 100316
  File Encoding         : 65001
 
- Date: 13/12/2019 21:19:02
+ Date: 16/02/2020 16:25:38
 */
 
 SET NAMES utf8mb4;
@@ -607,7 +607,7 @@ CREATE TABLE `wp_tt_attr_html_global_style`  (
 -- ----------------------------
 -- Records of wp_tt_attr_html_global_style
 -- ----------------------------
-INSERT INTO `wp_tt_attr_html_global_style` VALUES (1, 'Test Of Style 1', 'test-style', 'background-color', 'red', 'important', 'This is only test of global attribute of style', 'Myehrajat', '2019-09-16 01:14:41', '2019-09-16 01:14:41');
+INSERT INTO `wp_tt_attr_html_global_style` VALUES (1, 'Test Of Style 1', 'test-style', 'background-color', 'blue', 'important', 'This is only test of global attribute of style', 'Myehrajat', '2019-09-16 01:14:41', '2019-09-16 01:14:41');
 INSERT INTO `wp_tt_attr_html_global_style` VALUES (2, 'Test Of Style 2', 'test-style', 'text-align', 'left', '', 'This is only test of global attribute of style', 'Myehrajat', '2019-09-16 01:15:42', '2019-09-16 01:15:42');
 
 -- ----------------------------
