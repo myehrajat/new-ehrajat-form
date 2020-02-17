@@ -96,9 +96,9 @@ class data_action extends common {
                     break;
             }
         }
-        //krm($all_values);
+        krm($all_values);
         $ready_data = $this->create_all_data2( $all_values );
-        //krm($ready_data);
+        krm($ready_data);
 
     }
 
@@ -181,17 +181,16 @@ class data_action extends common {
             $dest_path = '';
             if ( $f_error[ $key_route ] == 0 ) {
                 if ( !empty( $colval_file_path ) ) {
-					
-                    $dest_path = $this->make_upload_dir( $colval_file_path );
+                    $dest_path = $this->make_upload_dir( ltrim($colval_file_path,'/') );
                 } elseif ( !empty( $default_data_action_file_path ) ) {
-                    $dest_path = $this->make_upload_dir( $default_data_action_file_path );
+                    $dest_path = $this->make_upload_dir( ltrim($default_data_action_file_path,'/') );
                 } elseif ( !empty( DATA_ACTION_DEFAULT_UPLOAD_PATH ) ) {
-                        $dest_path = $this->make_upload_dir( DATA_ACTION_DEFAULT_UPLOAD_PATH );
+                        $dest_path = $this->make_upload_dir( ltrim(DATA_ACTION_DEFAULT_UPLOAD_PATH,'/') );
                     } else {
                         $dest_path = $_SERVER[ 'DOCUMENT_ROOT' ] . '/';
                     }
                     //krm($dest_path.$files[ 'name' ][$key_route]);
-				$dest_path = ltrim($dest_path,'/');
+				//$dest_path = ltrim($dest_path,'/');
                 $upload_path = $dest_path . $this->user_id . '_' . time() . '_' . $f_names[ $key_route ];
                 $success = move_uploaded_file( $f_tmp_name[ $key_route ], $upload_path );
                 $upload_url = $this->path2url( $upload_path );
