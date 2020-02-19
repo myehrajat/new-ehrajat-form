@@ -57,7 +57,9 @@ jQuery(document).ready(function () {
 	sst.add_contoller_prefix = '_controller_add';
 	sst.remove_contoller_prefix = '_controller_remove';
 	sst.unique_id_length = 12;
-	 jQuery('body').on('click',"[id$='"+sst.add_contoller_prefix+"']",function(){
+	 jQuery('body').on('click',"[id$='"+sst.add_contoller_prefix+"']",function(event){
+		 //jQuery(this).hide();//to prevent fast click investigate more for test only not correct
+		 event.preventDefault();//prevent submitting in fast double click
 		 sst.unique = this.id.substr(0,sst.unique_id_length);
 		 sst.source_add_controller_id = this.id;
 		 sst.source_identifier = this.id.substr(sst.unique_id_length).split('_')[0];
@@ -84,7 +86,6 @@ jQuery(document).ready(function () {
 			 }
 		 }
 		return false;
-
 	 });
 	function show_add_for_previous(sst){
 		sst.num_to_show_controller = sst.clone_source_last_number-1;
@@ -96,7 +97,8 @@ jQuery(document).ready(function () {
 		}
 		
 	}
-	 jQuery('body').on('click',"[id$='"+sst.remove_contoller_prefix+"']",function(){
+	 jQuery('body').on('click',"[id$='"+sst.remove_contoller_prefix+"']",function(event){
+		 event.preventDefault();//prevent submitting in fast double click
 		 sst.unique = this.id.substr(0,sst.unique_id_length);
 		 sst.source_add_controller_id = this.id;
 		 sst.source_identifier = this.id.substr(sst.unique_id_length).split('_')[0];
@@ -106,5 +108,6 @@ jQuery(document).ready(function () {
 		 show_add_for_previous(sst);
 		 return false;
 	 });
+	
 });
-
+//need a double check if fast clicking to remove controller and elements

@@ -166,12 +166,14 @@ class render extends database {
         if ( $input_data == NULL ) {
             $input_data = $this->input_data;
         }
+        /*
         if ( $input_data[ 'extra' ][ 'max' ] > 0 ) {
             $extra = new extra( $input_data[ 'extra' ][ 'max' ], $input_data[ 'unique_id' ] );
             $input_data[ 'extra' ][ 'add_controller' ] = $extra->extra_add_controller;
             $input_data[ 'extra' ][ 'remove_controller' ] = $extra->extra_remove_controller;
             $input_data[ 'extra' ][ 'controller_position' ] = EXTRA_CONTROLLER_POSITION;
         }
+		*/
         //dbg($input_data );
         if ( $input_data[ 'access' ][ 'visible' ] == 'no'
             and $this->mode == 'view' ) {
@@ -261,9 +263,10 @@ class render extends database {
         if ( $block_data == NULL ) {
             $block_data = $this->block_data;
         }
-        //krm($block_data );
-        $block_data = $this->create_extra_data( $block_data );
 
+        $block_data = $this->create_extra_data( $block_data );
+        //krm($block_data);
+        //render_extra_controller
         if ( $block_data[ 'access' ][ 'visible' ] == 'no'
             and $this->mode == 'view' ) {
             return '';
@@ -284,15 +287,9 @@ class render extends database {
             foreach ( $block_data[ 'inputs_data' ] as $input_data ) {
                 //krm($input_data);
                 //extra value set
-				krm('start here to set value for block');
-				krm('To do : correct extra controller');
-                $this->extra_block_set_value();
-                if ( $block_data[ 'extra' ][ 'max' ] > 0 and isset( $this->vals[ $input_data[ 'attrs' ][ 'name' ] ] ) ) { //change value of
-
-                    $input_data[ 'attrs' ][ 'value' ] = $this->vals[ $input_data[ 'attrs' ][ 'name' ] ];
-                }else{
-					//$input_data[ 'attrs' ][ 'value' ] = $this->vals[ $input_data[ 'attrs' ][ 'name' ] ];
-				}
+                //krm('start here to set value for block');
+                //krm('To do : correct extra controller');
+                $input_data = $this->extra_block_set_value( $block_data, $input_data );
                 $elements[ 'input' ] = $elements[ 'input' ] . $this->render_input( $input_data );
                 //krm($elements[ 'input' ]);
             }
@@ -308,23 +305,64 @@ class render extends database {
                 $elements[ 'block' ] = $this->render_block( $new_block_data );
             }
         }
-        $block_prefix = '<sst-block id="' . $block_data[ 'unique_id' ] . '">' . $this->render_extra( $fieldset_data[ 'extra' ], 'before' ) . $block_data[ 'tag' ][ 'before' ];
-        $block = $elements[ $block_data[ 'order' ][ 'show_first' ] ] . $elements[ $block_data[ 'order' ][ 'show_second' ] ] . $elements[ $block_data[ 'order' ][ 'show_third' ] ];
-        $block_suffix = $block_data[ 'tag' ][ 'after' ] . $this->render_extra( $block_data[ 'extra' ], 'after' ) . '</sst-block>';
-       // krm( $extra_blocks_data );
-        foreach ( $extra_blocks_data as $extra_block_data ) {
-            //krm($extra_block_data);
-            $extra_blocks .= $this->render_block( $extra_block_data );
+        //	krm( $block_data );
+        //krm( $extra_blocks_data );
+        //die;
+        if ( !empty( $extra_blocks_data ) ) {
+            //krm(extra::render_extra_controller($block_data['extra']['add_controller_data'],$block_data['extra']['remove_controller_data'] ));
+            $key_first = array_key_first( $extra_blocks_data );
+            $key_last = array_key_last( $extra_blocks_data );
+            foreach ( $extra_blocks_data as $k => $extra_block_data ) {
+                if ( $key_last == $k ) {
+                    //unset($block_data[ 'extra' ][ 'remove_controller_data' ][ 'style' ]);
+                }
+
+                $block_data[ 'extra' ][ 'add_controller_data' ][ 'style' ] = 'display: none;';
+                $new_extra_data = extra::render_extra_controller( $block_data[ 'extra' ][ 'add_controller_data' ], $block_data[ 'extra' ][ 'remove_controller_data' ] );
+                $block_data[ 'extra' ][ 'add_controller' ] = $new_extra_data[ 'extra_add_controller' ];
+                $block_data[ 'extra' ][ 'remove_controller' ] = $new_extra_data[ 'extra_remove_controller' ];
+                //krm( $block_data );
+                $extra_blocks .= $this->render_block( $extra_block_data );
+            }
+        } else {
+            $last_number = $this->last_number_of_element( $block_data[ 'unique_id' ], '≪', '≫' );
+
+            if ( $last_number != 0 ) {
+                unset( $block_data[ 'extra' ][ 'remove_controller_data' ][ 'style' ] );
+            }
+            krm('ssssssssssssssssssssssssssssssssssssssssssssssssss' );
+            krm( $last_number );
+            krm( $block_data[ 'extra' ][ 'max' ] );
+            if ( $last_number == $block_data[ 'extra' ][ 'max' ] ) {
+                //hide add controller
+                $block_data[ 'extra' ][ 'add_controller_data' ][ 'style' ] = 'display: none;';
+            }
+            $new_extra_data = extra::render_extra_controller( $block_data[ 'extra' ][ 'add_controller_data' ], $block_data[ 'extra' ][ 'remove_controller_data' ] );
+            $block_data[ 'extra' ][ 'add_controller' ] = $new_extra_data[ 'extra_add_controller' ];
+            $block_data[ 'extra' ][ 'remove_controller' ] = $new_extra_data[ 'extra_remove_controller' ];
         }
         //krm($block_data);
         //die;
+
+        $block_prefix = '<sst-block id="' . $block_data[ 'unique_id' ] . '">' . $this->render_extra( $fieldset_data[ 'extra' ], 'before' ) . $block_data[ 'tag' ][ 'before' ];
+        $block = $elements[ $block_data[ 'order' ][ 'show_first' ] ] . $elements[ $block_data[ 'order' ][ 'show_second' ] ] . $elements[ $block_data[ 'order' ][ 'show_third' ] ];
+        $block_suffix = $block_data[ 'tag' ][ 'after' ] . $this->render_extra( $block_data[ 'extra' ], 'after' ) . '</sst-block>';
 
         return $block_prefix . $block . $block_suffix . $extra_blocks;
 
     }
 
-    function extra_block_set_value() {
+    function extra_block_set_value( $block_data, $input_data ) {
+        if ( $this->mode == 'view'
+            or $this->mode == 'edit' ) {
+            if ( $block_data[ 'extra' ][ 'max' ] > 0 and isset( $this->vals[ $input_data[ 'attrs' ][ 'name' ] ] ) ) { //change value of
 
+                $input_data[ 'attrs' ][ 'value' ] = $this->vals[ $input_data[ 'attrs' ][ 'name' ] ];
+            } else {
+                $input_data[ 'attrs' ][ 'value' ] = substr( $this->vals[ $input_data[ 'attrs' ][ 'name' ] ], 0, -3 );
+            }
+        }
+        return $input_data;
     }
 
     function extra_block_creator_based_vals( $block_data ) {
@@ -392,16 +430,16 @@ class render extends database {
                 $block_data[ 'inputs_data' ][ $input_key ][ 'unique_id' ] = $this->add_up_extra( $input_data[ 'unique_id' ], '≪', '≫' );
                 $block_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'name' ] = $this->add_up_extra( $input_data[ 'attrs' ][ 'name' ], '[', ']' );
             }
-            if ( !empty($block_data[ 'children' ]) ) {
-				
+            if ( !empty( $block_data[ 'children' ] ) ) {
+
                 $block_data = $this->extra_children_block_creator( $block_data );
             }
             $extra_block_data[] = $block_data;
             // krm( $extra_block_data );
             $count_extra_blocks--;
         }
-		//
-		//;krm($extra_block_data);
+        //
+        //;krm($extra_block_data);
         return $extra_block_data;
     }
 
@@ -412,26 +450,25 @@ class render extends database {
         } else {
             $deep++;
         }
-		//krm($block_data['children']);
-		//krm($block_data[ 'children' ]);
+        //krm($block_data['children']);
+        //krm($block_data[ 'children' ]);
         foreach ( $block_data[ 'children' ] as $child_block_key => $child_block ) {
-			//krm($child_block);
+            //krm($child_block);
             if ( $child_block[ 'extra' ][ 'max' ] > 0 ) {
-                $block_data[ 'children' ][$child_block_key][ 'unique_id' ] = $this->add_up_extra( $child_block[ 'unique_id' ], '≪', '≫' ,$deep );
-				
-				
-				foreach (  $block_data[ 'children' ][$child_block_key][ 'inputs_data' ] as $input_key => $input_data ) {
-					$block_data[ 'children' ][$child_block_key][ 'inputs_data' ][ $input_key ][ 'unique_id' ] = $this->add_up_extra( $input_data[ 'unique_id' ], '≪', '≫',$deep );
-					$block_data[ 'children' ][$child_block_key][ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'name' ] = $this->add_up_extra( $input_data[ 'attrs' ][ 'name' ], '[', ']',$deep );
-				}
-				if ( empty($child_block) ) {
-					$this->extra_children_block_creator( $child_block );
-				}				
+                $block_data[ 'children' ][ $child_block_key ][ 'unique_id' ] = $this->add_up_extra( $child_block[ 'unique_id' ], '≪', '≫', $deep );
+
+
+                foreach ( $block_data[ 'children' ][ $child_block_key ][ 'inputs_data' ] as $input_key => $input_data ) {
+                    $block_data[ 'children' ][ $child_block_key ][ 'inputs_data' ][ $input_key ][ 'unique_id' ] = $this->add_up_extra( $input_data[ 'unique_id' ], '≪', '≫', $deep );
+                    $block_data[ 'children' ][ $child_block_key ][ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'name' ] = $this->add_up_extra( $input_data[ 'attrs' ][ 'name' ], '[', ']', $deep );
+                }
+                if ( empty( $child_block ) ) {
+                    $this->extra_children_block_creator( $child_block );
+                }
             }
         }
-		return $block_data;
+        return $block_data;
     }
-
 
 
     function render_fieldset( $fieldset_data ) {

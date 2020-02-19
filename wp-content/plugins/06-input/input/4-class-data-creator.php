@@ -93,8 +93,12 @@ class data_creator extends render{
 	function create_extra_data( $data ) {
         if ( $data[ 'extra' ][ 'max' ] > 0 ) {
             $extra = new extra( $data[ 'extra' ][ 'max' ], $data[ 'unique_id' ] );
+            $data[ 'extra' ][ 'add_controller_data' ] = $extra->extra_add_controller_arr;
+            $data[ 'extra' ][ 'remove_controller_data' ] = $extra->extra_remove_controller_arr;
+			
             $data[ 'extra' ][ 'add_controller' ] = $extra->extra_add_controller;
             $data[ 'extra' ][ 'remove_controller' ] = $extra->extra_remove_controller;
+			
             $data[ 'extra' ][ 'controller_position' ] = EXTRA_CONTROLLER_POSITION;
             if ( EXTRA_CONTROLLER_POSITION == 'after'
                 or EXTRA_CONTROLLER_POSITION == 'before' ) {
