@@ -11,6 +11,7 @@ class block extends data_creator {
         $this->prevent_loop = $force_prevent_loop;
         $this->get_block_object( $block_id );
         $this->block_data = $this->create_block_structure( $block_id );
+		//krm($this->block_data );
 		//krm( $this->block_data);
         //krm( $this->block_data );
         //krm($this->block_data);
@@ -52,10 +53,14 @@ class block extends data_creator {
 		//$all_blocks[ $block_id ] = $this->set_show_order($all_blocks[ $block_id ]);
         $all_blocks[ $block_id ][ 'extra' ][ 'max' ] = $this->block_obj->extra;
         $all_blocks[ $block_id ][ 'unique_id' ] = $all_blocks[ $block_id ][ 'unique_id' ] . str_repeat( '≪0≫', $all_blocks[ $block_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] );
+		
         foreach ( $all_blocks[ $block_id ][ 'inputs_data' ] as $l => $input ) {
+			//krm( $input);
             $all_blocks[ $block_id ][ 'inputs_data' ][ $l ][ 'attrs' ][ 'name' ] = $input[ 'attrs' ][ 'name' ] . str_repeat( '[0]', $all_blocks[ $block_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] );
+			//krm( $all_blocks[ $block_id ][ 'inputs_data' ][ $l ]);
             $all_blocks[ $block_id ][ 'inputs_data' ][ $l ][ 'unique_id' ] = $input[ 'unique_id' ] . str_repeat( '≪0≫', $all_blocks[ $block_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] );
         }
+		
         $this->prevent_loop[ $block_id ] = $block_id;
         $all_blocks[ $block_id ][ 'fieldsets_data' ] = $this->create_fieldsets( $this->block_obj->fieldset_ids );
 
@@ -64,7 +69,7 @@ class block extends data_creator {
             foreach ( $child_block_ids as $k => $child_block_id ) {
                 if ( in_array( $child_block_id, $this->prevent_loop ) == false ) {
                     $this->prevent_loop[ $child_block_id ] = $child_block_id;
-                    $all_blocks[ $block_id ][ 'childern' ][ $k ] = $this->create_block_structure( $child_block_id, $all_blocks[ $block_id ] );
+                    $all_blocks[ $block_id ][ 'children' ][ $k ] = $this->create_block_structure( $child_block_id, $all_blocks[ $block_id ] );
                     unset( $this->prevent_loop[ $child_block_id ] );
                 } else {
                     //dbg('the block_ids of '.$block_id. ' has his parent id which cause a forever loop . The parent id which make problem :'.$child_block_id);
@@ -74,6 +79,7 @@ class block extends data_creator {
             }
 
         }
+		//krm($all_blocks);
         return $all_blocks[ $block_id ];
     }
 

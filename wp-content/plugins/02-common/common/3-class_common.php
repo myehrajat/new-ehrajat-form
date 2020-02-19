@@ -114,7 +114,7 @@ implements common_interface {
 
     function render_attrs( array $attrs ) {
         foreach ( $attrs as $attr_name => $attr_value ) {
-            $all_attrs .= ' ' . $attr_name . '="' . $attr_value . '"';
+				$all_attrs .= ' ' . $attr_name . '="' . $attr_value . '"';
         }
         return $all_attrs;
     }

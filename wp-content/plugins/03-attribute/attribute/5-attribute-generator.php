@@ -1,6 +1,6 @@
 <?php
 interface attribute_generator_interface{
-	function create_simple_attr( $attr_name, $attr_value, $html_input_type );
+	function create_simple_attr( $attr_name, $attr_value, $html_input_type,$attr_name_value );
 	function create_multiple_attrs( $attr_name_value, $html_input_type = NULL );
 }
 class attribute_generator extends attribute_form_validator implements attribute_generator_interface {
@@ -17,9 +17,18 @@ class attribute_generator extends attribute_form_validator implements attribute_
      *version 1.0.0
      *these is for creating one simple attribute and value pair
      **************************************************/
-    function create_simple_attr( $attr_name, $attr_value, $html_input_type ) {
+    function create_simple_attr( $attr_name, $attr_value, $html_input_type,$attr_name_value ) {
 
         if ( $this->is_valid_custom_attr_name( $attr_name ) ) {
+			
+			if($attr_name == 'value'){
+				//echo($attr_name_value['name']);
+				//krm($attr_name);
+				//krm($attr_value);
+				//$attr_value = 'text';
+			}
+			
+			//if()
             $attr_value = trim( $attr_value );
             $attr_value = $this->is_eval_run( $attr_value );
             $attr_name = $this->is_eval_run( $attr_name );
@@ -259,7 +268,7 @@ class attribute_generator extends attribute_form_validator implements attribute_
         $attrs = array();
         if ( !empty( $attr_name_value ) ) {
             foreach ( $attr_name_value as $attr_name => $attr_value ) {
-                $attr = $this->create_simple_attr( $attr_name, $attr_value, $html_input_type );
+                $attr = $this->create_simple_attr( $attr_name, $attr_value, $html_input_type,$attr_name_value );
                 if ( !empty( $attr ) ) {
                     //itemid requires existence of itemscope and itemtype
                     if ( $attr_name == 'itemid'

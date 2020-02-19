@@ -64,7 +64,7 @@ class fieldset extends data_creator {
             foreach ( $child_fieldset_ids as $k => $child_fieldset_id ) {
                 if ( in_array( $child_fieldset_id, $this->prevent_loop ) == false ) {
                     $this->prevent_loop[ $child_fieldset_id ] = $child_fieldset_id;
-                    $all_fieldsets[ $fieldset_id ][ 'childern' ][ $k ] = $this->create_fieldset_structure( $child_fieldset_id, $all_fieldsets[ $fieldset_id ] );
+                    $all_fieldsets[ $fieldset_id ][ 'children' ][ $k ] = $this->create_fieldset_structure( $child_fieldset_id, $all_fieldsets[ $fieldset_id ] );
                     unset( $this->prevent_loop[ $child_fieldset_id ] );
                 } else {
                     //dbg('the fieldset_ids of '.$fieldset_id. ' has his parent id which cause a forever loop . The parent id which make problem :'.$child_fieldset_id);

@@ -204,9 +204,9 @@ class render extends database {
                     $input = '<input' . $this->render_attrs( $input_data[ 'attrs' ] ) . '>';
                 } else {
                     $input = '<image_input id="' . $input_data[ 'unique_id' ] . '_file_place_holder">';
-                    $input .= '<a href="' . $todovalue . '">نمایش فایل</a>';
+                    $input .= '<a href="' . $todovalue . '">Show File</a>';
                     if ( $input_data[ 'access' ][ 'editable' ] == 'yes' ) {
-                        $input .= '<a href="#" id="' . $input_data[ 'unique_id' ] . '_file_controller_remove">حدف فایل</a>';
+                        $input .= '<a href="#" id="' . $input_data[ 'unique_id' ] . '_file_controller_remove">Remove File</a>';
                     }
                     $input .= '</image_input>';
                     $input_data[ 'attrs' ][ 'disabled' ] = 'disabled';
@@ -257,11 +257,13 @@ class render extends database {
     }
 
     function render_block( $block_data ) {
-
+        //krm($block_data);
         if ( $block_data == NULL ) {
             $block_data = $this->block_data;
         }
+        //krm($block_data );
         $block_data = $this->create_extra_data( $block_data );
+
         if ( $block_data[ 'access' ][ 'visible' ] == 'no'
             and $this->mode == 'view' ) {
             return '';
@@ -275,9 +277,24 @@ class render extends database {
             and $this->mode == 'add' ) {
             return '';
         }
+
         if ( isset( $block_data[ 'inputs_data' ] ) ) {
+            $extra_blocks_data = $this->extra_block_creator_based_vals( $block_data );
+            //krm($extra_block_data);
             foreach ( $block_data[ 'inputs_data' ] as $input_data ) {
+                //krm($input_data);
+                //extra value set
+				krm('start here to set value for block');
+				krm('To do : correct extra controller');
+                $this->extra_block_set_value();
+                if ( $block_data[ 'extra' ][ 'max' ] > 0 and isset( $this->vals[ $input_data[ 'attrs' ][ 'name' ] ] ) ) { //change value of
+
+                    $input_data[ 'attrs' ][ 'value' ] = $this->vals[ $input_data[ 'attrs' ][ 'name' ] ];
+                }else{
+					//$input_data[ 'attrs' ][ 'value' ] = $this->vals[ $input_data[ 'attrs' ][ 'name' ] ];
+				}
                 $elements[ 'input' ] = $elements[ 'input' ] . $this->render_input( $input_data );
+                //krm($elements[ 'input' ]);
             }
         }
         if ( !empty( $block_data[ 'fieldsets_data' ] ) ) {
@@ -286,17 +303,136 @@ class render extends database {
                 $elements[ 'fieldset' ] = $elements[ 'fieldset' ] . $this->render_fieldset( $fieldsets_data );
             }
         }
-        if ( !empty( $block_data[ 'childern' ] ) ) {
-            foreach ( $block_data[ 'childern' ] as $new_block_data ) {
+        if ( !empty( $block_data[ 'children' ] ) ) {
+            foreach ( $block_data[ 'children' ] as $new_block_data ) {
                 $elements[ 'block' ] = $this->render_block( $new_block_data );
             }
         }
         $block_prefix = '<sst-block id="' . $block_data[ 'unique_id' ] . '">' . $this->render_extra( $fieldset_data[ 'extra' ], 'before' ) . $block_data[ 'tag' ][ 'before' ];
         $block = $elements[ $block_data[ 'order' ][ 'show_first' ] ] . $elements[ $block_data[ 'order' ][ 'show_second' ] ] . $elements[ $block_data[ 'order' ][ 'show_third' ] ];
         $block_suffix = $block_data[ 'tag' ][ 'after' ] . $this->render_extra( $block_data[ 'extra' ], 'after' ) . '</sst-block>';
-        return $block_prefix . $block . $block_suffix;
+       // krm( $extra_blocks_data );
+        foreach ( $extra_blocks_data as $extra_block_data ) {
+            //krm($extra_block_data);
+            $extra_blocks .= $this->render_block( $extra_block_data );
+        }
+        //krm($block_data);
+        //die;
+
+        return $block_prefix . $block . $block_suffix . $extra_blocks;
 
     }
+
+    function extra_block_set_value() {
+
+    }
+
+    function extra_block_creator_based_vals( $block_data ) {
+        //krm($this->vals);
+        //krm($block_data);
+        //krm($this->vals[reset($block_data[ 'inputs_data' ])['attrs']['name']]);
+        $extra_block_data = array();
+        $first_input_name = reset( $block_data[ 'inputs_data' ] )[ 'attrs' ][ 'name' ];
+        $ext = $this->last_number_of_element( $first_input_name, '[', ']' );
+        //$ext_check = $ext ;
+        //krm($ext);
+        //krm($first_input_name);
+        //check_new_extra:
+        //krm($this->vals);
+        //krm($first_input_name);
+        //krm(isset($this->vals[ $first_input_name ]));
+
+        if ( $block_data[ 'extra' ][ 'max' ] > 0 and( $this->mode == 'view'
+                or $this->mode == 'edit' )and isset( $this->vals[ $first_input_name ] ) ) {
+            do {
+                $ext++;
+                $new_extra_block = $this->add_up_extra( $first_input_name, '[', ']' );
+                $first_input_name = $new_extra_block;
+
+                //$new_extra_block = substr( $first_input_name, 0, -3 ) . '[' . $ext . ']';
+                if ( isset( $this->vals[ $new_extra_block ] ) ) {
+                    $count_extra_blocks = $ext;
+                }
+            } while ( isset( $this->vals[ $new_extra_block ] ) );
+            //goto check_new_extra;
+            //krm($new_extra_block);
+            if ( $count_extra_blocks ) {
+                $extra_block_data = $this->extra_block_creator( $block_data, $count_extra_blocks );
+            }
+
+
+        } else {
+            return array();
+        }
+        return $extra_block_data;
+    }
+    //return last number of dafasdfasd[0][1] => 1
+    function last_number_of_element( $string, $before, $after ) {
+        $unique_id_arr = explode( $before, $string );
+        //krm($unique_id_arr);
+        $laset_block_number = reset( explode( $after, end( $unique_id_arr ) ) );
+        //krm($laset_block_number);
+        return $laset_block_number;
+    }
+    // this will change unique id or name of in extra last number eg vdiUoVF2dNWx≪0≫≪0≫ to vdiUoVF2dNWx≪0≫≪1≫
+    function add_up_extra( $string, $before, $after, $deep = 1, $step = 1 ) {
+        //$unique_id_arr[count($unique_id_arr)-$deep]
+        $unique_id_arr = explode( $before, $string ); //vdiUoVF2dNWx≪0≫≪0≫ => array(0=>'vdiUoVF2dNWx',1=>'0≫',2=>'0≫')
+        $laset_block_number = reset( explode( $after, $unique_id_arr[ count( $unique_id_arr ) - $deep ] ) ); //1=>'0≫ ===> array(0=>0,1=>NULL)
+        $unique_id_arr[ count( $unique_id_arr ) - $deep ] = ( $laset_block_number + $step ) . $after; //0=>0   ===>  0=>1  ==>  0=>1≫ ====>  array(0=>'vdiUoVF2dNWx',1=>'1≫',2=>'0≫')
+        return implode( $before, $unique_id_arr );
+
+    }
+
+    function extra_block_creator( $block_data, $count_extra_blocks ) {
+
+        while ( $count_extra_blocks > 0 ) {
+            $block_data[ 'unique_id' ] = $this->add_up_extra( $block_data[ 'unique_id' ], '≪', '≫' );
+            foreach ( $block_data[ 'inputs_data' ] as $input_key => $input_data ) {
+                $block_data[ 'inputs_data' ][ $input_key ][ 'unique_id' ] = $this->add_up_extra( $input_data[ 'unique_id' ], '≪', '≫' );
+                $block_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'name' ] = $this->add_up_extra( $input_data[ 'attrs' ][ 'name' ], '[', ']' );
+            }
+            if ( !empty($block_data[ 'children' ]) ) {
+				
+                $block_data = $this->extra_children_block_creator( $block_data );
+            }
+            $extra_block_data[] = $block_data;
+            // krm( $extra_block_data );
+            $count_extra_blocks--;
+        }
+		//
+		//;krm($extra_block_data);
+        return $extra_block_data;
+    }
+
+    function extra_children_block_creator( $block_data ) {
+        static $deep;
+        if ( debug_backtrace()[ 1 ][ 'function' ] !== __FUNCTION__ ) {
+            $deep = 2;
+        } else {
+            $deep++;
+        }
+		//krm($block_data['children']);
+		//krm($block_data[ 'children' ]);
+        foreach ( $block_data[ 'children' ] as $child_block_key => $child_block ) {
+			//krm($child_block);
+            if ( $child_block[ 'extra' ][ 'max' ] > 0 ) {
+                $block_data[ 'children' ][$child_block_key][ 'unique_id' ] = $this->add_up_extra( $child_block[ 'unique_id' ], '≪', '≫' ,$deep );
+				
+				
+				foreach (  $block_data[ 'children' ][$child_block_key][ 'inputs_data' ] as $input_key => $input_data ) {
+					$block_data[ 'children' ][$child_block_key][ 'inputs_data' ][ $input_key ][ 'unique_id' ] = $this->add_up_extra( $input_data[ 'unique_id' ], '≪', '≫',$deep );
+					$block_data[ 'children' ][$child_block_key][ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'name' ] = $this->add_up_extra( $input_data[ 'attrs' ][ 'name' ], '[', ']',$deep );
+				}
+				if ( empty($child_block) ) {
+					$this->extra_children_block_creator( $child_block );
+				}				
+            }
+        }
+		return $block_data;
+    }
+
+
 
     function render_fieldset( $fieldset_data ) {
         if ( $fieldset_data == NULL ) {
@@ -327,8 +463,8 @@ class render extends database {
                 $elements[ 'block' ] = $elements[ 'block' ] . $this->render_block( $blocks_data );
             }
         }
-        if ( !empty( $fieldset_data[ 'childern' ] ) ) {
-            foreach ( $fieldset_data[ 'childern' ] as $new_fieldset_data ) {
+        if ( !empty( $fieldset_data[ 'children' ] ) ) {
+            foreach ( $fieldset_data[ 'children' ] as $new_fieldset_data ) {
                 $elements[ 'fieldset' ] = $this->render_fieldset( $new_fieldset_data );
             }
         }
@@ -403,7 +539,7 @@ class render extends database {
 
         if ( $process_data == NULL ) {
             $process_data = $this->process_data;
-			//krm($this->process_data);
+            //krm($this->process_data);
         }
         //krm( $process_data);
         return $this->render_form( $process_data[ 'form_data' ] );

@@ -1,7 +1,8 @@
 <?php
-class data_action extends common {
+class data_action extends process {
     function __construct() {
         parent::__construct();
+		
         if ( $GLOBALS[ 'vals' ][ '__sst__data_actions' ] ) {
             $this->vals = $GLOBALS[ 'vals' ];
             $this->get_data_actions();
@@ -96,12 +97,33 @@ class data_action extends common {
                     break;
             }
         }
-        krm($all_values);
         $ready_data = $this->create_all_data2( $all_values );
-        krm($ready_data);
+		$final_vals = $this->prepare_final_vals($all_values);
+		$this->save_final_vals($final_vals);
+        //krm($this->vals);// this is original sent data before triggering data-action
+		//krm($all_values);//this is proccessing data based on their colval type
+        //krm( $ready_data );//this used for creating database query 
+        //krm( $final_vals );//this used for saving in vals table
 
     }
-
+	function save_final_vals($final_vals){
+		$this->save_vals($final_vals);
+	}
+function prepare_final_vals($all_values){
+	$all_values;
+	foreach($all_values as $input_name=>$possible_values){
+		foreach($possible_values as $route=>$single_value){
+			if($route!=='*'){
+			$input_html_route = '['.implode('][',explode('-',$route)).']';
+			$final_vals[$input_name.$input_html_route]=$single_value;
+			}else{
+				$final_vals[$input_name]=$single_value;
+			}
+		}
+	}
+	//krm($final_vals);
+	return $final_vals;
+}
     function create_all_data2( $all_values, $processed_value = array() ) {
         static $result;
         $key_first = array_key_first( $all_values );
@@ -112,12 +134,11 @@ class data_action extends common {
                 //die;
                 if ( !empty( $processed_value ) ) {
                     foreach ( $processed_value as $check_route => $s ) {
-                        if ( ($this->starts_with( ( string )$first_route, ( string )$check_route ) and $this->is_after_base_route_dash( $first_route, $check_route ) ) or
-						   ( string )$first_route == ( string )$check_route) {
+                        if ( ( $this->starts_with( ( string )$first_route, ( string )$check_route )and $this->is_after_base_route_dash( $first_route, $check_route ) )or( string )$first_route == ( string )$check_route ) {
                             // krm( $result );
                             $result[ $first_route ] = array_merge( $result[ $first_route ], $result[ $check_route ] );
                             //unset($result[$check_route]);
-							//krm($check_route);
+                            //krm($check_route);
                             $to_unset_keys[] = $check_route;
 
                             $result[ $first_route ][ $key_first ] = $first_value;
@@ -130,11 +151,11 @@ class data_action extends common {
             $add_to_all[ $key_first ] = $all_values[ $key_first ][ '*' ];
         }
         if ( is_array( $to_unset_keys ) ) {
-			//krm($to_unset_keys );
+            //krm($to_unset_keys );
             foreach ( $to_unset_keys as $to_unset_key ) {
                 unset( $result[ $to_unset_key ] );
             }
-			/*
+            /*
             if ( is_array( $to_unset_keys ) ) {
                 foreach ( $processed_value as $to_unset_key ) {
                     //unset( $result[ $to_unset_key ] );
@@ -149,23 +170,25 @@ class data_action extends common {
 
         if ( !empty( $all_values ) ) {
             $this->create_all_data2( $all_values, $result );
-            exit();
-        }
-		
-        if ( !empty( $add_to_all ) ) {
-            foreach ( $add_to_all as $add_input_name => $add_input_value ) {
-				if(!empty($result)){
-					foreach ( $result as $single_record_key => $single_record ) {
-						$result[ $single_record_key ][ $add_input_name ] = $add_input_value;
-					}
-				}else{//there is no extra input or block
-					$result[0][ $add_input_name ] = $add_input_value;
-				}
+            if ( debug_backtrace()[ 1 ][ 'function' ] === __FUNCTION__ ) {
+                exit();
             }
         }
-		$result = array_values($result);
+
+        if ( !empty( $add_to_all ) ) {
+            foreach ( $add_to_all as $add_input_name => $add_input_value ) {
+                if ( !empty( $result ) ) {
+                    foreach ( $result as $single_record_key => $single_record ) {
+                        $result[ $single_record_key ][ $add_input_name ] = $add_input_value;
+                    }
+                } else { //there is no extra input or block
+                    $result[ 0 ][ $add_input_name ] = $add_input_value;
+                }
+            }
+        }
+        $result = array_values( $result );
         //krm( $result );
-		return  $result ;
+        return $result;
     }
 
 
@@ -181,16 +204,16 @@ class data_action extends common {
             $dest_path = '';
             if ( $f_error[ $key_route ] == 0 ) {
                 if ( !empty( $colval_file_path ) ) {
-                    $dest_path = $this->make_upload_dir( ltrim($colval_file_path,'/') );
+                    $dest_path = $this->make_upload_dir( ltrim( $colval_file_path, '/' ) );
                 } elseif ( !empty( $default_data_action_file_path ) ) {
-                    $dest_path = $this->make_upload_dir( ltrim($default_data_action_file_path,'/') );
+                    $dest_path = $this->make_upload_dir( ltrim( $default_data_action_file_path, '/' ) );
                 } elseif ( !empty( DATA_ACTION_DEFAULT_UPLOAD_PATH ) ) {
-                        $dest_path = $this->make_upload_dir( ltrim(DATA_ACTION_DEFAULT_UPLOAD_PATH,'/') );
+                        $dest_path = $this->make_upload_dir( ltrim( DATA_ACTION_DEFAULT_UPLOAD_PATH, '/' ) );
                     } else {
                         $dest_path = $_SERVER[ 'DOCUMENT_ROOT' ] . '/';
                     }
                     //krm($dest_path.$files[ 'name' ][$key_route]);
-				//$dest_path = ltrim($dest_path,'/');
+                    //$dest_path = ltrim($dest_path,'/');
                 $upload_path = $dest_path . $this->user_id . '_' . time() . '_' . $f_names[ $key_route ];
                 $success = move_uploaded_file( $f_tmp_name[ $key_route ], $upload_path );
                 $upload_url = $this->path2url( $upload_path );
@@ -249,7 +272,6 @@ class data_action extends common {
         }
         return $upload_path;
     }
-
 
 
     function is_after_base_route_dash( $other_route, $base_route ) {
