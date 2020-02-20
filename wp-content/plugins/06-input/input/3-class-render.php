@@ -280,18 +280,14 @@ class render extends database {
             and $this->mode == 'add' ) {
             return '';
         }
-
         if ( isset( $block_data[ 'inputs_data' ] ) ) {
+            //this return an array extra blocks of the block which is processing
             $extra_blocks_data = $this->extra_block_creator_based_vals( $block_data );
-            //krm($extra_block_data);
+            //krm( $extra_blocks_data );            
+            //krm( $extra_blocks_data );
             foreach ( $block_data[ 'inputs_data' ] as $input_data ) {
-                //krm($input_data);
-                //extra value set
-                //krm('start here to set value for block');
-                //krm('To do : correct extra controller');
                 $input_data = $this->extra_block_set_value( $block_data, $input_data );
                 $elements[ 'input' ] = $elements[ 'input' ] . $this->render_input( $input_data );
-                //krm($elements[ 'input' ]);
             }
         }
         if ( !empty( $block_data[ 'fieldsets_data' ] ) ) {
@@ -300,16 +296,9 @@ class render extends database {
                 $elements[ 'fieldset' ] = $elements[ 'fieldset' ] . $this->render_fieldset( $fieldsets_data );
             }
         }
-        if ( !empty( $block_data[ 'children' ] ) ) {
-            foreach ( $block_data[ 'children' ] as $new_block_data ) {
-                $elements[ 'block' ] = $this->render_block( $new_block_data );
-            }
-        }
-        //	krm( $block_data );
-        //krm( $extra_blocks_data );
-        //die;
+
+
         if ( !empty( $extra_blocks_data ) ) {
-            //krm(extra::render_extra_controller($block_data['extra']['add_controller_data'],$block_data['extra']['remove_controller_data'] ));
             $key_first = array_key_first( $extra_blocks_data );
             $key_last = array_key_last( $extra_blocks_data );
             foreach ( $extra_blocks_data as $k => $extra_block_data ) {
@@ -321,8 +310,9 @@ class render extends database {
                 $new_extra_data = extra::render_extra_controller( $block_data[ 'extra' ][ 'add_controller_data' ], $block_data[ 'extra' ][ 'remove_controller_data' ] );
                 $block_data[ 'extra' ][ 'add_controller' ] = $new_extra_data[ 'extra_add_controller' ];
                 $block_data[ 'extra' ][ 'remove_controller' ] = $new_extra_data[ 'extra_remove_controller' ];
-                //krm( $block_data );
+
                 $extra_blocks .= $this->render_block( $extra_block_data );
+
             }
         } else {
             $last_number = $this->last_number_of_element( $block_data[ 'unique_id' ], '≪', '≫' );
@@ -330,9 +320,7 @@ class render extends database {
             if ( $last_number != 0 ) {
                 unset( $block_data[ 'extra' ][ 'remove_controller_data' ][ 'style' ] );
             }
-            krm('ssssssssssssssssssssssssssssssssssssssssssssssssss' );
-            krm( $last_number );
-            krm( $block_data[ 'extra' ][ 'max' ] );
+
             if ( $last_number == $block_data[ 'extra' ][ 'max' ] ) {
                 //hide add controller
                 $block_data[ 'extra' ][ 'add_controller_data' ][ 'style' ] = 'display: none;';
@@ -343,6 +331,11 @@ class render extends database {
         }
         //krm($block_data);
         //die;
+        if ( !empty( $block_data[ 'children' ] ) ) {
+            foreach ( $block_data[ 'children' ] as $new_block_data ) {
+                $elements[ 'block' ] = $this->render_block( $new_block_data );
+            }
+        }
 
         $block_prefix = '<sst-block id="' . $block_data[ 'unique_id' ] . '">' . $this->render_extra( $fieldset_data[ 'extra' ], 'before' ) . $block_data[ 'tag' ][ 'before' ];
         $block = $elements[ $block_data[ 'order' ][ 'show_first' ] ] . $elements[ $block_data[ 'order' ][ 'show_second' ] ] . $elements[ $block_data[ 'order' ][ 'show_third' ] ];
@@ -364,82 +357,38 @@ class render extends database {
         }
         return $input_data;
     }
+    /*
 
+    */
     function extra_block_creator_based_vals( $block_data ) {
-        //krm($this->vals);
-        //krm($block_data);
-        //krm($this->vals[reset($block_data[ 'inputs_data' ])['attrs']['name']]);
         $extra_block_data = array();
         $first_input_name = reset( $block_data[ 'inputs_data' ] )[ 'attrs' ][ 'name' ];
-        $ext = $this->last_number_of_element( $first_input_name, '[', ']' );
-        //$ext_check = $ext ;
-        //krm($ext);
-        //krm($first_input_name);
-        //check_new_extra:
-        //krm($this->vals);
-        //krm($first_input_name);
-        //krm(isset($this->vals[ $first_input_name ]));
-
+        //check is the next block first input is set 
         if ( $block_data[ 'extra' ][ 'max' ] > 0 and( $this->mode == 'view'
-                or $this->mode == 'edit' )and isset( $this->vals[ $first_input_name ] ) ) {
-            do {
-                $ext++;
-                $new_extra_block = $this->add_up_extra( $first_input_name, '[', ']' );
-                $first_input_name = $new_extra_block;
-
-                //$new_extra_block = substr( $first_input_name, 0, -3 ) . '[' . $ext . ']';
-                if ( isset( $this->vals[ $new_extra_block ] ) ) {
-                    $count_extra_blocks = $ext;
-                }
-            } while ( isset( $this->vals[ $new_extra_block ] ) );
-            //goto check_new_extra;
-            //krm($new_extra_block);
-            if ( $count_extra_blocks ) {
-                $extra_block_data = $this->extra_block_creator( $block_data, $count_extra_blocks );
-            }
-
-
+                or $this->mode == 'edit' )and isset( $this->vals[ $this->add_up_extra( $first_input_name, '[', ']' ) ] ) ) {
+            $extra_block_data = $this->extra_block_creator( $block_data );
         } else {
             return array();
         }
         return $extra_block_data;
     }
-    //return last number of dafasdfasd[0][1] => 1
-    function last_number_of_element( $string, $before, $after ) {
-        $unique_id_arr = explode( $before, $string );
-        //krm($unique_id_arr);
-        $laset_block_number = reset( explode( $after, end( $unique_id_arr ) ) );
-        //krm($laset_block_number);
-        return $laset_block_number;
-    }
-    // this will change unique id or name of in extra last number eg vdiUoVF2dNWx≪0≫≪0≫ to vdiUoVF2dNWx≪0≫≪1≫
-    function add_up_extra( $string, $before, $after, $deep = 1, $step = 1 ) {
-        //$unique_id_arr[count($unique_id_arr)-$deep]
-        $unique_id_arr = explode( $before, $string ); //vdiUoVF2dNWx≪0≫≪0≫ => array(0=>'vdiUoVF2dNWx',1=>'0≫',2=>'0≫')
-        $laset_block_number = reset( explode( $after, $unique_id_arr[ count( $unique_id_arr ) - $deep ] ) ); //1=>'0≫ ===> array(0=>0,1=>NULL)
-        $unique_id_arr[ count( $unique_id_arr ) - $deep ] = ( $laset_block_number + $step ) . $after; //0=>0   ===>  0=>1  ==>  0=>1≫ ====>  array(0=>'vdiUoVF2dNWx',1=>'1≫',2=>'0≫')
-        return implode( $before, $unique_id_arr );
 
-    }
-
-    function extra_block_creator( $block_data, $count_extra_blocks ) {
-
-        while ( $count_extra_blocks > 0 ) {
-            $block_data[ 'unique_id' ] = $this->add_up_extra( $block_data[ 'unique_id' ], '≪', '≫' );
-            foreach ( $block_data[ 'inputs_data' ] as $input_key => $input_data ) {
-                $block_data[ 'inputs_data' ][ $input_key ][ 'unique_id' ] = $this->add_up_extra( $input_data[ 'unique_id' ], '≪', '≫' );
-                $block_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'name' ] = $this->add_up_extra( $input_data[ 'attrs' ][ 'name' ], '[', ']' );
-            }
-            if ( !empty( $block_data[ 'children' ] ) ) {
-
-                $block_data = $this->extra_children_block_creator( $block_data );
-            }
-            $extra_block_data[] = $block_data;
-            // krm( $extra_block_data );
-            $count_extra_blocks--;
+    function extra_block_creator( $block_data ) {
+        $first_input_name = reset( $block_data[ 'inputs_data' ] )[ 'attrs' ][ 'name' ];
+        $current_input_num = $this->last_number_of_element( $first_input_name, '[', ']' );
+        //krm( 'current_input_num:' . $current_input_num );
+        // krm( 'count_extra_blocks:' . $count_extra_blocks );
+        /******************************************/
+        //krm( 'unique_id:' . $block_data[ 'unique_id' ] );
+        $block_data[ 'unique_id' ] = $this->add_up_extra( $block_data[ 'unique_id' ], '≪', '≫' );
+        foreach ( $block_data[ 'inputs_data' ] as $input_key => $input_data ) {
+            $block_data[ 'inputs_data' ][ $input_key ][ 'unique_id' ] = $this->add_up_extra( $input_data[ 'unique_id' ], '≪', '≫' );
+            $block_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'name' ] = $this->add_up_extra( $input_data[ 'attrs' ][ 'name' ], '[', ']' );
         }
-        //
-        //;krm($extra_block_data);
+        if ( !empty( $block_data[ 'children' ] ) ) {
+            $block_data = $this->extra_children_block_creator( $block_data );
+        }
+        $extra_block_data[] = $block_data;
         return $extra_block_data;
     }
 
@@ -448,7 +397,7 @@ class render extends database {
         if ( debug_backtrace()[ 1 ][ 'function' ] !== __FUNCTION__ ) {
             $deep = 2;
         } else {
-            $deep++;
+            //$deep++;
         }
         //krm($block_data['children']);
         //krm($block_data[ 'children' ]);
@@ -468,6 +417,24 @@ class render extends database {
             }
         }
         return $block_data;
+    }
+    //return last number of dafasdfasd[0][1] => 1
+
+    function last_number_of_element( $string, $before, $after ) {
+        $unique_id_arr = explode( $before, $string );
+        //krm($unique_id_arr);
+        $laset_block_number = reset( explode( $after, end( $unique_id_arr ) ) );
+        //krm($laset_block_number);
+        return $laset_block_number;
+    }
+    // this will change unique id or name of in extra last number eg vdiUoVF2dNWx≪0≫≪0≫ to vdiUoVF2dNWx≪0≫≪1≫
+    function add_up_extra( $string, $before, $after, $deep = 1, $step = 1 ) {
+        //$unique_id_arr[count($unique_id_arr)-$deep]
+        $unique_id_arr = explode( $before, $string ); //vdiUoVF2dNWx≪0≫≪0≫ => array(0=>'vdiUoVF2dNWx',1=>'0≫',2=>'0≫')
+        $laset_block_number = reset( explode( $after, $unique_id_arr[ count( $unique_id_arr ) - $deep ] ) ); //1=>'0≫ ===> array(0=>0,1=>NULL)
+        $unique_id_arr[ count( $unique_id_arr ) - $deep ] = ( $laset_block_number + $step ) . $after; //0=>0   ===>  0=>1  ==>  0=>1≫ ====>  array(0=>'vdiUoVF2dNWx',1=>'1≫',2=>'0≫')
+        return implode( $before, $unique_id_arr );
+
     }
 
 
