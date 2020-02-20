@@ -60,6 +60,7 @@ jQuery(document).ready(function () {
 	 jQuery('body').on('click',"[id$='"+sst.add_contoller_prefix+"']",function(event){
 		 //jQuery(this).hide();//to prevent fast click investigate more for test only not correct
 		 event.preventDefault();//prevent submitting in fast double click
+		  //jQuery(this).attr("disabled", "disabled");
 		 sst.unique = this.id.substr(0,sst.unique_id_length);
 		 sst.source_add_controller_id = this.id;
 		 sst.source_identifier = this.id.substr(sst.unique_id_length).split('_')[0];
@@ -67,24 +68,34 @@ jQuery(document).ready(function () {
 		 sst.clone_source_last_number = sst.clone_source_element.id.match(/(≪.*?≫)/g).pop().slice(1,-1);
 		 sst.max_extra = jQuery("#"+sst.unique+sst.source_identifier+sst.add_contoller_prefix).attr('max_extra');
 		 if(sst.max_extra> sst.clone_source_last_number ){
-			 jQuery(sst.clone_source_element.outerHTML).insertAfter("#"+sst.clone_source_element.id);
+			// jQuery(sst.clone_source_element.outerHTML).insertAfter("#"+sst.clone_source_element.id);
+			//if(jQuery("#"+sst.unique+sst.source_identifier)[1].id){
+				 //console.log("#"+sst.unique+sst.source_identifier);
+				 //console.log(sst.clone_source_element.outerHTML);
+				 //console.log(jQuery("#"+sst.clone_source_element.id).last().attr('id'));
+			// }
+			 jQuery(sst.clone_source_element.outerHTML).insertAfter("#"+sst.clone_source_element.id)
 			 sst.clone_target_element = jQuery("#"+sst.unique+sst.source_identifier)[1];
 			 sst.clone_target_last_number = sst.clone_source_last_number-1+2;
 			 sst.target_identifier = sst.source_identifier.slice(0,-sst.clone_source_last_number.toString().length-1).concat(sst.clone_target_last_number+"≫");	
-			 
 			 //replace new number to newly added id
-			 sst.new_clone_target_id = jQuery("#"+sst.unique+sst.source_identifier)[1].id.slice(0,-sst.clone_source_last_number.toString().length-1).concat(sst.clone_target_last_number+"≫");
-			 jQuery(sst.clone_target_element).attr('id',sst.new_clone_target_id );
-			 change_controller_ids(sst);
-			 change_tag_ids(sst);
-			 change_input_names(sst);
-			 jQuery(this).hide();
-			 jQuery("#"+sst.unique+sst.source_identifier+sst.remove_contoller_prefix).hide();
-			 jQuery("#"+sst.unique+sst.target_identifier+sst.remove_contoller_prefix).show();
-			 if(sst.max_extra-1 == sst.clone_source_last_number){
-			 	jQuery("#"+sst.unique+sst.target_identifier+sst.add_contoller_prefix).hide();
-			 }
+			 //if(jQuery("#"+sst.unique+sst.source_identifier)[1].id){
+				 //sst.new_clone_target_id = jQuery("#"+sst.unique+sst.source_identifier)[1].id.slice(0,-sst.clone_source_last_number.toString().length-1).concat(sst.clone_target_last_number+"≫");
+				 sst.new_clone_target_id = jQuery("#"+sst.clone_source_element.id).last().attr('id').slice(0,-sst.clone_source_last_number.toString().length-1).concat(sst.clone_target_last_number+"≫");
+				 jQuery(sst.clone_target_element).attr('id',sst.new_clone_target_id );
+				 change_controller_ids(sst);
+				 change_tag_ids(sst);
+				 change_input_names(sst);
+				 jQuery(this).hide();
+				 jQuery("#"+sst.unique+sst.source_identifier+sst.remove_contoller_prefix).hide();
+				 jQuery("#"+sst.unique+sst.target_identifier+sst.remove_contoller_prefix).show();
+				 if(sst.max_extra-1 == sst.clone_source_last_number){
+					jQuery("#"+sst.unique+sst.target_identifier+sst.add_contoller_prefix).hide();
+				 }
+			// }
+		 
 		 }
+		
 		return false;
 	 });
 	function show_add_for_previous(sst){
