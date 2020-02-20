@@ -257,17 +257,32 @@ class render extends database {
         return $this->input;
 
     }
+/*****************
 
-    function render_block( $block_data ) {
+
+
+  ____    _                  _    
+ | __ )  | |   ___     ___  | | __
+ |  _ \  | |  / _ \   / __| | |/ /
+ | |_) | | | | (_) | | (__  |   < 
+ |____/  |_|  \___/   \___| |_|\_\
+                                  
+https://www.messletters.com/en/big-text/
+*******************/
+	/*
+	Do everything to create a block 
+	Return: Html Text of block (extra also created)
+	Note: in view or edit mode it will return all extra that you have used
+	*/
+    function render_block( $block_data=NULL ) {
         //krm($block_data);
         if ( $block_data == NULL ) {
             $block_data = $this->block_data;
         }
-
+		//create $block_data['extra'] details
         $block_data = $this->create_extra_data( $block_data );
-        //krm($block_data);
-        //render_extra_controller
-        if ( $block_data[ 'access' ][ 'visible' ] == 'no'
+
+		if ( $block_data[ 'access' ][ 'visible' ] == 'no'
             and $this->mode == 'view' ) {
             return '';
         }
@@ -283,9 +298,8 @@ class render extends database {
         if ( isset( $block_data[ 'inputs_data' ] ) ) {
             //this return an array extra blocks of the block which is processing
             $extra_blocks_data = $this->extra_block_creator_based_vals( $block_data );
-            //krm( $extra_blocks_data );            
-            //krm( $extra_blocks_data );
-            foreach ( $block_data[ 'inputs_data' ] as $input_data ) {
+
+			foreach ( $block_data[ 'inputs_data' ] as $input_data ) {
                 $input_data = $this->extra_block_set_value( $block_data, $input_data );
                 $elements[ 'input' ] = $elements[ 'input' ] . $this->render_input( $input_data );
             }

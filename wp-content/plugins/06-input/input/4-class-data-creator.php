@@ -90,9 +90,14 @@ class data_creator extends render{
         $data[ 'tag' ][ 'after' ] = $tags[ 'after' ];
 		return $data;
     }
+	/*
+	get block or field set data and generate extra data based on it
+	it will generate array and html for add and remove and position based on EXTRA_CONTROLLER_POSITION
+	*/
 	function create_extra_data( $data ) {
         if ( $data[ 'extra' ][ 'max' ] > 0 ) {
             $extra = new extra( $data[ 'extra' ][ 'max' ], $data[ 'unique_id' ] );
+			
             $data[ 'extra' ][ 'add_controller_data' ] = $extra->extra_add_controller_arr;
             $data[ 'extra' ][ 'remove_controller_data' ] = $extra->extra_remove_controller_arr;
 			
@@ -100,11 +105,10 @@ class data_creator extends render{
             $data[ 'extra' ][ 'remove_controller' ] = $extra->extra_remove_controller;
 			
             $data[ 'extra' ][ 'controller_position' ] = EXTRA_CONTROLLER_POSITION;
-            if ( EXTRA_CONTROLLER_POSITION == 'after'
-                or EXTRA_CONTROLLER_POSITION == 'before' ) {
+            if ( strtolower(EXTRA_CONTROLLER_POSITION) !== 'after'
+                or strtolower(EXTRA_CONTROLLER_POSITION) !== 'before' ) {
                 $data[ 'extra' ][ 'controller_position' ] = 'after';
             }
-
         }
 		return $data;
     }
