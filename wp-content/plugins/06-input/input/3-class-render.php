@@ -4,7 +4,16 @@ class render extends database {
     function __construct() {
         parent::__construct();
     }
+    /***************************************
 
+      _____                 
+     |_   _|   __ _    __ _ 
+       | |    / _` |  / _` |
+       | |   | (_| | | (_| |
+       |_|    \__,_|  \__, |
+                      |___/ 
+
+    ****************************************/
     function create_tag( $tag_id, $child_before = '', $child_after = '' ) {
         if ( !isset( $tag_ids ) ) {
             static $tag_ids = array();
@@ -103,7 +112,16 @@ class render extends database {
             return array( 'before' => $before, 'after' => $after );
         }
     }
+    /****************************************
 
+      ___                           _   
+     |_ _|  _ __    _ __    _   _  | |_ 
+      | |  | '_ \  | '_ \  | | | | | __|
+      | |  | | | | | |_) | | |_| | | |_ 
+     |___| |_| |_| | .__/   \__,_|  \__|
+                   |_|                  
+
+    *******************************************/
     function render_datalist( $input_data = NULL ) {
         if ( $input_data == NULL ) {
             $input_data = $this->input_data;
@@ -257,32 +275,32 @@ class render extends database {
         return $this->input;
 
     }
-/*****************
+    /*****************
 
 
 
-  ____    _                  _    
- | __ )  | |   ___     ___  | | __
- |  _ \  | |  / _ \   / __| | |/ /
- | |_) | | | | (_) | | (__  |   < 
- |____/  |_|  \___/   \___| |_|\_\
-                                  
-https://www.messletters.com/en/big-text/
-*******************/
-	/*
-	Do everything to create a block 
-	Return: Html Text of block (extra also created)
-	Note: in view or edit mode it will return all extra that you have used
-	*/
-    function render_block( $block_data=NULL ) {
+      ____    _                  _    
+     | __ )  | |   ___     ___  | | __
+     |  _ \  | |  / _ \   / __| | |/ /
+     | |_) | | | | (_) | | (__  |   < 
+     |____/  |_|  \___/   \___| |_|\_\
+                                      
+    https://www.messletters.com/en/big-text/
+    *******************/
+    /*
+    Do everything to create a block 
+    Return: Html Text of block (extra also created)
+    Note: in view or edit mode it will return all extra that you have used
+    */
+    function render_block( $block_data = NULL ) {
         //krm($block_data);
         if ( $block_data == NULL ) {
             $block_data = $this->block_data;
         }
-		//create $block_data['extra'] details
+        //create $block_data['extra'] details
         $block_data = $this->create_extra_data( $block_data );
 
-		if ( $block_data[ 'access' ][ 'visible' ] == 'no'
+        if ( $block_data[ 'access' ][ 'visible' ] == 'no'
             and $this->mode == 'view' ) {
             return '';
         }
@@ -297,9 +315,9 @@ https://www.messletters.com/en/big-text/
         }
         if ( isset( $block_data[ 'inputs_data' ] ) ) {
             //this return an array extra blocks of the block which is processing
-            $extra_blocks_data = $this->extra_block_creator_based_vals( $block_data );
+            $extra_block_data = $this->extra_block_creator_based_vals( $block_data );
 
-			foreach ( $block_data[ 'inputs_data' ] as $input_data ) {
+            foreach ( $block_data[ 'inputs_data' ] as $input_data ) {
                 $input_data = $this->extra_block_set_value( $block_data, $input_data );
                 $elements[ 'input' ] = $elements[ 'input' ] . $this->render_input( $input_data );
             }
@@ -311,26 +329,15 @@ https://www.messletters.com/en/big-text/
             }
         }
 
+        if ( !empty( $extra_block_data ) ) {
+            $block_data[ 'extra' ][ 'add_controller_data' ][ 'style' ] = 'display: none;';
+            $new_extra_data = extra::render_extra_controller( $block_data[ 'extra' ][ 'add_controller_data' ], $block_data[ 'extra' ][ 'remove_controller_data' ] );
+            $block_data[ 'extra' ][ 'add_controller' ] = $new_extra_data[ 'extra_add_controller' ];
+            $block_data[ 'extra' ][ 'remove_controller' ] = $new_extra_data[ 'extra_remove_controller' ];
 
-        if ( !empty( $extra_blocks_data ) ) {
-            $key_first = array_key_first( $extra_blocks_data );
-            $key_last = array_key_last( $extra_blocks_data );
-            foreach ( $extra_blocks_data as $k => $extra_block_data ) {
-                if ( $key_last == $k ) {
-                    //unset($block_data[ 'extra' ][ 'remove_controller_data' ][ 'style' ]);
-                }
-
-                $block_data[ 'extra' ][ 'add_controller_data' ][ 'style' ] = 'display: none;';
-                $new_extra_data = extra::render_extra_controller( $block_data[ 'extra' ][ 'add_controller_data' ], $block_data[ 'extra' ][ 'remove_controller_data' ] );
-                $block_data[ 'extra' ][ 'add_controller' ] = $new_extra_data[ 'extra_add_controller' ];
-                $block_data[ 'extra' ][ 'remove_controller' ] = $new_extra_data[ 'extra_remove_controller' ];
-
-                $extra_blocks .= $this->render_block( $extra_block_data );
-
-            }
+            $extra_blocks = $this->render_block( $extra_block_data );
         } else {
             $last_number = $this->last_number_of_element( $block_data[ 'unique_id' ], '≪', '≫' );
-
             if ( $last_number != 0 ) {
                 unset( $block_data[ 'extra' ][ 'remove_controller_data' ][ 'style' ] );
             }
@@ -380,31 +387,27 @@ https://www.messletters.com/en/big-text/
         //check is the next block first input is set 
         if ( $block_data[ 'extra' ][ 'max' ] > 0 and( $this->mode == 'view'
                 or $this->mode == 'edit' )and isset( $this->vals[ $this->add_up_extra( $first_input_name, '[', ']' ) ] ) ) {
-            $extra_block_data = $this->extra_block_creator( $block_data );
+            $first_input_name = reset( $block_data[ 'inputs_data' ] )[ 'attrs' ][ 'name' ];
+            $current_input_num = $this->last_number_of_element( $first_input_name, '[', ']' );
+            //krm( 'current_input_num:' . $current_input_num );
+            // krm( 'count_extra_blocks:' . $count_extra_blocks );
+            /******************************************/
+            //krm( 'unique_id:' . $block_data[ 'unique_id' ] );
+            $block_data[ 'unique_id' ] = $this->add_up_extra( $block_data[ 'unique_id' ], '≪', '≫' );
+            foreach ( $block_data[ 'inputs_data' ] as $input_key => $input_data ) {
+                $block_data[ 'inputs_data' ][ $input_key ][ 'unique_id' ] = $this->add_up_extra( $input_data[ 'unique_id' ], '≪', '≫' );
+                $block_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'name' ] = $this->add_up_extra( $input_data[ 'attrs' ][ 'name' ], '[', ']' );
+            }
+            if ( !empty( $block_data[ 'children' ] ) ) {
+                $block_data = $this->extra_children_block_creator( $block_data );
+            }
+            $extra_block_data = $block_data;
         } else {
-            return array();
+            return NULL;
         }
         return $extra_block_data;
     }
 
-    function extra_block_creator( $block_data ) {
-        $first_input_name = reset( $block_data[ 'inputs_data' ] )[ 'attrs' ][ 'name' ];
-        $current_input_num = $this->last_number_of_element( $first_input_name, '[', ']' );
-        //krm( 'current_input_num:' . $current_input_num );
-        // krm( 'count_extra_blocks:' . $count_extra_blocks );
-        /******************************************/
-        //krm( 'unique_id:' . $block_data[ 'unique_id' ] );
-        $block_data[ 'unique_id' ] = $this->add_up_extra( $block_data[ 'unique_id' ], '≪', '≫' );
-        foreach ( $block_data[ 'inputs_data' ] as $input_key => $input_data ) {
-            $block_data[ 'inputs_data' ][ $input_key ][ 'unique_id' ] = $this->add_up_extra( $input_data[ 'unique_id' ], '≪', '≫' );
-            $block_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'name' ] = $this->add_up_extra( $input_data[ 'attrs' ][ 'name' ], '[', ']' );
-        }
-        if ( !empty( $block_data[ 'children' ] ) ) {
-            $block_data = $this->extra_children_block_creator( $block_data );
-        }
-        $extra_block_data[] = $block_data;
-        return $extra_block_data;
-    }
 
     function extra_children_block_creator( $block_data ) {
         static $deep;
