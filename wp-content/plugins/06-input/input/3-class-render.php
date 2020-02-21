@@ -344,6 +344,12 @@ class render extends database {
 
     }
 
+	
+	
+	
+	
+	
+	
     function recursively_generate_block(&$block_data) {
         if ( isset( $block_data[ 'inputs_data' ] ) ) {
             //this return an array of only next extra block(not more) of the block which is processing
@@ -511,16 +517,15 @@ class render extends database {
             return '';
         }
         if ( isset( $fieldset_data[ 'inputs_data' ] ) ) {
-			
+                
             foreach ( $fieldset_data[ 'inputs_data' ] as $input_data ) {
-				
+				$input_data = $this->extra_fieldset_set_value( $fieldset_data, $input_data );
                 $elements[ 'input' ] = $elements[ 'input' ] . $this->render_input( $input_data );
-				
             }
         }
 		
 		# This function MUST be before rendering children and blocks
-		$extra_block = $this->recursively_generate_block($block_data);
+		$extra_fieldset = $this->recursively_generate_fieldset($fieldset_data);
 
 		if ( !empty( $fieldset_data[ 'blocks_data' ] ) ) {
             $blocks = '';
@@ -537,10 +542,9 @@ class render extends database {
 
         $fieldset = $elements[ $fieldset_data[ 'order' ][ 'show_first' ] ] . $elements[ $fieldset_data[ 'order' ][ 'show_second' ] ] . $elements[ $fieldset_data[ 'order' ][ 'show_third' ] ];
 
-
         $fieldset_suffix = '</fieldset>' . $fieldset_data[ 'tag' ][ 'after' ] . $this->render_extra( $fieldset_data[ 'extra' ], 'after' ) . '</sst-fieldset>';
 
-        return $fieldset_prefix . $fieldset . $fieldset_suffix;
+        return $fieldset_prefix . $fieldset . $fieldset_suffix.$extra_fieldset;
 
     }
 
@@ -574,6 +578,7 @@ class render extends database {
 	
 	
 	    function recursively_generate_fieldset(&$fieldset_data) {
+			
         if ( isset( $fieldset_data[ 'inputs_data' ] ) ) {
             //this return an array of only next extra fieldset(not more) of the fieldset which is processing
             $extra_fieldset_data = $this->extra_fieldset_creator_based_vals( $fieldset_data );
@@ -591,7 +596,7 @@ class render extends database {
         }else{
 			$extra_fieldset = '';
 		}
-		
+		//krm($extra_fieldset);
 		return $extra_fieldset;
     }
 
