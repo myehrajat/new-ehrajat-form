@@ -314,44 +314,22 @@ class render extends database {
             return '';
         }
         if ( isset( $block_data[ 'inputs_data' ] ) ) {
-            //this return an array extra blocks of the block which is processing
-            $extra_block_data = $this->extra_block_creator_based_vals( $block_data );
 
             foreach ( $block_data[ 'inputs_data' ] as $input_data ) {
                 $input_data = $this->extra_block_set_value( $block_data, $input_data );
                 $elements[ 'input' ] = $elements[ 'input' ] . $this->render_input( $input_data );
             }
         }
+		# This function MUST be before rendering children and fieldsets
+		$extra_block = $this->recursively_generate_block($block_data);
+		
+		
         if ( !empty( $block_data[ 'fieldsets_data' ] ) ) {
             $fieldsets = '';
             foreach ( $block_data[ 'fieldsets_data' ] as $fieldsets_data ) {
                 $elements[ 'fieldset' ] = $elements[ 'fieldset' ] . $this->render_fieldset( $fieldsets_data );
             }
         }
-
-        if ( !empty( $extra_block_data ) ) {
-            $block_data[ 'extra' ][ 'add_controller_data' ][ 'style' ] = 'display: none;';
-            $new_extra_data = extra::render_extra_controller( $block_data[ 'extra' ][ 'add_controller_data' ], $block_data[ 'extra' ][ 'remove_controller_data' ] );
-            $block_data[ 'extra' ][ 'add_controller' ] = $new_extra_data[ 'extra_add_controller' ];
-            $block_data[ 'extra' ][ 'remove_controller' ] = $new_extra_data[ 'extra_remove_controller' ];
-
-            $extra_blocks = $this->render_block( $extra_block_data );
-        } else {
-            $last_number = $this->last_number_of_element( $block_data[ 'unique_id' ], '≪', '≫' );
-            if ( $last_number != 0 ) {
-                unset( $block_data[ 'extra' ][ 'remove_controller_data' ][ 'style' ] );
-            }
-
-            if ( $last_number == $block_data[ 'extra' ][ 'max' ] ) {
-                //hide add controller
-                $block_data[ 'extra' ][ 'add_controller_data' ][ 'style' ] = 'display: none;';
-            }
-            $new_extra_data = extra::render_extra_controller( $block_data[ 'extra' ][ 'add_controller_data' ], $block_data[ 'extra' ][ 'remove_controller_data' ] );
-            $block_data[ 'extra' ][ 'add_controller' ] = $new_extra_data[ 'extra_add_controller' ];
-            $block_data[ 'extra' ][ 'remove_controller' ] = $new_extra_data[ 'extra_remove_controller' ];
-        }
-        //krm($block_data);
-        //die;
         if ( !empty( $block_data[ 'children' ] ) ) {
             foreach ( $block_data[ 'children' ] as $new_block_data ) {
                 $elements[ 'block' ] = $this->render_block( $new_block_data );
@@ -362,8 +340,59 @@ class render extends database {
         $block = $elements[ $block_data[ 'order' ][ 'show_first' ] ] . $elements[ $block_data[ 'order' ][ 'show_second' ] ] . $elements[ $block_data[ 'order' ][ 'show_third' ] ];
         $block_suffix = $block_data[ 'tag' ][ 'after' ] . $this->render_extra( $block_data[ 'extra' ], 'after' ) . '</sst-block>';
 
-        return $block_prefix . $block . $block_suffix . $extra_blocks;
+        return $block_prefix . $block . $block_suffix . $extra_block;
 
+    }
+
+    function recursively_generate_block(&$block_data) {
+        if ( isset( $block_data[ 'inputs_data' ] ) ) {
+            //this return an array of only next extra block(not more) of the block which is processing
+            $extra_block_data = $this->extra_block_creator_based_vals( $block_data );
+
+            if ( !empty( $extra_block_data ) ) {
+                # Hide add and remove controller because yet there is another extra need to be generated
+                # Only last generated element need controller
+                $block_data = $this->hide_add_controller_for_extra_generated_block( $block_data );
+                $extra_block = $this->render_block( $extra_block_data );
+            } else {
+                # Show remove control if this block is generated as an extra
+                $block_data = $this->show_hide_controller_for_extra_generated_block( $block_data, $last_number );
+                $extra_block = '';
+            }
+        }else{
+			$extra_block = '';
+		}
+		
+		return $extra_block;
+    }
+
+    function hide_add_controller_for_extra_generated_block( $block_data ) {
+        # Hide add and remove controller because yet there is another extra need to be generated
+        # Only last generated element need controller
+        $block_data[ 'extra' ][ 'add_controller_data' ][ 'style' ] = 'display: none;';
+        $new_extra_data = extra::render_extra_controller( $block_data[ 'extra' ][ 'add_controller_data' ], $block_data[ 'extra' ][ 'remove_controller_data' ] );
+        $block_data[ 'extra' ][ 'add_controller' ] = $new_extra_data[ 'extra_add_controller' ];
+        $block_data[ 'extra' ][ 'remove_controller' ] = $new_extra_data[ 'extra_remove_controller' ];
+        return $block_data;
+    }
+
+    function show_hide_controller_for_extra_generated_block( $block_data ) {
+        $last_number = $this->last_number_of_element( $block_data[ 'unique_id' ], '≪', '≫' );
+        # Show remove control if this block is generated as an extra
+
+        if ( $last_number != 0 ) {
+            unset( $block_data[ 'extra' ][ 'remove_controller_data' ][ 'style' ] );
+        }
+        # Hide add controller if extra reached max
+        if ( $last_number == $block_data[ 'extra' ][ 'max' ] ) {
+            //hide add controller
+            $block_data[ 'extra' ][ 'add_controller_data' ][ 'style' ] = 'display: none;';
+        }
+        # Generate HTML of new setting and set to block
+        $new_extra_data = extra::render_extra_controller( $block_data[ 'extra' ][ 'add_controller_data' ], $block_data[ 'extra' ][ 'remove_controller_data' ] );
+        $block_data[ 'extra' ][ 'add_controller' ] = $new_extra_data[ 'extra_add_controller' ];
+        $block_data[ 'extra' ][ 'remove_controller' ] = $new_extra_data[ 'extra_remove_controller' ];
+        return $block_data;
     }
 
     function extra_block_set_value( $block_data, $input_data ) {
@@ -453,12 +482,20 @@ class render extends database {
         return implode( $before, $unique_id_arr );
 
     }
-
-
+/************************************
+  ______   _          _       _                _   
+ |  ____| (_)        | |     | |              | |  
+ | |__     _    ___  | |   __| |  ___    ___  | |_ 
+ |  __|   | |  / _ \ | |  / _` | / __|  / _ \ | __|
+ | |      | | |  __/ | | | (_| | \__ \ |  __/ | |_ 
+ |_|      |_|  \___| |_|  \__,_| |___/  \___|  \__|
+                                                   
+**************************************/                                      
     function render_fieldset( $fieldset_data ) {
         if ( $fieldset_data == NULL ) {
             $fieldset_data = $this->fieldset_data;
         }
+		//krm($fieldset_data);
         $fieldset_data = $this->create_extra_data( $fieldset_data );
         if ( $fieldset_data[ 'access' ][ 'visible' ] == 'no'
             and $this->mode == 'view' ) {
@@ -474,11 +511,18 @@ class render extends database {
             return '';
         }
         if ( isset( $fieldset_data[ 'inputs_data' ] ) ) {
+			
             foreach ( $fieldset_data[ 'inputs_data' ] as $input_data ) {
+				
                 $elements[ 'input' ] = $elements[ 'input' ] . $this->render_input( $input_data );
+				
             }
         }
-        if ( !empty( $fieldset_data[ 'blocks_data' ] ) ) {
+		
+		# This function MUST be before rendering children and blocks
+		$extra_block = $this->recursively_generate_block($block_data);
+
+		if ( !empty( $fieldset_data[ 'blocks_data' ] ) ) {
             $blocks = '';
             foreach ( $fieldset_data[ 'blocks_data' ] as $blocks_data ) {
                 $elements[ 'block' ] = $elements[ 'block' ] . $this->render_block( $blocks_data );
@@ -491,7 +535,7 @@ class render extends database {
         }
         $fieldset_prefix = '<sst-fieldset id="' . $fieldset_data[ 'unique_id' ] . '">' . $this->render_extra( $fieldset_data[ 'extra' ], 'before' ) . $fieldset_data[ 'tag' ][ 'before' ] . '<fieldset ' . $this->render_attrs( $fieldset_data[ 'attrs' ] ) . '>' . $this->render_legend( $fieldset_data[ 'legend' ] );
 
-        $fieldset = $elements[ $block_data[ 'order' ][ 'show_first' ] ] . $elements[ $block_data[ 'order' ][ 'show_second' ] ] . $elements[ $block_data[ 'order' ][ 'show_third' ] ];
+        $fieldset = $elements[ $fieldset_data[ 'order' ][ 'show_first' ] ] . $elements[ $fieldset_data[ 'order' ][ 'show_second' ] ] . $elements[ $fieldset_data[ 'order' ][ 'show_third' ] ];
 
 
         $fieldset_suffix = '</fieldset>' . $fieldset_data[ 'tag' ][ 'after' ] . $this->render_extra( $fieldset_data[ 'extra' ], 'after' ) . '</sst-fieldset>';
@@ -514,6 +558,146 @@ class render extends database {
         }
 
     }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	    function recursively_generate_fieldset(&$fieldset_data) {
+        if ( isset( $fieldset_data[ 'inputs_data' ] ) ) {
+            //this return an array of only next extra fieldset(not more) of the fieldset which is processing
+            $extra_fieldset_data = $this->extra_fieldset_creator_based_vals( $fieldset_data );
+
+            if ( !empty( $extra_fieldset_data ) ) {
+                # Hide add and remove controller because yet there is another extra need to be generated
+                # Only last generated element need controller
+                $fieldset_data = $this->hide_add_controller_for_extra_generated_fieldset( $fieldset_data );
+                $extra_fieldset = $this->render_fieldset( $extra_fieldset_data );
+            } else {
+                # Show remove control if this fieldset is generated as an extra
+                $fieldset_data = $this->show_hide_controller_for_extra_generated_fieldset( $fieldset_data, $last_number );
+                $extra_fieldset = '';
+            }
+        }else{
+			$extra_fieldset = '';
+		}
+		
+		return $extra_fieldset;
+    }
+
+    function hide_add_controller_for_extra_generated_fieldset( $fieldset_data ) {
+        # Hide add and remove controller because yet there is another extra need to be generated
+        # Only last generated element need controller
+        $fieldset_data[ 'extra' ][ 'add_controller_data' ][ 'style' ] = 'display: none;';
+        $new_extra_data = extra::render_extra_controller( $fieldset_data[ 'extra' ][ 'add_controller_data' ], $fieldset_data[ 'extra' ][ 'remove_controller_data' ] );
+        $fieldset_data[ 'extra' ][ 'add_controller' ] = $new_extra_data[ 'extra_add_controller' ];
+        $fieldset_data[ 'extra' ][ 'remove_controller' ] = $new_extra_data[ 'extra_remove_controller' ];
+        return $fieldset_data;
+    }
+
+    function show_hide_controller_for_extra_generated_fieldset( $fieldset_data ) {
+        $last_number = $this->last_number_of_element( $fieldset_data[ 'unique_id' ], '≪', '≫' );
+        # Show remove control if this fieldset is generated as an extra
+
+        if ( $last_number != 0 ) {
+            unset( $fieldset_data[ 'extra' ][ 'remove_controller_data' ][ 'style' ] );
+        }
+        # Hide add controller if extra reached max
+        if ( $last_number == $fieldset_data[ 'extra' ][ 'max' ] ) {
+            //hide add controller
+            $fieldset_data[ 'extra' ][ 'add_controller_data' ][ 'style' ] = 'display: none;';
+        }
+        # Generate HTML of new setting and set to fieldset
+        $new_extra_data = extra::render_extra_controller( $fieldset_data[ 'extra' ][ 'add_controller_data' ], $fieldset_data[ 'extra' ][ 'remove_controller_data' ] );
+        $fieldset_data[ 'extra' ][ 'add_controller' ] = $new_extra_data[ 'extra_add_controller' ];
+        $fieldset_data[ 'extra' ][ 'remove_controller' ] = $new_extra_data[ 'extra_remove_controller' ];
+        return $fieldset_data;
+    }
+
+    function extra_fieldset_set_value( $fieldset_data, $input_data ) {
+        if ( $this->mode == 'view'
+            or $this->mode == 'edit' ) {
+            if ( $fieldset_data[ 'extra' ][ 'max' ] > 0 and isset( $this->vals[ $input_data[ 'attrs' ][ 'name' ] ] ) ) { //change value of
+
+                $input_data[ 'attrs' ][ 'value' ] = $this->vals[ $input_data[ 'attrs' ][ 'name' ] ];
+            } else {
+                $input_data[ 'attrs' ][ 'value' ] = substr( $this->vals[ $input_data[ 'attrs' ][ 'name' ] ], 0, -3 );
+            }
+        }
+        return $input_data;
+    }
+    function extra_fieldset_creator_based_vals( $fieldset_data ) {
+        $extra_fieldset_data = array();
+        $first_input_name = reset( $fieldset_data[ 'inputs_data' ] )[ 'attrs' ][ 'name' ];
+        //check is the next fieldset first input is set 
+        if ( $fieldset_data[ 'extra' ][ 'max' ] > 0 and( $this->mode == 'view'
+                or $this->mode == 'edit' )and isset( $this->vals[ $this->add_up_extra( $first_input_name, '[', ']' ) ] ) ) {
+            $first_input_name = reset( $fieldset_data[ 'inputs_data' ] )[ 'attrs' ][ 'name' ];
+            $current_input_num = $this->last_number_of_element( $first_input_name, '[', ']' );
+            //krm( 'current_input_num:' . $current_input_num );
+            // krm( 'count_extra_fieldsets:' . $count_extra_fieldsets );
+            //krm( 'unique_id:' . $fieldset_data[ 'unique_id' ] );
+            $fieldset_data[ 'unique_id' ] = $this->add_up_extra( $fieldset_data[ 'unique_id' ], '≪', '≫' );
+            foreach ( $fieldset_data[ 'inputs_data' ] as $input_key => $input_data ) {
+                $fieldset_data[ 'inputs_data' ][ $input_key ][ 'unique_id' ] = $this->add_up_extra( $input_data[ 'unique_id' ], '≪', '≫' );
+                $fieldset_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'name' ] = $this->add_up_extra( $input_data[ 'attrs' ][ 'name' ], '[', ']' );
+            }
+            if ( !empty( $fieldset_data[ 'children' ] ) ) {
+                $fieldset_data = $this->extra_children_fieldset_creator( $fieldset_data );
+            }
+            $extra_fieldset_data = $fieldset_data;
+        } else {
+            return NULL;
+        }
+        return $extra_fieldset_data;
+    }
+
+
+    function extra_children_fieldset_creator( $fieldset_data ) {
+        static $deep;
+        if ( debug_backtrace()[ 1 ][ 'function' ] !== __FUNCTION__ ) {
+            $deep = 2;
+        } else {
+            //$deep++;
+        }
+        //krm($fieldset_data['children']);
+        //krm($fieldset_data[ 'children' ]);
+        foreach ( $fieldset_data[ 'children' ] as $child_fieldset_key => $child_fieldset ) {
+            //krm($child_fieldset);
+            if ( $child_fieldset[ 'extra' ][ 'max' ] > 0 ) {
+                $fieldset_data[ 'children' ][ $child_fieldset_key ][ 'unique_id' ] = $this->add_up_extra( $child_fieldset[ 'unique_id' ], '≪', '≫', $deep );
+
+
+                foreach ( $fieldset_data[ 'children' ][ $child_fieldset_key ][ 'inputs_data' ] as $input_key => $input_data ) {
+                    $fieldset_data[ 'children' ][ $child_fieldset_key ][ 'inputs_data' ][ $input_key ][ 'unique_id' ] = $this->add_up_extra( $input_data[ 'unique_id' ], '≪', '≫', $deep );
+                    $fieldset_data[ 'children' ][ $child_fieldset_key ][ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'name' ] = $this->add_up_extra( $input_data[ 'attrs' ][ 'name' ], '[', ']', $deep );
+                }
+                if ( empty( $child_fieldset ) ) {
+                    $this->extra_children_fieldset_creator( $child_fieldset );
+                }
+            }
+        }
+        return $fieldset_data;
+    }
+/************************************
+  ______                            
+ |  ____|                           
+ | |__      ___    _ __   _ __ ___  
+ |  __|    / _ \  | '__| | '_ ` _ \ 
+ | |      | (_) | | |    | | | | | |
+ |_|       \___/  |_|    |_| |_| |_|
+                                    
+**************************************/                                      
 
 
     function render_form( $form_data ) {
@@ -555,6 +739,15 @@ class render extends database {
 
 
     }
+/************************************
+  _____                                           
+ |  __ \                                          
+ | |__) |  _ __    ___     ___    ___   ___   ___ 
+ |  ___/  | '__|  / _ \   / __|  / _ \ / __| / __|
+ | |      | |    | (_) | | (__  |  __/ \__ \ \__ \
+ |_|      |_|     \___/   \___|  \___| |___/ |___/
+                                                  
+**************************************/                                      
 
     function render_process( $process_data ) {
 
