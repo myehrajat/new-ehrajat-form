@@ -6,7 +6,7 @@ class process extends data_creator {
 		//krm($this->get_vals( $_REQUEST['record_id']) );
         if ( !empty( $process_id_str ) ) {
             $this->generate_vals();
-
+			//krm($this->vals);
             $this->apply_conditions();
 
             if ( $this->break_class != true ) {

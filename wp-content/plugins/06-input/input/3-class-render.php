@@ -293,10 +293,10 @@ class render extends database {
     Note: in view or edit mode it will return all extra that you have used
     */
     function render_block( $block_data = NULL ) {
-        //krm($block_data);
         if ( $block_data == NULL ) {
             $block_data = $this->block_data;
         }
+		//krm($block_data);
         //create $block_data['extra'] details
         $block_data = $this->create_extra_data( $block_data );
 
@@ -320,10 +320,10 @@ class render extends database {
                 $elements[ 'input' ] = $elements[ 'input' ] . $this->render_input( $input_data );
             }
         }
-		# This function MUST be before rendering children and fieldsets
-		$extra_block = $this->recursively_generate_block($block_data);
-		
-		
+        # This function MUST be before rendering children and fieldsets
+        $extra_block = $this->recursively_generate_block( $block_data );
+
+
         if ( !empty( $block_data[ 'fieldsets_data' ] ) ) {
             $fieldsets = '';
             foreach ( $block_data[ 'fieldsets_data' ] as $fieldsets_data ) {
@@ -350,7 +350,14 @@ class render extends database {
 	
 	
 	
-    function recursively_generate_block(&$block_data) {
+	
+	
+	
+	
+	
+	
+
+    function recursively_generate_block( & $block_data ) {
         if ( isset( $block_data[ 'inputs_data' ] ) ) {
             //this return an array of only next extra block(not more) of the block which is processing
             $extra_block_data = $this->extra_block_creator_based_vals( $block_data );
@@ -365,11 +372,11 @@ class render extends database {
                 $block_data = $this->show_hide_controller_for_extra_generated_block( $block_data, $last_number );
                 $extra_block = '';
             }
-        }else{
-			$extra_block = '';
-		}
-		
-		return $extra_block;
+        } else {
+            $extra_block = '';
+        }
+
+        return $extra_block;
     }
 
     function hide_add_controller_for_extra_generated_block( $block_data ) {
@@ -424,10 +431,6 @@ class render extends database {
                 or $this->mode == 'edit' )and isset( $this->vals[ $this->add_up_extra( $first_input_name, '[', ']' ) ] ) ) {
             $first_input_name = reset( $block_data[ 'inputs_data' ] )[ 'attrs' ][ 'name' ];
             $current_input_num = $this->last_number_of_element( $first_input_name, '[', ']' );
-            //krm( 'current_input_num:' . $current_input_num );
-            // krm( 'count_extra_blocks:' . $count_extra_blocks );
-            /******************************************/
-            //krm( 'unique_id:' . $block_data[ 'unique_id' ] );
             $block_data[ 'unique_id' ] = $this->add_up_extra( $block_data[ 'unique_id' ], '≪', '≫' );
             foreach ( $block_data[ 'inputs_data' ] as $input_key => $input_data ) {
                 $block_data[ 'inputs_data' ][ $input_key ][ 'unique_id' ] = $this->add_up_extra( $input_data[ 'unique_id' ], '≪', '≫' );
@@ -436,6 +439,10 @@ class render extends database {
             if ( !empty( $block_data[ 'children' ] ) ) {
                 $block_data = $this->extra_children_block_creator( $block_data );
             }
+
+            if ( !empty( $block_data[ 'fieldsets_data' ] ) ) {
+                $block_data = $this->extra_fieldset_of_block_data_changer( $block_data );
+            }
             $extra_block_data = $block_data;
         } else {
             return NULL;
@@ -443,18 +450,34 @@ class render extends database {
         return $extra_block_data;
     }
 
+    function extra_fieldset_of_block_data_changer( $block_data ) {
+        foreach ( $block_data[ 'fieldsets_data' ] as $fieldset_data_key => $fieldset_data ) {
+            $block_data[ 'fieldsets_data' ][ $fieldset_data_key ][ 'unique_id' ] = $this->replace_base_route( $block_data[ 'unique_id' ], $fieldset_data[ 'unique_id' ], '≪' );
+            foreach ( $fieldset_data[ 'inputs_data' ] as $fieldset_input_data_key => $fieldset_input_data ) {
+				$block_data[ 'fieldsets_data' ][ $fieldset_data_key ][ 'inputs_data' ][$fieldset_input_data_key][ 'unique_id' ] = $this->replace_base_route( $block_data[ 'unique_id' ], $fieldset_input_data [ 'unique_id' ], '≪' );
+				$block_data[ 'fieldsets_data' ][ $fieldset_data_key ][ 'inputs_data' ][$fieldset_input_data_key][ 'attrs' ]['name'] = $this->replace_base_route( reset($block_data[ 'inputs_data' ])['attrs']['name'], $fieldset_input_data [ 'attrs' ]['name'], '[' );
+            }
+
+        }
+        return $block_data;
+    }
+    #This base route aaaa≪0≫≪11≫≪8≫ child route vvv≪6≫≪2≫≪1≫≪12≫ => vvv≪0≫≪11≫≪8≫≪12≫
+    function replace_base_route( $base_str, $child_str, $before_idenfier ) {
+        $base_arr = explode( $before_idenfier, $base_str );
+        array_shift( $base_arr );
+        $child_arr = explode( $before_idenfier, $child_str );
+        $child_id_str = array_shift( $child_arr );
+        $base_arr[] = end( $child_arr );
+        $result = $child_id_str . $before_idenfier . implode( $before_idenfier, $base_arr );
+        return $result;
+    }
 
     function extra_children_block_creator( $block_data ) {
         static $deep;
         if ( debug_backtrace()[ 1 ][ 'function' ] !== __FUNCTION__ ) {
             $deep = 2;
-        } else {
-            //$deep++;
         }
-        //krm($block_data['children']);
-        //krm($block_data[ 'children' ]);
         foreach ( $block_data[ 'children' ] as $child_block_key => $child_block ) {
-            //krm($child_block);
             if ( $child_block[ 'extra' ][ 'max' ] > 0 ) {
                 $block_data[ 'children' ][ $child_block_key ][ 'unique_id' ] = $this->add_up_extra( $child_block[ 'unique_id' ], '≪', '≫', $deep );
 
@@ -474,9 +497,7 @@ class render extends database {
 
     function last_number_of_element( $string, $before, $after ) {
         $unique_id_arr = explode( $before, $string );
-        //krm($unique_id_arr);
         $laset_block_number = reset( explode( $after, end( $unique_id_arr ) ) );
-        //krm($laset_block_number);
         return $laset_block_number;
     }
     // this will change unique id or name of in extra last number eg vdiUoVF2dNWx≪0≫≪0≫ to vdiUoVF2dNWx≪0≫≪1≫
@@ -488,20 +509,20 @@ class render extends database {
         return implode( $before, $unique_id_arr );
 
     }
-/************************************
-  ______   _          _       _                _   
- |  ____| (_)        | |     | |              | |  
- | |__     _    ___  | |   __| |  ___    ___  | |_ 
- |  __|   | |  / _ \ | |  / _` | / __|  / _ \ | __|
- | |      | | |  __/ | | | (_| | \__ \ |  __/ | |_ 
- |_|      |_|  \___| |_|  \__,_| |___/  \___|  \__|
-                                                   
-**************************************/                                      
+    /************************************
+      ______   _          _       _                _   
+     |  ____| (_)        | |     | |              | |  
+     | |__     _    ___  | |   __| |  ___    ___  | |_ 
+     |  __|   | |  / _ \ | |  / _` | / __|  / _ \ | __|
+     | |      | | |  __/ | | | (_| | \__ \ |  __/ | |_ 
+     |_|      |_|  \___| |_|  \__,_| |___/  \___|  \__|
+                                                       
+    **************************************/
     function render_fieldset( $fieldset_data ) {
         if ( $fieldset_data == NULL ) {
             $fieldset_data = $this->fieldset_data;
         }
-		//krm($fieldset_data);
+		//krm( $fieldset_data);
         $fieldset_data = $this->create_extra_data( $fieldset_data );
         if ( $fieldset_data[ 'access' ][ 'visible' ] == 'no'
             and $this->mode == 'view' ) {
@@ -517,17 +538,16 @@ class render extends database {
             return '';
         }
         if ( isset( $fieldset_data[ 'inputs_data' ] ) ) {
-                
             foreach ( $fieldset_data[ 'inputs_data' ] as $input_data ) {
-				$input_data = $this->extra_fieldset_set_value( $fieldset_data, $input_data );
+                $input_data = $this->extra_fieldset_set_value( $fieldset_data, $input_data );
                 $elements[ 'input' ] = $elements[ 'input' ] . $this->render_input( $input_data );
             }
         }
-		
-		# This function MUST be before rendering children and blocks
-		$extra_fieldset = $this->recursively_generate_fieldset($fieldset_data);
 
-		if ( !empty( $fieldset_data[ 'blocks_data' ] ) ) {
+        # This function MUST be before rendering children and blocks
+        $extra_fieldset = $this->recursively_generate_fieldset( $fieldset_data );
+
+        if ( !empty( $fieldset_data[ 'blocks_data' ] ) ) {
             $blocks = '';
             foreach ( $fieldset_data[ 'blocks_data' ] as $blocks_data ) {
                 $elements[ 'block' ] = $elements[ 'block' ] . $this->render_block( $blocks_data );
@@ -544,7 +564,7 @@ class render extends database {
 
         $fieldset_suffix = '</fieldset>' . $fieldset_data[ 'tag' ][ 'after' ] . $this->render_extra( $fieldset_data[ 'extra' ], 'after' ) . '</sst-fieldset>';
 
-        return $fieldset_prefix . $fieldset . $fieldset_suffix.$extra_fieldset;
+        return $fieldset_prefix . $fieldset . $fieldset_suffix . $extra_fieldset;
 
     }
 
@@ -562,23 +582,10 @@ class render extends database {
         }
 
     }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	    function recursively_generate_fieldset(&$fieldset_data) {
-			
+
+
+    function recursively_generate_fieldset( & $fieldset_data ) {
+
         if ( isset( $fieldset_data[ 'inputs_data' ] ) ) {
             //this return an array of only next extra fieldset(not more) of the fieldset which is processing
             $extra_fieldset_data = $this->extra_fieldset_creator_based_vals( $fieldset_data );
@@ -593,11 +600,11 @@ class render extends database {
                 $fieldset_data = $this->show_hide_controller_for_extra_generated_fieldset( $fieldset_data, $last_number );
                 $extra_fieldset = '';
             }
-        }else{
-			$extra_fieldset = '';
-		}
-		//krm($extra_fieldset);
-		return $extra_fieldset;
+        } else {
+            $extra_fieldset = '';
+        }
+
+        return $extra_fieldset;
     }
 
     function hide_add_controller_for_extra_generated_fieldset( $fieldset_data ) {
@@ -641,6 +648,7 @@ class render extends database {
         }
         return $input_data;
     }
+
     function extra_fieldset_creator_based_vals( $fieldset_data ) {
         $extra_fieldset_data = array();
         $first_input_name = reset( $fieldset_data[ 'inputs_data' ] )[ 'attrs' ][ 'name' ];
@@ -649,9 +657,7 @@ class render extends database {
                 or $this->mode == 'edit' )and isset( $this->vals[ $this->add_up_extra( $first_input_name, '[', ']' ) ] ) ) {
             $first_input_name = reset( $fieldset_data[ 'inputs_data' ] )[ 'attrs' ][ 'name' ];
             $current_input_num = $this->last_number_of_element( $first_input_name, '[', ']' );
-            //krm( 'current_input_num:' . $current_input_num );
-            // krm( 'count_extra_fieldsets:' . $count_extra_fieldsets );
-            //krm( 'unique_id:' . $fieldset_data[ 'unique_id' ] );
+
             $fieldset_data[ 'unique_id' ] = $this->add_up_extra( $fieldset_data[ 'unique_id' ], '≪', '≫' );
             foreach ( $fieldset_data[ 'inputs_data' ] as $input_key => $input_data ) {
                 $fieldset_data[ 'inputs_data' ][ $input_key ][ 'unique_id' ] = $this->add_up_extra( $input_data[ 'unique_id' ], '≪', '≫' );
@@ -660,25 +666,36 @@ class render extends database {
             if ( !empty( $fieldset_data[ 'children' ] ) ) {
                 $fieldset_data = $this->extra_children_fieldset_creator( $fieldset_data );
             }
+			
+            if ( !empty( $fieldset_data[ 'blocks_data' ] ) ) {
+                $fieldset_data = $this->extra_block_of_fieldset_data_changer( $fieldset_data );
+            }
             $extra_fieldset_data = $fieldset_data;
         } else {
             return NULL;
         }
         return $extra_fieldset_data;
     }
+	//
+    function extra_block_of_fieldset_data_changer( $fieldset_data ) {
+        foreach ( $fieldset_data[ 'blocks_data' ] as $block_data_key => $block_data ) {
+            $fieldset_data[ 'blocks_data' ][ $block_data_key ][ 'unique_id' ] = $this->replace_base_route( $fieldset_data[ 'unique_id' ], $block_data[ 'unique_id' ], '≪' );
+			
+            foreach ( $block_data[ 'inputs_data' ] as $block_input_data_key => $block_input_data ) {
+				$fieldset_data[ 'blocks_data' ][ $block_data_key ][ 'inputs_data' ][$block_input_data_key][ 'unique_id' ] = $this->replace_base_route( $fieldset_data[ 'unique_id' ], $block_input_data [ 'unique_id' ], '≪' );
+				$fieldset_data[ 'blocks_data' ][ $block_data_key ][ 'inputs_data' ][$block_input_data_key][ 'attrs' ]['name'] = $this->replace_base_route( reset($fieldset_data[ 'inputs_data' ])['attrs']['name'], $block_input_data [ 'attrs' ]['name'], '[' );
+            }
 
+        }
+        return $fieldset_data;
+    }
 
     function extra_children_fieldset_creator( $fieldset_data ) {
         static $deep;
         if ( debug_backtrace()[ 1 ][ 'function' ] !== __FUNCTION__ ) {
             $deep = 2;
-        } else {
-            //$deep++;
         }
-        //krm($fieldset_data['children']);
-        //krm($fieldset_data[ 'children' ]);
         foreach ( $fieldset_data[ 'children' ] as $child_fieldset_key => $child_fieldset ) {
-            //krm($child_fieldset);
             if ( $child_fieldset[ 'extra' ][ 'max' ] > 0 ) {
                 $fieldset_data[ 'children' ][ $child_fieldset_key ][ 'unique_id' ] = $this->add_up_extra( $child_fieldset[ 'unique_id' ], '≪', '≫', $deep );
 
@@ -694,19 +711,19 @@ class render extends database {
         }
         return $fieldset_data;
     }
-/************************************
-  ______                            
- |  ____|                           
- | |__      ___    _ __   _ __ ___  
- |  __|    / _ \  | '__| | '_ ` _ \ 
- | |      | (_) | | |    | | | | | |
- |_|       \___/  |_|    |_| |_| |_|
-                                    
-**************************************/                                      
+    /************************************
+      ______                            
+     |  ____|                           
+     | |__      ___    _ __   _ __ ___  
+     |  __|    / _ \  | '__| | '_ ` _ \ 
+     | |      | (_) | | |    | | | | | |
+     |_|       \___/  |_|    |_| |_| |_|
+                                        
+    **************************************/
 
 
     function render_form( $form_data ) {
-        //krm($form_data);
+
         if ( $form_data == NULL ) {
             $form_data = $this->form_data;
         }
@@ -744,23 +761,23 @@ class render extends database {
 
 
     }
-/************************************
-  _____                                           
- |  __ \                                          
- | |__) |  _ __    ___     ___    ___   ___   ___ 
- |  ___/  | '__|  / _ \   / __|  / _ \ / __| / __|
- | |      | |    | (_) | | (__  |  __/ \__ \ \__ \
- |_|      |_|     \___/   \___|  \___| |___/ |___/
-                                                  
-**************************************/                                      
+    /************************************
+      _____                                           
+     |  __ \                                          
+     | |__) |  _ __    ___     ___    ___   ___   ___ 
+     |  ___/  | '__|  / _ \   / __|  / _ \ / __| / __|
+     | |      | |    | (_) | | (__  |  __/ \__ \ \__ \
+     |_|      |_|     \___/   \___|  \___| |___/ |___/
+                                                      
+    **************************************/
 
     function render_process( $process_data ) {
 
         if ( $process_data == NULL ) {
             $process_data = $this->process_data;
-            //krm($this->process_data);
+
         }
-        //krm( $process_data);
+
         return $this->render_form( $process_data[ 'form_data' ] );
     }
 }

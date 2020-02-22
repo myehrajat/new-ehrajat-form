@@ -6,25 +6,17 @@ class block extends data_creator {
     static $prevent_loop;
 
     function __construct( $block_id, $force_prevent_loop = array() ) {
-		parent::__construct();
+        parent::__construct();
 
         $this->prevent_loop = $force_prevent_loop;
         $this->get_block_object( $block_id );
         $this->block_data = $this->create_block_structure( $block_id );
-		//krm($this->block_data );
-		//krm( $this->block_data);
-        //krm( $this->block_data );
-        //krm($this->block_data);
-
-        // $this->create_fieldsets();
     }
-    /*
-     */
-    function create_fieldsets( $fielset_ids_str ) {
+    function create_fieldsets( $fieldset_ids_str, $unique_id_suffix_repeat = 0 ) {
         $fieldset_block_id_cause_forever_loop = array();
         $all_fieldsets = array();
 
-        $fieldset_ids = $this->get_ids( $fielset_ids_str );
+        $fieldset_ids = $this->get_ids( $fieldset_ids_str );
         foreach ( $fieldset_ids as $fieldset_id ) {
             $fieldset_obj = $this->get_by_id( $fieldset_id, $GLOBALS[ 'sst_tables' ][ 'fieldset' ] );
             $fieldset_block_ids = $this->get_ids( $fieldset_obj->block_ids );
@@ -34,11 +26,42 @@ class block extends data_creator {
                     $this->error_log( 'the block_id of ' . $this->block_obj->id . ' has his a fieldset_id which cause forever loop . the fieldset_id ' . $fieldset_id . ' which is triggered by block has block id in fieldset definition which in block previously created and again block trigger fieldset and fieldset trigger block which is a loop forever.' );
                 }
             }
-            $fielset = new fieldset( $fieldset_id, $fieldset_block_id_cause_forever_loop );
-            $all_fieldsets[] = $fielset->fieldset_data;
+            $fieldset = new fieldset( $fieldset_id, $fieldset_block_id_cause_forever_loop );
+			//krm( $unique_id_suffix_repeat);
+            $fieldset->fieldset_data = $this->apply_unique_id_suffix_repeat_fieldset_data( $fieldset->fieldset_data, $unique_id_suffix_repeat );
+			//krm( $fieldset);
+            $all_fieldsets[] = $fieldset->fieldset_data;
         }
         return $all_fieldsets;
     }
+
+    function apply_unique_id_suffix_repeat_fieldset_data( $fieldset_data, $unique_id_suffix_repeat ) {
+        if ( $unique_id_suffix_repeat > 0 ) {
+            if ( $fieldset_data[ 'extra' ][ 'unique_id_suffix_repeat' ] > 0 ) {
+				
+                $fieldset_data[ 'unique_id' ] = $this->str_replace_first( '≪0≫', str_repeat( '≪0≫', $unique_id_suffix_repeat + 1 ), $fieldset_data[ 'unique_id' ] );
+				
+                foreach ( $fieldset_data[ 'inputs_data' ] as $inputs_data_key => $inputs_data ) {
+                    $fieldset_data[ 'inputs_data' ][ $inputs_data_key ][ 'unique_id' ] = $this->str_replace_first( '≪0≫', str_repeat( '≪0≫', $unique_id_suffix_repeat + 1 ), $inputs_data[ 'unique_id' ] );
+                    $fieldset_data[ 'inputs_data' ][ $inputs_data_key ][ 'attrs' ][ 'name' ] = $this->str_replace_first( '[0]', str_repeat( '[0]', $unique_id_suffix_repeat + 1 ), $inputs_data[ 'attrs' ][ 'name' ] );
+                }
+            } else {
+                $fieldset_data[ 'unique_id' ] = $fieldset_data[ 'unique_id' ] . '≪0≫';
+                foreach ( $fieldset_data[ 'inputs_data' ] as $inputs_data_key => $inputs_data ) {
+                    $fieldset_data[ 'inputs_data' ][ $inputs_data_key ][ 'unique_id' ] = $inputs_data[ 'unique_id' ] . '≪0≫';
+                    $fieldset_data[ 'inputs_data' ][ $inputs_data_key ][ 'attrs' ][ 'name' ] = $inputs_data[ 'attrs' ][ 'name' ] . '[0]';
+                }
+            }
+        }
+        //krm($fieldset_data);
+        return $fieldset_data;
+    }
+
+    function str_replace_first( $from, $to, $content ) {
+        $from = '/' . preg_quote( $from, '/' ) . '/';
+        return preg_replace( $from, $to, $content, 1 );
+    }
+
 
     function create_block_structure( $block_id, $parent_block = NULL ) {
         $block_obj = $this->get_block_object( $block_id );
@@ -49,20 +72,21 @@ class block extends data_creator {
         } else {
             $all_blocks[ $block_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] = $parent_block[ 'extra' ][ 'unique_id_suffix_repeat' ];
         }
-		$all_blocks[ $block_id ] = $this->create_show_order_data($all_blocks[ $block_id ],$block_obj,'block');
-		//$all_blocks[ $block_id ] = $this->set_show_order($all_blocks[ $block_id ]);
+        $all_blocks[ $block_id ] = $this->create_show_order_data( $all_blocks[ $block_id ], $block_obj, 'block' );
+        //$all_blocks[ $block_id ] = $this->set_show_order($all_blocks[ $block_id ]);
         $all_blocks[ $block_id ][ 'extra' ][ 'max' ] = $this->block_obj->extra;
         $all_blocks[ $block_id ][ 'unique_id' ] = $all_blocks[ $block_id ][ 'unique_id' ] . str_repeat( '≪0≫', $all_blocks[ $block_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] );
-		
+
         foreach ( $all_blocks[ $block_id ][ 'inputs_data' ] as $l => $input ) {
-			//krm( $input);
+            //krm( $input);
             $all_blocks[ $block_id ][ 'inputs_data' ][ $l ][ 'attrs' ][ 'name' ] = $input[ 'attrs' ][ 'name' ] . str_repeat( '[0]', $all_blocks[ $block_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] );
-			//krm( $all_blocks[ $block_id ][ 'inputs_data' ][ $l ]);
+            //krm( $all_blocks[ $block_id ][ 'inputs_data' ][ $l ]);
             $all_blocks[ $block_id ][ 'inputs_data' ][ $l ][ 'unique_id' ] = $input[ 'unique_id' ] . str_repeat( '≪0≫', $all_blocks[ $block_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] );
         }
-		
+
         $this->prevent_loop[ $block_id ] = $block_id;
-        $all_blocks[ $block_id ][ 'fieldsets_data' ] = $this->create_fieldsets( $this->block_obj->fieldset_ids );
+        //krm($all_blocks);
+        $all_blocks[ $block_id ][ 'fieldsets_data' ] = $this->create_fieldsets( $this->block_obj->fieldset_ids, $all_blocks[ $block_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] );
 
         if ( !empty( $this->block_obj->block_ids ) ) {
             $child_block_ids = $this->get_ids( $this->block_obj->block_ids );
@@ -79,7 +103,7 @@ class block extends data_creator {
             }
 
         }
-		//krm($all_blocks);
+        //krm($all_blocks);
         return $all_blocks[ $block_id ];
     }
 
@@ -102,13 +126,13 @@ class block extends data_creator {
             $this->block_data[ 'id' ] = $block_obj->id;
             $this->block_data[ 'input_ids' ] = $this->get_ids( $block_obj->input_ids );
             if ( !empty( $this->block_data[ 'input_ids' ] ) ) {
-				$this->block_data = $this->create_unique_id_data($this->block_data);
+                $this->block_data = $this->create_unique_id_data( $this->block_data );
                 foreach ( $this->block_data[ 'input_ids' ] as $k => $input_id ) {
                     $input_obj = new input( $input_id );
                     $this->block_data[ 'inputs_data' ][] = $input_obj->input_data;
                 }
-				$this->block_data = $this->create_access_data($this->block_data,$block_obj);
-				$this->block_data = $this->create_tag_data($this->block_data,$block_obj);
+                $this->block_data = $this->create_access_data( $this->block_data, $block_obj );
+                $this->block_data = $this->create_tag_data( $this->block_data, $block_obj );
 
             } else {
                 $this->error_log( 'no input ids after processing input ids of your block.' );

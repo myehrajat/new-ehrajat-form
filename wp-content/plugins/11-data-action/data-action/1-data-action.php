@@ -2,9 +2,10 @@
 class data_action extends process {
     function __construct() {
         parent::__construct();
-		
+        //krm($GLOBALS[ 'vals' ][ '__sst__data_actions' ]);
         if ( $GLOBALS[ 'vals' ][ '__sst__data_actions' ] ) {
             $this->vals = $GLOBALS[ 'vals' ];
+            //krm($GLOBALS[ 'vals' ]);
             $this->get_data_actions();
             $this->do_data_actions();
 
@@ -37,16 +38,21 @@ class data_action extends process {
                 //$q = "INSERT INTO `".$wpdb->prefix.CUSTOM_DB_PREFIX.$data_action_obj->table."` ("..")"
                 break;
             case "edit":
+                //$this->create_colval_data( $data_action_obj->colval_ids );
+                break;
+            case "view":
 
                 break;
         }
     }
 
     function create_colval_data( $colval_ids_str ) {
+
         $colval_ids = $this->get_ids( $colval_ids_str );
         $i = 0;
         foreach ( $colval_ids as $colval_id ) {
             $colval_obj = $this->get_by_id( $colval_id, $GLOBALS[ 'sst_tables' ][ 'data_action_colval' ] );
+            //
             //krm($colval_id);
             //krm($colval_obj);
             if ( $colval_obj != false ) {
@@ -66,14 +72,16 @@ class data_action extends process {
                 $this->error_log( 'colval_id provided is not correct no obj found:.' . $colval_id );
             }
         }
+        //krm($colval_sort_by_depth);
         $sort_depth = array_column( $colval_sort_by_depth, 'depth' );
         $sort_colval_obj = array_column( $colval_sort_by_depth, 'colval_obj' );
         $sorted_colvals_obj = $this->array_orderby( $colval_sort_by_depth, $sort_depth, SORT_ASC );
-        //  krm( $this->vals );
+        // krm( $sorted_colvals_obj );
         foreach ( $sorted_colvals_obj as $sorted_colvals_vals ) {
             switch ( $colval_obj->type ) {
                 case "simple-variable":
                     $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->value ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->value ] );
+                    // krm($all_values[ $sorted_colvals_vals[ 'colval_obj' ]->value ]);
                     break;
                 case "variable":
                 case "function":
@@ -97,35 +105,39 @@ class data_action extends process {
                     break;
             }
         }
+        //krm($all_values );// this is original sent data before triggering data-action
         $ready_data = $this->create_all_data2( $all_values );
-		$final_vals = $this->prepare_final_vals($all_values);
-		$this->save_final_vals($final_vals);
-        //krm($this->vals);// this is original sent data before triggering data-action
-		//krm($all_values);//this is proccessing data based on their colval type
         //krm( $ready_data );//this used for creating database query 
+        $final_vals = $this->prepare_final_vals( $all_values );
         //krm( $final_vals );//this used for saving in vals table
+        $this->save_final_vals( $final_vals );
 
     }
-	function save_final_vals($final_vals){
-		$this->save_vals($final_vals);
-	}
-function prepare_final_vals($all_values){
-	$all_values;
-	foreach($all_values as $input_name=>$possible_values){
-		foreach($possible_values as $route=>$single_value){
-			if($route!=='*'){
-			$input_html_route = '['.implode('][',explode('-',$route)).']';
-			$final_vals[$input_name.$input_html_route]=$single_value;
-			}else{
-				$final_vals[$input_name]=$single_value;
-			}
-		}
-	}
-	//krm($final_vals);
-	return $final_vals;
-}
+
+    function save_final_vals( $final_vals ) {
+        //krm($final_vals);
+        $this->save_vals( $final_vals );
+    }
+
+    function prepare_final_vals( $all_values ) {
+        $all_values;
+        foreach ( $all_values as $input_name => $possible_values ) {
+            foreach ( $possible_values as $route => $single_value ) {
+                if ( $route !== '*' ) {
+                    $input_html_route = '[' . implode( '][', explode( '-', $route ) ) . ']';
+                    $final_vals[ $input_name . $input_html_route ] = $single_value;
+                } else {
+                    $final_vals[ $input_name ] = $single_value;
+                }
+            }
+        }
+        //krm($final_vals);
+        return $final_vals;
+    }
+
     function create_all_data2( $all_values, $processed_value = array() ) {
         static $result;
+        //krm($all_values);
         $key_first = array_key_first( $all_values );
         if ( array_key_first( $all_values[ $key_first ] ) !== '*' ) {
             foreach ( $all_values[ $key_first ] as $first_route => $first_value ) {
@@ -149,6 +161,7 @@ function prepare_final_vals($all_values){
             }
         } else {
             $add_to_all[ $key_first ] = $all_values[ $key_first ][ '*' ];
+			$result = array();
         }
         if ( is_array( $to_unset_keys ) ) {
             //krm($to_unset_keys );
@@ -169,9 +182,10 @@ function prepare_final_vals($all_values){
         unset( $all_values[ $key_first ] );
 
         if ( !empty( $all_values ) ) {
+			krm($result);
             $this->create_all_data2( $all_values, $result );
             if ( debug_backtrace()[ 1 ][ 'function' ] === __FUNCTION__ ) {
-                exit();
+                //exit();
             }
         }
 

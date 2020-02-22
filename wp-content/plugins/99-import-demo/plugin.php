@@ -89,7 +89,7 @@ function test_form(){
 }
 function test_process(){
 	//if(!isset($_REQUEST['__sst__step'])){
-	$f = new process(2);
+	$f = new process(4);
 	//krm($f);
 	echo $f->render();
 	//}
