@@ -41,6 +41,7 @@ class insert_data_action_tables extends database {
         "`slug` VARCHAR(255) NOT NULL," .
 		"`type` VARCHAR(255) NOT NULL," .
         "`column` VARCHAR(255) NOT NULL," .
+        "`input_name` VARCHAR(255) NOT NULL," .
         "`value` VARCHAR(255) NOT NULL," .
         "`file_path` VARCHAR(255) default NULL," .
         "`ref_parsed_value` VARCHAR(255) default NULL," .

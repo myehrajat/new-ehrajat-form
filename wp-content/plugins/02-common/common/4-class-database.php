@@ -9,21 +9,23 @@ interface database_interface {
     function add_to_table( string $table, array $column_value );
 
     function drop_tables();
-	function create_tables(array $sql_array);
+
+    function create_tables( array $sql_array );
 }
-class database extends common implements database_interface {
-	
+class database extends common
+implements database_interface {
+
     protected $collate_charset;
     protected $full_prefix;
 
     function __construct() {
-		parent::__construct();
+        parent::__construct();
         $this->full_prefix();
         $this->collate_charset();
     }
 
     function full_prefix() {
-		global $wpdb;
+        global $wpdb;
         $this->full_prefix = $wpdb->prefix . DBPREFIX;
     }
     /**************************************************
@@ -90,12 +92,27 @@ class database extends common implements database_interface {
      *version 1.0.0
      *this function is for adding to table
      **************************************************/
-    function add_to_table( string $table, array $column_value ) {
+    function add_to_table( string $table, array $column_value, $column_mysql_code = array() ) {
         global $wpdb;
+
+        if ( !is_array( $column_mysql_code ) ) {
+            $column_mysql_code = array();
+        }
+        $column_mysql_code_column = $columns = array_keys( $column_mysql_code );
         if ( is_array( $column_value ) ) {
             if ( !empty( $column_value ) ) {
                 $columns = array_keys( $column_value );
-                $sql = "INSERT  INTO " . $table . "(`" . implode( '`,`', $columns ) . "`) VALUES ('" . implode( "','", $column_value ) . "')";
+                $sql = "INSERT  INTO " . $table . "(`" . implode( '`,`', $columns ) . "`";
+                if ( !empty( $column_mysql_code ) ) {
+                    $sql .= ',' . implode( ',', $column_mysql_code_column );
+                }
+                $sql .= ") VALUES (";
+                $sql .= "'" . implode( "','", $column_value ) . "'";
+                if ( !empty( $column_mysql_code ) ) {
+                    $sql .= ',' . implode( ',', $column_mysql_code );
+                }
+                $sql .= ")";
+				//krm()
                 $result = $wpdb->query( $sql );
                 if ( $wpdb->last_error !== '' ) {
                     //$wpdb->print_error();
@@ -133,17 +150,18 @@ class database extends common implements database_interface {
             }
         }
     }
-	function create_tables(array $sql_array){
-		global $wpdb;
-		foreach ( $sql_array as $table_query ) {
-//			krm($table_query);
-			$wpdb->query( $table_query );
-			if ( $wpdb->last_error !== '' ) {
-				echo $GLOBALS[ 'sst_errors' ][ 0 ];
-				$wpdb->print_error();
-				$this->error_log( 'Creation tables failed due to syntax error.' );
-			}
-		}
-	}	
+
+    function create_tables( array $sql_array ) {
+        global $wpdb;
+        foreach ( $sql_array as $table_query ) {
+            //			krm($table_query);
+            $wpdb->query( $table_query );
+            if ( $wpdb->last_error !== '' ) {
+                echo $GLOBALS[ 'sst_errors' ][ 0 ];
+                $wpdb->print_error();
+                $this->error_log( 'Creation tables failed due to syntax error.' );
+            }
+        }
+    }
 
 }

@@ -29,8 +29,8 @@ class attribute_generator extends attribute_form_validator implements attribute_
 			//}
 			//after data action trigger get the vals in formatted flat with route and generate the same name input cause array as value
 			if(is_array($attr_value)){
-				krm($attr_name);
-				krm($attr_value);
+				//krm($attr_name);
+				//krm($attr_value);
 			}
             $attr_value = trim( $attr_value );
             $attr_value = $this->is_eval_run( $attr_value );
