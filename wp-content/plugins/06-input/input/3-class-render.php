@@ -70,12 +70,12 @@ class render extends database {
         return $str;
     }
 
-    function replace_attribute_short_codes( $str, $attrs, $between_start = '{attr:', $between_end = '}' ) {
+    function replace_attribute_short_codes( $str, $attrs, $between_start = '{attr:', $between_end = '}',$wrapper = NULL ) {
         global $wpdb;
         if ( !empty( $str ) ) {
             preg_match_all( '/' . addslashes( $between_start ) . '(.*?)' . addslashes( $between_end ) . '/', $str, $matches );
             foreach ( $matches[ 1 ] as $k => $match ) {
-                $str = str_replace( $matches[ 0 ][ $k ], $attrs[ $match ], $str );
+                $str = str_replace( $matches[ 0 ][ $k ], $wrapper.$attrs[ $match ].$wrapper, $str );
             }
         }
         return $str;
