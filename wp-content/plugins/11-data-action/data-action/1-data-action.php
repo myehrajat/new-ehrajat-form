@@ -82,29 +82,27 @@ class data_action extends process {
             //krm( $sorted_colvals_vals );
             switch ( $sorted_colvals_vals[ 'colval_obj' ]->type ) {
                 case "simple-variable":
-                    $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->value ] );
+                    $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->value ] );
                     break;
                 case "variable":
                 case "function":
-                    $ecodes[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] = 'return ' . $sorted_colvals_vals[ 'colval_obj' ]->value;
-
-                    //krm($this->run_eval( EVAL_STR.'return '.$sorted_colvals_vals[ "colval_obj"]->value.'; ',$this->vals ));
-                    $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
-                    //krm($all_values[ $sorted_colvals_vals[ 'colval_obj' ]->value ] );
+                    $ecodes[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = 'return ' . $sorted_colvals_vals[ 'colval_obj' ]->value;
+                    $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
                     break;
                 case "ecode":
                 case "ecode-one-per-record":
-                    $ecodes[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] = $sorted_colvals_vals[ 'colval_obj' ]->value;
-                    $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
+                    $ecodes[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $sorted_colvals_vals[ 'colval_obj' ]->value;
+                    $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
                     break;
+                case "ecode-group":
                 case "ecode-multiple-per-record":
-                    $ecodes_multiple[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] = $sorted_colvals_vals[ 'colval_obj' ]->value;
+                    $ecodes_multiple[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $sorted_colvals_vals[ 'colval_obj' ]->value;
                     //krm($this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ]);
-                    $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
+                    $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
                     //krm( $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
                     break;
                 case "file":
-                    $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] = $this->upload_files(
+                    $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->upload_files(
                         $this->vals[ '__sst__files' ][ $sorted_colvals_vals[ 'colval_obj' ]->value ],
                         $sorted_colvals_vals[ 'colval_obj' ]->file_path,
                         $this->data_action_obj->default_file_path );
@@ -118,24 +116,33 @@ class data_action extends process {
                     break;
             }
         }
-        //krm( $all_values ); // this is original sent data before triggering data-action
 
+		krm( $all_values );
         if ( !empty( $ecodes_multiple ) ) {
             foreach ( $ecodes_multiple as $group_input_name => $ecode ) {
-                $all_values = $this->group_data( $all_values, $group_input_name );
+                $g_all_values = $this->group_data( $all_values, $group_input_name );
+				//krm($group_input_name);
+                $all_values[$group_input_name] = $this->do_ecode_multiple( $g_all_values, $ecode, $group_input_name );
+                
+				
             }
+			krm( $all_values );
+			
             //$this->group_data();
             //$all_values = $this->group_for_ecodes_multiple( $all_values, $ecodes_multiple );
-            //$this->do_ecodes_multiple( $all_values, $ecodes_multiple );
+            //
         }
-        //krm($all_values);
-        $ready_data = $this->create_all_data2( $all_values );
+        //$all_values = $this->sample_data();
+        $all_values = $this->more_element_last( $all_values );
+        //krm( $all_values ); // this is original sent data before triggering data-action
+        $ready_data = $this->create_all_data( $all_values );
         //krm( $ready_data ); //this used for creating database query 
         if ( !empty( $ecodes ) ) {
             //krm($ecodes);
             $ready_data = $this->do_ecodes( $ready_data, $ecodes );
-            ///krm( $ready_data ); //this used for creating database query 
+            //krm( $ready_data ); //this used for creating database query 
         }
+        //krm( $ready_data );
         $this->ready_data_for_db( $ready_data, $sorted_colvals_obj );
         //krm( $this->db_data ); //this is for creating database query 
         $final_vals = $this->prepare_final_vals( $all_values );
@@ -143,100 +150,87 @@ class data_action extends process {
         $this->save_final_vals( $final_vals );
 
     }
-
-    function sample_data() {
-        $all_values = array(
-            'input_one' => array( '*' => 'input_one_val' ),
-            'input_two' => array( '*' => 'input_one_val' ),
-            'input_three' => array(
-                '0' => 'input_three_val', 
-				'1' => 'input_three_val', 
-				'2' => 'input_three_val' ),
-            'input_four' => array(
-                '0' => 'input_four_val', 
-				'1' => 'input_four_val', 
-				'2' => 'input_four_val' ),
-            'input_five' => array(
-                '0-0' => 'input_five_val', '0-1' => 'input_five_val', '0-2' => 'input_five_val',
-                '1-0' => 'input_five_val', '1-1' => 'input_five_val', '1-2' => 'input_five_val',
-                '2-0' => 'input_five_val', '2-1' => 'input_five_val', '2-2' => 'input_five_val',
-            ),
-            'input_six' => array(
-                '0-0' => 'input_six_val', '0-1' => 'input_six_val', '0-2' => 'input_six_val',
-                '1-0' => 'input_six_val', '1-1' => 'input_six_val', '1-2' => 'input_six_val',
-                '2-0' => 'input_six_val', '2-1' => 'input_six_val', '2-2' => 'input_six_val',
-            ),
-            'input_seven' => array(
-                '0-0-0' => 'input_seven_val', '0-0-1' => 'input_seven_val', '0-0-2' => 'input_seven_val',
-                '0-1-0' => 'input_seven_val', '0-1-1' => 'input_seven_val', '0-1-2' => 'input_seven_val',
-                '0-2-0' => 'input_seven_val', '0-2-1' => 'input_seven_val', '0-2-2' => 'input_seven_val',
-                '1-0-0' => 'input_seven_val', '1-0-1' => 'input_seven_val', '1-0-2' => 'input_seven_val',
-                '1-1-0' => 'input_seven_val', '1-1-1' => 'input_seven_val', '1-1-2' => 'input_seven_val',
-                '1-2-0' => 'input_seven_val', '1-2-1' => 'input_seven_val', '1-2-2' => 'input_seven_val',
-                '2-0-0' => 'input_seven_val', '2-0-1' => 'input_seven_val', '2-0-2' => 'input_seven_val',
-                '2-1-0' => 'input_seven_val', '2-1-1' => 'input_seven_val', '2-1-2' => 'input_seven_val',
-                '2-2-0' => 'input_seven_val', '2-2-1' => 'input_seven_val', '2-2-2' => 'input_seven_val',
-            ),
-            'input_eight' => array(
-                '0-0-0' => 'input_eight_val', '0-0-1' => 'input_eight_val', '0-0-2' => 'input_eight_val', '0-0-3' => 'input_eight_val', '0-0-4' => 'input_eight_val', '0-0-5' => 'input_eight_val', '0-0-6' => 'input_eight_val', '0-0-7' => 'input_eight_val', '0-0-8' => 'input_eight_val', '0-0-9' => 'input_eight_val', '0-0-10' => 'input_eight_val',
-                '0-1-0' => 'input_eight_val', '0-1-1' => 'input_eight_val', '0-1-2' => 'input_eight_val',
-                '0-2-0' => 'input_eight_val', '0-2-1' => 'input_eight_val', '0-2-2' => 'input_eight_val',
-                '1-0-0' => 'input_eight_val', '1-0-1' => 'input_eight_val', '1-0-2' => 'input_eight_val',
-                '1-1-0' => 'input_eight_val', '1-1-1' => 'input_eight_val', '1-1-2' => 'input_eight_val',
-                '1-2-0' => 'input_eight_val', '1-2-1' => 'input_eight_val', '1-2-2' => 'input_eight_val',
-                '2-0-0' => 'input_eight_val', '2-0-1' => 'input_eight_val', '2-0-2' => 'input_eight_val',
-                '2-1-0' => 'input_eight_val', '2-1-1' => 'input_eight_val', '2-1-2' => 'input_eight_val',
-                '2-2-0' => 'input_eight_val', '2-2-1' => 'input_eight_val', '2-2-2' => 'input_eight_val',
-            ),
-            'input_nine' => array(
-                '0-0-0-0' => 'input_nine_val', '0-0-0-1' => 'input_nine_val',
-                '0-0-1-0' => 'input_nine_val', '0-0-1-1' => 'input_nine_val',
-                '0-0-2-0' => 'input_nine_val', '0-0-2-1' => 'input_nine_val',
-                '0-1-0-0' => 'input_nine_val', '0-1-0-1' => 'input_nine_val',
-                '0-1-1-0' => 'input_nine_val', '0-1-1-1' => 'input_nine_val',
-                '0-1-2-0' => 'input_nine_val', '0-1-2-1' => 'input_nine_val',
-                '0-2-0-0' => 'input_nine_val', '0-2-0-1' => 'input_nine_val',
-                '0-2-1-0' => 'input_nine_val', '0-2-1-1' => 'input_nine_val',
-                '0-2-2-0' => 'input_nine_val', '0-2-2-1' => 'input_nine_val',
-                '1-0-0-0' => 'input_nine_val', '1-0-0-1' => 'input_nine_val',
-                '1-0-1-0' => 'input_nine_val', '1-0-1-1' => 'input_nine_val',
-                '1-0-2-0' => 'input_nine_val', '1-0-2-1' => 'input_nine_val',
-                '1-1-0-0' => 'input_nine_val', '1-1-0-1' => 'input_nine_val',
-                '1-1-1-0' => 'input_nine_val', '1-1-1-1' => 'input_nine_val',
-                '1-1-2-0' => 'input_nine_val', '1-1-2-1' => 'input_nine_val',
-                '1-2-0-0' => 'input_nine_val', '1-2-0-1' => 'input_nine_val',
-                '1-2-1-0' => 'input_nine_val', '1-2-1-1' => 'input_nine_val',
-                '1-2-2-0' => 'input_nine_val', '1-2-2-1' => 'input_nine_val',
-                '2-0-0-0' => 'input_nine_val', '2-0-0-1' => 'input_nine_val',
-                '2-0-1-0' => 'input_nine_val', '2-0-1-1' => 'input_nine_val',
-                '2-0-2-0' => 'input_nine_val', '2-0-2-1' => 'input_nine_val',
-                '2-1-0-0' => 'input_nine_val', '2-1-0-1' => 'input_nine_val',
-                '2-1-1-0' => 'input_nine_val', '2-1-1-1' => 'input_nine_val',
-                '2-1-2-0' => 'input_nine_val', '2-1-2-1' => 'input_nine_val',
-                '2-2-0-0' => 'input_nine_val', '2-2-0-1' => 'input_nine_val',
-                '2-2-1-0' => 'input_nine_val', '2-2-1-1' => 'input_nine_val',
-                '2-2-2-0' => 'input_nine_val', '2-2-2-1' => 'input_nine_val',
-            ),
-        );
-        return $all_values;
+	function prepare_array_str_for_ecode($group_values){
+		foreach($group_values as $column_name=>$input_values){
+			$array_str = 'array(';
+            foreach ( $input_values as $input_value ) {
+                $array_str_elements[]= "'" . $input_value . "'";
+            }
+			$array_str .= implode(',',$array_str_elements);
+			$array_str .= ')';
+			$group_values[$column_name] = $array_str;
+			 $array_str_elements = array();
+		}
+		return $group_values;
+	}
+	//function 
+    /**********
+    this will get all_values and an input_name and find its input parent eg your provided input is aa[0][0][0] it and there is bb[0][0] this functiom return  bb[0][0]
+    ******/
+    #https://stackoverflow.com/questions/795625/how-to-set-an-arrays-internal-pointer-to-a-specific-position-php-xml
+    function do_ecode_multiple( $all_values, $ecode, $group_input_name ) {
+		foreach($all_values as $k=>$all_value){
+			$group_values = $this->prepare_array_str_for_ecode( $all_value);
+			 $ecode_group_result = $this->run_eval(  EVAL_STR .$this->replace_attribute_short_codes( $ecode, $group_values, '{array:', '}') . ';');	
+			$res[array_key_first($all_value[$group_input_name ])] = $ecode_group_result;
+		}
+		krm($res);
+		return $res;;
     }
+
+    function get_parent_input_name( $all_values, $input_name ) {
+        if ( debug_backtrace()[ 1 ][ 'function' ] !== __FUNCTION__ and array_key_first( $all_values ) === $input_name ) {
+            return NULL;
+        }
+        //krm( $input_name );
+        //die;
+        $input_name_route_count = count( explode( '-', array_key_first( $all_values[ $input_name ] ) ) );
+        $key_last_input_name = array_key_last( $all_values );
+        while ( key( $all_values ) !== $input_name ) {
+            next( $all_values );
+            if ( $key_last_input_name != $input_name ) {
+                $this->error_log( 'your column for finding parent in get_parent_input_name is not found' );
+                break;
+                return NULL;
+            }
+        }
+        $parent_values = prev( $all_values );
+        $parent_input_name = key( $all_values );
+        $parent_input_route = array_key_first( $parent_values );
+        $parent_input_name_route_count = count( explode( '-', $parent_input_route ) );
+        if ( $parent_input_name_route_count === $input_name_route_count and $parent_input_route !== '*' ) {
+            $parent_input_name = $this->get_parent_input_name( $all_values, $parent_input_name );
+        } elseif ( $parent_input_name_route_count === '*'
+                and $input_name_route_count === '*' ) {
+                $parent_input_name = NULL;
+            }
+            //krm( $parent_input_name);
+            //die;
+        return $parent_input_name;
+    }
+
 
     function group_data( $all_values, $group_by_input_name ) {
         //static $parent, $grouped;
         $parent = false;
         //$all_values = $this->sample_data();
         //$group_by_input_name = 'input_nine';
+
         $parent_input_name = $this->get_parent_input_name( $all_values, $group_by_input_name );
-		if(count(explode('-',array_key_first($all_values[$group_by_input_name])))==1){
-			$grouped[] = $all_values;
-			goto return_result;
-		}
+        //krm($all_values);
+        //krm($group_by_input_name);
+        //krm($parent_input_name);
+
+        if ( count( explode( '-', array_key_first( $all_values[ $group_by_input_name ] ) ) ) == 1 ) {
+            $grouped[] = $all_values;
+            goto return_result;
+        }
+
         foreach ( $all_values[ $parent_input_name ] as $k => $single_value ) {
             $grouped[ $k ][ $parent_input_name ] = array( $k => $single_value );
         }
-        //krm($grouped);
         foreach ( array_reverse( $all_values ) as $input_name => $input_values ) {
-            if ( $input_name == $parent_input_name) {
+            if ( $input_name == $parent_input_name ) {
                 $parent = true;
                 continue;
             }
@@ -259,9 +253,10 @@ class data_action extends process {
                         if ( $check === '0' ) {
                             //krm( $check );
                         }
-                        if ( $this->starts_with( $grouped_route, $input_route )and( empty( $check )or $check === '-'  or $check === false ) and $check !== '0' ) {
+                        if ( $this->starts_with( $grouped_route, $input_route )and( empty( $check )or $check === '-'
+                                or $check === false )and $check !== '0' ) {
                             if ( $input_route == '0-0-1' ) {
-                               // krm( $check );
+                                // krm( $check );
                                 //krm( empty( $check ) );
                             }
 
@@ -278,73 +273,65 @@ class data_action extends process {
             }
 
         }
-		return_result:
-		return $grouped;
-        //krm( $grouped );
-
-        /*
-        if ( debug_backtrace()[ 1 ][ 'function' ] !== __FUNCTION__ ) {
-            $current_position = 'parent';
-			$grouped =array();
-        }
+        return_result:
+            //krm($grouped);
+            return $grouped;
+    }
+    #https://stackoverflow.com/questions/12624153/move-an-array-element-to-a-new-index-in-php
+    function move_element( & $array, $a, $b ) {
+        $p1 = array_splice( $array, $a, 1 );
+        $p2 = array_splice( $array, 0, $b );
+        $array = array_merge( $p2, $p1, $array );
+    }
+    #move element (input with same level) with more data to last
+    function more_element_last( $all_values ) {
+        $array_key_last = array_key_last( $all_values );
+        $i = 0;
         foreach ( $all_values as $input_name => $input_values ) {
-            if ( $input_name == $group_by_input_name ) {
-                $current_position = 'self';
-            }
-            if ( $input_name != $group_by_input_name and $current_position == 'self' ) {
-                $current_position = 'child';
-            }
-			if( $current_position = 'parent'){
-				foreach($all_values as $value){
-					$grouped[] = $input_values;
-				}
-			}
-        }
-		*/
-    }
-    /**********
-    this will get all_values and an input_name and find its input parent eg your provided input is aa[0][0][0] it and there is bb[0][0] this functiom return  bb[0][0]
-    ******/
-    #https://stackoverflow.com/questions/795625/how-to-set-an-arrays-internal-pointer-to-a-specific-position-php-xml
-
-    function get_parent_input_name( $all_values, $input_name ) {
-		if ( debug_backtrace()[ 1 ][ 'function' ] !== __FUNCTION__  and  array_key_first( $all_values)===$input_name) {
-            return NULL;
-        }
-
-        $input_name_route_count = count( explode( '-', array_key_first( $all_values[ $input_name ] ) ) );
-        while ( key( $all_values ) !== $input_name )next( $all_values );
-        $parent_values = prev( $all_values );
-        $parent_input_name = key( $all_values );
-		$parent_input_route = array_key_first( $parent_values );
-        $parent_input_name_route_count = count( explode( '-', $parent_input_route ) );
-        if ( $parent_input_name_route_count === $input_name_route_count and $parent_input_route !== '*' ) {
-            $parent_input_name = $this->get_parent_input_name( $all_values, $parent_input_name );
-        } elseif ( $parent_input_name_route_count === '*'
-                and $input_name_route_count === '*' ) {
-                $parent_input_name = NULL;
-            }
-            //krm( $parent_input_name);
-        return $parent_input_name;
-    }
-
-    function do_ecodes_multiple( $all_values, $ecodes_multiple ) {
-        //krm($all_values);
-        foreach ( $ecodes_multiple as $ecode_multiple_key => $ecode_multiple_value ) {
-            foreach ( $all_values[ $ecode_multiple_key ] as $input_name => $input_value_array ) {
-                $array_str = 'array(';
-                foreach ( $input_value_array as $input_value_array_element ) {
-                    $array_str .= "'" . $input_value_array_element . "',";
+            if ( $array_key_last !== $input_name ) {
+                if ( count( $input_values ) > count( next( $all_values ) ) ) {
+                    $this->move_element( $all_values, $i, $i + 1 );
                 }
-                $array_str .= ')';
-                $aaa[ $ecode_multiple_key ] = $array_str;
-                //krm($aaa);
-                //krm($ecode_multiple_value);
-                //krm( $this->replace_attribute_short_codes( $ecode_multiple_value, $aaa, '{array:', '}') . ';');
-                //$this->run_eval( EVAL_STR . $this->replace_attribute_short_codes( $ecode_multiple_value, $input_value_array, '{array:', '}', '\'' ) . ';' );
+            }
+            $i++;
+        }
+        return $all_values;
+    }
+
+    function create_all_data( $all_values ) {
+        //krm($all_values);
+        $all_values = array_reverse( $all_values );
+        //krm($all_values);
+        foreach ( $all_values as $input_name => $input_values ) {
+            if ( !isset( $result ) ) {
+                foreach ( $input_values as $input_route => $input_value ) {
+                    # $input_route will not change later its the lowest level route
+                    $result[ $input_route ][ $input_name ] = $input_value;
+                }
+            } else {
+                foreach ( $input_values as $input_route => $input_value ) {
+                    foreach ( $result as $single_record_route => $single_record_value ) {
+                        if ( $this->starts_with_route( $single_record_route, $input_route )or( string )$single_record_route == ( string )$input_route or $input_route === '*' ) {
+                            $result[ $single_record_route ][ $input_name ] = $input_value;
+                        }
+                    }
+                }
             }
         }
+
+
+        return $result;
+
     }
+    #return child  true if its child route .sibling will return false
+    function starts_with_route( $child_route, $parent_route ) {
+        if ( ( $this->starts_with( $child_route, $parent_route )and $this->is_after_base_route_dash( $child_route, $parent_route ) ) ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     function group_for_ecodes_multiple( $all_values, $ecodes_multiple ) {
         foreach ( $ecodes_multiple as $input_name => $ecode_multiple ) {
@@ -386,13 +373,20 @@ class data_action extends process {
         //krm($ecodes);
         foreach ( $ready_data as $k => $single_record ) {
             foreach ( $ecodes as $input_name => $ecode ) {
-                //krm(EVAL_STR . $this->replace_attribute_short_codes( $ecode ,$single_record, '{vals:',  '}' ,'\'').';');
+
                 $ready_data[ $k ][ $input_name ] = $this->run_eval( EVAL_STR . $this->replace_attribute_short_codes( $ecode, $single_record, '{vals:', '}', '\'' ) . ';' );
             }
 
         }
         //krm($ready_data);
         return $ready_data;
+    }
+    #https://stackoverflow.com/questions/6875913/simple-how-to-replace-all-between-with-php
+    function insert_between( $string, $pre, $after, $insert_between ) {
+        $search = "/[^" . addslashes( $pre ) . "](.*)[^" . addslashes( $after ) . "/";
+        $replace = $insert_between;
+        $string = $string;
+        return preg_replace( $search, $replace, $string );
     }
 
     function save_final_vals( $final_vals ) {
@@ -403,7 +397,7 @@ class data_action extends process {
         //krm( $ready_data );
         foreach ( $ready_data as $i => $one_record_data ) {
             foreach ( $sorted_colvals_obj as $colval ) {
-                $this->db_data[ $i ][ $colval[ 'colval_obj' ]->column ] = $one_record_data[ $colval[ 'colval_obj' ]->input_name ];
+                $this->db_data[ $i ][ $colval[ 'colval_obj' ]->column ] = $one_record_data[ $colval[ 'colval_obj' ]->column ];
             }
         }
     }
@@ -422,71 +416,6 @@ class data_action extends process {
         }
         return $final_vals;
     }
-
-    function create_all_data2( $all_values, $processed_value = array() ) {
-        static $result;
-        $key_first = array_key_first( $all_values );
-        //krm(array_key_first( $all_values[ $key_first ] ));
-        if ( array_key_first( $all_values[ $key_first ] ) !== '*' ) {
-            foreach ( $all_values[ $key_first ] as $first_route => $first_value ) {
-                $result[ $first_route ][ $key_first ] = $first_value;
-                if ( !empty( $processed_value ) ) {
-                    foreach ( $processed_value as $check_route => $s ) {
-                        if ( ( $this->starts_with( ( string )$first_route, ( string )$check_route )and $this->is_after_base_route_dash( $first_route, $check_route ) )or( string )$first_route == ( string )$check_route ) {
-                            $result[ $first_route ] = array_merge( $result[ $first_route ], $result[ $check_route ] );
-                            $to_unset_keys[] = $check_route;
-                            $result[ $first_route ][ $key_first ] = $first_value;
-                        }
-                    }
-
-                }
-            }
-        } else {
-            $add_to_all[ $key_first ] = $all_values[ $key_first ][ '*' ];
-            $result = array();
-        }
-        if ( is_array( $to_unset_keys ) ) {
-            foreach ( $to_unset_keys as $to_unset_key ) {
-                unset( $result[ $to_unset_key ] );
-            }
-            /*
-            if ( is_array( $to_unset_keys ) ) {
-                foreach ( $processed_value as $to_unset_key ) {
-                    //unset( $result[ $to_unset_key ] );
-                }
-            }
-			*/
-        }
-        //krm($result);
-        //krm($all_values[ $key_first ]);
-        unset( $all_values[ $key_first ] );
-
-        if ( !empty( $all_values ) ) {
-            //krm( $result );
-            $this->create_all_data2( $all_values, $result );
-            if ( debug_backtrace()[ 1 ][ 'function' ] === __FUNCTION__ ) {
-                //exit();
-            }
-        }
-        //krm($result);
-
-        if ( !empty( $add_to_all ) ) {
-            foreach ( $add_to_all as $add_input_name => $add_input_value ) {
-                if ( !empty( $result ) ) {
-                    foreach ( $result as $single_record_key => $single_record ) {
-                        $result[ $single_record_key ][ $add_input_name ] = $add_input_value;
-                    }
-                } else { //there is no extra input or block
-                    $result[ 0 ][ $add_input_name ] = $add_input_value;
-                }
-            }
-        }
-        //krm($result);
-        $result = array_values( $result );
-        //krm( $result );
-        return $result;
-    }
-
 
     function upload_files( $files, $colval_file_path = NULL, $default_data_action_file_path = NULL ) {
         //krm($files);
@@ -645,6 +574,112 @@ class data_action extends process {
         // krm( $arr );
         // krm( $last_key );
         return $dep;
+    }
+
+    function sample_data() {
+        $all_values = array(
+            'input_one' => array( '*' => 'input_one_val' ),
+            'input_two' => array( '*' => 'input_two_val' ),
+            'input_three' => array(
+                '0' => 'input_three_val',
+                '1' => 'input_three_val',
+                '2' => 'input_three_val' ),
+            'input_four' => array(
+                '0' => 'input_four_val',
+                '1' => 'input_four_val',
+                '2' => 'input_four_val' ),
+            'input_five' => array(
+                '0-0' => 'input_five_val', '0-1' => 'input_five_val', '0-2' => 'input_five_val',
+                '1-0' => 'input_five_val', '1-1' => 'input_five_val', '1-2' => 'input_five_val',
+                '2-0' => 'input_five_val', '2-1' => 'input_five_val', '2-2' => 'input_five_val',
+            ),
+            'input_six' => array(
+                '0-0' => 'input_six_val', '0-1' => 'input_six_val', '0-2' => 'input_six_val',
+                '1-0' => 'input_six_val', '1-1' => 'input_six_val', '1-2' => 'input_six_val',
+                '2-0' => 'input_six_val', '2-1' => 'input_six_val', '2-2' => 'input_six_val',
+            ),
+            'input_seven' => array(
+                '0-0-0' => 'input_seven_val', '0-0-1' => 'input_seven_val', '0-0-2' => 'input_seven_val',
+                '0-1-0' => 'input_seven_val', '0-1-1' => 'input_seven_val', '0-1-2' => 'input_seven_val',
+                '0-2-0' => 'input_seven_val', '0-2-1' => 'input_seven_val', '0-2-2' => 'input_seven_val',
+                '1-0-0' => 'input_seven_val', '1-0-1' => 'input_seven_val', '1-0-2' => 'input_seven_val',
+                '1-1-0' => 'input_seven_val', '1-1-1' => 'input_seven_val', '1-1-2' => 'input_seven_val',
+                '1-2-0' => 'input_seven_val', '1-2-1' => 'input_seven_val', '1-2-2' => 'input_seven_val',
+                '2-0-0' => 'input_seven_val', '2-0-1' => 'input_seven_val', '2-0-2' => 'input_seven_val',
+                '2-1-0' => 'input_seven_val', '2-1-1' => 'input_seven_val', '2-1-2' => 'input_seven_val',
+                '2-2-0' => 'input_seven_val', '2-2-1' => 'input_seven_val', '2-2-2' => 'input_seven_val',
+            ),
+            'input_eight' => array(
+                '0-0-0' => 'input_eight_val', '0-0-1' => 'input_eight_val', '0-0-2' => 'input_eight_val',
+                '0-1-0' => 'input_eight_val', '0-1-1' => 'input_eight_val', '0-1-2' => 'input_eight_val',
+                '0-2-0' => 'input_eight_val', '0-2-1' => 'input_eight_val', '0-2-2' => 'input_eight_val',
+                '1-0-0' => 'input_eight_val', '1-0-1' => 'input_eight_val', '1-0-2' => 'input_eight_val',
+                '1-1-0' => 'input_eight_val', '1-1-1' => 'input_eight_val', '1-1-2' => 'input_eight_val',
+                '1-2-0' => 'input_eight_val', '1-2-1' => 'input_eight_val', '1-2-2' => 'input_eight_val',
+                '2-0-0' => 'input_eight_val', '2-0-1' => 'input_eight_val', '2-0-2' => 'input_eight_val',
+                '2-1-0' => 'input_eight_val', '2-1-1' => 'input_eight_val', '2-1-2' => 'input_eight_val',
+                '2-2-0' => 'input_eight_val', '2-2-1' => 'input_eight_val', '2-2-2' => 'input_eight_val',
+            ),
+            'input_nine' => array(
+                '0-0-0-0' => 'input_nine_val', '0-0-0-1' => 'input_nine_val',
+                '0-0-1-0' => 'input_nine_val', '0-0-1-1' => 'input_nine_val',
+                '0-0-2-0' => 'input_nine_val', '0-0-2-1' => 'input_nine_val',
+                '0-1-0-0' => 'input_nine_val', '0-1-0-1' => 'input_nine_val',
+                '0-1-1-0' => 'input_nine_val', '0-1-1-1' => 'input_nine_val',
+                '0-1-2-0' => 'input_nine_val', '0-1-2-1' => 'input_nine_val',
+                '0-2-0-0' => 'input_nine_val', '0-2-0-1' => 'input_nine_val',
+                '0-2-1-0' => 'input_nine_val', '0-2-1-1' => 'input_nine_val',
+                '0-2-2-0' => 'input_nine_val', '0-2-2-1' => 'input_nine_val',
+                '1-0-0-0' => 'input_nine_val', '1-0-0-1' => 'input_nine_val',
+                '1-0-1-0' => 'input_nine_val', '1-0-1-1' => 'input_nine_val',
+                '1-0-2-0' => 'input_nine_val', '1-0-2-1' => 'input_nine_val',
+                '1-1-0-0' => 'input_nine_val', '1-1-0-1' => 'input_nine_val',
+                '1-1-1-0' => 'input_nine_val', '1-1-1-1' => 'input_nine_val',
+                '1-1-2-0' => 'input_nine_val', '1-1-2-1' => 'input_nine_val',
+                '1-2-0-0' => 'input_nine_val', '1-2-0-1' => 'input_nine_val',
+                '1-2-1-0' => 'input_nine_val', '1-2-1-1' => 'input_nine_val',
+                '1-2-2-0' => 'input_nine_val', '1-2-2-1' => 'input_nine_val',
+                '2-0-0-0' => 'input_nine_val', '2-0-0-1' => 'input_nine_val',
+                '2-0-1-0' => 'input_nine_val', '2-0-1-1' => 'input_nine_val',
+                '2-0-2-0' => 'input_nine_val', '2-0-2-1' => 'input_nine_val',
+                '2-1-0-0' => 'input_nine_val', '2-1-0-1' => 'input_nine_val',
+                '2-1-1-0' => 'input_nine_val', '2-1-1-1' => 'input_nine_val',
+                '2-1-2-0' => 'input_nine_val', '2-1-2-1' => 'input_nine_val',
+                '2-2-0-0' => 'input_nine_val', '2-2-0-1' => 'input_nine_val',
+                '2-2-1-0' => 'input_nine_val', '2-2-1-1' => 'input_nine_val',
+                '2-2-2-0' => 'input_nine_val', '2-2-2-1' => 'input_nine_val', '2-2-2-2' => 'input_nine_val', '2-2-2-3' => 'input_nine_val', '2-2-2-4' => 'input_nine_val', '2-2-2-5' => 'input_nine_val', '2-2-2-6' => 'input_nine_val', '2-2-2-7' => 'input_nine_val', '2-2-2-8' => 'input_nine_val', '2-2-2-9' => 'input_nine_val', '2-2-2-10' => 'input_nine_val', '2-2-2-11' => 'input_nine_val', '2-2-2-12' => 'input_nine_val',
+            ),
+            'input_ten' => array(
+                '0-0-0-0' => 'input_ten_val', '0-0-0-1' => 'input_ten_val',
+                '0-0-1-0' => 'input_ten_val', '0-0-1-1' => 'input_ten_val',
+                '0-0-2-0' => 'input_ten_val', '0-0-2-1' => 'input_ten_val',
+                '0-1-0-0' => 'input_ten_val', '0-1-0-1' => 'input_ten_val',
+                '0-1-1-0' => 'input_ten_val', '0-1-1-1' => 'input_ten_val',
+                '0-1-2-0' => 'input_ten_val', '0-1-2-1' => 'input_ten_val',
+                '0-2-0-0' => 'input_ten_val', '0-2-0-1' => 'input_ten_val',
+                '0-2-1-0' => 'input_ten_val', '0-2-1-1' => 'input_ten_val',
+                '0-2-2-0' => 'input_ten_val', '0-2-2-1' => 'input_ten_val',
+                '1-0-0-0' => 'input_ten_val', '1-0-0-1' => 'input_ten_val',
+                '1-0-1-0' => 'input_ten_val', '1-0-1-1' => 'input_ten_val',
+                '1-0-2-0' => 'input_ten_val', '1-0-2-1' => 'input_ten_val',
+                '1-1-0-0' => 'input_ten_val', '1-1-0-1' => 'input_ten_val',
+                '1-1-1-0' => 'input_ten_val', '1-1-1-1' => 'input_ten_val',
+                '1-1-2-0' => 'input_ten_val', '1-1-2-1' => 'input_ten_val',
+                '1-2-0-0' => 'input_ten_val', '1-2-0-1' => 'input_ten_val',
+                '1-2-1-0' => 'input_ten_val', '1-2-1-1' => 'input_ten_val',
+                '1-2-2-0' => 'input_ten_val', '1-2-2-1' => 'input_ten_val',
+                '2-0-0-0' => 'input_ten_val', '2-0-0-1' => 'input_ten_val',
+                '2-0-1-0' => 'input_ten_val', '2-0-1-1' => 'input_ten_val',
+                '2-0-2-0' => 'input_ten_val', '2-0-2-1' => 'input_ten_val',
+                '2-1-0-0' => 'input_ten_val', '2-1-0-1' => 'input_ten_val',
+                '2-1-1-0' => 'input_ten_val', '2-1-1-1' => 'input_ten_val',
+                '2-1-2-0' => 'input_ten_val', '2-1-2-1' => 'input_ten_val',
+                '2-2-0-0' => 'input_ten_val', '2-2-0-1' => 'input_ten_val',
+                '2-2-1-0' => 'input_ten_val', '2-2-1-1' => 'input_ten_val',
+                '2-2-2-0' => 'input_ten_val', '2-2-2-1' => 'input_ten_val',
+            ),
+        );
+        return $all_values;
     }
 
 }

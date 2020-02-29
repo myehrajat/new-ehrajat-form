@@ -27,6 +27,7 @@ class debug {
      **************************************************/
     function error_log( $error_txt ) {
         if ( LOGGING ) {
+			//echo $error_txt.'<br>';
             $backtrace = debug_backtrace();
             unset( $backtrace[ 0 ] );
             $func_series = '';

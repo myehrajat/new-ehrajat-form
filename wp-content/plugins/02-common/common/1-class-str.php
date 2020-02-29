@@ -168,6 +168,8 @@ implements str_interface {
     }
 
     function starts_with( $string, $startString ) {
+		settype($string,'string');
+		settype($startString,'string');
         $len = strlen( $startString );
         return ( substr( $string, 0, $len ) === $startString );
     }

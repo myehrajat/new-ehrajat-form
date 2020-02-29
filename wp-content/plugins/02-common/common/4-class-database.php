@@ -104,7 +104,7 @@ implements database_interface {
                 $columns = array_keys( $column_value );
                 $sql = "INSERT  INTO " . $table . "(`" . implode( '`,`', $columns ) . "`";
                 if ( !empty( $column_mysql_code ) ) {
-                    $sql .= ',' . implode( ',', $column_mysql_code_column );
+                    $sql .= ',`' . implode( '`,`', $column_mysql_code_column ).'`';
                 }
                 $sql .= ") VALUES (";
                 $sql .= "'" . implode( "','", $column_value ) . "'";
