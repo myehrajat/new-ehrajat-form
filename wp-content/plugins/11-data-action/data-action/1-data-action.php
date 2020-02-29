@@ -2,10 +2,8 @@
 class data_action extends process {
     function __construct() {
         parent::__construct();
-        //krm($GLOBALS[ 'vals' ][ '__sst__data_actions' ]);
         if ( $GLOBALS[ 'vals' ][ '__sst__data_actions' ] ) {
             $this->vals = $GLOBALS[ 'vals' ];
-            //krm($GLOBALS[ 'vals' ]);
             $this->get_data_actions();
             $this->do_data_actions();
 
@@ -17,27 +15,59 @@ class data_action extends process {
         $data_action_ids_str = $this->vals[ '__sst__data_actions' ];
         $data_action_ids = $this->get_ids( $data_action_ids_str );
         foreach ( $data_action_ids as $data_action_id ) {
-            $this->data_actions[] = $this->get_by_id( $data_action_id, $GLOBALS[ 'sst_tables' ][ 'data_action' ] );
+            $data_action_obj = $this->get_by_id( $data_action_id, $GLOBALS[ 'sst_tables' ][ 'data_action' ] );
+            if ( !empty( $data_action_obj ) ) {
+                $this->data_actions[] = $data_action_obj;
+            } else {
+                $this->error_log( 'this data action id cant be retrived:' . $data_action_id );
+            }
         }
     }
 
     function do_data_actions() {
-        foreach ( $this->data_actions as $data_action_obj ) {
-            $this->data_action_obj = $data_action_obj;
-            $this->do_data_action( $this->data_action_obj );
+        if ( !empty( $this->data_actions ) ) {
+            foreach ( $this->data_actions as $data_action_obj ) {
+                $this->data_action_obj = $data_action_obj;
+                $this->do_data_action( $this->data_action_obj );
+            }
+            unset( $this->data_action_obj );
+        } else {
+            $this->error_log( '$this->data_actions is empty' );
         }
-        unset( $this->data_action_obj );
     }
 
     function do_data_action( $data_action_obj ) {
         global $wpdb;
         switch ( $this->mode ) {
             case "add":
-
+                //create_save_id_column_if_not_exist();
                 $this->create_colval_data( $data_action_obj->colval_ids );
-                //$q = "INSERT INTO `".$wpdb->prefix.CUSTOM_DB_PREFIX.$data_action_obj->table."` ("..")"
+                foreach ( $this->db_data as $one_ready_data ) {
+                    $one_ready_data[ 'save_id' ] = addslashes( $_REQUEST[ '__sst__unique' ] );
+                    $this->add_to_table( $wpdb->prefix . $data_action_obj->table, $one_ready_data, $this->mysql_code_col_vals );
+                }
                 break;
             case "edit":
+				$ids=array();
+                $this->create_colval_data( $data_action_obj->colval_ids );
+				$select = "SELECT * FROM ".$wpdb->prefix . $data_action_obj->table." WHERE `save_id`='".addslashes( $_REQUEST[ '__sst__unique' ]) ."';";
+				$results = $wpdb->get_results($select);
+				foreach($results as $results){
+					$ids[] = $results->id;
+				}
+				$delete = "DELETE FROM ".$wpdb->prefix . $data_action_obj->table." WHERE `save_id`='".addslashes( $_REQUEST[ '__sst__unique' ]) ."';";
+				$wpdb->query($delete);
+				//die;
+				$i=0;
+                foreach ( $this->db_data as $one_ready_data ) {
+					if(isset($ids[$i])){
+						$one_ready_data[ 'id' ] = $ids[$i];
+					}
+                    $one_ready_data[ 'save_id' ] = addslashes( $_REQUEST[ '__sst__unique' ] );
+                    $this->add_to_table( $wpdb->prefix . $data_action_obj->table, $one_ready_data, $this->mysql_code_col_vals );
+					$i++;
+                }
+
                 //$this->create_colval_data( $data_action_obj->colval_ids );
                 break;
             case "view":
@@ -45,13 +75,10 @@ class data_action extends process {
                 break;
         }
 
-        foreach ( $this->db_data as $one_ready_data ) {
-            $this->add_to_table( $wpdb->prefix . $data_action_obj->table, $one_ready_data, $this->mysql_code_col_vals );
-        }
     }
 
     function create_colval_data( $colval_ids_str ) {
-
+        //krm($this->vals);
         $this->mysql_code_col_vals = '';
         $colval_ids = $this->get_ids( $colval_ids_str );
         $i = 0;
@@ -135,8 +162,10 @@ class data_action extends process {
                     break;
             }
         }
-        $all_values = $this->do_ecode_multiple( $all_values, $ecodes_multiple, $group_input_name );
+        $all_values = $this->more_element_last( $all_values );
 
+        $all_values = $this->do_ecode_multiple( $all_values, $ecodes_multiple, $group_input_name );
+        $all_values = $this->more_element_last( $all_values );
         //krm( $all_values ); // this is original sent data before triggering data-action
         $ready_data = $this->create_all_data( $all_values );
         //krm( $ready_data ); //this used for creating database query 
@@ -146,14 +175,16 @@ class data_action extends process {
         //krm( $ready_data ); //this used for creating database query 
 
 
-		$ready_data = $this->delete_temp_cloumns($ready_data,$is_there_temp);
-        $this->ready_data_for_db( $ready_data, $sorted_colvals_obj );
+        $ready_data = $this->delete_temp_cloumns( $ready_data, $is_there_temp );
+        $this->db_data = $ready_data;
+        //$this->ready_data_for_db( $ready_data, $sorted_colvals_obj );
         //krm( $this->db_data ); //this is for creating database query 
         //krm( $final_vals ); //this used for saving in vals table
         $this->save_final_vals( $save_raw_data );
 
     }
-	function delete_temp_cloumns($ready_data,$is_there_temp){
+
+    function delete_temp_cloumns( $ready_data, $is_there_temp ) {
         if ( $is_there_temp === true ) {
             foreach ( $ready_data as $k => $single_data ) {
                 foreach ( $single_data as $column_name => $column_value ) {
@@ -163,8 +194,8 @@ class data_action extends process {
                 }
             }
         }
-		return $ready_data;
-	}
+        return $ready_data;
+    }
     /**********
     this will get all_values and an input_name and find its input parent eg your provided input is aa[0][0][0] it and there is bb[0][0] this functiom return  bb[0][0]
     ******/
@@ -232,11 +263,7 @@ class data_action extends process {
 
 
     function group_data( $all_values, $group_by_input_name ) {
-        //static $parent, $grouped;
         $parent = false;
-        //$all_values = $this->sample_data();
-        //$group_by_input_name = 'input_nine';
-
         $parent_input_name = $this->get_parent_input_name( $all_values, $group_by_input_name );
         //krm($all_values);
         //krm($group_by_input_name);
@@ -307,11 +334,16 @@ class data_action extends process {
     #move element (input with same level) with more data to last
     function more_element_last( $all_values ) {
         $array_key_last = array_key_last( $all_values );
+        //krm($array_key_last);
         $i = 0;
-        foreach ( $all_values as $input_name => $input_values ) {
-            if ( $array_key_last !== $input_name ) {
-                if ( count( $input_values ) > count( next( $all_values ) ) ) {
+        foreach ( $all_values as $col_name => $col_values ) {
+			 $next = next( $all_values );
+            if ( $next) {
+                if ( count( $col_values ) > count(  $next ) ) {
+                    //krm( $col_values);
+                    //krm(  next( $all_values ));
                     $this->move_element( $all_values, $i, $i + 1 );
+                    //krm($all_values);
                 }
             }
             $i++;
@@ -320,7 +352,6 @@ class data_action extends process {
     }
 
     function create_all_data( $all_values ) {
-        $all_values = $this->more_element_last( $all_values );
         $all_values = array_reverse( $all_values );
         foreach ( $all_values as $input_name => $input_values ) {
             if ( !isset( $result ) ) {
@@ -338,11 +369,29 @@ class data_action extends process {
                 }
             }
         }
-
-
         return $result;
-
     }
+
+    function do_ecodes( $ready_data, $ecodes ) {
+        if ( !empty( $ecodes ) ) {
+            foreach ( $ready_data as $k => $single_record ) {
+                foreach ( $ecodes as $input_name => $ecode ) {
+                    $ready_data[ $k ][ $input_name ] = $this->run_eval( EVAL_STR . $this->replace_attribute_short_codes( $ecode, $single_record, '{vals:', '}', '\'' ) . ';' );
+                }
+            }
+        }
+        return $ready_data;
+    }
+    /*
+        #return array of column database as key and input value as values
+        function ready_data_for_db( $ready_data, $sorted_colvals_obj ) {
+            foreach ( $ready_data as $i => $one_record_data ) {
+                foreach ( $sorted_colvals_obj as $colval ) {
+                    $this->db_data[ $i ][ $colval[ 'colval_obj' ]->column ] = $one_record_data[ $colval[ 'colval_obj' ]->column ];
+                }
+            }
+        }
+    */
     #return child  true if its child route .sibling will return false
     function starts_with_route( $child_route, $parent_route ) {
         if ( ( $this->starts_with( $child_route, $parent_route )and $this->is_after_base_route_dash( $child_route, $parent_route ) ) ) {
@@ -353,91 +402,16 @@ class data_action extends process {
     }
 
 
-    function group_for_ecodes_multiple( $all_values, $ecodes_multiple ) {
-        foreach ( $ecodes_multiple as $input_name => $ecode_multiple ) {
-            //krm( $all_values[$input_name]);
-            //krm(array_key_first($all_values[$input_name]));
-            $route = array_key_first( $all_values[ $input_name ] );
-            if ( $route !== '*' ) {
-                //krm($route);
-                $route_exploded = explode( '-', $route );
-                $route_count = count( $route_exploded );
-                if ( $route_count > 1 ) {
-                    foreach ( $all_values[ $input_name ] as $input_name_route => $input_name_value ) {
-                        $new_input_name_route = explode( '-', $input_name_route );
-                        array_pop( $new_input_name_route );
-                        $new_input_name_route = implode( '-', $new_input_name_route );
-                        $all_values[ $input_name ][ $new_input_name_route ][] = $all_values[ $input_name ][ $input_name_route ];
-                        unset( $all_values[ $input_name ][ $input_name_route ] );
-
-                    }
-                    //krm( $all_values[ $input_name ] );
-                } else { //if($route_count==1) eg vvvv[0]
-                    $all_values[ $input_name ][ '*' ] = $all_values[ $input_name ];
-                }
-            } else {
-                $all_values = $all_values;
-            }
-            /*
-            krm( $all_values[$input_name]);
-            $arr =  explode('-',array_key_first($all_values[$input_name]));
-            array_pop($arr);
-            krm( $arr);
-            $all_values[$input_name];
-            */
-        }
-        return $all_values;
-    }
-
-    function do_ecodes( $ready_data, $ecodes ) {
-        if ( !empty( $ecodes ) ) {
-            foreach ( $ready_data as $k => $single_record ) {
-                foreach ( $ecodes as $input_name => $ecode ) {
-
-                    $ready_data[ $k ][ $input_name ] = $this->run_eval( EVAL_STR . $this->replace_attribute_short_codes( $ecode, $single_record, '{vals:', '}', '\'' ) . ';' );
-                }
-
-            }
-        }
-        //krm($ready_data);
-        return $ready_data;
-    }
-    #https://stackoverflow.com/questions/6875913/simple-how-to-replace-all-between-with-php
-    function insert_between( $string, $pre, $after, $insert_between ) {
-        $search = "/[^" . addslashes( $pre ) . "](.*)[^" . addslashes( $after ) . "/";
-        $replace = $insert_between;
-        $string = $string;
-        return preg_replace( $search, $replace, $string );
-    }
-
-    function save_final_vals( $save_raw_data ) {
-        $final_vals = $this->prepare_final_vals( $save_raw_data );
-        $this->save_vals( $final_vals );
-    }
-    #return array of column database as key and input value as values
-    function ready_data_for_db( $ready_data, $sorted_colvals_obj ) {
-        //krm( $ready_data );
-        foreach ( $ready_data as $i => $one_record_data ) {
-            foreach ( $sorted_colvals_obj as $colval ) {
-                $this->db_data[ $i ][ $colval[ 'colval_obj' ]->column ] = $one_record_data[ $colval[ 'colval_obj' ]->column ];
-            }
+    function is_after_base_route_dash( $other_route, $base_route ) {
+        if ( mb_substr( $other_route, strlen( ( string )$base_route ), 1 ) == '-' ) {
+            return true;
+        } else {
+            return false;
         }
     }
+    /****************************************************/
 
-    function prepare_final_vals( $all_values ) {
-        $all_values;
-        foreach ( $all_values as $input_name => $possible_values ) {
-            foreach ( $possible_values as $route => $single_value ) {
-                if ( $route !== '*' ) {
-                    $input_html_route = '[' . implode( '][', explode( '-', $route ) ) . ']';
-                    $final_vals[ $input_name . $input_html_route ] = $single_value;
-                } else {
-                    $final_vals[ $input_name ] = $single_value;
-                }
-            }
-        }
-        return $final_vals;
-    }
+    /************************************************/
 
     function upload_files( $files, $colval_file_path = NULL, $default_data_action_file_path = NULL ) {
         //krm($files);
@@ -521,13 +495,9 @@ class data_action extends process {
     }
 
 
-    function is_after_base_route_dash( $other_route, $base_route ) {
-        if ( mb_substr( $other_route, strlen( ( string )$base_route ), 1 ) == '-' ) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    /****************************************************************************************/
+
+    /****************************************************************************************/
     //source:https://ideone.com/1dBqx
     function flatten( $array, $sep = '-', $prefix = '' ) {
         $result = array();
@@ -542,7 +512,6 @@ class data_action extends process {
             }
         } else {
             if ( debug_backtrace()[ 1 ][ 'function' ] !== __FUNCTION__ ) {
-
                 $result[ '*' ] = $array;
             }
         }
@@ -575,27 +544,38 @@ class data_action extends process {
         if ( is_array( $arr ) ) {
             if ( debug_backtrace()[ 1 ][ 'function' ] !== __FUNCTION__ ) {
                 $dep = 0;
-                // $last_keys = '';
-
             }
-
-            // $array_keys = array_keys( $arr );
-            // $last_key .= '-' . end( $array_keys );
-            //krm( $arr );
             $dep++;
             $this->find_array_depth( reset( $arr ) );
         } else {
             if ( debug_backtrace()[ 1 ][ 'function' ] !== __FUNCTION__ ) {
                 $dep = 0;
-                // $last_keys = '';
-
             }
             return $dep;
-
         }
-        // krm( $arr );
-        // krm( $last_key );
         return $dep;
+    }
+    /****************************************************************************************/
+
+    /****************************************************************************************/
+    function save_final_vals( $save_raw_data ) {
+        $final_vals = $this->prepare_final_vals( $save_raw_data );
+        $this->save_vals( $final_vals );
+    }
+
+    function prepare_final_vals( $all_values ) {
+        $all_values;
+        foreach ( $all_values as $input_name => $possible_values ) {
+            foreach ( $possible_values as $route => $single_value ) {
+                if ( $route !== '*' ) {
+                    $input_html_route = '[' . implode( '][', explode( '-', $route ) ) . ']';
+                    $final_vals[ $input_name . $input_html_route ] = $single_value;
+                } else {
+                    $final_vals[ $input_name ] = $single_value;
+                }
+            }
+        }
+        return $final_vals;
     }
 
     function sample_data() {

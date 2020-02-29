@@ -173,7 +173,15 @@ implements str_interface {
         $len = strlen( $startString );
         return ( substr( $string, 0, $len ) === $startString );
     }
-
+	/* NOT USED ANY WHERE
+    #https://stackoverflow.com/questions/6875913/simple-how-to-replace-all-between-with-php
+    function insert_between( $string, $pre, $after, $insert_between ) {
+        $search = "/[^" . addslashes( $pre ) . "](.*)[^" . addslashes( $after ) . "/";
+        $replace = $insert_between;
+        $string = $string;
+        return preg_replace( $search, $replace, $string );
+    }
+*/
     function is_valid_pattern( $pattern ) {
         if ( @preg_match( $pattern, 'test for pattern' ) === false ) {
             return false;

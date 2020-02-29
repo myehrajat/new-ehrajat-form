@@ -53,10 +53,8 @@ class process extends data_creator {
 
     function generate_vals() {
         $this->save_vals();
-        //krm($this->vals);
+		//krm($this->vals);
         $GLOBALS[ 'vals' ] = $this->vals;
-        //krm($GLOBALS[ 'vals' ]);
-
     }
 
     function save_files_to_vals() {
@@ -76,10 +74,7 @@ class process extends data_creator {
             global $wpdb;
             $db_vals = $this->get_vals();
             if ( empty( $final_vals ) ) {
-                //krm( $db_vals);
                 $files = $this->save_files_to_vals();
-                //krm( $files);
-
                 $form_vals = $_REQUEST;
                 $merged_vals = array_merge( $db_vals, $form_vals, $files );
             } else {
@@ -89,6 +84,7 @@ class process extends data_creator {
             if ( PROCESS_COMPRESS_VALS == true ) {
                 $vals = gzdeflate( $vals, 9 );
             }
+			//krm( $db_vals);
             if ( empty( $db_vals ) ) {
                 $q = $wpdb->prepare( "INSERT INTO " . $GLOBALS[ 'sst_tables' ][ 'vals' ] .
                     " (`key`, `value`, `owner`, `created`, `modified`) 
@@ -96,7 +92,6 @@ class process extends data_creator {
             } else {
                 $q = $wpdb->prepare( "UPDATE " . $GLOBALS[ 'sst_tables' ][ 'vals' ] .
                     " SET `value`='" . "%s" . "', `owner`=" . "%d" . ", `modified`=NOW() WHERE `key`='" . "%s" . "';", array( $vals, $this->user_id, $_REQUEST[ '__sst__unique' ] ) );
-
             }
             $wpdb->query( $q );
             $this->vals = $merged_vals;
@@ -105,11 +100,12 @@ class process extends data_creator {
             or $this->mode == 'view' ) {
             $record_id = $_REQUEST[ PROCESS_RECORD_ID_KEYWORD ];
             $this->vals = $this->get_vals( $record_id );
+			$this->vals[ '__sst__unique' ] = $_REQUEST[ PROCESS_RECORD_ID_KEYWORD ];
         }
     }
 
     function get_vals( $__sst__unique = NULL ) {
-        if ( $__sst__unique == NULL ) {
+        if ( empty($__sst__unique) ) {
             $__sst__unique = $_REQUEST[ '__sst__unique' ];
         }
         if ( !empty( $__sst__unique ) ) {
@@ -161,8 +157,14 @@ class process extends data_creator {
         $this->generate_super_unique();
         $this->generate_condition_ids();
         $this->generate_data_action_ids();
+        $this->generate_mode();
     }
 
+    function generate_mode() {
+            $this->process_data[ 'form_data' ][ 'inputs_data' ][] = array( 'input_type' => 'simple-hidden',
+                'input_html_type' => 'hidden',
+                'attrs' => array( 'type' => 'hidden', 'name' => '__sst__mode', 'value' =>$this->mode) );
+    }
     function generate_condition_ids() {
         if ( !empty( $this->process_obj->condition_ids ) ) {
             $this->process_data[ 'form_data' ][ 'inputs_data' ][] = array( 'input_type' => 'simple-hidden',

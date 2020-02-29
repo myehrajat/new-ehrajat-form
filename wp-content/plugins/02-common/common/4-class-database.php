@@ -128,7 +128,46 @@ implements database_interface {
             $this->error_log( 'column_value must be array!' );
         }
     }
+    /**************************************************
+     *version 1.0.0
+     *this function is for adding to table
+     **************************************************/
+    function update_data_record( string $table, array $column_value,string $where_clause, $column_mysql_code = array() ) {
+        global $wpdb;
+        if ( !is_array( $column_mysql_code ) ) {
+            $column_mysql_code = array();
+        }
+        if ( is_array( $column_value ) ) {
+            if ( !empty( $column_value ) ) {
+                $sql = "UPDATE " . $table . " ";
+				foreach($column_value as $column=>$value){
+					$data[] = "`" . $column . "`='".$value."'";
+				}
+                if ( !empty( $column_mysql_code ) ) {
+					foreach($column_mysql_code as $column=>$value){
+						$data[] = "`" . $column . "`=".$value."";
+					}
+                }
+				$sql .= implode(',',$data);
+                $sql .= " WHERE ";
+                $sql .= $where_clause;
 
+                $result = $wpdb->query( $sql );
+                if ( $wpdb->last_error !== '' ) {
+                    //$wpdb->print_error();
+                    $this->error_log( '$this->update_data_record() MYSQL syntax error:' . $wpdb->print_error() );
+                    return false;
+                } else {
+
+                    return true;
+                }
+            } else {
+                $this->error_log( 'column_value must Not be empty!' );
+            }
+        } else {
+            $this->error_log( 'column_value must be array!' );
+        }
+    }
     /**************************************************
      *version 1.0.0
      *this function drop core tables

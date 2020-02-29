@@ -120,7 +120,11 @@ implements common_interface {
     }
 	function get_mode(){
 		$this->mode = strtolower($_REQUEST[COMMON_MODE_KEYWORD]);
-		if(!isset($_REQUEST[COMMON_MODE_KEYWORD])){
+		if(isset($_REQUEST[COMMON_MODE_KEYWORD])){
+			$this->mode = $_REQUEST[COMMON_MODE_KEYWORD];
+		}elseif(isset($_REQUEST['__sst__mode'])){
+			$this->mode = $_REQUEST['__sst__mode'];
+		}else{
 			$this->mode = 'add';
 		}
 	} 
