@@ -48,38 +48,39 @@ class data_action extends process {
                 }
                 break;
             case "edit":
-				$ids=array();
+                $ids = array();
                 $this->create_colval_data( $data_action_obj->colval_ids );
-				$select = "SELECT * FROM ".$wpdb->prefix . $data_action_obj->table." WHERE `save_id`='".addslashes( $_REQUEST[ '__sst__unique' ]) ."';";
-				$results = $wpdb->get_results($select);
-				foreach($results as $results){
-					$ids[] = $results->id;
-				}
-				$delete = "DELETE FROM ".$wpdb->prefix . $data_action_obj->table." WHERE `save_id`='".addslashes( $_REQUEST[ '__sst__unique' ]) ."';";
-				$wpdb->query($delete);
-				//die;
-				$i=0;
+                $select = "SELECT * FROM " . $wpdb->prefix . $data_action_obj->table . " WHERE `save_id`='" . addslashes( $_REQUEST[ '__sst__unique' ] ) . "';";
+                $results = $wpdb->get_results( $select );
+                foreach ( $results as $results ) {
+                    $ids[] = $results->id;
+                }
+                $delete = "DELETE FROM " . $wpdb->prefix . $data_action_obj->table . " WHERE `save_id`='" . addslashes( $_REQUEST[ '__sst__unique' ] ) . "';";
+                $wpdb->query( $delete );
+                $i = 0;
                 foreach ( $this->db_data as $one_ready_data ) {
-					if(isset($ids[$i])){
-						$one_ready_data[ 'id' ] = $ids[$i];
-					}
+                    if ( isset( $ids[ $i ] ) ) {
+                        $one_ready_data[ 'id' ] = $ids[ $i ];
+                    }
                     $one_ready_data[ 'save_id' ] = addslashes( $_REQUEST[ '__sst__unique' ] );
                     $this->add_to_table( $wpdb->prefix . $data_action_obj->table, $one_ready_data, $this->mysql_code_col_vals );
-					$i++;
+                    $i++;
                 }
-
-                //$this->create_colval_data( $data_action_obj->colval_ids );
                 break;
             case "view":
 
                 break;
+                /*  case "delete":
+				$delete = "DELETE FROM ".$wpdb->prefix . $data_action_obj->table." WHERE `save_id`='".addslashes( $_REQUEST[ '__sst__unique' ]) ."';";
+				$delete = "DELETE FROM ".$GLOBALS[ 'sst_tables' ][ 'vals' ]." WHERE `key`='".addslashes( $_REQUEST[ '__sst__unique' ]) ."';";
+				$wpdb->query($delete);
+                break;
+				*/
         }
 
     }
 
-    function create_colval_data( $colval_ids_str ) {
-        //krm($this->vals);
-        $this->mysql_code_col_vals = '';
+    function sort_all_colval_by_depth( $colval_ids_str ) {
         $colval_ids = $this->get_ids( $colval_ids_str );
         $i = 0;
         foreach ( $colval_ids as $colval_id ) {
@@ -103,182 +104,142 @@ class data_action extends process {
 
         $sort_colval_obj = array_column( $colval_sort_by_depth, 'colval_obj' );
         $sorted_colvals_obj = $this->array_orderby( $colval_sort_by_depth, $sort_depth, SORT_ASC );
-        // krm($sorted_colvals_obj);
-        $save_raw_data;
-        foreach ( $sorted_colvals_obj as $u => $sorted_colvals_vals ) {
-            //krm( $sorted_colvals_vals );
-            switch ( $sorted_colvals_vals[ 'colval_obj' ]->type ) {
-                case "simple-variable":
-                    $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->value ] );
-                    if ( !isset( $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] ) ) {
-                        $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] = $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ];
-                    }
-                    break;
-                case "variable":
-                case "function":
-                    $ecodes[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = 'return ' . $sorted_colvals_vals[ 'colval_obj' ]->value;
-                    $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
-                    if ( !isset( $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] ) ) {
-                        $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
-                    }
-                    break;
-                case "ecode":
-                case "ecode-one-per-record":
-                    $ecodes[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $sorted_colvals_vals[ 'colval_obj' ]->value;
-                    $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
-                    if ( !isset( $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] ) ) {
-                        $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
-                    }
-                    break;
-                case "ecode-group":
-                case "ecode-multiple-per-record":
-                    $ecodes_multiple[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $sorted_colvals_vals[ 'colval_obj' ]->value;
-                    //krm($this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ]);
-                    $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
-                    //krm( $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
-                    if ( !isset( $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] ) ) {
-                        $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
-                    }
-                    break;
-                case "temp":
-                    $is_there_temp = true;
-                    $all_values[ 'DONT-SAVE-ME-' . $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
-                    break;
-                case "file":
-                    $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->upload_files(
-                        $this->vals[ '__sst__files' ][ $sorted_colvals_vals[ 'colval_obj' ]->value ],
-                        $sorted_colvals_vals[ 'colval_obj' ]->file_path,
-                        $this->data_action_obj->default_file_path );
-                    if ( !isset( $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] ) ) {
-                        $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] = $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ];
-                    }
-                    break;
-                case "mysql-code":
-                    $mysql_code_col_vals[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $sorted_colvals_vals[ 'colval_obj' ]->value;
-                    $this->mysql_code_col_vals = $mysql_code_col_vals;
-                    unset( $sorted_colvals_obj[ $u ] );
-                    break;
-                default:
-                    break;
-            }
-        }
-        $all_values = $this->more_element_last( $all_values );
-
-        $all_values = $this->do_ecode_multiple( $all_values, $ecodes_multiple, $group_input_name );
-        $all_values = $this->more_element_last( $all_values );
-        //krm( $all_values ); // this is original sent data before triggering data-action
-        $ready_data = $this->create_all_data( $all_values );
-        //krm( $ready_data ); //this used for creating database query 
-
-        //krm($ecodes);
-        $ready_data = $this->do_ecodes( $ready_data, $ecodes );
-        //krm( $ready_data ); //this used for creating database query 
-
-
-        $ready_data = $this->delete_temp_cloumns( $ready_data, $is_there_temp );
-        $this->db_data = $ready_data;
-        //$this->ready_data_for_db( $ready_data, $sorted_colvals_obj );
-        //krm( $this->db_data ); //this is for creating database query 
-        //krm( $final_vals ); //this used for saving in vals table
-        $this->save_final_vals( $save_raw_data );
-
+        return $sorted_colvals_obj;
     }
 
-    function delete_temp_cloumns( $ready_data, $is_there_temp ) {
-        if ( $is_there_temp === true ) {
-            foreach ( $ready_data as $k => $single_data ) {
-                foreach ( $single_data as $column_name => $column_value ) {
-                    if ( $this->starts_with( $column_name, 'DONT-SAVE-ME-' ) ) {
-                        unset( $ready_data[ $k ][ $column_name ] );
-                    }
+    function create_colval_data( $colval_ids_str ) {
+        $sorted_colvals_obj = $this->sort_all_colval_by_depth( $colval_ids_str );
+        $this->mysql_code_col_vals = '';
+        if ( !empty( $sorted_colvals_obj ) ) {
+            foreach ( $sorted_colvals_obj as $u => $sorted_colvals_vals ) {
+                switch ( $sorted_colvals_vals[ 'colval_obj' ]->type ) {
+                    case "simple-variable":
+                        $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->value ] );
+                        if ( !isset( $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] ) ) {
+                            $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] = $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ];
+                        }
+                        break;
+                    case "variable":
+                    case "function":
+                        $ecodes[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = 'return ' . $sorted_colvals_vals[ 'colval_obj' ]->value;
+                        $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
+                        if ( !isset( $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] ) ) {
+                            $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
+                        }
+                        break;
+                    case "ecode":
+                    case "ecode-one-per-record":
+                        $ecodes[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $sorted_colvals_vals[ 'colval_obj' ]->value;
+                        $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
+                        if ( !isset( $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] ) ) {
+                            $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
+                        }
+                        break;
+                    case "ecode-group":
+                    case "ecode-multiple-per-record":
+                        $ecodes_multiple[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $sorted_colvals_vals[ 'colval_obj' ]->value;
+                        //krm($this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ]);
+                        $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
+                        //krm( $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
+                        if ( !isset( $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] ) ) {
+                            $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
+                        }
+                        break;
+                    case "temp":
+                        $is_there_temp = true;
+                        $all_values[ 'DONT-SAVE-ME-' . $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
+                        break;
+                    case "file":
+                        $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->upload_files(
+                            $this->vals[ '__sst__files' ][ $sorted_colvals_vals[ 'colval_obj' ]->value ],
+                            $sorted_colvals_vals[ 'colval_obj' ]->file_path,
+                            $this->data_action_obj->default_file_path );
+                        if ( !isset( $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->column ] ) ) {
+                            $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ];
+                        }
+                        break;
+                    case "mysql-code":
+                        $mysql_code_col_vals[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $sorted_colvals_vals[ 'colval_obj' ]->value;
+                        $this->mysql_code_col_vals = $mysql_code_col_vals;
+                        unset( $sorted_colvals_obj[ $u ] );
+                        break;
+                    default:
+                        break;
                 }
             }
+            #send columns which has more elements go to last of column level ordering based on number elements of column 
+            $all_values = $this->more_element_last( $all_values );
+
+            $all_values = $this->do_ecode_multiple( $all_values, $ecodes_multiple );
+
+            $all_values = $this->more_element_last( $all_values );
+            //krm( $all_values ); // this is original sent data before triggering data-action
+            $ready_data = $this->create_all_data( $all_values );
+            //krm( $ready_data ); //this used for creating database query 
+
+            //krm($ecodes);
+            $ready_data = $this->do_ecodes( $ready_data, $ecodes );
+            //krm( $ready_data ); //this used for creating database query 
+
+            $ready_data = $this->delete_temp_cloumns( $ready_data, $is_there_temp );
+            $this->db_data = $ready_data;
+            //$this->ready_data_for_db( $ready_data, $sorted_colvals_obj );
+            //krm( $this->db_data ); //this is for creating database query 
+            //krm( $final_vals ); //this used for saving in vals table
+            $this->save_final_vals( $save_raw_data );
+        } else {
+            $this->error_log( 'colval_id provided is not correct no obj found:.' . $colval_id );
         }
-        return $ready_data;
+
     }
+
     /**********
-    this will get all_values and an input_name and find its input parent eg your provided input is aa[0][0][0] it and there is bb[0][0] this functiom return  bb[0][0]
+    this will get all_values and an col_name and find its col parent eg your provided input is aa[0][0][0] it and there is bb[0][0] this functiom return  bb[0][0]
+	process definition: 
+		1.loop through all ecodes with column for grouping as key
+		2.group all values by parent column of key which has get from step one => $g_all_values is an array of group value 
+		3. loop through all groups and and one by one process
+		4.make array of groups by column as string like php code of arrat by prepare_array_str_for_ecode function 
+		5.run eval and replace {array:column} by string of array generated in step 4 and save result in $res by route of first column name of group 
+		6. save all values saved in step 5 to $all_values then return
+		
     ******/
     #https://stackoverflow.com/questions/795625/how-to-set-an-arrays-internal-pointer-to-a-specific-position-php-xml
-    function do_ecode_multiple( $all_values, $ecodes_multiple, $group_input_name ) {
+    function do_ecode_multiple( $all_values, $ecodes_multiple ) {
         if ( !empty( $ecodes_multiple ) ) {
-            foreach ( $ecodes_multiple as $group_input_name => $ecode ) {
-                $g_all_values = $this->group_data( $all_values, $group_input_name );
-                //$all_values[$group_input_name] = $this->do_ecode_multiple( $g_all_values, $ecode, $group_input_name );
-                foreach ( $g_all_values as $k => $all_value ) {
-                    $group_values = $this->prepare_array_str_for_ecode( $all_value );
+            foreach ( $ecodes_multiple as $group_col_name => $ecode ) {
+                $g_all_values = $this->group_data( $all_values, $group_col_name );
+                //$all_values[$group_col_name] = $this->do_ecode_multiple( $g_all_values, $ecode, $group_col_name );
+                foreach ( $g_all_values as $k => $all_single_group_value ) {
+                    $group_values = $this->prepare_array_str_for_ecode( $all_single_group_value );
                     $ecode_group_result = $this->run_eval( EVAL_STR . $this->replace_attribute_short_codes( $ecode, $group_values, '{array:', '}' ) . ';' );
-                    $res[ array_key_first( $all_value[ $group_input_name ] ) ] = $ecode_group_result;
+                    $res[ array_key_first( $all_single_group_value[ $group_col_name ] ) ] = $ecode_group_result;
                 }
-                $all_values[ $group_input_name ] = $res;
+                $all_values[ $group_col_name ] = $res;
             }
         }
         return $all_values;
     }
-
-    function prepare_array_str_for_ecode( $group_values ) {
-        foreach ( $group_values as $column_name => $input_values ) {
-            $array_str = 'array(';
-            foreach ( $input_values as $input_value ) {
-                $array_str_elements[] = "'" . $input_value . "'";
-            }
-            $array_str .= implode( ',', $array_str_elements );
-            $array_str .= ')';
-            $group_values[ $column_name ] = $array_str;
-            $array_str_elements = array();
-        }
-        return $group_values;
-    }
-
-    function get_parent_input_name( $all_values, $input_name ) {
-        if ( debug_backtrace()[ 1 ][ 'function' ] !== __FUNCTION__ and array_key_first( $all_values ) === $input_name ) {
-            return NULL;
-        }
-        //krm( $input_name );
-        //die;
-        $input_name_route_count = count( explode( '-', array_key_first( $all_values[ $input_name ] ) ) );
-        $key_last_input_name = array_key_last( $all_values );
-        while ( key( $all_values ) !== $input_name ) {
-            next( $all_values );
-            if ( $key_last_input_name != $input_name ) {
-                $this->error_log( 'your column for finding parent in get_parent_input_name is not found' );
-                break;
-                return NULL;
-            }
-        }
-        $parent_values = prev( $all_values );
-        $parent_input_name = key( $all_values );
-        $parent_input_route = array_key_first( $parent_values );
-        $parent_input_name_route_count = count( explode( '-', $parent_input_route ) );
-        if ( $parent_input_name_route_count === $input_name_route_count and $parent_input_route !== '*' ) {
-            $parent_input_name = $this->get_parent_input_name( $all_values, $parent_input_name );
-        } elseif ( $parent_input_name_route_count === '*'
-                and $input_name_route_count === '*' ) {
-                $parent_input_name = NULL;
-            }
-            //krm( $parent_input_name);
-            //die;
-        return $parent_input_name;
-    }
-
-
-    function group_data( $all_values, $group_by_input_name ) {
+/*
+scenario:
+1.check is parent top level (extra eg aa[0] or none extra eg aa[*]) if yes no change and return
+2.group by parent save each parent element in one group
+3.make array reverese by column as before has been leveled and most element has been gone to down4
+4.if parent is the last go and check next column which is at same level or parent
+*/
+    function group_data( $all_values, $group_by_col_name ) {
         $parent = false;
-        $parent_input_name = $this->get_parent_input_name( $all_values, $group_by_input_name );
-        //krm($all_values);
-        //krm($group_by_input_name);
-        //krm($parent_input_name);
-
-        if ( count( explode( '-', array_key_first( $all_values[ $group_by_input_name ] ) ) ) == 1 ) {
+        $parent_col_name = $this->get_parent_col_name( $all_values, $group_by_col_name );
+        if ( count( explode( '-', array_key_first( $all_values[ $group_by_col_name ] ) ) ) == 1 ) {
             $grouped[] = $all_values;
             goto return_result;
         }
-
-        foreach ( $all_values[ $parent_input_name ] as $k => $single_value ) {
-            $grouped[ $k ][ $parent_input_name ] = array( $k => $single_value );
+        foreach ( $all_values[ $parent_col_name ] as $k => $single_value ) {
+            $grouped[ $k ][ $parent_col_name ] = array( $k => $single_value );
         }
-        foreach ( array_reverse( $all_values ) as $input_name => $input_values ) {
-            if ( $input_name == $parent_input_name ) {
+        foreach ( array_reverse( $all_values ) as $col_name => $input_values ) {
+			#this means 
+            if ( $col_name == $parent_col_name ) {
                 $parent = true;
                 continue;
             }
@@ -288,7 +249,7 @@ class data_action extends process {
                         settype( $input_route, 'string' );
                         settype( $grouped_route, 'string' );
                         if ( $this->starts_with( $input_route, $grouped_route )and substr( $input_route, strlen( $grouped_route ), 1 ) === '-' ) {
-                            $grouped[ $grouped_route ][ $input_name ][ $input_route ] = $input_value;
+                            $grouped[ $grouped_route ][ $col_name ][ $input_route ] = $input_value;
                         }
                     }
                 }
@@ -308,12 +269,12 @@ class data_action extends process {
                                 //krm( empty( $check ) );
                             }
 
-                            if ( $input_name == 'input_seven' ) {
+                            if ( $col_name == 'input_seven' ) {
                                 //krm( 'ffffffffffffffff' );
                             }
-                            $grouped[ $grouped_route ][ $input_name ][ $input_route ] = $input_value;
+                            $grouped[ $grouped_route ][ $col_name ][ $input_route ] = $input_value;
                         } elseif ( $input_route === '*' ) {
-                            $grouped[ $grouped_route ][ $input_name ][ $input_route ] = $input_value;
+                            $grouped[ $grouped_route ][ $col_name ][ $input_route ] = $input_value;
                         }
                     }
                 }
@@ -325,6 +286,66 @@ class data_action extends process {
             //krm($grouped);
             return $grouped;
     }
+    function get_parent_col_name( $all_values, $input_name ) {
+        if ( debug_backtrace()[ 1 ][ 'function' ] !== __FUNCTION__ and array_key_first( $all_values ) === $input_name ) {
+            return NULL;
+        }
+        //krm( $input_name );
+        //die;
+        $input_name_route_count = count( explode( '-', array_key_first( $all_values[ $input_name ] ) ) );
+        $key_last_input_name = array_key_last( $all_values );
+        while ( key( $all_values ) !== $input_name ) {
+            next( $all_values );
+            if ( $key_last_input_name != $input_name ) {
+                $this->error_log( 'your column for finding parent in get_parent_col_name is not found' );
+                break;
+                return NULL;
+            }
+        }
+        $parent_values = prev( $all_values );
+        $parent_input_name = key( $all_values );
+        $parent_input_route = array_key_first( $parent_values );
+        $parent_input_name_route_count = count( explode( '-', $parent_input_route ) );
+        if ( $parent_input_name_route_count === $input_name_route_count and $parent_input_route !== '*' ) {
+            $parent_input_name = $this->get_parent_col_name( $all_values, $parent_input_name );
+        } elseif ( $parent_input_name_route_count === '*'
+                and $input_name_route_count === '*' ) {
+                $parent_input_name = NULL;
+            }
+            //krm( $parent_input_name);
+            //die;
+        return $parent_input_name;
+    }
+
+    function delete_temp_cloumns( $ready_data, $is_there_temp ) {
+        if ( $is_there_temp === true ) {
+            foreach ( $ready_data as $k => $single_data ) {
+                foreach ( $single_data as $column_name => $column_value ) {
+                    if ( $this->starts_with( $column_name, 'DONT-SAVE-ME-' ) ) {
+                        unset( $ready_data[ $k ][ $column_name ] );
+                    }
+                }
+            }
+        }
+        return $ready_data;
+    }
+
+    function prepare_array_str_for_ecode( $group_values ) {
+        foreach ( $group_values as $column_name => $input_values ) {
+            $array_str = 'array(';
+            foreach ( $input_values as $input_value ) {
+                $array_str_elements[] = "'" . $input_value . "'";
+            }
+            $array_str .= implode( ',', $array_str_elements );
+            $array_str .= ')';
+            $group_values[ $column_name ] = $array_str;
+            $array_str_elements = array();
+        }
+        return $group_values;
+    }
+
+
+
     #https://stackoverflow.com/questions/12624153/move-an-array-element-to-a-new-index-in-php
     function move_element( & $array, $a, $b ) {
         $p1 = array_splice( $array, $a, 1 );
@@ -337,9 +358,9 @@ class data_action extends process {
         //krm($array_key_last);
         $i = 0;
         foreach ( $all_values as $col_name => $col_values ) {
-			 $next = next( $all_values );
-            if ( $next) {
-                if ( count( $col_values ) > count(  $next ) ) {
+            $next = next( $all_values );
+            if ( $next ) {
+                if ( count( $col_values ) > count( $next ) ) {
                     //krm( $col_values);
                     //krm(  next( $all_values ));
                     $this->move_element( $all_values, $i, $i + 1 );
