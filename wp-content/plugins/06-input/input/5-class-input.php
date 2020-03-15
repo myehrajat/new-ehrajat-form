@@ -1,15 +1,15 @@
 <?php
 
 class input extends data_creator {
-	public $input_data;
+    public $input_data;
     private $common_attr_obj;
     private $global_attr_obj;
     private $specific_attr_obj;
     private $custom_attr_obj;
     public $input_obj;
-	
+
     function __construct( $input_id = NULL ) {
-		parent::__construct();
+        parent::__construct();
 
         $input_id = $this->get_ids( $input_id, true );
         if ( !empty( $input_id ) ) {
@@ -33,7 +33,7 @@ class input extends data_creator {
         $input_type_id = $input_obj->type_id;
         $this->input_data[ 'input_type' ] = $this->common_attr_obj->input_type;
         $this->input_data[ 'input_html_type' ] = $this->common_attr_obj->input_html_type;
-		$this->input_data['function'] = $this->common_attr_obj->input_type_obj->function;
+        $this->input_data[ 'function' ] = $this->common_attr_obj->input_type_obj-> function;
 
     }
 
@@ -97,7 +97,7 @@ class input extends data_creator {
         if ( empty( $this->custom_attr_obj->input_data[ 'attrs' ] ) ) {
             $this->custom_attr_obj->input_data[ 'attrs' ] = array();
         }
-		 $this->global_attr_obj->input_data[ 'attrs' ] = $this->autogenerate_id( $this->global_attr_obj->input_data[ 'attrs' ]);
+        $this->global_attr_obj->input_data[ 'attrs' ] = $this->autogenerate_id( $this->global_attr_obj->input_data[ 'attrs' ] );
         //dbg($this->specific_atrributes->input_data[ 'attrs' ]);
         $this->input_data[ 'attrs' ] = array_merge(
             $this->global_attr_obj->input_data[ 'attrs' ],
@@ -105,27 +105,51 @@ class input extends data_creator {
             $this->custom_attr_obj->input_data[ 'attrs' ],
             $this->specific_attr_obj->input_data[ 'attrs' ]
         );
-		
-		$this->input_data = $this->create_access_data($this->input_data,$this->input_obj);
-		$this->input_data = $this->create_unique_id_data($this->input_data);
-		$this->input_data = $this->create_own_data_data($this->input_data);
-		$this->input_data = $this->create_tag_data($this->input_data,$this->input_obj);
+
+        $this->input_data = $this->create_access_data( $this->input_data, $this->input_obj );
+        $this->input_data = $this->create_unique_id_data( $this->input_data );
+        $this->input_data = $this->create_own_data_data( $this->input_data );
+        $this->input_data = $this->create_tag_data( $this->input_data, $this->input_obj );
         if ( class_exists( 'extra' ) ) {
             if ( $this->input_obj->extra > 0 ) {
                 //dbg($this->input_data[ 'attrs' ]['name']); 
-               // $this->input_data[ 'attrs' ][ 'name' ] = $this->input_data[ 'attrs' ][ 'name' ] . '[0]';
-               // $this->input_data[ 'unique_id' ] = $this->input_data[ 'unique_id' ] . '≪0≫';
+                // $this->input_data[ 'attrs' ][ 'name' ] = $this->input_data[ 'attrs' ][ 'name' ] . '[0]';
+                // $this->input_data[ 'unique_id' ] = $this->input_data[ 'unique_id' ] . '≪0≫';
             }
             //$this->input_data['extra'][ 'max' ] = $this->input_obj->extra;
-		}
+        }
+        $this->create_input_metas();
     }
-	function autogenerate_id($attrs){
-		if(INPUT_AUTO_GENERATE_INPUT_ID == 'yes' and !isset($attrs['id']) or empty($attrs['id'])){
-			$attrs['id'] = $this->random_string( 12 );
-		}
-		return $attrs;
-	}
-	function render($input_data = NULL) {
-		return $this->render_input($input_data);
-	}
+
+    function create_input_metas() {
+        if ( !empty( $this->input_obj->input_meta_ids ) ) {
+            $input_meta_ids = $this->get_ids( $this->input_obj->input_meta_ids );
+            if ( !empty( $input_meta_ids ) ) {
+                foreach ( $input_meta_ids as $input_meta_id ) {
+                    $input_meta_obj = $this->get_by_id( $input_meta_id, $GLOBALS[ 'sst_tables' ][ 'input_meta' ] );
+                    if ( !empty( $input_meta_obj ) ) {
+                        $this->input_data[ 'meta' ][ $input_meta_obj->key ] = $input_meta_obj->value;
+
+                    } else {
+                        $this->error_log( 'no input meta found. meta id:' . $input_meta_id . ' in meta id string:' . $this->input_obj->input_meta_ids );
+                    }
+                }
+            } else {
+                $this->error_log( 'input_meta_ids is provided by after processing id string no id remained.' );
+            }
+        }
+    }
+
+    function autogenerate_id( $attrs ) {
+        if ( INPUT_AUTO_GENERATE_INPUT_ID == 'yes'
+            and!isset( $attrs[ 'id' ] )or empty( $attrs[ 'id' ] ) ) {
+            $attrs[ 'id' ] = $this->random_string( 12 );
+        }
+        return $attrs;
+    }
+
+    function render( $input_data = NULL ) {
+        krm( $this->input_data );
+        return $this->render_input( $input_data );
+    }
 }

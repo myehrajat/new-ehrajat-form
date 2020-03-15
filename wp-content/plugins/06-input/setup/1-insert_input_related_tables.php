@@ -12,6 +12,7 @@ class insert_input_related_tables extends database {
     }
 
     function table_names() {
+        $GLOBALS[ 'sst_tables' ][ 'input_meta' ] = $this->full_prefix . 'input_meta';
         $GLOBALS[ 'sst_tables' ][ 'options' ] = $this->full_prefix . 'options';
         $GLOBALS[ 'sst_tables' ][ 'tags' ] = $this->full_prefix . 'tags';
         $GLOBALS[ 'sst_tables' ][ 'user_access' ] = $this->full_prefix . 'user_access';
@@ -21,6 +22,16 @@ class insert_input_related_tables extends database {
     function insert_tables() {
 		global $wpdb;
 
+		##################################################
+        $sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'input_meta' ] . " (" .
+        "`id` INT(10) NOT NULL auto_increment," .
+        "`key` VARCHAR(255) DEFAULT NULL," .
+        "`value` LONGTEXT DEFAULT NULL," .
+        "`description`  LONGTEXT DEFAULT NULL," .
+        "`owner` VARCHAR(255) DEFAULT NULL," .
+        "`created` DATETIME NOT NULL DEFAULT NOW()," .
+        "`modified` DATETIME NOT NULL DEFAULT NOW(),
+        PRIMARY KEY id  (`id`)) $this->collate_charset;";
 		##################################################
         $sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'options' ] . " (" .
         "`id` INT(10) NOT NULL auto_increment," .
