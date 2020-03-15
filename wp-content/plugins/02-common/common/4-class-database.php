@@ -112,7 +112,6 @@ implements database_interface {
                     $sql .= ',' . implode( ',', $column_mysql_code );
                 }
                 $sql .= ")";
-				//krm()
                 $result = $wpdb->query( $sql );
                 if ( $wpdb->last_error !== '' ) {
                     //$wpdb->print_error();
@@ -193,7 +192,6 @@ implements database_interface {
     function create_tables( array $sql_array ) {
         global $wpdb;
         foreach ( $sql_array as $table_query ) {
-            //			krm($table_query);
             $wpdb->query( $table_query );
             if ( $wpdb->last_error !== '' ) {
                 echo $GLOBALS[ 'sst_errors' ][ 0 ];
