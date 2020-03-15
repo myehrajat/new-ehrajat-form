@@ -27,9 +27,8 @@ class block extends data_creator {
                 }
             }
             $fieldset = new fieldset( $fieldset_id, $fieldset_block_id_cause_forever_loop );
-			//krm( $unique_id_suffix_repeat);
             $fieldset->fieldset_data = $this->apply_unique_id_suffix_repeat_fieldset_data( $fieldset->fieldset_data, $unique_id_suffix_repeat );
-			//krm( $fieldset);
+
             $all_fieldsets[] = $fieldset->fieldset_data;
         }
         return $all_fieldsets;
@@ -53,7 +52,6 @@ class block extends data_creator {
                 }
             }
         }
-        //krm($fieldset_data);
         return $fieldset_data;
     }
 
@@ -78,14 +76,11 @@ class block extends data_creator {
         $all_blocks[ $block_id ][ 'unique_id' ] = $all_blocks[ $block_id ][ 'unique_id' ] . str_repeat( '≪0≫', $all_blocks[ $block_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] );
 
         foreach ( $all_blocks[ $block_id ][ 'inputs_data' ] as $l => $input ) {
-            //krm( $input);
             $all_blocks[ $block_id ][ 'inputs_data' ][ $l ][ 'attrs' ][ 'name' ] = $input[ 'attrs' ][ 'name' ] . str_repeat( '[0]', $all_blocks[ $block_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] );
-            //krm( $all_blocks[ $block_id ][ 'inputs_data' ][ $l ]);
             $all_blocks[ $block_id ][ 'inputs_data' ][ $l ][ 'unique_id' ] = $input[ 'unique_id' ] . str_repeat( '≪0≫', $all_blocks[ $block_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] );
         }
 
         $this->prevent_loop[ $block_id ] = $block_id;
-        //krm($all_blocks);
         $all_blocks[ $block_id ][ 'fieldsets_data' ] = $this->create_fieldsets( $this->block_obj->fieldset_ids, $all_blocks[ $block_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] );
 
         if ( !empty( $this->block_obj->block_ids ) ) {
@@ -103,7 +98,6 @@ class block extends data_creator {
             }
 
         }
-        //krm($all_blocks);
         return $all_blocks[ $block_id ];
     }
 

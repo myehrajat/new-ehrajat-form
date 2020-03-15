@@ -42,7 +42,7 @@ class fieldset extends data_creator {
 
 				
                 $block_data[ 'unique_id' ] = $this->str_replace_first( '≪0≫', str_repeat( '≪0≫', $unique_id_suffix_repeat + 1 ), $block_data[ 'unique_id' ] );
-				//krm($block_data[ 'unique_id' ]);
+
                 foreach ( $block_data[ 'inputs_data' ] as $inputs_data_key => $inputs_data ) {
                     $block_data[ 'inputs_data' ][ $inputs_data_key ][ 'unique_id' ] = $this->str_replace_first( '≪0≫', str_repeat( '≪0≫', $unique_id_suffix_repeat + 1 ), $inputs_data[ 'unique_id' ] );
                     $block_data[ 'inputs_data' ][ $inputs_data_key ][ 'attrs' ][ 'name' ] = $this->str_replace_first( '[0]', str_repeat( '[0]', $unique_id_suffix_repeat + 1 ), $inputs_data[ 'attrs' ][ 'name' ] );
@@ -55,7 +55,6 @@ class fieldset extends data_creator {
                 }
             }
         }
-        //krm($block_data);
         return $block_data;
     }
 
@@ -77,7 +76,6 @@ class fieldset extends data_creator {
         }
 
         $this->prevent_loop[ $fieldset_id ] = $fieldset_id;
-		        //krm($all_blocks);
         $all_fieldsets[ $fieldset_id ][ 'blocks_data' ] = $this->create_blocks( $this->fieldset_obj->block_ids , $all_fieldsets[ $fieldset_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] );
 
         //$all_fieldsets[ $fieldset_id ][ 'blocks_data' ] = $this->create_blocks( $this->fieldset_obj->block_ids );

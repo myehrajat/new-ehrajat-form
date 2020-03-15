@@ -184,9 +184,9 @@ class render extends database {
         if ( $input_data == NULL ) {
             $input_data = $this->input_data;
         }
-		//krm(EVAL_STR. 'return '.$input_data['function']."('".addslashes(json_encode($input_data))."');");
+		if(!empty($input_data)){
+
 		$input_data = $this->run_eval(EVAL_STR.'return '.$input_data['function'].'("'.addslashes(json_encode($input_data)).'");');
-		//krm($input_data);
         /*
         if ( $input_data[ 'extra' ][ 'max' ] > 0 ) {
             $extra = new extra( $input_data[ 'extra' ][ 'max' ], $input_data[ 'unique_id' ] );
@@ -195,7 +195,6 @@ class render extends database {
             $input_data[ 'extra' ][ 'controller_position' ] = EXTRA_CONTROLLER_POSITION;
         }
 		*/
-        //dbg($input_data );
         if ( $input_data[ 'access' ][ 'visible' ] == 'no'
             and $this->mode == 'view' ) {
             return '';
@@ -276,7 +275,7 @@ class render extends database {
         $input = '<sst-input id="' . $input_data[ 'unique_id' ] . '" >' . $input . '</sst-input>';
         $this->input = $input;
         return $this->input;
-
+		}
     }
     /*****************
 
@@ -299,7 +298,6 @@ class render extends database {
         if ( $block_data == NULL ) {
             $block_data = $this->block_data;
         }
-		//krm($block_data);
         //create $block_data['extra'] details
         $block_data = $this->create_extra_data( $block_data );
 
@@ -525,7 +523,6 @@ class render extends database {
         if ( $fieldset_data == NULL ) {
             $fieldset_data = $this->fieldset_data;
         }
-		//krm( $fieldset_data);
         $fieldset_data = $this->create_extra_data( $fieldset_data );
         if ( $fieldset_data[ 'access' ][ 'visible' ] == 'no'
             and $this->mode == 'view' ) {

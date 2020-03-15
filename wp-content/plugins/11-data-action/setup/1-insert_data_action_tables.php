@@ -17,7 +17,6 @@ class insert_data_action_tables extends database {
     }
 	
     function insert_tables() {
-		//krm('aaaaa');
 		global $wpdb;
         $sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'data_action' ] . " (" .
         "`id` INT(10) NOT NULL auto_increment," .

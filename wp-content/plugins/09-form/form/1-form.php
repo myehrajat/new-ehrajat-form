@@ -4,7 +4,6 @@ class form extends data_creator {
 				parent::__construct();
 
         $this->get_form_object( $form_id_str );
-		//krm($this->form_obj);
         $this->form_data[ 'id' ] = $this->form_obj->id;
         $this->create_form_attrs(); //$this->form_data['attrs']
         $this->create_form_inputs(); //$this->form_data['inputs']

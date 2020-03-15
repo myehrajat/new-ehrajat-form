@@ -149,7 +149,7 @@ class input extends data_creator {
     }
 
     function render( $input_data = NULL ) {
-        krm( $this->input_data );
+
         return $this->render_input( $input_data );
     }
 }

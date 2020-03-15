@@ -21,17 +21,7 @@ class attribute_generator extends attribute_form_validator implements attribute_
 
         if ( $this->is_valid_custom_attr_name( $attr_name ) ) {
 			
-			//if($attr_name == 'value'){
-				//echo($attr_name_value['name']);
-				//krm($attr_name);
-				//krm($attr_value);
-				//$attr_value = 'text';
-			//}
 			//after data action trigger get the vals in formatted flat with route and generate the same name input cause array as value
-			if(is_array($attr_value)){
-				//krm($attr_name);
-				//krm($attr_value);
-			}
             $attr_value = trim( $attr_value );
             $attr_value = $this->is_eval_run( $attr_value );
             $attr_name = $this->is_eval_run( $attr_name );

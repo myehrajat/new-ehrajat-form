@@ -3,14 +3,12 @@ class process extends data_creator {
     function __construct( $process_id_str=NULL ) {
 
         parent::__construct();
-		//krm($this->get_vals( $_REQUEST['record_id']) );
         if ( !empty( $process_id_str ) ) {
             $this->generate_vals();
-			//krm($this->vals);
+
             $this->apply_conditions();
 
             if ( $this->break_class != true ) {
-                //krm($this->vals);
                 $this->get_process_object( $process_id_str );
                 $this->generate_process_data();
 
@@ -45,7 +43,7 @@ class process extends data_creator {
             $eval_condition = EVAL_STR . $eval_condition_first . $eval_condition_middle . $eval_condition_else;
             unset( $_REQUEST[ '__sst__conditions' ] );
             unset( $this->vals[ '__sst__conditions' ] );
-            //krm($eval_condition);
+
             $this->run_eval( $eval_condition, $this->vals );
             $this->break_class = true;
         }
@@ -53,7 +51,6 @@ class process extends data_creator {
 
     function generate_vals() {
         $this->save_vals();
-		//krm($this->vals);
         $GLOBALS[ 'vals' ] = $this->vals;
     }
 
@@ -84,7 +81,6 @@ class process extends data_creator {
             if ( PROCESS_COMPRESS_VALS == true ) {
                 $vals = gzdeflate( $vals, 9 );
             }
-			//krm( $db_vals);
             if ( empty( $db_vals ) ) {
                 $q = $wpdb->prepare( "INSERT INTO " . $GLOBALS[ 'sst_tables' ][ 'vals' ] .
                     " (`key`, `value`, `owner`, `created`, `modified`) 
@@ -229,7 +225,6 @@ class process extends data_creator {
 			$process_ids = $this->get_ids( $condition_obj->process_ids );
 			foreach($process_ids as $new_process_id){
 				//$roadmap[$process_obj->form_id][]
-				//krm( $condition_obj);
 			}				
 			
 		}

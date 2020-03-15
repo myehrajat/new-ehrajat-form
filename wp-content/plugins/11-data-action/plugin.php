@@ -25,7 +25,6 @@ define('DATA_ACTION_SETUP_PATH',__DIR__.'/setup/');
 # VISIBILTY
 #############################################
 define('DATA_ACTION_DEFAULT_UPLOAD_PATH',$_SERVER['DOCUMENT_ROOT'] . "/images/");
-//krm($_SERVER['DOCUMENT_ROOT'] . "/images/");
 define('CUSTOM_DB_PREFIX','');
 glob_includer(DATA_ACTION_SETUP_PATH);
 new insert_data_action_tables;

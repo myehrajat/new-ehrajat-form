@@ -73,31 +73,25 @@ function test_input(){
 }
 function test_block(){
 	$f = new block(1);
-	//krm($f);
 	echo $f->render();
 }
 	//$f = new field(1);
 function test_fieldset(){
 	$f = new fieldset(1);
-	//krm($f);
 	echo $f->render();
 }
 function test_form(){
 	$f = new form(1);
-	//krm($f);
+
 	echo $f->render();
 }
 function test_process(){
 	//if(!isset($_REQUEST['__sst__step'])){
 	$f = new process(4);
-	//krm($f);
 	echo $f->render();
 	//}
 }
 	//$f = new field(1);
-//krm($_FILES);
-//krm($_POST);
-//krm($vals);
 //add_action ('wp_head','test_process');
 //add_action ('wp_head','test_form');
 //add_action ('wp_head','test_fieldset');

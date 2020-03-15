@@ -100,7 +100,6 @@ class data_action extends process {
             }
         }
         $sort_depth = array_column( $colval_sort_by_depth, 'depth' );
-        //krm($sorted_colvals_obj);
 
         $sort_colval_obj = array_column( $colval_sort_by_depth, 'colval_obj' );
         $sorted_colvals_obj = $this->array_orderby( $colval_sort_by_depth, $sort_depth, SORT_ASC );
@@ -139,9 +138,7 @@ class data_action extends process {
                     case "ecode-group":
                     //case "ecode-multiple-per-record":
                         $ecodes_multiple[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $sorted_colvals_vals[ 'colval_obj' ]->value;
-                        //krm($this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ]);
                         $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
-                        //krm( $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
                         if ( !isset( $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] ) ) {
                             $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
                         }
@@ -171,26 +168,20 @@ class data_action extends process {
                 }
             }
             #send columns which has more elements go to last of column level ordering based on number elements of column 
-			//krm($all_values);
+
             $all_values = $this->more_element_last( $all_values );
 			//QUESTION: USE RAW DATA OR ECODE RUNNED DATA? MAY NEED SOME OPTION TO MAKE SURE WHICH ONE MUST RUN FIRST do_ecode_multiple_before_ecode or do_ecodes
-			//krm($all_values);
             $all_values = $this->do_ecode_multiple_before_ecode( $all_values, $ecodes_multiple );
-			//krm($all_values);
             $all_values = $this->more_element_last( $all_values );
             // this is original sent data before triggering data-action
-			//krm( $all_values ); 
             $ready_data = $this->create_all_data( $all_values );
             //this used for creating database query 
-            //krm($ready_data);
+
             $ready_data = $this->do_ecodes( $ready_data, $ecodes );
-            //krm( $ready_data ); 
 			//this used for creating database query
             $ready_data = $this->delete_temp_cloumns( $ready_data, $is_there_temp );
             $this->db_data = $ready_data;
             //$this->ready_data_for_db( $ready_data, $sorted_colvals_obj );
-            //krm( $this->db_data ); //this is for creating database query 
-            //krm( $final_vals ); //this used for saving in vals table
             $this->save_final_vals( $save_raw_data );
         } else {
             $this->error_log( 'colval_id provided is not correct no obj found:.' . $colval_id );
@@ -215,7 +206,6 @@ class data_action extends process {
             foreach ( $ecodes_multiple as $group_col_name => $ecode ) {
                 $g_all_values = $this->group_data( $all_values, $group_col_name );
 				$parent_col_name = $this->get_parent_col_name( $all_values, $group_col_name );
-				//krm($parent_col_name);
                 //$all_values[$group_col_name] = $this->do_ecode_multiple_before_ecode( $g_all_values, $ecode, $group_col_name );
                 foreach ( $g_all_values as $k => $all_single_group_value ) {
 
@@ -267,19 +257,8 @@ scenario:
                         settype( $input_route, 'string' );
                         settype( $grouped_route, 'string' );
                         $check = substr( $grouped_route, strlen( ( string )$input_route ), 1 );
-                        if ( $check === '0' ) {
-                            //krm( $check );
-                        }
                         if ( $this->starts_with( $grouped_route, $input_route )and( empty( $check )or $check === '-'
                                 or $check === false )and $check !== '0' ) {
-                            if ( $input_route == '0-0-1' ) {
-                                // krm( $check );
-                                //krm( empty( $check ) );
-                            }
-
-                            if ( $col_name == 'input_seven' ) {
-                                //krm( 'ffffffffffffffff' );
-                            }
                             $grouped[ $grouped_route ][ $col_name ][ $input_route ] = $input_value;
                         } elseif ( $input_route === '*' ) {
                             $grouped[ $grouped_route ][ $col_name ][ $input_route ] = $input_value;
@@ -291,15 +270,13 @@ scenario:
 
         }
         return_result:
-            //krm($grouped);
+
             return $grouped;
     }
     function get_parent_col_name( $all_values, $input_name ) {
         if ( debug_backtrace()[ 1 ][ 'function' ] !== __FUNCTION__ and array_key_first( $all_values ) === $input_name ) {
             return NULL;
         }
-        //krm( $input_name );
-        //die;
         $input_name_route_count = count( explode( '-', array_key_first( $all_values[ $input_name ] ) ) );
         $key_last_input_name = array_key_last( $all_values );
         while ( key( $all_values ) !== $input_name ) {
@@ -320,8 +297,6 @@ scenario:
                 and $input_name_route_count === '*' ) {
                 $parent_input_name = NULL;
             }
-            //krm( $parent_input_name);
-            //die;
         return $parent_input_name;
     }
 
@@ -363,16 +338,12 @@ scenario:
     #move element (input with same level) with more data to last
     function more_element_last( $all_values ) {
         $array_key_last = array_key_last( $all_values );
-        //krm($array_key_last);
         $i = 0;
         foreach ( $all_values as $col_name => $col_values ) {
             $next = next( $all_values );
             if ( $next ) {
                 if ( count( $col_values ) > count( $next ) ) {
-                    //krm( $col_values);
-                    //krm(  next( $all_values ));
                     $this->move_element( $all_values, $i, $i + 1 );
-                    //krm($all_values);
                 }
             }
             $i++;
@@ -443,7 +414,6 @@ scenario:
     /************************************************/
 
     function upload_files( $files, $colval_file_path = NULL, $default_data_action_file_path = NULL ) {
-        //krm($files);
         $f_names = $this->flatten( $files[ 'name' ] );
         $f_type = $this->flatten( $files[ 'type' ] );
         $f_tmp_name = $this->flatten( $files[ 'tmp_name' ] );
@@ -462,20 +432,17 @@ scenario:
                     } else {
                         $dest_path = $_SERVER[ 'DOCUMENT_ROOT' ] . '/';
                     }
-                    //krm($dest_path.$files[ 'name' ][$key_route]);
+
                     //$dest_path = ltrim($dest_path,'/');
                 $upload_path = $dest_path . $this->user_id . '_' . time() . '_' . $f_names[ $key_route ];
                 $success = move_uploaded_file( $f_tmp_name[ $key_route ], $upload_path );
                 $upload_url = $this->path2url( $upload_path );
                 if ( $success == true ) {
-                    //krm( $key_route );
-                    //krm( $upload_url );
                     $urls[ $key_route ] = $upload_url;
                 } else {
                     $urls[ $key_route ] = NULL;
                 }
 
-                //krm($r);
             } elseif ( $f_error[ $key_route ] == 1 ) {
                 //The uploaded file exceeds the upload_max_filesize directive in php.ini
             } elseif ( $f_error[ $key_route ] == 2 ) {
@@ -530,7 +497,6 @@ scenario:
     //source:https://ideone.com/1dBqx
     function flatten( $array, $sep = '-', $prefix = '' ) {
         $result = array();
-        //krm($array);
         if ( is_array( $array ) ) {
             foreach ( $array as $key => $value ) {
                 if ( is_array( $value ) ) {

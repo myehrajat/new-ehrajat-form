@@ -74,6 +74,7 @@ class debug {
     }
 
 }
+echo '<style>.krumo-root{text-align:left;}</style>';
 function krm($var){
 	echo '<style>.krumo-root{text-align:left;}</style>';
 	include_once(DEBUG_PLUGIN_ASSET_PATH.'krumo-master/class.krumo.php');
