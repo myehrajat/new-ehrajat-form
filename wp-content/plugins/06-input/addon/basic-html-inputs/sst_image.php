@@ -12,6 +12,8 @@ $sst['description']='This is simple image input type as a HTML code!';
 $sst['slug']='image_field';
 $sst['owner']='Ehrajat';
 $sst['id']=9;
-function sst_image($input_id,$vals=NULL){
-	$attr = new input_attr($input_id);
+function sst_image($input_data_json){
+	$input_data = json_decode($input_data_json,true);
+	return $input_data;
+
 }

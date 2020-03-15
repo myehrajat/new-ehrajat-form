@@ -12,6 +12,8 @@ $sst['description']='This is simple submit input type as a HTML code!';
 $sst['slug']='submit_field';
 $sst['owner']='Ehrajat';
 $sst['id']=5;
-function sst_submit($input_id,$vals=NULL){
-	$attr = new input_attr($input_id);
+function sst_submit($input_data_json){
+	$input_data = json_decode($input_data_json,true);
+	return $input_data;
+
 }

@@ -12,6 +12,8 @@ $sst['description']='This is simple dat input type as a HTML code!';
 $sst['slug']='week_field';
 $sst['owner']='Ehrajat';
 $sst['id']=16;
-function sst_week($input_id,$vals=NULL){
-	$attr = new input_attr($input_id);
+function sst_week($input_data_json){
+	$input_data = json_decode($input_data_json,true);
+	return $input_data;
+
 }

@@ -12,6 +12,7 @@ $sst['description']='This is simple datetime-local input type as a HTML code!';
 $sst['slug']='datetime-local_field';
 $sst['owner']='Ehrajat';
 $sst['id']=13;
-function sst_datetime_local($input_id,$vals=NULL){
-	$attr = new input_attr($input_id);
+function sst_datetime_local($input_data_json){
+	$input_data = json_decode($input_data_json,true);
+	return $input_data;
 }

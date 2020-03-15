@@ -1,8 +1,7 @@
 <?php
 
 class input extends data_creator {
-		public $input_data;
-
+	public $input_data;
     private $common_attr_obj;
     private $global_attr_obj;
     private $specific_attr_obj;
@@ -18,7 +17,6 @@ class input extends data_creator {
             $this->input_obj = $this->get_by_id( $input_id, $GLOBALS[ 'sst_tables' ][ 'input' ] );
             if ( !empty( $this->input_obj ) ) {
                 $this->all_attributes( $input_id );
-
             } else {
 
                 $this->error_log( 'input object cant retrieve.' );
@@ -35,6 +33,8 @@ class input extends data_creator {
         $input_type_id = $input_obj->type_id;
         $this->input_data[ 'input_type' ] = $this->common_attr_obj->input_type;
         $this->input_data[ 'input_html_type' ] = $this->common_attr_obj->input_html_type;
+		$this->input_data['function'] = $this->common_attr_obj->input_type_obj->function;
+
     }
 
     function global_atrributes( string $global_id ) {

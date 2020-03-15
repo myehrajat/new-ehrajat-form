@@ -128,15 +128,16 @@ class data_action extends process {
                         }
                         break;
                     case "ecode":
-                    case "ecode-one-per-record":
+                    //case "ecode-one-per-record":
                         $ecodes[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $sorted_colvals_vals[ 'colval_obj' ]->value;
                         $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
                         if ( !isset( $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] ) ) {
                             $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
                         }
                         break;
+                    case "ecode-group-before":
                     case "ecode-group":
-                    case "ecode-multiple-per-record":
+                    //case "ecode-multiple-per-record":
                         $ecodes_multiple[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $sorted_colvals_vals[ 'colval_obj' ]->value;
                         //krm($this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ]);
                         $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
@@ -144,6 +145,8 @@ class data_action extends process {
                         if ( !isset( $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] ) ) {
                             $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
                         }
+                        break;
+                    case "ecode-group-after":
                         break;
                     case "temp":
                         $is_there_temp = true;
@@ -168,19 +171,21 @@ class data_action extends process {
                 }
             }
             #send columns which has more elements go to last of column level ordering based on number elements of column 
+			//krm($all_values);
             $all_values = $this->more_element_last( $all_values );
-
-            $all_values = $this->do_ecode_multiple( $all_values, $ecodes_multiple );
-
+			//QUESTION: USE RAW DATA OR ECODE RUNNED DATA? MAY NEED SOME OPTION TO MAKE SURE WHICH ONE MUST RUN FIRST do_ecode_multiple_before_ecode or do_ecodes
+			//krm($all_values);
+            $all_values = $this->do_ecode_multiple_before_ecode( $all_values, $ecodes_multiple );
+			//krm($all_values);
             $all_values = $this->more_element_last( $all_values );
-            //krm( $all_values ); // this is original sent data before triggering data-action
+            // this is original sent data before triggering data-action
+			//krm( $all_values ); 
             $ready_data = $this->create_all_data( $all_values );
-            //krm( $ready_data ); //this used for creating database query 
-
-            //krm($ecodes);
+            //this used for creating database query 
+            //krm($ready_data);
             $ready_data = $this->do_ecodes( $ready_data, $ecodes );
-            //krm( $ready_data ); //this used for creating database query 
-
+            //krm( $ready_data ); 
+			//this used for creating database query
             $ready_data = $this->delete_temp_cloumns( $ready_data, $is_there_temp );
             $this->db_data = $ready_data;
             //$this->ready_data_for_db( $ready_data, $sorted_colvals_obj );
@@ -205,15 +210,18 @@ class data_action extends process {
 		
     ******/
     #https://stackoverflow.com/questions/795625/how-to-set-an-arrays-internal-pointer-to-a-specific-position-php-xml
-    function do_ecode_multiple( $all_values, $ecodes_multiple ) {
+    function do_ecode_multiple_before_ecode( $all_values, $ecodes_multiple ) {
         if ( !empty( $ecodes_multiple ) ) {
             foreach ( $ecodes_multiple as $group_col_name => $ecode ) {
                 $g_all_values = $this->group_data( $all_values, $group_col_name );
-                //$all_values[$group_col_name] = $this->do_ecode_multiple( $g_all_values, $ecode, $group_col_name );
+				$parent_col_name = $this->get_parent_col_name( $all_values, $group_col_name );
+				//krm($parent_col_name);
+                //$all_values[$group_col_name] = $this->do_ecode_multiple_before_ecode( $g_all_values, $ecode, $group_col_name );
                 foreach ( $g_all_values as $k => $all_single_group_value ) {
+
                     $group_values = $this->prepare_array_str_for_ecode( $all_single_group_value );
                     $ecode_group_result = $this->run_eval( EVAL_STR . $this->replace_attribute_short_codes( $ecode, $group_values, '{array:', '}' ) . ';' );
-                    $res[ array_key_first( $all_single_group_value[ $group_col_name ] ) ] = $ecode_group_result;
+                    $res[ array_key_first( $all_single_group_value[ $parent_col_name ] ) ] = $ecode_group_result;
                 }
                 $all_values[ $group_col_name ] = $res;
             }

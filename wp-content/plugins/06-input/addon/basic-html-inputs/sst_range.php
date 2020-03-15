@@ -12,6 +12,8 @@ $sst['description']='This is simple range input type as a HTML code!';
 $sst['slug']='range_field';
 $sst['owner']='Ehrajat';
 $sst['id']=6;
-function sst_range($input_id,$vals=NULL){
-	$attr = new input_attr($input_id);
+function sst_range($input_data_json){
+	$input_data = json_decode($input_data_json,true);
+	return $input_data;
+
 }

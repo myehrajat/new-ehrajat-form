@@ -12,6 +12,8 @@ $sst['description']='This is simple dat input type as a HTML code!';
 $sst['slug']='time_field';
 $sst['owner']='Ehrajat';
 $sst['id']=15;
-function sst_time($input_id,$vals=NULL){
-	$attr = new input_attr($input_id);
+function sst_time($input_data_json){
+	$input_data = json_decode($input_data_json,true);
+	return $input_data;
+
 }

@@ -184,6 +184,9 @@ class render extends database {
         if ( $input_data == NULL ) {
             $input_data = $this->input_data;
         }
+		//krm(EVAL_STR. 'return '.$input_data['function']."('".addslashes(json_encode($input_data))."');");
+		$input_data = $this->run_eval(EVAL_STR.'return '.$input_data['function'].'("'.addslashes(json_encode($input_data)).'");');
+		//krm($input_data);
         /*
         if ( $input_data[ 'extra' ][ 'max' ] > 0 ) {
             $extra = new extra( $input_data[ 'extra' ][ 'max' ], $input_data[ 'unique_id' ] );

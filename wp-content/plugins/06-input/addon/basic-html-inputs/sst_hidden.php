@@ -12,6 +12,8 @@ $sst['description']='This is simple hidden input type as a HTML code!';
 $sst['slug']='hidden_field';
 $sst['owner']='Ehrajat';
 $sst['id']=21;
-function sst_hidden($input_id,$vals=NULL){
-	$attr = new input_attr($input_id);
+function sst_hidden($input_data_json){
+	$input_data = json_decode($input_data_json,true);
+	return $input_data;
+
 }

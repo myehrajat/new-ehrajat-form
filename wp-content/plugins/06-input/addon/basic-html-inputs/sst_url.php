@@ -12,6 +12,8 @@ $sst['description']='This is simple url input type as a HTML code!';
 $sst['slug']='url_field';
 $sst['owner']='Ehrajat';
 $sst['id']=4;
-function sst_url($input_id,$vals=NULL){
-	$attr = new input_attr($input_id);
+function sst_url($input_data_json){
+	$input_data = json_decode($input_data_json,true);
+	return $input_data;
+
 }

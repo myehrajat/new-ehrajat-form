@@ -12,6 +12,8 @@ $sst['description']='This is simple dat input type as a HTML code!';
 $sst['slug']='radio_field';
 $sst['owner']='Ehrajat';
 $sst['id']=20;
-function sst_radio($input_id,$vals=NULL){
-	$attr = new input_attr($input_id);
+function sst_radio($input_data_json){
+	$input_data = json_decode($input_data_json,true);
+	return $input_data;
+
 }
