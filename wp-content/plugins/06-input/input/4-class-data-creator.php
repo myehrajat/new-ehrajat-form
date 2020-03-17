@@ -17,10 +17,12 @@ class data_creator extends render{
 		
         if ( class_exists( 'access' ) ) {
             $access = new access( $obj->access_id );
+			
             $data[ 'access' ][ 'visible' ] = $access->visible;
             $data[ 'access' ][ 'editable' ] = $access->editable;
             $data[ 'access' ][ 'addable' ] = $access->addable;
         }
+
 		return $data;
     }
 	

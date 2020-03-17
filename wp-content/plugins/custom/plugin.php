@@ -8,7 +8,8 @@
  * Author URI: http://ehrajat.com
  * License: GPL2
  */
-
+define('CUSTOM_SETUP_PATH',__DIR__.'/setup/');
+glob_includer(CUSTOM_SETUP_PATH);
 $n[ 'آذربایجان شرقی' ] = array(
     '169' => 'آذرشهر',
     '170' => 'اسکو',

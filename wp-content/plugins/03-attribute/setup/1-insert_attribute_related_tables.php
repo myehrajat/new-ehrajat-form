@@ -80,7 +80,7 @@ class insert_attribute_related_tables extends database {
         "`id` INT(10) NOT NULL auto_increment," .
         "`epithet` VARCHAR(255) NOT NULL," .
         "`slug` VARCHAR(255) NOT NULL," .
-        "`jsfunction` VARCHAR(255) NOT NULL," .
+        "`jsfunction` LONGTEXT DEFAULT NULL," .
         "`description`  LONGTEXT DEFAULT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .
         "`created` DATETIME NOT NULL DEFAULT NOW()," .

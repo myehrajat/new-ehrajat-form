@@ -19,7 +19,7 @@ interface attribute_global_generator_interface {
 }
 class attribute_global_generator extends attribute_generator implements attribute_global_generator_interface {
     var $global_obj;
-    var $global_attr;
+    //var $global_attr;
 
     function __construct( $attr_html_global_id =NULL) {
 		parent::__construct();
@@ -74,19 +74,23 @@ class attribute_global_generator extends attribute_generator implements attribut
                 'translate' => $this->global_obj->translate,
             ) );
             if ( !empty( $global ) ) {
-                $attr_html_global_arr[] = $global;
+				$this->input_data[ 'attrs' ] = array_merge($this->input_data[ 'attrs' ],$global);
+               // $attr_html_global_arr[] = $global;
             }
+			//krumo($this->input_data);
             $event = $this->create_attr_html_global_events( $this->global_obj->onevent_ids );
             if ( !empty( $event ) ) {
-                $attr_html_global_arr[] = $event;
+				$this->input_data[ 'attrs' ] = array_merge($this->input_data[ 'attrs' ],$event);
+                //$attr_html_global_arr[] = $event;
             }
             $data = $this->create_attr_html_global_data( $this->global_obj->data_ids );
             if ( !empty( $data ) ) {
-                $attr_html_global_arr[] = $data;
+				$this->input_data[ 'attrs' ] = array_merge($this->input_data[ 'attrs' ],$data);
+                //$attr_html_global_arr[] = $data;
             }
             if ( !empty( $attr_html_global_arr ) ) {
-                $this->global_attr = implode( ' ', $attr_html_global_arr );
-                return $this->global_attr;
+                //$this->global_attr = implode( ' ', $attr_html_global_arr );
+                //return $this->global_attr;
             } else {
                 return NULL;
             }
@@ -226,7 +230,6 @@ class attribute_global_generator extends attribute_generator implements attribut
      *these for getting classes from its special table by  space delimited value
      **************************************************/
     function create_attr_html_global_events( $onevent_ids ) {
-
         if ( !empty( $onevent_ids ) ) {
             $onevents = array();
             $onevent_ids_arr = array();
@@ -236,21 +239,26 @@ class attribute_global_generator extends attribute_generator implements attribut
                     $onevent_obj = $this->get_by_id( $onevent_id, $GLOBALS[ 'sst_tables' ][ 'attr_html_event' ] );
                     $onevent_result = strtolower( $this->is_eval_run( $onevent_obj->event ) );
                     if ( $this->starts_with( $onevent_result, 'on' ) && !empty( $onevent_obj->jsfunction_ids ) ) {
+						
                         $jsfunction_ids_arr = $this->get_ids( $onevent_obj->jsfunction_ids );
+						
                         foreach ( $jsfunction_ids_arr as $jsfunction_id ) {
                             $jsfunction = $this->create_attr_html_global_jsfunction( $jsfunction_id );
                             if ( !empty( $jsfunction ) ) {
-                                $onevents[ htmlentities( $onevent_result ) ][] = $jsfunction;
+                                $onevents[ htmlentities( $onevent_result ) ] .= $this->escape_java_script_text(html_entity_decode(($jsfunction))).';';
+                                //$onevents[ htmlentities( $onevent_result ) ] = htmlspecialchars($jsfunction).';';
                             }
                         }
                     }
                 }
 
-                if ( !empty( $onevents ) ) {
-                    foreach ( $onevents as $onevent_name => $onevent_js_array ) {
-                        $all_events_arr[] = $onevent_name . '="' . implode( ";", $onevent_js_array ) . '"';
-                    }
-                    return implode( ' ', $all_events_arr );
+				if ( !empty( $onevents ) ) {
+                    //foreach ( $onevents as $onevent_name => $onevent_js_array ) {
+                    ///    $all_events_arr[] = $onevent_name . '="' . implode( ";", $onevent_js_array ) . '"';
+                   // }
+					//krumo($onevents);
+					return $onevents;
+                    //return implode( ' ', $all_events_arr );
                 } else { //class ids is ok but all the classes rows are empty.
                     return NULL;
                 }
@@ -261,8 +269,16 @@ class attribute_global_generator extends attribute_generator implements attribut
             return NULL;
         }
     }
-
-    /**************************************************
+function escape_java_script_text($str)
+{	
+	$str = str_replace('<','&lt;',$str);
+	$str = str_replace('>','&gt;',$str);
+	$str = str_replace('&','&amp;',$str);
+	$str = str_replace('"','&quot;',$str);
+	$str = str_replace("'","&#39;",$str);
+    return $str;
+}
+	/**************************************************
      *version 1.0.0
      *these for getting classes from its special table by  space delimited value
      **************************************************/

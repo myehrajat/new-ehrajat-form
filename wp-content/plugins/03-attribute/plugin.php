@@ -29,7 +29,7 @@ use if($GLOBALS['plugins_loaded']==true){ to be sure all plugins loaded the do e
 #############################################
 define( 'EVAL_STR', '%%E%%' );
 //set true for security reason don't use $GLOBALS[ 'vals' ] for password input values
-define( 'ATTRIBUTE_PASSWORD_VALUE', 'no' );
+define( 'ATTRIBUTE_PASSWORD_VALUE', 'yes' );
 
 
 glob_includer(ATTRIBUTE_SETUP_PATH);

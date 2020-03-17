@@ -93,15 +93,24 @@ function test_process(){
 }
 	//$f = new field(1);
 //add_action ('wp_head','test_process');
-//add_action ('wp_head','test_form');
+add_action ('wp_head','test_form');
 //add_action ('wp_head','test_fieldset');
 //add_action ('wp_head','test_block');
 //add_action ('wp_head','test_input');
-add_action ('wp_head','test_input');
-
-
-
-
+//add_action ('wp_head','test_input');
+function  ffffff(){?>
+<form>
+  <div class="form-group">
+    <label for="formGroupExampleInput">Example label</label>
+    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+  </div>
+  <div class="form-group">
+    <label for="formGroupExampleInput2">Another label</label>
+    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
+  </div>
+</form>
+<?php }
+//add_action ('wp_head','ffffff');
 
 add_action('init', 'my_register_styles');
 

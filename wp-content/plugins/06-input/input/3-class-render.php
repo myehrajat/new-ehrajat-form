@@ -70,12 +70,12 @@ class render extends database {
         return $str;
     }
 
-    function replace_attribute_short_codes( $str, $attrs, $between_start = '{attr:', $between_end = '}',$wrapper = NULL ) {
+    function replace_attribute_short_codes( $str, $attrs, $between_start = '{attr:', $between_end = '}', $wrapper = NULL ) {
         global $wpdb;
         if ( !empty( $str ) ) {
             preg_match_all( '/' . addslashes( $between_start ) . '(.*?)' . addslashes( $between_end ) . '/', $str, $matches );
             foreach ( $matches[ 1 ] as $k => $match ) {
-                $str = str_replace( $matches[ 0 ][ $k ], $wrapper.$attrs[ $match ].$wrapper, $str );
+                $str = str_replace( $matches[ 0 ][ $k ], $wrapper . $attrs[ $match ] . $wrapper, $str );
             }
         }
         return $str;
@@ -99,10 +99,12 @@ class render extends database {
         $after = $this->replace_all_variable_short_codes( $tag[ 'after' ] );
         //if( $tag_id==27){dbg($before);}
         if ( !empty( $data[ 'own_data' ] ) ) {
+			
             $before = $this->replace_own_data_short_codes( $before, $data[ 'own_data' ] );
             $after = $this->replace_own_data_short_codes( $after, $data[ 'own_data' ] );
         }
         if ( !empty( $data[ 'attrs' ] ) ) {
+
             $before = $this->replace_attribute_short_codes( $before, $data[ 'attrs' ] );
             $after = $this->replace_attribute_short_codes( $after, $data[ 'attrs' ] );
         }
@@ -184,10 +186,11 @@ class render extends database {
         if ( $input_data == NULL ) {
             $input_data = $this->input_data;
         }
-		if(!empty($input_data)){
 
-		$input_data = $this->run_eval(EVAL_STR.'return '.$input_data['function'].'("'.addslashes(json_encode($input_data)).'");');
-        /*
+        if ( !empty( $input_data ) and !empty( $input_data[ 'function' ]  ) ) {
+
+            $input_data = $this->run_eval( EVAL_STR . 'return ' . $input_data[ 'function' ] . '("' . addslashes( json_encode( $input_data ) ) . '");' );
+            /*
         if ( $input_data[ 'extra' ][ 'max' ] > 0 ) {
             $extra = new extra( $input_data[ 'extra' ][ 'max' ], $input_data[ 'unique_id' ] );
             $input_data[ 'extra' ][ 'add_controller' ] = $extra->extra_add_controller;
@@ -195,87 +198,88 @@ class render extends database {
             $input_data[ 'extra' ][ 'controller_position' ] = EXTRA_CONTROLLER_POSITION;
         }
 		*/
-        if ( $input_data[ 'access' ][ 'visible' ] == 'no'
-            and $this->mode == 'view' ) {
-            return '';
-        }
-        if ( $input_data[ 'access' ][ 'editable' ] == 'no'
-            and $this->mode == 'edit' ) {
 
-            $input_data[ 'disabled' ] = 'disabled';
-        }
-        if ( $input_data[ 'access' ][ 'addable' ] == 'no'
-            and $this->mode == 'add' ) {
-            return '';
-        }
-        switch ( $input_data[ 'input_html_type' ] ) {
+            if ( $input_data[ 'access' ][ 'visible' ] == 'no'
+                and $this->mode == 'view' ) {
+                return '';
+            }
+            if ( $input_data[ 'access' ][ 'editable' ] == 'no'
+                and $this->mode == 'edit' ) {
 
-            case "hidden":
-                $input = '<input' . $this->render_attrs( $input_data[ 'attrs' ] ) . '>';
-                break;
-            case "submit":
-            case "password":
-            case "image":
-            case "checkbox":
-            case "radio":
+                $input_data[ 'disabled' ] = 'disabled';
+            }
+            if ( $input_data[ 'access' ][ 'addable' ] == 'no'
+                and $this->mode == 'add' ) {
+                return '';
+            }
+            switch ( $input_data[ 'input_html_type' ] ) {
 
-                $input = '<input' . $this->render_attrs( $input_data[ 'attrs' ] ) . '>';
-                break;
-            case "file":
-                if ( empty( $input_data[ 'attrs' ][ 'value' ] ) ) {
+                case "hidden":
                     $input = '<input' . $this->render_attrs( $input_data[ 'attrs' ] ) . '>';
-                } else {
-                    $input = '<image_input id="' . $input_data[ 'unique_id' ] . '_file_place_holder">';
-                    $input .= '<a href="' . $todovalue . '">Show File</a>';
-                    if ( $input_data[ 'access' ][ 'editable' ] == 'yes' ) {
-                        $input .= '<a href="#" id="' . $input_data[ 'unique_id' ] . '_file_controller_remove">Remove File</a>';
+                    break;
+                case "submit":
+                case "password":
+                case "image":
+                case "checkbox":
+                case "radio":
+
+                    $input = '<input' . $this->render_attrs( $input_data[ 'attrs' ] ) . '>';
+                    break;
+                case "file":
+                    if ( empty( $input_data[ 'attrs' ][ 'value' ] ) ) {
+                        $input = '<input' . $this->render_attrs( $input_data[ 'attrs' ] ) . '>';
+                    } else {
+                        $input = '<image_input id="' . $input_data[ 'unique_id' ] . '_file_place_holder">';
+                        $input .= '<a href="' . $todovalue . '">Show File</a>';
+                        if ( $input_data[ 'access' ][ 'editable' ] == 'yes' ) {
+                            $input .= '<a href="#" id="' . $input_data[ 'unique_id' ] . '_file_controller_remove">Remove File</a>';
+                        }
+                        $input .= '</image_input>';
+                        $input_data[ 'attrs' ][ 'disabled' ] = 'disabled';
+                        $input_data[ 'attrs' ][ 'hidden' ] = 'hidden';
+                        $input .= '<input' . $this->render_attrs( $input_data[ 'attrs' ] ) . '>';
+
                     }
-                    $input .= '</image_input>';
-                    $input_data[ 'attrs' ][ 'disabled' ] = 'disabled';
-                    $input_data[ 'attrs' ][ 'hidden' ] = 'hidden';
-                    $input .= '<input' . $this->render_attrs( $input_data[ 'attrs' ] ) . '>';
+                    break;
+                case "text":
+                case "search":
+                case "tel":
+                case "url":
+                case "range":
+                case "number":
+                case "email":
+                case "date":
+                case "datetime-local":
+                case "month":
+                case "time":
+                case "week":
+                case "datetime":
+                case "color":
+                    $datalist = $this->render_datalist( $input_data );
+                    $input = '<input' . $this->render_attrs( $input_data[ 'attrs' ] ) . '>' . $datalist;
+                    break;
+                case "select":
+                    $select_list = $this->render_select_list( $input_data );
+                    $input = '<select' . $this->render_attrs( $input_data[ 'attrs' ] ) . '>' . $select_list . '</select>';
+                    break;
+                case "textarea":
+                    $input = '<textarea' . $this->render_attrs( $input_data[ 'attrs' ] ) . '>' . $input_data[ 'text' ] . '</textarea>';
+                    break;
+            }
+            $input = $input_data[ 'tag' ][ 'before' ] . $input . $input_data[ 'tag' ][ 'after' ];
 
-                }
-                break;
-            case "text":
-            case "search":
-            case "tel":
-            case "url":
-            case "range":
-            case "number":
-            case "email":
-            case "date":
-            case "datetime-local":
-            case "month":
-            case "time":
-            case "week":
-            case "datetime":
-            case "color":
-                $datalist = $this->render_datalist( $input_data );
-                $input = '<input' . $this->render_attrs( $input_data[ 'attrs' ] ) . '>' . $datalist;
-                break;
-            case "select":
-                $select_list = $this->render_select_list( $input_data );
-                $input = '<select' . $this->render_attrs( $input_data[ 'attrs' ] ) . '>' . $select_list . '</select>';
-                break;
-            case "textarea":
-                $input = '<textarea' . $this->render_attrs( $input_data[ 'attrs' ] ) . '>' . $input_data[ 'text' ] . '</textarea>';
-                break;
+            if ( $input_data[ 'extra' ][ 'controller_position' ] == 'before' ) {
+                $input = $input_data[ 'extra' ][ 'add_controller' ] . $input_data[ 'extra' ][ 'remove_controller' ] . $input;
+            } elseif ( $input_data[ 'extra' ][ 'controller_position' ] == 'after' ) {
+                $input = $input . $input_data[ 'extra' ][ 'add_controller' ] . $input_data[ 'extra' ][ 'remove_controller' ];
+            } else {
+                $input = $input . $input_data[ 'extra' ][ 'add_controller' ] . $input_data[ 'extra' ][ 'remove_controller' ];
+            }
+
+            $input = '<sst-input id="' . $input_data[ 'unique_id' ] . '" >' . $input . '</sst-input>';
+            $this->input = $input;
+            return $this->input;
         }
-        $input = $input_data[ 'tag' ][ 'before' ] . $input . $input_data[ 'tag' ][ 'after' ];
-
-        if ( $input_data[ 'extra' ][ 'controller_position' ] == 'before' ) {
-            $input = $input_data[ 'extra' ][ 'add_controller' ] . $input_data[ 'extra' ][ 'remove_controller' ] . $input;
-        } elseif ( $input_data[ 'extra' ][ 'controller_position' ] == 'after' ) {
-            $input = $input . $input_data[ 'extra' ][ 'add_controller' ] . $input_data[ 'extra' ][ 'remove_controller' ];
-        } else {
-            $input = $input . $input_data[ 'extra' ][ 'add_controller' ] . $input_data[ 'extra' ][ 'remove_controller' ];
-        }
-
-        $input = '<sst-input id="' . $input_data[ 'unique_id' ] . '" >' . $input . '</sst-input>';
-        $this->input = $input;
-        return $this->input;
-		}
     }
     /*****************
 
@@ -345,18 +349,6 @@ class render extends database {
 
     }
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
     function recursively_generate_block( & $block_data ) {
         if ( isset( $block_data[ 'inputs_data' ] ) ) {
@@ -455,8 +447,8 @@ class render extends database {
         foreach ( $block_data[ 'fieldsets_data' ] as $fieldset_data_key => $fieldset_data ) {
             $block_data[ 'fieldsets_data' ][ $fieldset_data_key ][ 'unique_id' ] = $this->replace_base_route( $block_data[ 'unique_id' ], $fieldset_data[ 'unique_id' ], '≪' );
             foreach ( $fieldset_data[ 'inputs_data' ] as $fieldset_input_data_key => $fieldset_input_data ) {
-				$block_data[ 'fieldsets_data' ][ $fieldset_data_key ][ 'inputs_data' ][$fieldset_input_data_key][ 'unique_id' ] = $this->replace_base_route( $block_data[ 'unique_id' ], $fieldset_input_data [ 'unique_id' ], '≪' );
-				$block_data[ 'fieldsets_data' ][ $fieldset_data_key ][ 'inputs_data' ][$fieldset_input_data_key][ 'attrs' ]['name'] = $this->replace_base_route( reset($block_data[ 'inputs_data' ])['attrs']['name'], $fieldset_input_data [ 'attrs' ]['name'], '[' );
+                $block_data[ 'fieldsets_data' ][ $fieldset_data_key ][ 'inputs_data' ][ $fieldset_input_data_key ][ 'unique_id' ] = $this->replace_base_route( $block_data[ 'unique_id' ], $fieldset_input_data[ 'unique_id' ], '≪' );
+                $block_data[ 'fieldsets_data' ][ $fieldset_data_key ][ 'inputs_data' ][ $fieldset_input_data_key ][ 'attrs' ][ 'name' ] = $this->replace_base_route( reset( $block_data[ 'inputs_data' ] )[ 'attrs' ][ 'name' ], $fieldset_input_data[ 'attrs' ][ 'name' ], '[' );
             }
 
         }
@@ -666,7 +658,7 @@ class render extends database {
             if ( !empty( $fieldset_data[ 'children' ] ) ) {
                 $fieldset_data = $this->extra_children_fieldset_creator( $fieldset_data );
             }
-			
+
             if ( !empty( $fieldset_data[ 'blocks_data' ] ) ) {
                 $fieldset_data = $this->extra_block_of_fieldset_data_changer( $fieldset_data );
             }
@@ -676,14 +668,14 @@ class render extends database {
         }
         return $extra_fieldset_data;
     }
-	//
+    //
     function extra_block_of_fieldset_data_changer( $fieldset_data ) {
         foreach ( $fieldset_data[ 'blocks_data' ] as $block_data_key => $block_data ) {
             $fieldset_data[ 'blocks_data' ][ $block_data_key ][ 'unique_id' ] = $this->replace_base_route( $fieldset_data[ 'unique_id' ], $block_data[ 'unique_id' ], '≪' );
-			
+
             foreach ( $block_data[ 'inputs_data' ] as $block_input_data_key => $block_input_data ) {
-				$fieldset_data[ 'blocks_data' ][ $block_data_key ][ 'inputs_data' ][$block_input_data_key][ 'unique_id' ] = $this->replace_base_route( $fieldset_data[ 'unique_id' ], $block_input_data [ 'unique_id' ], '≪' );
-				$fieldset_data[ 'blocks_data' ][ $block_data_key ][ 'inputs_data' ][$block_input_data_key][ 'attrs' ]['name'] = $this->replace_base_route( reset($fieldset_data[ 'inputs_data' ])['attrs']['name'], $block_input_data [ 'attrs' ]['name'], '[' );
+                $fieldset_data[ 'blocks_data' ][ $block_data_key ][ 'inputs_data' ][ $block_input_data_key ][ 'unique_id' ] = $this->replace_base_route( $fieldset_data[ 'unique_id' ], $block_input_data[ 'unique_id' ], '≪' );
+                $fieldset_data[ 'blocks_data' ][ $block_data_key ][ 'inputs_data' ][ $block_input_data_key ][ 'attrs' ][ 'name' ] = $this->replace_base_route( reset( $fieldset_data[ 'inputs_data' ] )[ 'attrs' ][ 'name' ], $block_input_data[ 'attrs' ][ 'name' ], '[' );
             }
 
         }
