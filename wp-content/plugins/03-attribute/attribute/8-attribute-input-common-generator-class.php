@@ -52,56 +52,12 @@ implements attribute_input_common_generator_interface {
         }
     }
 
-    function change_value_by_vals() {
-        if ( isset( $GLOBALS[ 'vals' ][ $this->input_obj->name ] ) ) {
-            switch ( $this->input_html_type ) {
-                case "text":
-                case "search":
-                case "tel":
-                case "url":
-                case "submit":
-                case "range":
-                case "number":
-                case "image":
-                case "email":
-                case "date":
-                case "datetime-local":
-                case "month":
-                case "time":
-                case "week":
-                case "datetime":
-                case "color":
-                case "hidden":
-					$this->input_obj->value = $GLOBALS[ 'vals' ][ $this->input_obj->name ];
-                    break;
-                case "password":
-					if(strtolower(ATTRIBUTE_PASSWORD_VALUE) == 'yes' ){
-						$this->input_obj->value = $GLOBALS[ 'vals' ][ $this->input_obj->name ];
-					}
-                    break;
-                case "file":
-						$this->input_obj->value = $GLOBALS[ 'vals' ][ $this->input_obj->name ];
-                    break;
-                case "checkbox":
-                    break;
-                case "radio":
-                    break;
-                case "select":
-                    break;
-                case "textarea":
-                    break;
-            }
-        }
-    }
+
 
     function create_attr_input_common() {
         $attr_input_common_arr = array();
-        $this->change_value_by_vals();
         if ( $this->input_html_type != 'select'
             and $this->input_html_type != 'textarea' ) {
-            if ( isset( $GLOBALS[ 'vals' ][ $this->input_obj->name ] ) ) {
-                $this->input_obj->value = $GLOBALS[ 'vals' ][ $this->input_obj->name ];
-            }
             $common = $this->create_multiple_attrs( array(
                 'disabled' => $this->input_obj->disabled,
                 'form' => $this->input_obj->form,

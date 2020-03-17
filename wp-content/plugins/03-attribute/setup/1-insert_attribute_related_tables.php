@@ -294,6 +294,7 @@ class insert_attribute_related_tables extends database {
         "`autofocus` VARCHAR(255) NOT NULL," .
         "`checked` VARCHAR(255) NOT NULL," .
         "`required` VARCHAR(255) NOT NULL," .
+        "`value` VARCHAR(255) NOT NULL," .
         "`description`  LONGTEXT DEFAULT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .
         "`created` DATETIME NOT NULL DEFAULT NOW()," .
@@ -308,6 +309,7 @@ class insert_attribute_related_tables extends database {
         "`autofocus` VARCHAR(255) NOT NULL," .
         "`list` VARCHAR(255) NOT NULL," .
         "`list_ids` VARCHAR(255) NOT NULL," .
+        "`value` VARCHAR(255) NOT NULL," .
         "`description`  LONGTEXT DEFAULT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .
         "`created` DATETIME NOT NULL DEFAULT NOW()," .
@@ -323,6 +325,7 @@ class insert_attribute_related_tables extends database {
         "`capture` VARCHAR(255) NOT NULL," .
         "`multiple` VARCHAR(255) NOT NULL," .
         "`required` VARCHAR(255) NOT NULL," .
+        "`value` VARCHAR(255) NOT NULL," .
         "`description`  LONGTEXT DEFAULT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .
         "`created` DATETIME NOT NULL DEFAULT NOW()," .
@@ -339,6 +342,7 @@ class insert_attribute_related_tables extends database {
         "`formmethod` VARCHAR(255) NOT NULL," .
         "`formnovalidate` VARCHAR(255) NOT NULL," .
         "`formtarget` VARCHAR(255) NOT NULL," .
+        "`value` VARCHAR(255) NOT NULL," .
         "`description`  LONGTEXT DEFAULT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .
         "`created` DATETIME NOT NULL DEFAULT NOW()," .
@@ -357,6 +361,7 @@ class insert_attribute_related_tables extends database {
         "`min` VARCHAR(255) NOT NULL," .
         "`multiple` VARCHAR(255) NOT NULL," .
         "`step` VARCHAR(255) NOT NULL," .
+        "`value` VARCHAR(255) NOT NULL," .
         "`description`  LONGTEXT DEFAULT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .
         "`created` DATETIME NOT NULL DEFAULT NOW()," .
@@ -376,6 +381,7 @@ class insert_attribute_related_tables extends database {
         "`readonly` VARCHAR(255) NOT NULL," .
         "`required` VARCHAR(255) NOT NULL," .
         "`step` VARCHAR(255) NOT NULL," .
+        "`value` VARCHAR(255) NOT NULL," .
         "`description`  LONGTEXT DEFAULT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .
         "`created` DATETIME NOT NULL DEFAULT NOW()," .
@@ -395,6 +401,7 @@ class insert_attribute_related_tables extends database {
         "`readonly` VARCHAR(255) NOT NULL," .
         "`required` VARCHAR(255) NOT NULL," .
         "`size` VARCHAR(255) NOT NULL," .
+        "`value` VARCHAR(255) NOT NULL," .
         "`description`  LONGTEXT DEFAULT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .
         "`created` DATETIME NOT NULL DEFAULT NOW()," .
@@ -415,6 +422,7 @@ class insert_attribute_related_tables extends database {
         "`readonly` VARCHAR(255) NOT NULL," .
         "`required` VARCHAR(255) NOT NULL," .
         "`step` VARCHAR(255) NOT NULL," .
+        "`value` VARCHAR(255) NOT NULL," .
         "`description`  LONGTEXT DEFAULT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .
         "`created` DATETIME NOT NULL DEFAULT NOW()," .
@@ -434,6 +442,7 @@ class insert_attribute_related_tables extends database {
         "`formtarget` VARCHAR(255) NOT NULL," .
         "`height` VARCHAR(255) NOT NULL," .
         "`src` VARCHAR(255) NOT NULL," .
+        "`value` VARCHAR(255) NOT NULL," .
         "`width` VARCHAR(255) NOT NULL," .
         "`description`  LONGTEXT DEFAULT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .
@@ -456,6 +465,7 @@ class insert_attribute_related_tables extends database {
         "`readonly` VARCHAR(255) NOT NULL," .
         "`required` VARCHAR(255) NOT NULL," .
         "`size` VARCHAR(255) NOT NULL," .
+        "`value` VARCHAR(255) NOT NULL," .
         "`description`  LONGTEXT DEFAULT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .
         "`created` DATETIME NOT NULL DEFAULT NOW()," .
@@ -478,6 +488,7 @@ class insert_attribute_related_tables extends database {
         "`readonly` VARCHAR(255) NOT NULL," .
         "`required` VARCHAR(255) NOT NULL," .
         "`size` VARCHAR(255) NOT NULL," .
+        "`value` VARCHAR(255) NOT NULL," .
         "`description`  LONGTEXT DEFAULT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .
         "`created` DATETIME NOT NULL DEFAULT NOW()," .
@@ -500,6 +511,7 @@ class insert_attribute_related_tables extends database {
         "`readonly` VARCHAR(255) NOT NULL COMMENT 'Values:readonly'," .
         "`required` VARCHAR(255) NOT NULL COMMENT 'Values:required'," .
         "`size` VARCHAR(255) NOT NULL COMMENT 'Values:any number positive and negative,zero and negative means default.'," .
+        "`value` VARCHAR(255) NOT NULL," .
         "`description`  LONGTEXT DEFAULT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .
         "`created` DATETIME NOT NULL DEFAULT NOW()," .
@@ -550,7 +562,7 @@ class insert_attribute_related_tables extends database {
         "`form` VARCHAR(255) NOT NULL COMMENT 'Values:id of form'," .
         "`name` VARCHAR(255) NOT NULL COMMENT 'Values:any string.Other than isindex, any non-empty value for name is allowed. The name _charset_ is special which applying in hidden input name return user encoding.'," . //
         "`type_id` VARCHAR(255) NOT NULL COMMENT 'Values:id of input type'," . //id of input_type table
-        "`value` VARCHAR(255) NOT NULL COMMENT 'Values:any string'," .
+        //"`value` VARCHAR(255) NOT NULL COMMENT 'Values:any string'," .
         "`attr_html_global_id` VARCHAR(255) NOT NULL," . //these include all html global attributes
         "`attr_input_specific_id` VARCHAR(255) NOT NULL," . //these include input type specific ones
         "`attr_custom_ids` VARCHAR(255) NOT NULL," . //these include input type specific ones

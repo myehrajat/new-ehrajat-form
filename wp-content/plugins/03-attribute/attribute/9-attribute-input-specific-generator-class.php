@@ -1,13 +1,18 @@
 <?php
-interface attribute_input_specific_generator_interface{
+interface attribute_input_specific_generator_interface {
     function create_attr_input_specific();
-    function create_all_options( $specific_obj ) ;
-    function create_optgroups( $optgroup_ids ) ;
-    function get_list_values( $list_ids ) ;
-    function looper( $json, $json_pointer ) ;
+
+    function create_all_options( $specific_obj );
+
+    function create_optgroups( $optgroup_ids );
+
+    function get_list_values( $list_ids );
+
+    function looper( $json, $json_pointer );
 }
-	
-class attribute_input_specific_generator extends attribute_input_common_generator implements attribute_input_specific_generator_interface{
+
+class attribute_input_specific_generator extends attribute_input_common_generator
+implements attribute_input_specific_generator_interface {
     var $input_html_type;
     var $attr_input_specific_id;
     var $specific_obj;
@@ -16,7 +21,7 @@ class attribute_input_specific_generator extends attribute_input_common_generato
     var $option_data;
 
     function __construct( string $attr_input_specific_id = NULL, string $input_html_type = NULL ) {
-				parent::__construct();
+        parent::__construct();
 
         $this->input_html_type = $input_html_type;
 
@@ -82,7 +87,7 @@ class attribute_input_specific_generator extends attribute_input_common_generato
                 }
                 if ( !empty( $this->specific_obj ) ) {
                     $this->create_attr_input_specific();
-																		
+
 
                 } else {
                     $this->specific_obj = NULL;
@@ -101,9 +106,55 @@ class attribute_input_specific_generator extends attribute_input_common_generato
         }
     }
 
-
+    function change_value_by_vals() {
+        if ( isset( $GLOBALS[ 'vals' ][ $this->specific_obj->name ] ) ) {
+            switch ( $this->input_html_type ) {
+                case "text":
+                case "search":
+                case "tel":
+                case "url":
+                case "submit":
+                case "range":
+                case "number":
+                case "image":
+                case "email":
+                case "date":
+                case "datetime-local":
+                case "month":
+                case "time":
+                case "week":
+                case "datetime":
+                case "color":
+                case "hidden":
+                    $this->specific_obj->value = $GLOBALS[ 'vals' ][ $this->specific_obj->name ];
+                    break;
+                case "password":
+                    if ( strtolower( ATTRIBUTE_PASSWORD_VALUE ) == 'yes' ) {
+                        $this->specific_obj->value = $GLOBALS[ 'vals' ][ $this->specific_obj->name ];
+                    }
+                    break;
+                case "file":
+                    $this->specific_obj->value = $GLOBALS[ 'vals' ][ $this->specific_obj->name ];
+                    break;
+                case "checkbox":
+                case "radio":
+					if($GLOBALS[ 'vals' ][ $this->specific_obj->name ] == $this->specific_obj->value){
+                        $this->specific_obj->checked='checked';
+					}
+                    break;
+                case "select":
+					
+                    break;
+                case "textarea":
+                    $this->specific_obj->text = $GLOBALS[ 'vals' ][ $this->specific_obj->name ];
+                    break;
+            }
+        }
+    }
 
     function create_attr_input_specific() {
+        $this->change_value_by_vals();
+
         if ( !empty( $this->attr_input_specific_id ) ) {
             $attr_input_specific_arr = array();
             switch ( $this->input_html_type ) {
@@ -121,6 +172,7 @@ class attribute_input_specific_generator extends attribute_input_common_generato
                         'readonly' => $this->specific_obj->readonly,
                         'required' => $this->specific_obj->required,
                         'size' => $this->specific_obj->size,
+                        'value' => $this->specific_obj->value,
                     ), $this->input_html_type );
                     $this->option_data = $this->get_list_values( $this->specific_obj->list_ids );
 
@@ -138,6 +190,7 @@ class attribute_input_specific_generator extends attribute_input_common_generato
                         'readonly' => $this->specific_obj->readonly,
                         'required' => $this->specific_obj->required,
                         'size' => $this->specific_obj->size,
+                        'value' => $this->specific_obj->value,
                     ), $this->input_html_type );
                     $this->option_data = $this->get_list_values( $this->specific_obj->list_ids );
                     break;
@@ -149,6 +202,7 @@ class attribute_input_specific_generator extends attribute_input_common_generato
                         'formmethod' => $this->specific_obj->formmethod,
                         'formnovalidate' => $this->specific_obj->formnovalidate,
                         'formtarget' => $this->specific_obj->formtarget,
+                        'value' => $this->specific_obj->value,
                     ), $this->input_html_type );
                     break;
                 case "range":
@@ -160,6 +214,7 @@ class attribute_input_specific_generator extends attribute_input_common_generato
                         'min' => $this->specific_obj->min,
                         'multiple' => $this->specific_obj->multiple,
                         'step' => $this->specific_obj->step,
+                        'value' => $this->specific_obj->value,
                     ), $this->input_html_type );
                     $this->list_elements = $this->get_list_values( $this->specific_obj->list_ids );
                     break;
@@ -174,6 +229,7 @@ class attribute_input_specific_generator extends attribute_input_common_generato
                         'readonly' => $this->specific_obj->readonly,
                         'required' => $this->specific_obj->required,
                         'size' => $this->specific_obj->size,
+                        'value' => $this->specific_obj->value,
                     ), $this->input_html_type );
                     break;
                 case "number":
@@ -187,6 +243,7 @@ class attribute_input_specific_generator extends attribute_input_common_generato
                         'readonly' => $this->specific_obj->readonly,
                         'required' => $this->specific_obj->required,
                         'step' => $this->specific_obj->step,
+                        'value' => $this->specific_obj->value,
                     ), $this->input_html_type );
                     $this->option_data = $this->get_list_values( $this->specific_obj->list_ids );
                     break;
@@ -202,6 +259,7 @@ class attribute_input_specific_generator extends attribute_input_common_generato
                         'height' => $this->specific_obj->height,
                         'src' => $this->specific_obj->src,
                         'width' => $this->specific_obj->width,
+                        'value' => $this->specific_obj->value,
                     ), $this->input_html_type );
                     break;
                 case "file":
@@ -212,6 +270,7 @@ class attribute_input_specific_generator extends attribute_input_common_generato
                         'capture' => $this->specific_obj->capture,
                         'multiple' => $this->specific_obj->multiple,
                         'required' => $this->specific_obj->required,
+                        'value' => $this->specific_obj->value,
                     ), $this->input_html_type );
                     break;
                 case "email":
@@ -227,6 +286,7 @@ class attribute_input_specific_generator extends attribute_input_common_generato
                         'readonly' => $this->specific_obj->readonly,
                         'required' => $this->specific_obj->required,
                         'size' => $this->specific_obj->size,
+                        'value' => $this->specific_obj->value,
                     ), $this->input_html_type );
                     $this->option_data = $this->get_list_values( $this->specific_obj->list_ids );
                     break;
@@ -245,6 +305,7 @@ class attribute_input_specific_generator extends attribute_input_common_generato
                         'readonly' => $this->specific_obj->readonly,
                         'required' => $this->specific_obj->required,
                         'step' => $this->specific_obj->step,
+                        'value' => $this->specific_obj->value,
                     ), $this->input_html_type );
                     $this->option_data = $this->get_list_values( $this->specific_obj->list_ids );
                     break;
@@ -253,6 +314,7 @@ class attribute_input_specific_generator extends attribute_input_common_generato
                         'autocomplete' => $this->specific_obj->autocomplete,
                         'autofocus' => $this->specific_obj->autofocus,
                         'list' => $this->specific_obj->list,
+                        'value' => $this->specific_obj->value,
                     ), $this->input_html_type );
                     $this->option_data = $this->get_list_values( $this->specific_obj->list_ids );
                     break;
@@ -262,6 +324,7 @@ class attribute_input_specific_generator extends attribute_input_common_generato
                         'autofocus' => $this->specific_obj->autofocus,
                         'checked' => $this->specific_obj->checked,
                         'required' => $this->specific_obj->required,
+                        'value' => $this->specific_obj->value,
                     ), $this->input_html_type );
                     break;
                 case "select":
@@ -272,11 +335,8 @@ class attribute_input_specific_generator extends attribute_input_common_generato
                         'required' => $this->specific_obj->required,
                         'size' => $this->specific_obj->size,
                     ), $this->input_html_type );
-					//dbg('first',false);
                     $this->unselected_text = $this->specific_obj->unselected_text;
-					//dbg('second',false);
                     $this->create_all_options( $this->specific_obj );
-					//dbg('third',false);
                     $this->show_first = $this->specific_obj->show_first;
                     break;
                 case "textarea":
@@ -292,7 +352,7 @@ class attribute_input_specific_generator extends attribute_input_common_generato
                         'rows' => $this->specific_obj->rows,
                         'wrap' => $this->specific_obj->wrap,
                     ), $this->input_html_type );
-                    $this->input_data['text'] = $this->specific_obj->text;
+                    $this->input_data[ 'text' ] = $this->specific_obj->text;
                     break;
             }
         } else {
@@ -368,7 +428,7 @@ class attribute_input_specific_generator extends attribute_input_common_generato
                     }
 
                     $opt_attrs[ 'global' ] = $global_obj->input_data[ 'attrs' ];
-					//dbg($global_obj->input_data[ 'attrs' ]);
+                    //dbg($global_obj->input_data[ 'attrs' ]);
                 }
                 if ( in_array( $list_obj->source_type, array( 'json', 'query', 'value' ) ) ) {
                     switch ( $list_obj->source_type ) {
@@ -422,54 +482,54 @@ class attribute_input_specific_generator extends attribute_input_common_generato
                             }
                             break;
                         case 'json':
-							$encoded_json = $this->file_get_contents_with_timer( $list_obj->json_url,NULL );
-							if($encoded_json==true){
-								$json = json_decode( $encoded_json );
-								if ( $json ) {
-									$array_of_lists_labels = array();
-									$array_of_lists_texts = array();
-									$array_of_lists_values = $this->looper( $json, $list_obj->json_value_pointer );
-									if ( !empty( $array_of_lists_values ) ) {
-										$array_of_lists_labels = $this->looper( $json, $list_obj->json_label_pointer );
-										if ( $this->input_html_type == 'select' ) {
-											$array_of_lists_texts = $this->looper( $json, $list_obj->json_text_pointer );
-											foreach ( $array_of_lists_values as $k => $array_of_lists_value ) {
-												$array_of_lists[ $k ][ 'value' ] = $array_of_lists_value;
-												$array_of_lists[ $k ][ 'label' ] = $array_of_lists_labels[ $k ];
-												$array_of_lists[ $k ][ 'text' ] = $array_of_lists_texts[ $k ];
-											}
-											foreach ( $array_of_lists as $array_of_list ) {
-												$this->input_data = array();
-												$this->create_attribute( 'value', $this->run_eval( 'return $eval_var->' . $array_of_list[ 'value' ] . ';', $json ) );
-												$this->create_attribute( 'label', $this->run_eval( 'return $eval_var->' . $array_of_list[ 'label' ] . ';', $json ) );
-												$options[ $i ][ 'text' ] = $this->run_eval( 'return $eval_var->' . $array_of_list[ 'text' ] . ';', $json );
-												$options[ $i ][ 'attrs' ] = array_merge( $opt_attrs[ 'global' ], $opt_attrs[ 'specific' ], $this->input_data[ 'attrs' ] );
-												$i++;
-											}
-										} else {
-											foreach ( $array_of_lists_values as $k => $array_of_lists_value ) {
-												$array_of_lists[ $k ][ 'value' ] = $array_of_lists_value;
-												$array_of_lists[ $k ][ 'label' ] = $array_of_lists_labels[ $k ];
-											}
-											foreach ( $array_of_lists as $array_of_list ) {
-												$this->create_attribute( 'value', $this->run_eval( 'return $eval_var->' . $array_of_list[ 'value' ] . ';', $json ) );
-												$this->create_attribute( 'label', $this->run_eval( 'return $eval_var->' . $array_of_list[ 'label' ] . ';', $json ) );
-												$options[ $i ][ 'attrs' ] = array_merge( $opt_attrs[ 'global' ], $opt_attrs[ 'specific' ], $this->input_data[ 'attrs' ] );
-												$i++;
-											}
+                            $encoded_json = $this->file_get_contents_with_timer( $list_obj->json_url, NULL );
+                            if ( $encoded_json == true ) {
+                                $json = json_decode( $encoded_json );
+                                if ( $json ) {
+                                    $array_of_lists_labels = array();
+                                    $array_of_lists_texts = array();
+                                    $array_of_lists_values = $this->looper( $json, $list_obj->json_value_pointer );
+                                    if ( !empty( $array_of_lists_values ) ) {
+                                        $array_of_lists_labels = $this->looper( $json, $list_obj->json_label_pointer );
+                                        if ( $this->input_html_type == 'select' ) {
+                                            $array_of_lists_texts = $this->looper( $json, $list_obj->json_text_pointer );
+                                            foreach ( $array_of_lists_values as $k => $array_of_lists_value ) {
+                                                $array_of_lists[ $k ][ 'value' ] = $array_of_lists_value;
+                                                $array_of_lists[ $k ][ 'label' ] = $array_of_lists_labels[ $k ];
+                                                $array_of_lists[ $k ][ 'text' ] = $array_of_lists_texts[ $k ];
+                                            }
+                                            foreach ( $array_of_lists as $array_of_list ) {
+                                                $this->input_data = array();
+                                                $this->create_attribute( 'value', $this->run_eval( 'return $eval_var->' . $array_of_list[ 'value' ] . ';', $json ) );
+                                                $this->create_attribute( 'label', $this->run_eval( 'return $eval_var->' . $array_of_list[ 'label' ] . ';', $json ) );
+                                                $options[ $i ][ 'text' ] = $this->run_eval( 'return $eval_var->' . $array_of_list[ 'text' ] . ';', $json );
+                                                $options[ $i ][ 'attrs' ] = array_merge( $opt_attrs[ 'global' ], $opt_attrs[ 'specific' ], $this->input_data[ 'attrs' ] );
+                                                $i++;
+                                            }
+                                        } else {
+                                            foreach ( $array_of_lists_values as $k => $array_of_lists_value ) {
+                                                $array_of_lists[ $k ][ 'value' ] = $array_of_lists_value;
+                                                $array_of_lists[ $k ][ 'label' ] = $array_of_lists_labels[ $k ];
+                                            }
+                                            foreach ( $array_of_lists as $array_of_list ) {
+                                                $this->create_attribute( 'value', $this->run_eval( 'return $eval_var->' . $array_of_list[ 'value' ] . ';', $json ) );
+                                                $this->create_attribute( 'label', $this->run_eval( 'return $eval_var->' . $array_of_list[ 'label' ] . ';', $json ) );
+                                                $options[ $i ][ 'attrs' ] = array_merge( $opt_attrs[ 'global' ], $opt_attrs[ 'specific' ], $this->input_data[ 'attrs' ] );
+                                                $i++;
+                                            }
 
-										}
-									} else {
-										$this->error_log( 'list values as json_value_pointer return nothing.' );
-										//return false;
-									}
-								} else {
-									$this->error_log( 'json url provided is cant be parsed as json may  malformatted.' );
-									//return false;
-								}
-							}else{
-								$this->error_log( 'your json url dont return 200 code');
-							}
+                                        }
+                                    } else {
+                                        $this->error_log( 'list values as json_value_pointer return nothing.' );
+                                        //return false;
+                                    }
+                                } else {
+                                    $this->error_log( 'json url provided is cant be parsed as json may  malformatted.' );
+                                    //return false;
+                                }
+                            } else {
+                                $this->error_log( 'your json url dont return 200 code' );
+                            }
                             break;
                         default:
                             $this->error_log( 'mistyped source_type' );
