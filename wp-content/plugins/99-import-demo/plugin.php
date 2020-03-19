@@ -87,13 +87,13 @@ function test_form(){
 }
 function test_process(){
 	//if(!isset($_REQUEST['__sst__step'])){
-	$f = new process(4);
+	$f = new process(1);
 	echo $f->render();
 	//}
 }
 	//$f = new field(1);
-//add_action ('wp_head','test_process');
-add_action ('wp_head','test_form');
+add_action ('wp_head','test_process');
+//add_action ('wp_head','test_form');
 //add_action ('wp_head','test_fieldset');
 //add_action ('wp_head','test_block');
 //add_action ('wp_head','test_input');

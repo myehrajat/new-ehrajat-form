@@ -25,6 +25,8 @@ class insert_input_related_tables extends database {
 		##################################################
         $sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'input_meta' ] . " (" .
         "`id` INT(10) NOT NULL auto_increment," .
+        "`epithet` VARCHAR(255) DEFAULT NULL," .
+        "`slug` VARCHAR(255) DEFAULT NULL," .
         "`key` VARCHAR(255) DEFAULT NULL," .
         "`value` LONGTEXT DEFAULT NULL," .
         "`description`  LONGTEXT DEFAULT NULL," .
