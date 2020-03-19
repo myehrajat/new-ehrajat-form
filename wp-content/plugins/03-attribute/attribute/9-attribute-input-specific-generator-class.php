@@ -392,7 +392,6 @@ implements attribute_input_specific_generator_interface {
         }
         $this->optgroup_data = $optgroup_data;
     }
-
     /******************
     create options or lists 
     *******************/
@@ -422,9 +421,10 @@ implements attribute_input_specific_generator_interface {
                 if ( in_array( $list_obj->source_type, array( 'json', 'query', 'value' ) ) ) {
                     switch ( $list_obj->source_type ) {
                         case 'value':
+							
                             $opt_attrs[ 'specific' ] = array();
                             $value = $this->is_eval_run( $list_obj->value );
-                            if ( $val ) {
+                            if ( $value ) {
                                 $this->input_data = array();
                                 $label = $this->run_eval( $list_obj->label );
                                 if ( $this->input_html_type == 'select' ) {
