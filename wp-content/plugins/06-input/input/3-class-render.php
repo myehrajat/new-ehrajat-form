@@ -733,6 +733,7 @@ class render extends database {
                 $elements[ 'input' ] = $elements[ 'input' ] . $this->render_input( $input_data );
             }
         }
+		
         if ( !empty( $form_data[ 'blocks_data' ] ) ) {
             foreach ( $form_data[ 'blocks_data' ] as $blocks_data ) {
                 $elements[ 'block' ] = $elements[ 'block' ] . $this->render_block( $blocks_data );
@@ -769,7 +770,6 @@ class render extends database {
             $process_data = $this->process_data;
 
         }
-
         return $this->render_form( $process_data[ 'form_data' ] );
     }
 }

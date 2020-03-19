@@ -5,9 +5,8 @@ class process extends data_creator {
         parent::__construct();
         if ( !empty( $process_id_str ) ) {
             $this->generate_vals();
-
             $this->apply_conditions();
-
+			
             if ( $this->break_class != true ) {
                 $this->get_process_object( $process_id_str );
                 $this->generate_process_data();
@@ -25,11 +24,13 @@ class process extends data_creator {
                 $condition_obj = $this->get_by_id( $condition_id, $GLOBALS[ 'sst_tables' ][ 'condition' ] );
                 $condition_process_id = $this->get_ids( $condition_obj->process_id, true );
                 if ( $this->is_positive_number( $condition_process_id ) ) {
+							
                     if ( $condition_obj->condition != 'else' ) {
                         if ( $i == 0 ) {
                             $eval_condition_first = 'if(' . $condition_obj->condition . '){$p = new process(' . $condition_process_id . ');echo $p->render();}';
+							
                         } else {
-                            $eval_condition_middle .= 'elseif(' . $condition_obj->condition . '){$p = new process(' . $condition_process_id . ');echo $p->render();}';
+                            $eval_condition_middle .= 'elseif(' . $condition_obj->condition . '){ $p = new process(' . $condition_process_id . ');echo $p->render();}';
                         }
                     } else {
                         $eval_condition_else = 'else{$p = new process(' . $condition_process_id . ');echo $p->render();}';
@@ -40,6 +41,7 @@ class process extends data_creator {
                     //May be NULL MEANS END SO NO ERROR
                 }
             }
+
             $eval_condition = EVAL_STR . $eval_condition_first . $eval_condition_middle . $eval_condition_else;
             unset( $_REQUEST[ '__sst__conditions' ] );
             unset( $this->vals[ '__sst__conditions' ] );
@@ -158,13 +160,13 @@ class process extends data_creator {
 
     function generate_mode() {
             $this->process_data[ 'form_data' ][ 'inputs_data' ][] = array( 'input_type' => 'simple-hidden',
-                'input_html_type' => 'hidden',
+                'input_html_type' => 'hidden','function'=>'sst_hidden',
                 'attrs' => array( 'type' => 'hidden', 'name' => '__sst__mode', 'value' =>$this->mode) );
     }
     function generate_condition_ids() {
         if ( !empty( $this->process_obj->condition_ids ) ) {
             $this->process_data[ 'form_data' ][ 'inputs_data' ][] = array( 'input_type' => 'simple-hidden',
-                'input_html_type' => 'hidden',
+                'input_html_type' => 'hidden','function'=>'sst_hidden',
                 'attrs' => array( 'type' => 'hidden', 'name' => '__sst__conditions', 'value' => $this->process_obj->condition_ids ) );
         }
     }
@@ -172,7 +174,7 @@ class process extends data_creator {
     function generate_data_action_ids() {
         if ( !empty( $this->process_obj->data_action_ids ) ) {
             $this->process_data[ 'form_data' ][ 'inputs_data' ][] = array( 'input_type' => 'simple-hidden',
-                'input_html_type' => 'hidden',
+                'input_html_type' => 'hidden','function'=>'sst_hidden',
                 'attrs' => array( 'type' => 'hidden', 'name' => '__sst__data_actions', 'value' => $this->process_obj->data_action_ids ) );
         }
     }
@@ -190,7 +192,7 @@ class process extends data_creator {
             $__sst__unique = $this->vals[ '__sst__unique' ];
         }
         $this->process_data[ 'form_data' ][ 'inputs_data' ][] = array( 'input_type' => 'simple-hidden',
-            'input_html_type' => 'hidden',
+            'input_html_type' => 'hidden','function'=>'sst_hidden',
             'attrs' => array( 'type' => 'hidden', 'name' => '__sst__unique', 'value' => $__sst__unique ) );
     }
 
@@ -206,7 +208,7 @@ class process extends data_creator {
         }
 
         $this->process_data[ 'form_data' ][ 'inputs_data' ][] = array( 'input_type' => 'simple-hidden',
-            'input_html_type' => 'hidden',
+            'input_html_type' => 'hidden','function'=>'sst_hidden',
             'attrs' => array( 'type' => 'hidden', 'name' => '__sst__step', 'value' => $__sst__step ) );
     }
 
