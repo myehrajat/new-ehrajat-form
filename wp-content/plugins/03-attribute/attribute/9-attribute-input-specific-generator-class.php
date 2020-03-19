@@ -138,12 +138,12 @@ implements attribute_input_specific_generator_interface {
                     break;
                 case "checkbox":
                 case "radio":
-					if($GLOBALS[ 'vals' ][ $this->specific_obj->name ] == $this->specific_obj->value){
-                        $this->specific_obj->checked='checked';
-					}
+                    if ( $GLOBALS[ 'vals' ][ $this->specific_obj->name ] == $this->specific_obj->value ) {
+                        $this->specific_obj->checked = 'checked';
+                    }
                     break;
                 case "select":
-					
+
                     break;
                 case "textarea":
                     $this->specific_obj->text = $GLOBALS[ 'vals' ][ $this->specific_obj->name ];
@@ -393,8 +393,11 @@ implements attribute_input_specific_generator_interface {
         $this->optgroup_data = $optgroup_data;
     }
 
-
+    /******************
+    create options or lists 
+    *******************/
     function get_list_values( $list_ids ) {
+        $seperator_of_disabled_and_selected = ',';
         if ( $this->input_html_type != 'select' ) {
             $original_input_data = $this->input_data;
         }
@@ -404,20 +407,7 @@ implements attribute_input_specific_generator_interface {
             foreach ( $list_ids as $list_id ) {
                 $this->input_data = array();
                 $opt_attrs = array( 'specific' => array(), 'global' => array() );
-                if ( $this->input_html_type == 'select' ) {
-                    $list_obj = $this->get_by_id( $list_id, $GLOBALS[ 'sst_tables' ][ 'attr_input_select_options' ] );
-                    $specific_attr = $this->create_multiple_attrs( array(
-                        'disabled' => $list_obj->disabled,
-                        'selected' => $list_obj->selected,
-                    ), 'option' );
-                } else {
-                    $list_obj = $this->get_by_id( $list_id, $GLOBALS[ 'sst_tables' ][ 'attr_input_attr_list' ] );
-                    $specific_attr = $this->create_multiple_attrs( array(
-                        'disabled' => $list_obj->disabled,
-                    ), 'option' );
-
-                }
-                if ( $this->input_data[ 'attrs' ] == NULL ) {
+                if ( empty( $this->input_data[ 'attrs' ] ) ) {
                     $this->input_data[ 'attrs' ] = array();
                 }
                 $opt_attrs[ 'specific' ] = $this->input_data[ 'attrs' ];
@@ -426,27 +416,28 @@ implements attribute_input_specific_generator_interface {
                     if ( $this->input_data[ 'attrs' ] == NULL ) {
                         $this->input_data[ 'attrs' ] = array();
                     }
-
                     $opt_attrs[ 'global' ] = $global_obj->input_data[ 'attrs' ];
-                    //dbg($global_obj->input_data[ 'attrs' ]);
                 }
+                $list_obj = $this->get_by_id( $list_id, $GLOBALS[ 'sst_tables' ][ 'attr_input_select_options' ] );
                 if ( in_array( $list_obj->source_type, array( 'json', 'query', 'value' ) ) ) {
                     switch ( $list_obj->source_type ) {
                         case 'value':
-
-                            $val = $this->is_eval_run( $list_obj->value );
+                            $opt_attrs[ 'specific' ] = array();
+                            $value = $this->is_eval_run( $list_obj->value );
                             if ( $val ) {
+                                $this->input_data = array();
+                                $label = $this->run_eval( $list_obj->label );
                                 if ( $this->input_html_type == 'select' ) {
-                                    $this->input_data = array();
-                                    $this->create_attribute( 'value', $val );
-                                    $this->create_attribute( 'label', $this->is_eval_run( $list_obj->label ) );
                                     $options[ $i ][ 'text' ] = $this->is_eval_run( $list_obj->text );
-
-                                } else {
-                                    $this->create_attribute( 'value', $val );
-                                    $this->create_attribute( 'label', $this->is_eval_run( $list_obj->label ) );
-
+                                    if ( $value == $list_obj->selected ) {
+                                        $opt_attrs[ 'specific' ][ 'selected' ] = 'selected';
+                                    }
                                 }
+                                if ( $value == $list_obj->disabled ) {
+                                    $opt_attrs[ 'specific' ][ 'disabled' ] = 'disabled';
+                                }
+                                $this->create_attribute( 'value', $value );
+                                $this->create_attribute( 'label', $label );
                                 $options[ $i ][ 'attrs' ] = array_merge( $opt_attrs[ 'global' ], $opt_attrs[ 'specific' ], $this->input_data[ 'attrs' ] );
                                 $i++;
                             } else {
@@ -457,24 +448,26 @@ implements attribute_input_specific_generator_interface {
                             global $wpdb;
                             $results = $wpdb->get_results( $list_obj->query );
                             if ( !empty( $results )and!empty( $list_obj->query_value_function ) ) {
-                                if ( $this->input_html_type == 'select' ) {
-
-                                    foreach ( $results as $result ) {
-                                        $this->input_data = array();
-                                        $this->create_attribute( 'value', $this->run_eval( $list_obj->query_value_function, $result ) );
-                                        $this->create_attribute( 'label', $this->run_eval( $list_obj->query_label_function, $result ) );
-                                        $options[ $i ][ 'text' ] = $this->run_eval( $list_obj->query_text_function, $result );
-                                        $options[ $i ][ 'attrs' ] = array_merge( $opt_attrs[ 'global' ], $opt_attrs[ 'specific' ], $this->input_data[ 'attrs' ] );
-                                        $i++;
+                                foreach ( $results as $result ) {
+                                    $opt_attrs[ 'specific' ] = array();
+                                    $value = $this->run_eval( $list_obj->query_value_function, $result );
+                                    $label = $this->run_eval( $list_obj->query_label_function, $result );
+                                    if ( $this->input_html_type == 'select' ) {
+                                        $selected_vals = explode( $seperator_of_disabled_and_selected, $list_obj->selected );
+                                        if ( in_array( $value, $selected_vals ) ) {
+                                            $opt_attrs[ 'specific' ][ 'selected' ] = 'selected';
+                                        }
                                     }
-                                } else {
-                                    foreach ( $results as $result ) {
-                                        $this->input_data = array();
-                                        $this->create_attribute( 'value', $this->run_eval( $list_obj->query_value_function, $result ) );
-                                        $this->create_attribute( 'label', $this->run_eval( $list_obj->query_label_function, $result ) );
-                                        $options[ $i ][ 'attrs' ] = array_merge( $opt_attrs[ 'global' ], $opt_attrs[ 'specific' ], $this->input_data[ 'attrs' ] );
-                                        $i++;
+                                    $disabled_vals = explode( $seperator_of_disabled_and_selected, $list_obj->disabled );
+                                    if ( in_array( $value, $disabled_vals ) ) {
+                                        $opt_attrs[ 'specific' ][ 'disabled' ] = 'disabled';
                                     }
+                                    $this->input_data = array();
+                                    $this->create_attribute( 'value', $value );
+                                    $this->create_attribute( 'label', $label );
+                                    $options[ $i ][ 'text' ] = $this->run_eval( $list_obj->query_text_function, $result );
+                                    $options[ $i ][ 'attrs' ] = array_merge( $opt_attrs[ 'global' ], $opt_attrs[ 'specific' ], $this->input_data[ 'attrs' ] );
+                                    $i++;
                                 }
 
                             } else {
@@ -491,33 +484,36 @@ implements attribute_input_specific_generator_interface {
                                     $array_of_lists_values = $this->looper( $json, $list_obj->json_value_pointer );
                                     if ( !empty( $array_of_lists_values ) ) {
                                         $array_of_lists_labels = $this->looper( $json, $list_obj->json_label_pointer );
-                                        if ( $this->input_html_type == 'select' ) {
-                                            $array_of_lists_texts = $this->looper( $json, $list_obj->json_text_pointer );
-                                            foreach ( $array_of_lists_values as $k => $array_of_lists_value ) {
-                                                $array_of_lists[ $k ][ 'value' ] = $array_of_lists_value;
-                                                $array_of_lists[ $k ][ 'label' ] = $array_of_lists_labels[ $k ];
+                                        $array_of_lists_texts = $this->looper( $json, $list_obj->json_text_pointer );
+                                        foreach ( $array_of_lists_values as $k => $array_of_lists_value ) {
+                                            $array_of_lists[ $k ][ 'value' ] = $array_of_lists_value;
+                                            $array_of_lists[ $k ][ 'label' ] = $array_of_lists_labels[ $k ];
+                                            if ( $this->input_html_type == 'select' ) {
                                                 $array_of_lists[ $k ][ 'text' ] = $array_of_lists_texts[ $k ];
                                             }
-                                            foreach ( $array_of_lists as $array_of_list ) {
-                                                $this->input_data = array();
-                                                $this->create_attribute( 'value', $this->run_eval( 'return $eval_var->' . $array_of_list[ 'value' ] . ';', $json ) );
-                                                $this->create_attribute( 'label', $this->run_eval( 'return $eval_var->' . $array_of_list[ 'label' ] . ';', $json ) );
+                                        }
+                                        foreach ( $array_of_lists as $array_of_list ) {
+                                            $opt_attrs[ 'specific' ] = array();
+                                            $value = $this->run_eval( 'return $eval_var->' . $array_of_list[ 'value' ] . ';', $json );
+                                            $label = $this->run_eval( 'return $eval_var->' . $array_of_list[ 'label' ] . ';', $json );
+                                            if ( $this->input_html_type == 'select' ) {
+                                                $selected_vals = explode( $seperator_of_disabled_and_selected, $list_obj->selected );
+                                                if ( in_array( $value, $selected_vals ) ) {
+                                                    $opt_attrs[ 'specific' ][ 'selected' ] = 'selected';
+                                                }
+                                            }
+                                            $disabled_vals = explode( $seperator_of_disabled_and_selected, $list_obj->disabled );
+                                            if ( in_array( $value, $disabled_vals ) ) {
+                                                $opt_attrs[ 'specific' ][ 'disabled' ] = 'disabled';
+                                            }
+                                            $this->input_data = array();
+                                            $this->create_attribute( 'value', $value );
+                                            $this->create_attribute( 'label', $label );
+                                            if ( $this->input_html_type == 'select' ) {
                                                 $options[ $i ][ 'text' ] = $this->run_eval( 'return $eval_var->' . $array_of_list[ 'text' ] . ';', $json );
-                                                $options[ $i ][ 'attrs' ] = array_merge( $opt_attrs[ 'global' ], $opt_attrs[ 'specific' ], $this->input_data[ 'attrs' ] );
-                                                $i++;
                                             }
-                                        } else {
-                                            foreach ( $array_of_lists_values as $k => $array_of_lists_value ) {
-                                                $array_of_lists[ $k ][ 'value' ] = $array_of_lists_value;
-                                                $array_of_lists[ $k ][ 'label' ] = $array_of_lists_labels[ $k ];
-                                            }
-                                            foreach ( $array_of_lists as $array_of_list ) {
-                                                $this->create_attribute( 'value', $this->run_eval( 'return $eval_var->' . $array_of_list[ 'value' ] . ';', $json ) );
-                                                $this->create_attribute( 'label', $this->run_eval( 'return $eval_var->' . $array_of_list[ 'label' ] . ';', $json ) );
-                                                $options[ $i ][ 'attrs' ] = array_merge( $opt_attrs[ 'global' ], $opt_attrs[ 'specific' ], $this->input_data[ 'attrs' ] );
-                                                $i++;
-                                            }
-
+                                            $options[ $i ][ 'attrs' ] = array_merge( $opt_attrs[ 'global' ], $opt_attrs[ 'specific' ], $this->input_data[ 'attrs' ] );
+                                            $i++;
                                         }
                                     } else {
                                         $this->error_log( 'list values as json_value_pointer return nothing.' );
