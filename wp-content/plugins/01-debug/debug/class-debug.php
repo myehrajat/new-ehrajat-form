@@ -74,7 +74,10 @@ class debug {
     }
 
 }
-echo '<style>.krumo-root{text-align:left;}</style>';
+add_action( 'wp_head', 'krumo_left' );
+function krumo_left(){
+	echo '<style>.krumo-root{text-align:left;}</style>';
+}
 include_once(DEBUG_PLUGIN_ASSET_PATH.'krumo-master/class.krumo.php');
 
 function krm($var){

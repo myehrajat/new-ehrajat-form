@@ -396,7 +396,7 @@ implements attribute_input_specific_generator_interface {
     create options or lists 
     *******************/
     function get_list_values( $list_ids ) {
-        $seperator_of_disabled_and_selected = ',';
+        $seperator_of_disabled_and_selected = VALUE_SEPERATOR;
         if ( $this->input_html_type != 'select' ) {
             $original_input_data = $this->input_data;
         }

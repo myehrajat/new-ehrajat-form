@@ -17,6 +17,7 @@ class process extends data_creator {
     }
 
     function apply_conditions() {
+		global $wpdb;
         if ( !empty( $_REQUEST[ '__sst__conditions' ] ) ) {
             $condition_ids = $this->get_ids( $_REQUEST[ '__sst__conditions' ] );
             $i = 0;
@@ -24,15 +25,19 @@ class process extends data_creator {
                 $condition_obj = $this->get_by_id( $condition_id, $GLOBALS[ 'sst_tables' ][ 'condition' ] );
                 $condition_process_id = $this->get_ids( $condition_obj->process_id, true );
                 if ( $this->is_positive_number( $condition_process_id ) ) {
-							
+					
                     if ( $condition_obj->condition != 'else' ) {
                         if ( $i == 0 ) {
+							$eval_condition_functions[] = $condition_obj->function;
                             $eval_condition_first = 'if(' . $condition_obj->condition . '){$p = new process(' . $condition_process_id . ');echo $p->render();}';
 							
                         } else {
+							$eval_condition_functions[] = $condition_obj->function;
+
                             $eval_condition_middle .= 'elseif(' . $condition_obj->condition . '){ $p = new process(' . $condition_process_id . ');echo $p->render();}';
                         }
                     } else {
+							$eval_condition_functions[] = $condition_obj->function;
                         $eval_condition_else = 'else{$p = new process(' . $condition_process_id . ');echo $p->render();}';
                     }
                     $i++;
@@ -41,8 +46,9 @@ class process extends data_creator {
                     //May be NULL MEANS END SO NO ERROR
                 }
             }
-
-            $eval_condition = EVAL_STR . $eval_condition_first . $eval_condition_middle . $eval_condition_else;
+			$eval_condition_functions = implode(";",$eval_condition_functions);
+            $eval_condition = EVAL_STR. $eval_condition_functions.';'. $eval_condition_first . $eval_condition_middle . $eval_condition_else;
+			//krumo( $eval_condition );
             unset( $_REQUEST[ '__sst__conditions' ] );
             unset( $this->vals[ '__sst__conditions' ] );
 

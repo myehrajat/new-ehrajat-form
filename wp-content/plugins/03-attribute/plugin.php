@@ -27,6 +27,7 @@ use if($GLOBALS['plugins_loaded']==true){ to be sure all plugins loaded the do e
 #############################################
 # SHORTCODE
 #############################################
+define( 'VALUE_SEPERATOR', ',' );
 define( 'EVAL_STR', '%%E%%' );
 //set true for security reason don't use $GLOBALS[ 'vals' ] for password input values
 define( 'ATTRIBUTE_PASSWORD_VALUE', 'yes' );

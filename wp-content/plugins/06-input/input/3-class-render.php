@@ -183,13 +183,23 @@ class render extends database {
     }
 
     function render_input( $input_data = NULL ) {
+		//krumo($this->process_data);
+
         if ( $input_data == NULL ) {
             $input_data = $this->input_data;
         }
 
         if ( !empty( $input_data ) and !empty( $input_data[ 'function' ]  ) ) {
-
-            $input_data = $this->run_eval( EVAL_STR . 'return ' . $input_data[ 'function' ] . '("' . addslashes( json_encode( $input_data ) ) . '");' );
+			//if($input_data[ 'function' ] =='sst_depend_select'){
+			//krumo(EVAL_STR . 'return ' . $input_data[ 'function' ] . '("' . addslashes( json_encode( $input_data ) ) . '","' . addslashes( json_encode( $this->process_data ) ) . '");' );
+			//}
+			$input_data_json = addslashes( json_encode( $input_data ) );
+			$input_data_json = str_replace("\\\'","\\'",$input_data_json);
+			
+			$process_data_json = addslashes( json_encode( $this->process_data ) );
+			$process_data_json = str_replace("\\\'","\\'",$process_data_json);
+			
+            $input_data = $this->run_eval( EVAL_STR . 'return ' . $input_data[ 'function' ] . '("' . $input_data_json . '","' . $process_data_json . '");' );
             /*
         if ( $input_data[ 'extra' ][ 'max' ] > 0 ) {
             $extra = new extra( $input_data[ 'extra' ][ 'max' ], $input_data[ 'unique_id' ] );
@@ -763,13 +773,15 @@ class render extends database {
      |_|      |_|     \___/   \___|  \___| |___/ |___/
                                                       
     **************************************/
+		//static $process_data;
 
     function render_process( $process_data ) {
 
         if ( $process_data == NULL ) {
             $process_data = $this->process_data;
-
         }
+		$this->process_data =  $process_data ;
+//		krumo($this->process_data);
         return $this->render_form( $process_data[ 'form_data' ] );
     }
 }
