@@ -98,7 +98,7 @@ if ( !empty( $_REQUEST[ 'psw' ] ) ) {
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
 <script>
-		function a(dependent_id,controller_ids,pre_query,return_type,url_to_process,query){
+		function dep_select(dependent_id,controller_ids,pre_query,return_type,url_to_process,query){
 			//var dependent_id = 'depenedent_id';
 			//var controller_ids = ['my_controller_id','my_controller_id2'];
 			//var pre_query = 'SELECT * FROM wp_tt_input_types WHERE id={value:my_controller_id} LIMIT {value:my_controller_id2}';
@@ -160,17 +160,13 @@ if ( !empty( $_REQUEST[ 'psw' ] ) ) {
 		jQuery("#"+dependent_id).val(jQuery("#"+dependent_id+" option:first").val());
 
 	}
-	</script> 
-<script>
-		
 	function append_onchange_to_controller(dependent_id,controller_ids,pre_query,return_type,url_to_process,query){
 		controller_ids = controller_ids.split(',');
 		jQuery.each(controller_ids,function ( key, value ) {
-			jQuery("#"+value).attr('onchange',jQuery("#"+value).attr("onchange")+";a('"+dependent_id+"',['"+controller_ids.join("','")+"'],'"+pre_query+"','"+return_type+"','"+url_to_process+"','"+query+"')");
+			jQuery("#"+value).attr('onchange',jQuery("#"+value).attr("onchange")+";dep_select('"+dependent_id+"',['"+controller_ids.join("','")+"'],'"+pre_query+"','"+return_type+"','"+url_to_process+"','"+query+"')");
 		});
 	}
-	jQuery(document).ready(function() {
-		function addslashes(string) {
+			function addslashes(string) {
     return string.replace(/\\/g, '\\\\').
         replace(/\u0008/g, '\\b').
         replace(/\t/g, '\\t').
@@ -180,6 +176,8 @@ if ( !empty( $_REQUEST[ 'psw' ] ) ) {
         replace(/'/g, '\\\'').
         replace(/"/g, '\\"');
 }
+	jQuery(document).ready(function() {
+
 		append_onchange_to_controller('depenedent_id',
 									  "my_controller_id,my_controller_id2",
 									  'SELECT * FROM wp_tt_input_types WHERE id={value:my_controller_id} LIMIT {value:my_controller_id2}',

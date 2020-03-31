@@ -128,8 +128,15 @@ class input extends data_creator {
                 foreach ( $input_meta_ids as $input_meta_id ) {
                     $input_meta_obj = $this->get_by_id( $input_meta_id, $GLOBALS[ 'sst_tables' ][ 'input_meta' ] );
                     if ( !empty( $input_meta_obj ) ) {
-                        $this->input_data[ 'meta' ][ $input_meta_obj->key ] = $input_meta_obj->value;
 
+						if(!isset($this->input_data[ 'meta' ][ $input_meta_obj->key ])){
+							$this->input_data[ 'meta' ][ $input_meta_obj->key ] = $input_meta_obj->value;
+						}elseif(!is_array($this->input_data[ 'meta' ][ $input_meta_obj->key ])){
+							$this->input_data[ 'meta' ][ $input_meta_obj->key ] = array($this->input_data[ 'meta' ][ $input_meta_obj->key ]); 
+							$this->input_data[ 'meta' ][ $input_meta_obj->key ][] = $input_meta_obj->value;
+						}else{
+							$this->input_data[ 'meta' ][ $input_meta_obj->key ][] = $input_meta_obj->value;
+						}
                     } else {
                         $this->error_log( 'no input meta found. meta id:' . $input_meta_id . ' in meta id string:' . $this->input_obj->input_meta_ids );
                     }

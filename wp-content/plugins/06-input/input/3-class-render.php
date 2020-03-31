@@ -269,6 +269,9 @@ class render extends database {
                     $input = '<input' . $this->render_attrs( $input_data[ 'attrs' ] ) . '>' . $datalist;
                     break;
                 case "select":
+			//if($input_data[ 'function' ]=='sst_depend_select'){
+			 //krumo($input_data );
+			//}
                     $select_list = $this->render_select_list( $input_data );
                     $input = '<select' . $this->render_attrs( $input_data[ 'attrs' ] ) . '>' . $select_list . '</select>';
                     break;
@@ -286,7 +289,7 @@ class render extends database {
                 $input = $input . $input_data[ 'extra' ][ 'add_controller' ] . $input_data[ 'extra' ][ 'remove_controller' ];
             }
 
-            $input = '<sst-input id="' . $input_data[ 'unique_id' ] . '" >' . $input . '</sst-input>';
+            $input = '<sst-input id="' . "".$input_data[ 'unique_id' ] . '" >' . $input . '</sst-input>';
             $this->input = $input;
             return $this->input;
         }
