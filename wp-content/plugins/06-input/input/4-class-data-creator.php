@@ -4,13 +4,13 @@ class data_creator extends render{
 				parent::__construct();
 
 	}
-	function create_own_data_data($data){
-		$data['own_data']['epithet']=$this->input_obj->epithet;
-		$data['own_data']['slug']=$this->input_obj->slug;
-		$data['own_data']['description']=$this->input_obj->description;
-		$data['own_data']['owner']=$this->input_obj->owner;
-		$data['own_data']['created']=$this->input_obj->created;
-		$data['own_data']['modified']=$this->input_obj->modified;
+	function create_own_data_data($data,$obj){
+		$data['own_data']['epithet']=$obj->epithet;
+		$data['own_data']['slug']=$obj->slug;
+		$data['own_data']['description']=$obj->description;
+		$data['own_data']['owner']=$obj->owner;
+		$data['own_data']['created']=$obj->created;
+		$data['own_data']['modified']=$obj->modified;
 		return $data;
 	}
     function create_access_data($data,$obj) {

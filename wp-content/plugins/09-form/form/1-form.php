@@ -2,7 +2,7 @@
 class form extends data_creator {
     function __construct( $form_id_str ) {
 				parent::__construct();
-
+		$this->process_data = $process_data;
         $this->get_form_object( $form_id_str );
         $this->form_data[ 'id' ] = $this->form_obj->id;
         $this->create_form_attrs(); //$this->form_data['attrs']
@@ -11,9 +11,9 @@ class form extends data_creator {
         $this->create_form_fieldsets(); //$this->form_data['fieldsets']
         $this->form_data = $this->create_unique_id_data( $this->form_data ); //$this->form_data['unique_id']
         $this->form_data = $this->create_access_data( $this->form_data, $this->form_obj );
+		$this->form_data = $this->create_own_data_data($this->form_data,$this->form_obj);
 
 		$this->form_data = $this->create_tag_data($this->form_data,$this->form_obj); //$this->form_data['unique_id']
-
 		$this->form_data = $this->create_show_order_data($this->form_data, $this->form_obj ,'form');
     }
 
@@ -46,7 +46,7 @@ class form extends data_creator {
 
         $specific_attributs = $attribute_generator->input_data[ 'attrs' ];
 
-        $global_attributs_obj = new attribute_global_generator( $this->get_ids( $form_obj->attr_html_global_id, true ) );
+		$global_attributs_obj = new attribute_global_generator( $this->get_ids( $form_obj->attr_html_global_id, true ));
         $global_attributs = $global_attributs_obj->input_data[ 'attrs' ];
 
 		$custom_attributs_obj = new attribute_custom_generator( $form_obj->attr_custom_ids );

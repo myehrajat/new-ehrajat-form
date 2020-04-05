@@ -99,7 +99,6 @@ class render extends database {
         $after = $this->replace_all_variable_short_codes( $tag[ 'after' ] );
         //if( $tag_id==27){dbg($before);}
         if ( !empty( $data[ 'own_data' ] ) ) {
-			
             $before = $this->replace_own_data_short_codes( $before, $data[ 'own_data' ] );
             $after = $this->replace_own_data_short_codes( $after, $data[ 'own_data' ] );
         }
@@ -188,18 +187,32 @@ class render extends database {
         if ( $input_data == NULL ) {
             $input_data = $this->input_data;
         }
+		$process_data = $this->process_data;
 
         if ( !empty( $input_data ) and !empty( $input_data[ 'function' ]  ) ) {
 			//if($input_data[ 'function' ] =='sst_depend_select'){
 			//krumo(EVAL_STR . 'return ' . $input_data[ 'function' ] . '("' . addslashes( json_encode( $input_data ) ) . '","' . addslashes( json_encode( $this->process_data ) ) . '");' );
 			//}
-			$input_data_json = addslashes( json_encode( $input_data ) );
-			$input_data_json = str_replace("\\\'","\\'",$input_data_json);
-			
-			$process_data_json = addslashes( json_encode( $this->process_data ) );
-			$process_data_json = str_replace("\\\'","\\'",$process_data_json);
-			
+			if(!empty($input_data['eval'])){
+				//$input_data['eval'] = base64_encode(json_encode($input_data['eval']));
+			}
+			$input_data_json = base64_encode(json_encode($input_data));
+			$process_data_json = base64_encode(json_encode($this->process_data));
             $input_data = $this->run_eval( EVAL_STR . 'return ' . $input_data[ 'function' ] . '("' . $input_data_json . '","' . $process_data_json . '");' );
+			//krumo();
+			if(!empty($input_data['eval'])){
+				foreach($input_data['eval'] as $eval_code){
+					try {
+						$input_data = eval( $eval_code.'; return $input_data;' );
+					} catch ( Throwable $error ) {
+						$this->error_log( 'eval string has syntax error.this code has error: '.$eval_code );
+					}
+				}
+			}
+			
+			
+			
+			
             /*
         if ( $input_data[ 'extra' ][ 'max' ] > 0 ) {
             $extra = new extra( $input_data[ 'extra' ][ 'max' ], $input_data[ 'unique_id' ] );

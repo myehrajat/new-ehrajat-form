@@ -228,6 +228,7 @@ class attribute_global_generator extends attribute_generator implements attribut
     /**************************************************
      *version 1.0.0
      *these for getting classes from its special table by  space delimited value
+	 complete list :https://developer.mozilla.org/en-US/docs/Web/Events
      **************************************************/
     function create_attr_html_global_events( $onevent_ids ) {
         if ( !empty( $onevent_ids ) ) {
@@ -304,10 +305,24 @@ function escape_java_script_text($str)
                 foreach ( $data_ids_arr as $single_data_id ) {
                     $single_data_obj = $this->get_by_id( $single_data_id, $GLOBALS[ 'sst_tables' ][ 'attr_html_global_data' ] );
                     if ( !empty( $single_data_obj->data_attribute ) && !empty( $single_data_obj->data_value ) ) {
-                        $data_attribute_result = $this->is_eval_run( $single_data_obj->data_attribute );
+						//the name must not contain capital letters.
+                        $data_attribute_result = strtolower($this->is_eval_run( $single_data_obj->data_attribute ));
                         $data_value_result = $this->is_eval_run( $single_data_obj->data_value );
                         if ( $this->is_valid_custom_attr_name( $data_attribute_result ) ) {
-                            $data[] = 'data-' . $data_attribute_result . '="' . htmlentities( $data_value_result ) . '"';
+							if(!$this->has_contain(';',$data_attribute_result)){
+								if(!$this->starts_with( $data_attribute_result, 'xml' )){
+									//the name must not contain capital letters.
+									$data[] = 'data-' . $data_attribute_result. '="' . htmlentities( $data_value_result ) . '"';
+								}else{
+									//https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/data-*
+									//the name must not start with xml, whatever case is used for these letters;
+									return NULL;
+								}
+							}else{
+								//https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/data-*
+								//the name must not contain any semicolon (U+003A);
+								return NULL;
+							}
                         } else { //data-* is not valid name
                             return NULL;
                         }

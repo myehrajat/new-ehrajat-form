@@ -119,45 +119,54 @@ implements attribute_global_validator_interface {
         return $this->attr_id_with_other_name( 'id', $attr_value );
     }
     //https://html.spec.whatwg.org/dev/interaction.html#attr-inputmode
+	
     function attr_inputmode( $attr_value ) {
         $enumerated_values = array( 'none', 'text', 'decimal', 'numeric', 'tel', 'search', 'email', 'url' );
         return $this->create_enumerated_attribute( 'inputmode', $attr_value, $enumerated_values );
     }
     //https://html.spec.whatwg.org/multipage/scripting.html#valid-custom-element-name
-    //start with small ascii alphabet
+    //https://github.com/sindresorhus/validate-element-name
+	//start with small ascii alphabet
     //its limitation of value all characters must be lowercase
+	//validator : https://mothereff.in/custom-element-name
     function attr_is( $attr_value ) {
         $reserved_names = array( 'annotation-xml', 'color-profile', 'font-face', 'font-face-src', 'font-face-uri', 'font-face-format', 'font-face-name', 'missing-glyph' );
         $attr_value = strtolower( $attr_value ); //its limitation of value all characters must be lowercase
-        $start_with_alphabet = ctype_alpha( substr( $attr_value, 0, 1 ) );
-        if ( $this->has_not_space( $attr_value ) ) {
-            if ( $this->is_ascii( $attr_value ) ) {
-                //to do: it need extra check for validating only allowed char at this time i cant find a method to validate hex chars see doc of html 
-                if ( $start_with_alphabet ) {
-                    if ( strpos( $attr_value, '-' ) !== false ) {
-                        if ( !in_array( $attr_value, $reserved_names ) ) {
-                            //there is some warning in element naming that will not applied
-                            return $this->create_attribute( 'is', $attr_value );
-                        } else {
-                            $this->error_log( 'The supplied element name is reserved and can\'t be used.\nSee: https://html.spec.whatwg.org/multipage/scripting.html#valid-custom-element-name' );
-                            return NULL;
-                        }
-                    } else {
-                        $this->error_log( 'Custom element names must contain a hyphen. Example: unicorn-cake' );
-                        return NULL;
-                    }
-                } else {
-                    $this->error_log( 'Custom element names must not start with a alphabet lowercase.' );
-                    return NULL;
-                }
-            } else {
-                $this->error_log( 'Custom element names must not conatin non ASCII.' );
-                return NULL;
-            }
-        } else {
-            $this->error_log( 'Custom element names must not conatin any type of space.' );
-            return NULL;
-        }
+		//cant start with these : You should not use the x-, polymer-, ng- prefixes.
+		if(!$this->starts_with($attr_value,'x-') and !$this->starts_with($attr_value,'polymer-') and !$this->starts_with($attr_value,'ng-') ){
+			$start_with_alphabet = ctype_alpha( substr( $attr_value, 0, 1 ) );
+			if ( $this->has_not_space( $attr_value ) ) {
+				if ( $this->is_ascii( $attr_value ) ) {
+					//to do: it need extra check for validating only allowed char at this time i cant find a method to validate hex chars see doc of html 
+					if ( $start_with_alphabet ) {
+						if ( strpos( $attr_value, '-' ) !== false ) {
+							if ( !in_array( $attr_value, $reserved_names ) ) {
+								//there is some warning in element naming that will not applied
+								return $this->create_attribute( 'is', $attr_value );
+							} else {
+								$this->error_log( 'The supplied element name is reserved and can\'t be used.\nSee: https://html.spec.whatwg.org/multipage/scripting.html#valid-custom-element-name' );
+								return NULL;
+							}
+						} else {
+							$this->error_log( 'Custom element names must contain a hyphen. Example: unicorn-cake' );
+							return NULL;
+						}
+					} else {
+						$this->error_log( 'Custom element names must not start with a alphabet lowercase.' );
+						return NULL;
+					}
+				} else {
+					$this->error_log( 'Custom element names must not conatin non ASCII.' );
+					return NULL;
+				}
+			} else {
+				$this->error_log( 'Custom element names must not conatin any type of space.' );
+				return NULL;
+			}
+		}else{
+				$this->error_log( 'You should not use the x-, polymer-, ng- prefixes. Refer to https://github.com/sindresorhus/validate-element-name.' );
+				return NULL;
+		}
     }
     //https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemid
     //https://html.spec.whatwg.org/multipage/microdata.html#items
@@ -171,21 +180,27 @@ implements attribute_global_validator_interface {
     function attr_itemprop( $attr_value ) {
         return $this->create_attribute( 'itemprop', $attr_value );
     }
-
+	//https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemref
+	/*
+	For HTML 4, the answer is technically:
+	itemref is a list of seperated element ids by space
+	id validtion is almost noting: HTML 5 is even more permissive, saying only that an id must contain at least one character and may not contain any space characters.
+	*/
     function attr_itemref( $attr_value ) {
         return $this->create_attribute( 'itemref', $attr_value );
     }
 
     function attr_itemscope( $attr_value ) {
         //it can be global identifier and or url very complicated to validate
-        if ( $attr_value ) {
+        if ( !empty($attr_value) ) {
             return 'itemscope';
         }
     }
     //https://html.spec.whatwg.org/multipage/microdata.html
     //https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemtype
+	//Full list of types: https://schema.org/docs/full.html
     function attr_itemtype( $attr_value ) {
-        $valid = $this->is_absoulute_url( $attr_value );
+        $valid = $this->is_absolute_url( $attr_value );
         if ( $valid ) {
             return $this->create_attribute( 'itemtype', $attr_value );
         } else {
@@ -204,6 +219,7 @@ implements attribute_global_validator_interface {
             return NULL;
         }
     }
+	//https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_templates_and_slots
     //to do :not enough data for validating search more
     function attr_slot( $attr_value ) {
         if ( $this->has_not_space( $attr_value ) ) {

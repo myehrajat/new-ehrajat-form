@@ -24,6 +24,7 @@ class insert_attribute_related_tables extends database {
         $GLOBALS[ 'sst_tables' ][ 'attr_html_global_style' ] = $this->full_prefix . 'attr_html_global_style';
         $GLOBALS[ 'sst_tables' ][ 'attr_html_event' ] = $this->full_prefix . 'attr_html_event';
         $GLOBALS[ 'sst_tables' ][ 'attr_html_event_jsfunction' ] = $this->full_prefix . 'attr_html_event_jsfunction';
+		$GLOBALS[ 'sst_tables' ][ 'evals' ] =  $this->full_prefix . 'evals';
         /************CUSTOM ATTRIBUTE AND RELATED ATTRIBUTE TABLES*************/
         $GLOBALS[ 'sst_tables' ][ 'attr_custom' ] = $this->full_prefix . 'attr_custom';
         /************COMMON INPUT ATTRIBUTE AND RELATED ATTRIBUTE TABLES*************/
@@ -568,7 +569,20 @@ class insert_attribute_related_tables extends database {
         "`attr_custom_ids` VARCHAR(255) NOT NULL," . //these include input type specific ones
         "`access_id` VARCHAR(255) NOT NULL," .
         "`input_meta_ids` VARCHAR(255) NOT NULL," .
-        "`description`  LONGTEXT DEFAULT NULL," .
+        "`eval_ids` VARCHAR(255) NOT NULL," .
+        "`description` LONGTEXT DEFAULT NULL," .
+        "`owner` VARCHAR(255) DEFAULT NULL," .
+        "`created` DATETIME NOT NULL DEFAULT NOW()," .
+        "`modified` DATETIME NOT NULL DEFAULT NOW(),
+        PRIMARY KEY id  (`id`)) $this->collate_charset;";
+		$this->create_tables($sql);
+        ###################################################
+        $sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'evals' ] . " (" .
+        "`id` INT(10) NOT NULL auto_increment," .
+        "`epithet` VARCHAR(255) NOT NULL," .
+        "`slug` VARCHAR(255) NOT NULL," .
+        "`eval` LONGTEXT DEFAULT NULL," .
+        "`description` LONGTEXT DEFAULT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .
         "`created` DATETIME NOT NULL DEFAULT NOW()," .
         "`modified` DATETIME NOT NULL DEFAULT NOW(),

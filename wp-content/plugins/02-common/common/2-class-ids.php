@@ -170,14 +170,18 @@ class ids extends str implements ids_interface {
         return $this->starts_with( $string, EVAL_STR );
     }
 
-    function run_eval( $ecode, $a = NULL ) {
+    function run_eval( $ecode, $a = NULL /*,$use_defined_vars = FALSE*/) {
         $eval_var = $a;
         $vals = $a;
+		//search more to find a solution. Creativity needed
+		//if($use_defined_vars==TRUE){
+		//	krumo(get_defined_vars());
+		//}
         $ecode = str_replace( EVAL_STR, '', $ecode );
         try {
             $result = eval( $ecode );
         } catch ( Throwable $error ) {
-            $this->error_log( 'eval string has syntax error.' );
+            debug::error_log( 'eval string has syntax error.This code is problematic: '.$ecode );
             $result = NULL;
         }
         return $result;

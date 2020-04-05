@@ -101,7 +101,7 @@ class fieldset extends data_creator {
         $this->fieldset_data[ 'legend' ] = array();
         if ( $this->is_positive_number( $legend_id ) ) {
             $legend_obj = $this->get_by_id( $legend_id, $GLOBALS[ 'sst_tables' ][ 'legend' ] );
-            $global_attr_obj = new attribute_global_generator( $this->get_ids( $legend_obj->attr_html_global_id, true ) );
+            $global_attr_obj = new attribute_global_generator( $this->get_ids( $legend_obj->attr_html_global_id, true ));
             $custom_attr_obj = new attribute_custom_generator( $legend_obj->attr_custom_ids );
             if ( empty( $global_attr_obj->input_data[ 'attrs' ] ) ) {
                 $global_attr_obj->input_data[ 'attrs' ] = array();
@@ -120,7 +120,7 @@ class fieldset extends data_creator {
     }
 
     function get_fieldset_attrs( $fieldset_obj ) {
-        $global_attr_obj = new attribute_global_generator( $this->get_ids( $fieldset_obj->attr_html_global_id, true ) );
+        $global_attr_obj = new attribute_global_generator( $this->get_ids( $fieldset_obj->attr_html_global_id, true ));
         $custom_attr_obj = new attribute_custom_generator( $fieldset_obj->attr_custom_ids );
         $specific_attr_obj = new attribute_generator;
         $specific_attr_obj->create_multiple_attrs( array( 'disabled' => $fieldset_obj->disabled,

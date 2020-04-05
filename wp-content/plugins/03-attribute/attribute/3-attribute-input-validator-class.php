@@ -192,9 +192,12 @@ implements attribute_input_validator_interface {
     function attr_autofocus( $attr_value ) {
         return $this->create_same_name_attribute_value( 'autofocus', $attr_value );
     }
-    //https://html.spec.whatwg.org/multipage/interaction.html#attr-fe-autofocus
+    //http://anssiko.github.io/html-media-capture/
+	//https://www.w3.org/TR/html-media-capture/
     function attr_capture( $attr_value ) {
-        return $this->create_same_name_attribute_value( 'capture', $attr_value );
+		//camera and microphone is very outdated and deprecated
+        $enumerated_values = array( 'user', 'environment', 'capture' );
+        return $this->create_enumerated_attribute( 'formmethod', $attr_value, $enumerated_values );
     }
     //https://html.spec.whatwg.org/multipage/interaction.html#attr-fe-autofocus
     function attr_checked( $attr_value ) {

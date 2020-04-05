@@ -381,6 +381,7 @@ implements attribute_input_specific_generator_interface {
         foreach ( $optgroup_ids as $i => $optgroup_id ) {
             $optgroup_obj = $this->get_by_id( $optgroup_id, $GLOBALS[ 'sst_tables' ][ 'attr_input_select_optgroup' ] );
             if ( $optgroup_obj ) {
+				//krumo($this->process_data);
                 $optgroup_global_attr_obj = new attribute_global_generator( $this->is_eval_run( $optgroup_obj->attr_html_global_id ) );
                 $this->input_data = array();
                 $optgroup_attrs[] = $this->create_attribute( 'label', $optgroup_obj->label );
@@ -411,7 +412,7 @@ implements attribute_input_specific_generator_interface {
                 }
                 $opt_attrs[ 'specific' ] = $this->input_data[ 'attrs' ];
                 if ( !empty( $list_obj->attr_html_global_id ) ) {
-                    $global_obj = new attribute_global_generator( $this->is_eval_run( $list_obj->attr_html_global_id ) );
+                    $global_obj = new attribute_global_generator( $this->is_eval_run( $list_obj->attr_html_global_id ));
                     if ( $this->input_data[ 'attrs' ] == NULL ) {
                         $this->input_data[ 'attrs' ] = array();
                     }

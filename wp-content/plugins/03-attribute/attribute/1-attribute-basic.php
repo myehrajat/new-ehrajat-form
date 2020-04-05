@@ -46,16 +46,17 @@ implements attribute_basic_interface {
      *desc:Attributes have a name and a value. Attribute names must consist of one or more characters other than controls, U+0020 SPACE, U+0022 ("), U+0027 ('), U+003E (>), U+002F (/), U+003D (=), and noncharacters. In the HTML syntax, attribute names, even those for foreign elements, may be written with any mix of ASCII lower and ASCII upper alphas.
      		following characters are not allowed:
     	all char in brace { \"'>/=	}
+		and {<} is valid by extremely recommended not to use. Refer to:https://www.w3.org/TR/REC-xml/#NT-Name
     	controls:https://infra.spec.whatwg.org/#control
     	controls:https://infra.spec.whatwg.org/#control
     	noncharacter:https://infra.spec.whatwg.org/#noncharacter
     test by:https://www.regextester.com/103704
-
+https://www.w3.org/TR/REC-xml/#NT-Name
      **************************************************/
     function is_valid_custom_attr_name( $attr ) {
         if ( !empty( $attr ) ) {
             //? negate the regular expression attr
-            $attr = preg_replace( "~/[?^ \"'>/=	]/g~", '', $this->replace_all_type_of_space_to_simple_space( $attr ), -1, $count );
+            $attr = preg_replace( "~/[?^ \"'></=	]/g~", '', $this->replace_all_type_of_space_to_simple_space( $attr ), -1, $count );
             if ( $count > 0 ) {
                 $this->error_log( 'attribute provided : ' . $attr . ' is not valid. it must be valid by sst_valid_for_attr_naming and not match [?^ \"\'>/=		]/g' );
                 $return = false;
@@ -139,7 +140,7 @@ implements attribute_basic_interface {
     }
 
     function create_url_abosult_or_relative( $attr_name, $attr_value ) {
-        $valid_absoulute = $this->is_absoulute_url( $attr_value );
+        $valid_absoulute = $this->is_absolute_url( $attr_value );
         $valid_relative = $this->is_relative_url( $attr_value );
         if ( $valid_relative and $valid_relative ) {
             return $this->create_attribute( $attr_name, $attr_value );

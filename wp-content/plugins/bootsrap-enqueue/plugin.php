@@ -35,6 +35,9 @@ function bootstarp_enqueue() {
 	/************** RTL **********************/
 	
 	    wp_register_script( 'custom.js',BOOTSTRAP_PLUGIN_URL.'customjs.js', array('jquery')  );
-	    wp_enqueue_script( 'custom.js' );}
+	    wp_enqueue_script( 'custom.js' );
+	    wp_register_script( 'csslint',BOOTSTRAP_PLUGIN_URL.'csslint/dist/csslint.js', array('jquery')  );
+	    wp_enqueue_script( 'csslint' );
+}
  
 add_action( 'wp_enqueue_scripts', 'bootstarp_enqueue' );

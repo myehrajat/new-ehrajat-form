@@ -4,7 +4,7 @@ interface str_interface {
 
     function is_positive_number( $str );
 
-    function is_absoulute_url( $url );
+    function is_absolute_url( $url );
 
     function is_relative_url( $path );
 
@@ -88,7 +88,7 @@ implements str_interface {
      *version 1.0.0
      * this function is set option
      **************************************************/
-    function is_absoulute_url( $url ) {
+    function is_absolute_url( $url ) {
         $pattern = "/^(?:ftp|https?|feed):\/\/(?:(?:(?:[\w\.\-\+!$&'\(\)*\+,;=]|%[0-9a-f]{2})+:)*
 		(?:[\w\.\-\+%!$&'\(\)*\+,;=]|%[0-9a-f]{2})+@)?(?:
 		(?:[a-z0-9\-\.]|%[0-9a-f]{2})+|(?:\[(?:[0-9a-f]{0,4}:)*(?:[0-9a-f]{0,4})\]))(?::[0-9]+)?(?:[\/|\?]
@@ -145,7 +145,6 @@ implements str_interface {
             return false;
         }
     }
-
     function replace_all_type_of_space_to_simple_space( $string ) {
         return preg_replace( '/[\t\n\r\s]+/', ' ', $string );
     }
@@ -166,6 +165,13 @@ implements str_interface {
             return true;
         }
     }
+	function has_contain($needle, $string){
+		if (strpos($string, $needle) === false) {
+		return false;
+			}else{
+            return true;
+		}
+	}
 
     function starts_with( $string, $startString ) {
 		settype($string,'string');

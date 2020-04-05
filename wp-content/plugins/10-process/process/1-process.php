@@ -155,6 +155,7 @@ class process extends data_creator {
         $form_obj = new form( $this->process_obj->form_id );
 
         $this->process_data[ 'form_data' ] = $form_obj->form_data;
+		//krumo($form_obj->form_data);
         $this->generate_step_now();
         //$this->generate_roadmap();
         //$this->generate_max_step();

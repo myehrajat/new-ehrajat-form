@@ -87,7 +87,7 @@ function test_form(){
 }
 function test_process(){
 	//if(!isset($_REQUEST['__sst__step'])){
-	$f = new process(1);
+	$f = new process($_GET['pr']);
 	echo $f->render();
 	//}
 }

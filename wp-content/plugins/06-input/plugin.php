@@ -32,7 +32,9 @@ glob_includer(INPUT_SETUP_PATH);
 new insert_input_related_tables;
 glob_includer(INPUT_FUNC_PATH);
 new register_addon;
-
+function data_decoder($data){
+	return json_decode(base64_decode($data),true);
+}
 //die;
 //glob_includer(INPUT_ADDON_PATH);
 

@@ -33,7 +33,7 @@ class input extends data_creator {
         $input_type_id = $input_obj->type_id;
         $this->input_data[ 'input_type' ] = $this->common_attr_obj->input_type;
         $this->input_data[ 'input_html_type' ] = $this->common_attr_obj->input_html_type;
-        $this->input_data[ 'function' ] = $this->common_attr_obj->input_type_obj-> function;
+        $this->input_data[ 'function' ] = $this->common_attr_obj->input_type_obj->function;
 
     }
 
@@ -106,9 +106,10 @@ class input extends data_creator {
             $this->specific_attr_obj->input_data[ 'attrs' ]
         );
 
+
         $this->input_data = $this->create_access_data( $this->input_data, $this->input_obj );
         $this->input_data = $this->create_unique_id_data( $this->input_data );
-        $this->input_data = $this->create_own_data_data( $this->input_data );
+        $this->input_data = $this->create_own_data_data( $this->input_data, $this->input_obj );
         $this->input_data = $this->create_tag_data( $this->input_data, $this->input_obj );
         if ( class_exists( 'extra' ) ) {
             if ( $this->input_obj->extra > 0 ) {
@@ -118,9 +119,32 @@ class input extends data_creator {
             }
             //$this->input_data['extra'][ 'max' ] = $this->input_obj->extra;
         }
-        $this->create_input_metas();
-    }
+			$this->create_input_metas();
+			$this->create_input_evals();
 
+
+		//$this->input_data[ 'eval' ][] =  '$input_data["attrs"]["placeholder"] = $process_data["id"];';
+		//$this->input_data[ 'eval' ][] =  '$input_data["attrs"]["disabled"] = "disabled";';
+		//krumo('TO do : make eval input data');
+    }
+    function create_input_evals(){
+		if(!empty($this->input_obj->eval_ids)){
+            $input_eval_ids = $this->get_ids( $this->input_obj->eval_ids );
+            if ( !empty( $input_eval_ids ) ) {
+                foreach ( $input_eval_ids as $input_eval_id ) {
+                    $input_eval_obj = $this->get_by_id( $input_eval_id, $GLOBALS[ 'sst_tables' ][ 'evals' ] );
+					try {
+						$input_data = eval( 'error_reporting(E_ALL  & ~E_NOTICE & ~E_WARNING & ~E_NOTICE  );'. $input_eval_obj->eval.";");
+						$this->input_data['eval'][] = $input_eval_obj->eval;
+					} catch ( Throwable $error ) {
+						echo ( 'eval string in evals table has syntax error.Eval id:'.$input_eval_id.'.this code has error: ' . $input_eval_obj->eval );
+					}	
+				}
+			}else{
+                $this->error_log( 'input_eval_ids is provided by after processing id string no id remained: '.$this->input_obj->eval_ids );
+            }
+		}
+	}
     function create_input_metas() {
         if ( !empty( $this->input_obj->input_meta_ids ) ) {
             $input_meta_ids = $this->get_ids( $this->input_obj->input_meta_ids );
