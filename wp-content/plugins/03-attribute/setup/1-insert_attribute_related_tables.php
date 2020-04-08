@@ -61,15 +61,11 @@ class insert_attribute_related_tables extends database {
         "`epithet` VARCHAR(255) NOT NULL," .
         "`slug` VARCHAR(255) NOT NULL," .
         "`source_type` VARCHAR(255) DEFAULT NULL COMMENT 'Values:query | json_url | value'," .
-        "`disabled` VARCHAR(255) DEFAULT NULL," .
+        "`query` LONGTEXT DEFAULT NULL," . //query will override value
+        "`json_url` LONGTEXT DEFAULT NULL," .
         "`label` VARCHAR(255) DEFAULT NULL," .
         "`value` VARCHAR(255) DEFAULT NULL," .
-        "`query` LONGTEXT DEFAULT NULL," . //query will override value
-        "`query_label_function` LONGTEXT DEFAULT NULL," .
-        "`query_value_function` LONGTEXT DEFAULT NULL," .
-        "`json_url` LONGTEXT DEFAULT NULL," .
-        "`json_label_pointer` VARCHAR(255) DEFAULT NULL," .
-        "`json_value_pointer` VARCHAR(255) DEFAULT NULL," .
+        "`disabled` VARCHAR(255) DEFAULT NULL," .
         "`attr_html_global_id` VARCHAR(255) DEFAULT NULL," .
         "`description`  LONGTEXT DEFAULT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .
@@ -191,19 +187,13 @@ class insert_attribute_related_tables extends database {
         "`epithet` VARCHAR(255) NOT NULL," .
         "`slug` VARCHAR(255) NOT NULL," .
         "`source_type` VARCHAR(255) DEFAULT NULL COMMENT 'Values:query | json_url | value'," .
-        "`text` VARCHAR(255) DEFAULT NULL," .
-        "`disabled` VARCHAR(255) NOT NULL," .
-        "`label` VARCHAR(255) NOT NULL," .
-        "`selected` VARCHAR(255) NOT NULL," .
-        "`value` VARCHAR(255) NOT NULL," .
         "`query` LONGTEXT DEFAULT NULL," .
-        "`query_text_function` LONGTEXT DEFAULT NULL," .
-        "`query_label_function` LONGTEXT DEFAULT NULL," .
-        "`query_value_function` LONGTEXT DEFAULT NULL," .
         "`json_url` LONGTEXT DEFAULT NULL," .
-        "`json_text_pointer` VARCHAR(255) DEFAULT NULL," .
-        "`json_label_pointer` VARCHAR(255) DEFAULT NULL," .
-        "`json_value_pointer` VARCHAR(255) DEFAULT NULL," .
+        "`text` VARCHAR(255) DEFAULT NULL," .
+        "`label` VARCHAR(255) NOT NULL," .
+        "`value` VARCHAR(255) NOT NULL," .
+        "`disabled` VARCHAR(255) NOT NULL," .
+        "`selected` VARCHAR(255) NOT NULL," .
         "`attr_html_global_id` VARCHAR(255) DEFAULT NULL," .
         "`description`  LONGTEXT DEFAULT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .

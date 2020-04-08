@@ -5,13 +5,13 @@
  Source Server Type    : MySQL
  Source Server Version : 100316
  Source Host           : localhost:3306
- Source Schema         : ehrajat-dev
+ Source Schema         : ehrajat-dev-backup
 
  Target Server Type    : MySQL
  Target Server Version : 100316
  File Encoding         : 65001
 
- Date: 14/03/2020 23:08:15
+ Date: 08/04/2020 04:01:18
 */
 
 SET NAMES utf8mb4;
@@ -255,15 +255,11 @@ CREATE TABLE `wp_tt_attr_input_attr_list`  (
   `epithet` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `slug` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `source_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'Values:query | json_url | value',
-  `disabled` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `query` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `json_url` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `label` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `value` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `query` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-  `query_label_function` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-  `query_value_function` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-  `json_url` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-  `json_label_pointer` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `json_value_pointer` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `disabled` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `attr_html_global_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `description` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `owner` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -275,28 +271,28 @@ CREATE TABLE `wp_tt_attr_input_attr_list`  (
 -- ----------------------------
 -- Records of wp_tt_attr_input_attr_list
 -- ----------------------------
-INSERT INTO `wp_tt_attr_input_attr_list` VALUES (1, '', '', 'json', 'disabled', NULL, '', NULL, NULL, NULL, 'http://localhost/wp-content/plugins/99-import-demo/sample.json.php', 'example[$i][$i]->options[0]->model', 'example[$i][$i]->options[0]->car', '%%E%%return \'1\';', NULL, NULL, '2019-10-19 13:41:32', '2019-10-19 13:41:32');
-INSERT INTO `wp_tt_attr_input_attr_list` VALUES (2, '', '', 'query', NULL, NULL, NULL, 'SELECT * FROM wp_tt_input_types', 'return $a->epithet;', 'return $a->html_type;', NULL, NULL, NULL, '%%E%%return \'1\';', NULL, NULL, '2019-10-19 13:41:35', '2019-10-19 13:41:35');
-INSERT INTO `wp_tt_attr_input_attr_list` VALUES (3, '', '', 'value', NULL, 'label', 'value', NULL, NULL, NULL, NULL, NULL, NULL, '%%E%%return \'1\';', NULL, NULL, '2019-10-19 13:41:40', '2019-10-19 13:41:40');
-INSERT INTO `wp_tt_attr_input_attr_list` VALUES (4, '', '', NULL, NULL, NULL, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-10-23 16:40:04', '2019-10-23 16:40:04');
-INSERT INTO `wp_tt_attr_input_attr_list` VALUES (5, '', '', NULL, NULL, NULL, '3', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-10-23 16:40:08', '2019-10-23 16:40:08');
-INSERT INTO `wp_tt_attr_input_attr_list` VALUES (6, '', '', NULL, NULL, NULL, '9', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-10-23 16:40:10', '2019-10-23 16:40:10');
-INSERT INTO `wp_tt_attr_input_attr_list` VALUES (7, '', '', NULL, NULL, NULL, '%%E%%return \'2019-10-21\';', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-10-23 16:54:36', '2019-10-23 16:54:36');
-INSERT INTO `wp_tt_attr_input_attr_list` VALUES (8, '', '', NULL, NULL, NULL, '2019-10-28', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-10-23 16:54:43', '2019-10-23 16:54:43');
-INSERT INTO `wp_tt_attr_input_attr_list` VALUES (9, '', '', NULL, NULL, NULL, '2019-10-14', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-10-23 16:54:45', '2019-10-23 16:54:45');
-INSERT INTO `wp_tt_attr_input_attr_list` VALUES (10, '', '', NULL, NULL, NULL, '2018-01-01T20:23:55', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-10-23 17:00:20', '2019-10-23 17:00:20');
-INSERT INTO `wp_tt_attr_input_attr_list` VALUES (11, '', '', NULL, NULL, NULL, '2019-12-29T18:23:55', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-10-23 17:00:21', '2019-10-23 17:00:21');
-INSERT INTO `wp_tt_attr_input_attr_list` VALUES (12, '', '', NULL, NULL, NULL, '2018-01', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-10-23 17:00:22', '2019-10-23 17:00:22');
-INSERT INTO `wp_tt_attr_input_attr_list` VALUES (13, '', '', NULL, NULL, NULL, '2019-01', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-10-23 17:00:23', '2019-10-23 17:00:23');
-INSERT INTO `wp_tt_attr_input_attr_list` VALUES (14, '', '', NULL, NULL, NULL, '18:23:55', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-10-23 17:11:40', '2019-10-23 17:11:40');
-INSERT INTO `wp_tt_attr_input_attr_list` VALUES (15, '', '', NULL, NULL, NULL, '20:23:55', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-10-23 17:11:42', '2019-10-23 17:11:42');
-INSERT INTO `wp_tt_attr_input_attr_list` VALUES (16, '', '', NULL, NULL, NULL, '2019-W12', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-10-23 17:11:43', '2019-10-23 17:11:43');
-INSERT INTO `wp_tt_attr_input_attr_list` VALUES (17, '', '', NULL, NULL, NULL, '2019-W39', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-10-23 17:11:45', '2019-10-23 17:11:45');
-INSERT INTO `wp_tt_attr_input_attr_list` VALUES (18, '', '', NULL, NULL, NULL, '2019-12-29T18:23:55', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-10-23 17:11:46', '2019-10-23 17:11:46');
-INSERT INTO `wp_tt_attr_input_attr_list` VALUES (19, '', '', NULL, NULL, NULL, '2018-01-01T20:23:55', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-10-23 17:11:49', '2019-10-23 17:11:49');
-INSERT INTO `wp_tt_attr_input_attr_list` VALUES (20, '', '', NULL, NULL, NULL, '#cccccc', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-10-23 17:23:17', '2019-10-23 17:23:17');
-INSERT INTO `wp_tt_attr_input_attr_list` VALUES (21, '', '', NULL, NULL, NULL, '#ff0000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-10-23 17:23:19', '2019-10-23 17:23:19');
-INSERT INTO `wp_tt_attr_input_attr_list` VALUES (22, '', '', NULL, NULL, NULL, '#000000', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-10-23 17:23:20', '2019-10-23 17:23:20');
+INSERT INTO `wp_tt_attr_input_attr_list` VALUES (1, '', '', 'json', NULL, 'http://localhost/wp-content/plugins/99-import-demo/sample.json.php', 'example[$i][$i]->options[0]->model', 'example[$i][$i]->options[0]->car', 'disabled', '%%E%%return \'1\';', NULL, NULL, '2019-10-19 13:41:32', '2019-10-19 13:41:32');
+INSERT INTO `wp_tt_attr_input_attr_list` VALUES (2, '', '', 'query', 'SELECT * FROM wp_tt_input_types', NULL, 'return $a->epithet;', 'return $a->html_type;', NULL, '%%E%%return \'1\';', NULL, NULL, '2019-10-19 13:41:35', '2019-10-19 13:41:35');
+INSERT INTO `wp_tt_attr_input_attr_list` VALUES (3, '', '', 'value', NULL, NULL, 'label', 'value', NULL, '%%E%%return \'1\';', NULL, NULL, '2019-10-19 13:41:40', '2019-10-19 13:41:40');
+INSERT INTO `wp_tt_attr_input_attr_list` VALUES (4, '', '', NULL, NULL, NULL, NULL, '1', NULL, NULL, NULL, NULL, '2019-10-23 16:40:04', '2019-10-23 16:40:04');
+INSERT INTO `wp_tt_attr_input_attr_list` VALUES (5, '', '', NULL, NULL, NULL, NULL, '3', NULL, NULL, NULL, NULL, '2019-10-23 16:40:08', '2019-10-23 16:40:08');
+INSERT INTO `wp_tt_attr_input_attr_list` VALUES (6, '', '', NULL, NULL, NULL, NULL, '9', NULL, NULL, NULL, NULL, '2019-10-23 16:40:10', '2019-10-23 16:40:10');
+INSERT INTO `wp_tt_attr_input_attr_list` VALUES (7, '', '', NULL, NULL, NULL, NULL, '%%E%%return \'2019-10-21\';', NULL, NULL, NULL, NULL, '2019-10-23 16:54:36', '2019-10-23 16:54:36');
+INSERT INTO `wp_tt_attr_input_attr_list` VALUES (8, '', '', NULL, NULL, NULL, NULL, '2019-10-28', NULL, NULL, NULL, NULL, '2019-10-23 16:54:43', '2019-10-23 16:54:43');
+INSERT INTO `wp_tt_attr_input_attr_list` VALUES (9, '', '', NULL, NULL, NULL, NULL, '2019-10-14', NULL, NULL, NULL, NULL, '2019-10-23 16:54:45', '2019-10-23 16:54:45');
+INSERT INTO `wp_tt_attr_input_attr_list` VALUES (10, '', '', NULL, NULL, NULL, NULL, '2018-01-01T20:23:55', NULL, NULL, NULL, NULL, '2019-10-23 17:00:20', '2019-10-23 17:00:20');
+INSERT INTO `wp_tt_attr_input_attr_list` VALUES (11, '', '', NULL, NULL, NULL, NULL, '2019-12-29T18:23:55', NULL, NULL, NULL, NULL, '2019-10-23 17:00:21', '2019-10-23 17:00:21');
+INSERT INTO `wp_tt_attr_input_attr_list` VALUES (12, '', '', NULL, NULL, NULL, NULL, '2018-01', NULL, NULL, NULL, NULL, '2019-10-23 17:00:22', '2019-10-23 17:00:22');
+INSERT INTO `wp_tt_attr_input_attr_list` VALUES (13, '', '', NULL, NULL, NULL, NULL, '2019-01', NULL, NULL, NULL, NULL, '2019-10-23 17:00:23', '2019-10-23 17:00:23');
+INSERT INTO `wp_tt_attr_input_attr_list` VALUES (14, '', '', NULL, NULL, NULL, NULL, '18:23:55', NULL, NULL, NULL, NULL, '2019-10-23 17:11:40', '2019-10-23 17:11:40');
+INSERT INTO `wp_tt_attr_input_attr_list` VALUES (15, '', '', NULL, NULL, NULL, NULL, '20:23:55', NULL, NULL, NULL, NULL, '2019-10-23 17:11:42', '2019-10-23 17:11:42');
+INSERT INTO `wp_tt_attr_input_attr_list` VALUES (16, '', '', NULL, NULL, NULL, NULL, '2019-W12', NULL, NULL, NULL, NULL, '2019-10-23 17:11:43', '2019-10-23 17:11:43');
+INSERT INTO `wp_tt_attr_input_attr_list` VALUES (17, '', '', NULL, NULL, NULL, NULL, '2019-W39', NULL, NULL, NULL, NULL, '2019-10-23 17:11:45', '2019-10-23 17:11:45');
+INSERT INTO `wp_tt_attr_input_attr_list` VALUES (18, '', '', NULL, NULL, NULL, NULL, '2019-12-29T18:23:55', NULL, NULL, NULL, NULL, '2019-10-23 17:11:46', '2019-10-23 17:11:46');
+INSERT INTO `wp_tt_attr_input_attr_list` VALUES (19, '', '', NULL, NULL, NULL, NULL, '2018-01-01T20:23:55', NULL, NULL, NULL, NULL, '2019-10-23 17:11:49', '2019-10-23 17:11:49');
+INSERT INTO `wp_tt_attr_input_attr_list` VALUES (20, '', '', NULL, NULL, NULL, NULL, '#cccccc', NULL, NULL, NULL, NULL, '2019-10-23 17:23:17', '2019-10-23 17:23:17');
+INSERT INTO `wp_tt_attr_input_attr_list` VALUES (21, '', '', NULL, NULL, NULL, NULL, '#ff0000', NULL, NULL, NULL, NULL, '2019-10-23 17:23:19', '2019-10-23 17:23:19');
+INSERT INTO `wp_tt_attr_input_attr_list` VALUES (22, '', '', NULL, NULL, NULL, NULL, '#000000', NULL, NULL, NULL, NULL, '2019-10-23 17:23:20', '2019-10-23 17:23:20');
 
 -- ----------------------------
 -- Table structure for wp_tt_attr_input_checkbox_radio
@@ -640,19 +636,13 @@ CREATE TABLE `wp_tt_attr_input_select_options`  (
   `epithet` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `slug` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `source_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'Values:query | json_url | value',
-  `text` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `disabled` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `label` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `selected` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `value` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `query` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-  `query_text_function` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-  `query_label_function` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-  `query_value_function` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `json_url` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-  `json_text_pointer` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `json_label_pointer` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `json_value_pointer` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `text` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `label` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `value` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `selected` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `disabled` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `attr_html_global_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `description` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `owner` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -664,9 +654,9 @@ CREATE TABLE `wp_tt_attr_input_select_options`  (
 -- ----------------------------
 -- Records of wp_tt_attr_input_select_options
 -- ----------------------------
-INSERT INTO `wp_tt_attr_input_select_options` VALUES (1, '', '', 'json', NULL, '', '', 'selected', '', NULL, NULL, NULL, NULL, 'http://localhost/wp-content/plugins/99-import-demo/sample.json.php', 'example[$i][$i]->options[0]->car', 'example[$i][$i]->options[0]->model', 'example[$i][$i]->options[0]->country', '%%E%%return \'1\';', NULL, NULL, '2019-10-24 19:14:37', '2019-10-24 19:14:37');
-INSERT INTO `wp_tt_attr_input_select_options` VALUES (2, '', '', 'query', NULL, '', '', 'selected', '', 'SELECT * FROM wp_tt_input_types', 'return $a->epithet;', 'return $a->epithet;', 'return $a->html_type;', NULL, NULL, NULL, NULL, '%%E%%return \'1\';', NULL, NULL, '2019-10-24 19:14:38', '2019-10-24 19:14:38');
-INSERT INTO `wp_tt_attr_input_select_options` VALUES (3, '', '', 'value', 'Text', 'disabled', 'Label', 'selected', 'Value', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '%%E%%return \'1\';', NULL, NULL, '2019-10-24 19:14:41', '2019-10-24 19:14:41');
+INSERT INTO `wp_tt_attr_input_select_options` VALUES (1, '', '', 'json', NULL, 'http://localhost/wp-content/plugins/99-import-demo/sample.json.php', 'example[$i][$i]->options[0]->car', 'example[$i][$i]->options[0]->model', 'example[$i][$i]->options[0]->country', 'selected', '', '%%E%%return \'1\';', NULL, NULL, '2019-10-24 19:14:37', '2019-10-24 19:14:37');
+INSERT INTO `wp_tt_attr_input_select_options` VALUES (2, '', '', 'query', 'SELECT * FROM wp_tt_input_types', NULL, 'return $a->epithet;', 'return $a->epithet;', 'return $a->html_type;', 'selected', '', '%%E%%return \'1\';', NULL, NULL, '2019-10-24 19:14:38', '2019-10-24 19:14:38');
+INSERT INTO `wp_tt_attr_input_select_options` VALUES (3, '', '', 'value', NULL, NULL, 'Text', 'Label', 'Value', 'selected', 'disabled', '%%E%%return \'1\';', NULL, NULL, '2019-10-24 19:14:41', '2019-10-24 19:14:41');
 
 -- ----------------------------
 -- Table structure for wp_tt_attr_input_submit

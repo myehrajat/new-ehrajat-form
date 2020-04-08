@@ -188,16 +188,12 @@ $inc_js_file[ $file_url ] = true;
 
 function get_unique_id_of_input_from_this_process_by_input_name( $input_name, $process_data ) {
     $all_inputs = get_all_inputs_data( $process_data, 'process' );
-    //krumo($all_inputs);
     foreach ( $all_inputs as $input_data ) {
         if ( $input_data[ "attrs" ][ "name" ] == $input_name ) {
-            //krumo($input_data["attrs"]["id"]);
-            //krumo($process_data);
             return $input_data[ "attrs" ][ "id" ];
         }
     }
-    //krumo(get_all_inputs_data($input_name,$process_data,'process'));
-    //die;
+	return NULL;
 }
 
 function get_all_inputs_data( $data, $type ) {

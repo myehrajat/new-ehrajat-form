@@ -393,12 +393,14 @@ implements attribute_input_specific_generator_interface {
         }
         $this->optgroup_data = $optgroup_data;
     }
+
     /******************
     create options or lists 
     *******************/
     function get_list_values( $list_ids ) {
         $seperator_of_disabled_and_selected = VALUE_SEPERATOR;
-        if ( $this->input_html_type != 'select' ) {
+		$input_html_type = strtolower($this->input_html_type);
+        if ( $input_html_type != 'select' ) {
             $original_input_data = $this->input_data;
         }
         $list_ids = $this->get_ids( $list_ids );
@@ -418,8 +420,13 @@ implements attribute_input_specific_generator_interface {
                     }
                     $opt_attrs[ 'global' ] = $global_obj->input_data[ 'attrs' ];
                 }
-                $list_obj = $this->get_by_id( $list_id, $GLOBALS[ 'sst_tables' ][ 'attr_input_select_options' ] );
-                if ( in_array( $list_obj->source_type, array( 'json', 'query', 'value' ) ) ) {
+				if ( $input_html_type == 'select' ) {
+						$list_obj = $this->get_by_id( $list_id, $GLOBALS[ 'sst_tables' ][ 'attr_input_select_options' ] );
+				}else{
+						$list_obj = $this->get_by_id( $list_id, $GLOBALS[ 'sst_tables' ][ 'attr_input_attr_list' ] );
+				}
+				//strtolower($list_obj->source_type);
+                if ( in_array($list_obj->source_type , array( 'json', 'query', 'value' ) ) ) {
                     switch ( $list_obj->source_type ) {
                         case 'value':
 							
@@ -428,7 +435,7 @@ implements attribute_input_specific_generator_interface {
                             if ( $value ) {
                                 $this->input_data = array();
                                 $label = $this->run_eval( $list_obj->label );
-                                if ( $this->input_html_type == 'select' ) {
+                                if ( $input_html_type == 'select' ) {
                                     $options[ $i ][ 'text' ] = $this->is_eval_run( $list_obj->text );
                                     if ( $value == $list_obj->selected ) {
                                         $opt_attrs[ 'specific' ][ 'selected' ] = 'selected';
@@ -448,12 +455,12 @@ implements attribute_input_specific_generator_interface {
                         case 'query':
                             global $wpdb;
                             $results = $wpdb->get_results( $list_obj->query );
-                            if ( !empty( $results )and!empty( $list_obj->query_value_function ) ) {
+                            if ( !empty( $results )and!empty( $list_obj->value ) ) {
                                 foreach ( $results as $result ) {
                                     $opt_attrs[ 'specific' ] = array();
-                                    $value = $this->run_eval( $list_obj->query_value_function, $result );
-                                    $label = $this->run_eval( $list_obj->query_label_function, $result );
-                                    if ( $this->input_html_type == 'select' ) {
+                                    $value = $this->run_eval( $list_obj->value, $result );
+                                    $label = $this->run_eval( $list_obj->label, $result );
+                                    if ( $input_html_type == 'select' ) {
                                         $selected_vals = explode( $seperator_of_disabled_and_selected, $list_obj->selected );
                                         if ( in_array( $value, $selected_vals ) ) {
                                             $opt_attrs[ 'specific' ][ 'selected' ] = 'selected';
@@ -466,7 +473,7 @@ implements attribute_input_specific_generator_interface {
                                     $this->input_data = array();
                                     $this->create_attribute( 'value', $value );
                                     $this->create_attribute( 'label', $label );
-                                    $options[ $i ][ 'text' ] = $this->run_eval( $list_obj->query_text_function, $result );
+                                    $options[ $i ][ 'text' ] = $this->run_eval( $list_obj->text, $result );
                                     $options[ $i ][ 'attrs' ] = array_merge( $opt_attrs[ 'global' ], $opt_attrs[ 'specific' ], $this->input_data[ 'attrs' ] );
                                     $i++;
                                 }
@@ -482,14 +489,14 @@ implements attribute_input_specific_generator_interface {
                                 if ( $json ) {
                                     $array_of_lists_labels = array();
                                     $array_of_lists_texts = array();
-                                    $array_of_lists_values = $this->looper( $json, $list_obj->json_value_pointer );
+                                    $array_of_lists_values = $this->looper( $json, $list_obj->value );
                                     if ( !empty( $array_of_lists_values ) ) {
-                                        $array_of_lists_labels = $this->looper( $json, $list_obj->json_label_pointer );
-                                        $array_of_lists_texts = $this->looper( $json, $list_obj->json_text_pointer );
+                                        $array_of_lists_labels = $this->looper( $json, $list_obj->label );
+                                        $array_of_lists_texts = $this->looper( $json, $list_obj->text );
                                         foreach ( $array_of_lists_values as $k => $array_of_lists_value ) {
                                             $array_of_lists[ $k ][ 'value' ] = $array_of_lists_value;
                                             $array_of_lists[ $k ][ 'label' ] = $array_of_lists_labels[ $k ];
-                                            if ( $this->input_html_type == 'select' ) {
+                                            if ( $input_html_type == 'select' ) {
                                                 $array_of_lists[ $k ][ 'text' ] = $array_of_lists_texts[ $k ];
                                             }
                                         }
@@ -497,7 +504,7 @@ implements attribute_input_specific_generator_interface {
                                             $opt_attrs[ 'specific' ] = array();
                                             $value = $this->run_eval( 'return $eval_var->' . $array_of_list[ 'value' ] . ';', $json );
                                             $label = $this->run_eval( 'return $eval_var->' . $array_of_list[ 'label' ] . ';', $json );
-                                            if ( $this->input_html_type == 'select' ) {
+                                            if ( $input_html_type == 'select' ) {
                                                 $selected_vals = explode( $seperator_of_disabled_and_selected, $list_obj->selected );
                                                 if ( in_array( $value, $selected_vals ) ) {
                                                     $opt_attrs[ 'specific' ][ 'selected' ] = 'selected';
@@ -510,7 +517,7 @@ implements attribute_input_specific_generator_interface {
                                             $this->input_data = array();
                                             $this->create_attribute( 'value', $value );
                                             $this->create_attribute( 'label', $label );
-                                            if ( $this->input_html_type == 'select' ) {
+                                            if ( $input_html_type == 'select' ) {
                                                 $options[ $i ][ 'text' ] = $this->run_eval( 'return $eval_var->' . $array_of_list[ 'text' ] . ';', $json );
                                             }
                                             $options[ $i ][ 'attrs' ] = array_merge( $opt_attrs[ 'global' ], $opt_attrs[ 'specific' ], $this->input_data[ 'attrs' ] );
@@ -538,7 +545,7 @@ implements attribute_input_specific_generator_interface {
                     //return false;
                 }
             }
-            if ( $this->input_html_type != 'select' ) {
+            if ( $input_html_type != 'select' ) {
                 $this->input_data = $original_input_data;
             }
             //return $all_attrs;
@@ -550,6 +557,7 @@ implements attribute_input_specific_generator_interface {
         }
     }
 
+    /*****
     /*****
     	
     	this is used for json decoded iritatror pointer
