@@ -560,6 +560,7 @@ class insert_attribute_related_tables extends database {
         "`access_id` VARCHAR(255) NOT NULL," .
         "`input_meta_ids` VARCHAR(255) NOT NULL," .
         "`eval_ids` VARCHAR(255) NOT NULL," .
+        "`attr_changer_condition_ids` VARCHAR(255) NOT NULL," .
         "`description` LONGTEXT DEFAULT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .
         "`created` DATETIME NOT NULL DEFAULT NOW()," .

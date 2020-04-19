@@ -6,7 +6,7 @@ class attribute_input_common_generator extends attribute_custom_generator
 implements attribute_input_common_generator_interface {
     var $input_id;
     var $input_obj;
-    var $commom_attr;
+    var $common_attr;
     var $input_type_obj;
 
     var $input_type_id;
@@ -55,31 +55,22 @@ implements attribute_input_common_generator_interface {
 
 
     function create_attr_input_common() {
+		//krumo($this->input_obj);
         $attr_input_common_arr = array();
         if ( $this->input_html_type != 'select'
             and $this->input_html_type != 'textarea' ) {
-            $common = $this->create_multiple_attrs( array(
+            $this->create_multiple_attrs( array(
                 'disabled' => $this->input_obj->disabled,
                 'form' => $this->input_obj->form,
                 'name' => $this->input_obj->name,
                 'type' => $this->input_html_type,
-                'value' => $this->input_obj->value,
             ) );
         } else {
-            $common = $this->create_multiple_attrs( array(
+            $this->create_multiple_attrs( array(
                 'disabled' => $this->input_obj->disabled,
                 'form' => $this->input_obj->form,
                 'name' => $this->input_obj->name,
             ) );
-        }
-        if ( !empty( $common ) ) {
-            //sometimes even name attribute is not needed eg using js in the same page and accessing its value by id. however its rare but we respect it
-            $attr_input_common_arr[] = $common;
-        }
-        if ( !empty( $attr_input_common_arr ) ) {
-            return implode( ' ', $attr_input_common_arr );
-        } else {
-            return NULL;
         }
     }
 

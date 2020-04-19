@@ -134,22 +134,22 @@ function sst_depend_select( $input_data_json, $process_data_json ) {
 '<?php 
 	if(is_array($input_data['meta']['controller-input-name'])){
 		foreach($input_data['meta']['controller-input-name'] as $controller_input_name){
-			$controller_input_ids[] = addslashes(get_unique_id_of_input_from_this_process_by_input_name($controller_input_name,$process_data));
+			$controller_input_ids[] = addslashes(search_by_attr_to_get_other_attr('name',$controller_input_name,'id',$process_data,'process'));
 		}
 		implode(',',$controller_input_ids);
 	}else{
-		$controller_input_ids = get_unique_id_of_input_from_this_process_by_input_name($input_data['meta']['controller-input-name'],$process_data);
+		$controller_input_ids = search_by_attr_to_get_other_attr('name',$input_data['meta']['controller-input-name'],'id',$process_data,'process');
 		echo addslashes($controller_input_ids); 
 	}
 	?>',
 '<?php 
-	$between_start = '{value:';
+	$between_start = '{name:';
 	$between_end = '}';
 	$query_on_change = $input_data['meta']['query-on-change'];
 	preg_match_all( '/' . addslashes( $between_start ) . '(.*?)' . addslashes( $between_end ) . '/', $query_on_change, $matches );
     foreach ( $matches[ 1 ] as $k => $match ) {
-		$id = get_unique_id_of_input_from_this_process_by_input_name($matches[ 1 ][$k] ,$process_data);
-    	$query_on_change = str_replace( $matches[ 0 ][ $k ],'{value:'. $id.'}' , $query_on_change );
+		$id = search_by_attr_to_get_other_attr('name',$matches[ 1 ][$k] ,'id',$process_data,'process');
+    	$query_on_change = str_replace( $matches[ 0 ][ $k ],$between_start. $id.$between_end , $query_on_change );
 		
     }
 	echo addslashes($query_on_change);?>',
@@ -163,8 +163,8 @@ function sst_depend_select( $input_data_json, $process_data_json ) {
 	$query = $query_str;
 	preg_match_all( '/' . addslashes( $between_start ) . '(.*?)' . addslashes( $between_end ) . '/', $query, $matches );
     foreach ( $matches[ 1 ] as $k => $match ) {
-		$id = get_unique_id_of_input_from_this_process_by_input_name($matches[ 1 ][$k] ,$process_data);
-    	$query = str_replace( $matches[ 0 ][ $k ],'{value:'. $id.'}' , $query );
+		$id = search_by_attr_to_get_other_attr('name',$matches[ 1 ][$k] ,'id',$process_data,'process');
+    	$query = str_replace( $matches[ 0 ][ $k ],$between_start. $id.$between_end , $query );
 		
 	}
 	echo $query;
@@ -185,17 +185,18 @@ $inc_js_file[ $file_url ] = true;
 
 }
 }
-
-function get_unique_id_of_input_from_this_process_by_input_name( $input_name, $process_data ) {
-    $all_inputs = get_all_inputs_data( $process_data, 'process' );
+/*this function search in process ,form, block or any type input recursivley and find which at first is matched and return the attr which you need
+use mostly for js coding*/
+function search_by_attr_to_get_other_attr( $attr_name ,$attr_value,$return_attr_name, $process_data ,$data_type) {
+    $all_inputs = get_all_inputs_data( $process_data,$data_type);
     foreach ( $all_inputs as $input_data ) {
-        if ( $input_data[ "attrs" ][ "name" ] == $input_name ) {
-            return $input_data[ "attrs" ][ "id" ];
+        if ( $input_data[ "attrs" ][ $attr_name ] == $attr_value ) {
+            return $input_data[ "attrs" ][ $return_attr_name ];
         }
     }
 	return NULL;
 }
-
+/* Get all inputs of a process or form or block or fieldset it recursively search for childern and block in block or field set*/	
 function get_all_inputs_data( $data, $type ) {
     static $temp;
     static $all_input;

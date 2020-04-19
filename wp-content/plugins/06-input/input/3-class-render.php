@@ -187,6 +187,9 @@ class render extends database {
         if ( $input_data == NULL ) {
             $input_data = $this->input_data;
         }
+		if(!empty($input_data['attr_changer_code'])){
+			$this->attr_changer_code = $this->attr_changer_code.$input_data['attr_changer_code'];
+		}
 		$process_data = $this->process_data;
 
         if ( !empty( $input_data ) and !empty( $input_data[ 'function' ]  ) ) {
@@ -292,8 +295,11 @@ class render extends database {
                     $input = '<textarea' . $this->render_attrs( $input_data[ 'attrs' ] ) . '>' . $input_data[ 'text' ] . '</textarea>';
                     break;
             }
+			if(MARK_REQUIRED_INPUT=='yes' and $input_data[ 'attrs' ]['required']=='required'){
+				$input_data[ 'tag' ][ 'before' ] .= REQUIRED_INPUT_CODE;
+			}
             $input = $input_data[ 'tag' ][ 'before' ] . $input . $input_data[ 'tag' ][ 'after' ];
-
+			
             if ( $input_data[ 'extra' ][ 'controller_position' ] == 'before' ) {
                 $input = $input_data[ 'extra' ][ 'add_controller' ] . $input_data[ 'extra' ][ 'remove_controller' ] . $input;
             } elseif ( $input_data[ 'extra' ][ 'controller_position' ] == 'after' ) {
@@ -774,8 +780,39 @@ class render extends database {
 
         $form = $elements[ $form_data[ 'order' ][ 'show_first' ] ] . $elements[ $form_data[ 'order' ][ 'show_second' ] ] . $elements[ $form_data[ 'order' ][ 'show_third' ] ];
 
+		if(!empty($this->attr_changer_code)){
+			$between_start = '{name:';
+			$between_end = '}';
+			$attr_changer_code = $this->attr_changer_code;
+			preg_match_all( '/' . addslashes( $between_start ) . '(.*?)' . addslashes( $between_end ) . '/', $attr_changer_code, $matches );
+			//krumo( $matches);
+			foreach ( $matches[ 1 ] as $k => $match ) {
+				$id = common::search_by_attr_to_get_other_attr( 'name' ,$matches[ 1 ][$k],'id', $form_data ,'form');
+				//krumo( $id);
+				//krumo($matches[ 0 ][ $k ]);
+				$attr_changer_code = str_replace( $matches[ 0 ][ $k ],"#".$id, $attr_changer_code );
+			}
+			$this->attr_changer_code = $attr_changer_code;
+			
+			//krumo($this->attr_changer_code);
+			$between_start = '{name_jq_value:';
+			$between_end = '}';
+			$attr_changer_code = $this->attr_changer_code;
+			preg_match_all( '/' . addslashes( $between_start ) . '(.*?)' . addslashes( $between_end ) . '/', $attr_changer_code, $matches );
+			//krumo( $matches);
+			foreach ( $matches[ 1 ] as $k => $match ) {
+				$id = common::search_by_attr_to_get_other_attr( 'name' ,$matches[ 1 ][$k],'id', $form_data ,'form');
+				//krumo( $id);
+				//krumo($matches[ 0 ][ $k ]);
+				$attr_changer_code = str_replace( $matches[ 0 ][ $k ],"jQuery('#".$id."').val()", $attr_changer_code );
+			}
+			
+			$this->attr_changer_code = $attr_changer_code;
+					//	krumo($this->attr_changer_code);
 
-        $form_suffix = '</form>' . $form_data[ 'tag' ][ 'after' ] . '</sst-form>';
+			$form_suffix .= '<script type="text/javascript">'.$this->attr_changer_code.'</script>';
+		}
+        $form_suffix .= '</form>' . $form_data[ 'tag' ][ 'after' ] . '</sst-form>';
         return $form_prefix . $form . $form_suffix;
 
 

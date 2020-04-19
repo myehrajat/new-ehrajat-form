@@ -17,6 +17,8 @@ class insert_input_related_tables extends database {
         $GLOBALS[ 'sst_tables' ][ 'tags' ] = $this->full_prefix . 'tags';
         $GLOBALS[ 'sst_tables' ][ 'user_access' ] = $this->full_prefix . 'user_access';
         $GLOBALS[ 'sst_tables' ][ 'variable' ] = $this->full_prefix . 'variable';
+        $GLOBALS[ 'sst_tables' ][ 'attr_changer_condition' ] = $this->full_prefix . 'attr_changer_condition';
+        $GLOBALS[ 'sst_tables' ][ 'attr_changer' ] = $this->full_prefix . 'attr_changer';
     }
 
     function insert_tables() {
@@ -37,6 +39,8 @@ class insert_input_related_tables extends database {
 		##################################################
         $sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'options' ] . " (" .
         "`id` INT(10) NOT NULL auto_increment," .
+        "`epithet` VARCHAR(255) DEFAULT NULL," .
+        "`slug` VARCHAR(255) DEFAULT NULL," .
         "`key` VARCHAR(255) DEFAULT NULL," .
         "`value` LONGTEXT DEFAULT NULL," .
         "`description`  LONGTEXT DEFAULT NULL," .
@@ -79,6 +83,34 @@ class insert_input_related_tables extends database {
         "`slug` VARCHAR(255) DEFAULT NULL," .
         "`name` VARCHAR(255) NOT NULL," .
         "`value` LONGTEXT NOT NULL," .
+        "`description` LONGTEXT DEFAULT NULL," .
+        "`owner` VARCHAR(255) DEFAULT NULL," .
+        "`created` DATETIME NOT NULL DEFAULT NOW()," .
+        "`modified` DATETIME NOT NULL DEFAULT NOW(),
+        PRIMARY KEY id  (`id`)) $this->collate_charset;";
+        $this->create_tables( $sql );
+        ##################################################
+        $sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'attr_changer_condition' ] . " (" .
+        "`id` INT(10) NOT NULL auto_increment," .
+        "`epithet` VARCHAR(255) DEFAULT NULL," .
+        "`slug` VARCHAR(255) DEFAULT NULL," .
+        "`condition` LONGTEXT NOT NULL COMMENT 'Conditions must be in javascript code rules'," .
+        "`attr_changer_ids` VARCHAR(255) NOT NULL," .
+        "`description` LONGTEXT DEFAULT NULL," .
+        "`owner` VARCHAR(255) DEFAULT NULL," .
+        "`created` DATETIME NOT NULL DEFAULT NOW()," .
+        "`modified` DATETIME NOT NULL DEFAULT NOW(),
+        PRIMARY KEY id  (`id`)) $this->collate_charset;";
+        $this->create_tables( $sql );
+        ##################################################
+        $sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'attr_changer' ] . " (" .
+        "`id` INT(10) NOT NULL auto_increment," .
+        "`epithet` VARCHAR(255) DEFAULT NULL," .
+        "`slug` VARCHAR(255) DEFAULT NULL," .
+        "`input_ids` VARCHAR(255) NOT NULL," .
+        "`attr` VARCHAR(255) NOT NULL," .
+		"`value` VARCHAR(255) NOT NULL," .
+		"`remove_attr` VARCHAR(255) NOT NULL," .
         "`description` LONGTEXT DEFAULT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .
         "`created` DATETIME NOT NULL DEFAULT NOW()," .

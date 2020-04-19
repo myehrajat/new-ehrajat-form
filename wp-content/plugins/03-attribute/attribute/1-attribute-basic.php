@@ -151,24 +151,31 @@ https://www.w3.org/TR/REC-xml/#NT-Name
     }
     //https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types
     //https://www.freeformatter.com/mime-types-list.html#mime-types-list
+	//https://www.iana.org/assignments/media-types/media-types.xhtml
+	//https://mimesniff.spec.whatwg.org/#valid-mime-type
     function validate_mime_type( $mime_type ) {
-        $mime_type_arr = explode( '/', $mime_type );
-        if ( count( $mime_type_arr ) == 1 ) {
-            if ( $this->starts_with( $mime_type_arr[ 0 ], '.' ) ) {
-                return true;
-            } else {
-                return false;
-            }
-        } elseif ( count( $mime_type_arr ) == 2 ) {
-            $allowed_mimes = array( 'application', 'audio', 'chemical', 'font', 'image', 'message', 'model', 'multipart', 'text', 'video', 'x-conference' );
-            if ( in_array( $mime_type_arr[ 0 ], $allowed_mimes ) ) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
+		if(strpos($mime_type, ';')===false){
+			$mime_type_arr = explode( '/', $mime_type );
+			if ( count( $mime_type_arr ) == 1 ) {
+				if ( $this->starts_with( $mime_type_arr[ 0 ], '.' ) ) {
+					return true;
+				} else {
+					return false;
+				}
+			} elseif ( count( $mime_type_arr ) == 2 ) {
+				//application,audio,font,example,image,message,model,multipart,text,video
+				$allowed_mimes = array( 'application', 'audio', 'chemical', 'font', 'image', 'message', 'model', 'multipart', 'text', 'video', 'x-conference' );
+				if ( in_array( $mime_type_arr[ 0 ], $allowed_mimes ) ) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
+		}else{
+			return false;
+		}
     }
     var $input_data;
 

@@ -58,18 +58,57 @@ function data_attr_maker(str) {
 }
 
 function style_attr_checker(properties_id, value_id) {
-    var output = document.getElementById(value_id +'_error');
-		output.innerHTML = "";
-    var results = CSSLint.verify(".c{"+document.getElementById(properties_id).value + ':' + document.getElementById(value_id).value+ '}');
-	//alert(".C{"+document.getElementById(properties_id).value + ':' + document.getElementById(value_id).value+ '}');
-	var messages = results.messages;
-	output.innerHTML += '<style>.warning-css{color:orange;}.error-css{color:red;}</style>';
+    var output = document.getElementById(value_id + '_error');
+    output.innerHTML = "";
+    var results = CSSLint.verify(".c{" + document.getElementById(properties_id).value + ':' + document.getElementById(value_id).value + '}');
+    //alert(".C{"+document.getElementById(properties_id).value + ':' + document.getElementById(value_id).value+ '}');
+    var messages = results.messages;
+    output.innerHTML += '<style>.warning-css{color:orange;}.error-css{color:red;}</style>';
     for (i = 0, len = messages.length; i < len; i++) {
-        log(messages[i].message, messages[i].type, value_id +'_error',properties_id+'_error');
+        log(messages[i].message, messages[i].type, value_id + '_error', properties_id + '_error');
     }
 }
 
-function log(value, level,value_id_error_cont) {
+function log(value, level, value_id_error_cont) {
     var output = document.getElementById(value_id_error_cont);
-		output.innerHTML += "<span class=\"" + level + "-css\">" +level.charAt(0).toUpperCase() + level.slice(1)+'</span>: '+ value.replace(/ /g, "&nbsp;") + "<br>";
+    output.innerHTML += "<span class=\"" + level + "-css\">" + level.charAt(0).toUpperCase() + level.slice(1) + '</span>: ' + value.replace(/ /g, "&nbsp;") + "<br>";
 }
+
+function file_accept_checker(str) {
+	var final = [];
+    var accepts = str = str.split(',');
+    jQuery.each(accepts, function (key, value) {
+		var parts = value.trim().split('/');
+		if(parts.length==1){
+			if (parts[0].indexOf(".") == 0) {
+				final.push(parts[0].replace(';',''));
+			}
+		}else if(parts.length==2){
+			 //'application', 'audio', 'chemical', 'font', 'image', 'message', 'model', 'multipart', 'text', 'video', 'x-conference'
+			
+			if (parts[0].trim().indexOf("application") == 0 || 
+				parts[0].trim().indexOf("audio") == 0 || 
+				parts[0].trim().indexOf("chemical") == 0 || 
+				parts[0].trim().indexOf("font") == 0 || 
+				parts[0].trim().indexOf("image") == 0 || 
+				parts[0].trim().indexOf("message") == 0 || 
+				parts[0].trim().indexOf("model") == 0 || 
+				parts[0].trim().indexOf("multipart") == 0 || 
+				parts[0].trim().indexOf("text") == 0 || 
+				parts[0].trim().indexOf("video") == 0 || 
+				parts[0].trim().indexOf("conference") == 0) {
+				if(parts[1].length>0){
+					final.push(parts.join('/').replace(';',''));
+				}else{
+					final.push(parts.join('/').replace(';','')+'*');
+				}
+				
+			}
+		}else{
+			
+		}
+    });
+    return final.join(',');
+}
+
+

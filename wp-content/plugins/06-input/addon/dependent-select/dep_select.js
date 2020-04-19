@@ -1,8 +1,8 @@
 		function dep_select(dependent_id, controller_ids, pre_query, return_type, url_to_process, query) {
-		    var matches = pre_query.match(/\{value:(.*?)\}/g);
+		    var matches = pre_query.match(/\{name:(.*?)\}/g);
 		    jQuery.each(matches, function (key, value) {
 		       // console.log(value);
-		        var placeHolder = value.match(/\{value:(.*?)\}/);
+		        var placeHolder = value.match(/\{name:(.*?)\}/);
 		        jQuery.each(controller_ids, function (key, controller_id) {
 		            //console.log(controller_id);
 
@@ -17,9 +17,9 @@
 		    });
 
 		    //console.log(pre_query);
-		    var matches = query.match(/\{value:(.*?)\}/g);
+		    var matches = query.match(/\{name:(.*?)\}/g);
 		    jQuery.each(matches, function (key, value) {
-		        var placeHolder = value.match(/\{value:(.*?)\}/);
+		        var placeHolder = value.match(/\{name:(.*?)\}/);
 		        jQuery.each(controller_ids, function (key, controller_id) {
 		            var el = jQuery('[id="' + controller_id + '"]');
 		            if (el.length != 0 && controller_id == placeHolder[1]) {

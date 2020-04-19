@@ -119,14 +119,95 @@ class input extends data_creator {
             }
             //$this->input_data['extra'][ 'max' ] = $this->input_obj->extra;
         }
-			$this->create_input_metas();
-			$this->create_input_evals();
-
+		$this->create_input_metas();
+		$this->create_input_attr_changer_code();
+		$this->create_input_evals();
+		//krumo($this->input_data['attr_changer_code']);
 
 		//$this->input_data[ 'eval' ][] =  '$input_data["attrs"]["placeholder"] = $process_data["id"];';
 		//$this->input_data[ 'eval' ][] =  '$input_data["attrs"]["disabled"] = "disabled";';
 		//krumo('TO do : make eval input data');
     }
+	function create_input_attr_changer_code(){
+		if(!empty($this->input_obj->attr_changer_condition_ids)){
+            $attr_changer_condition_ids = $this->get_ids($this->input_obj->attr_changer_condition_ids );
+			if(!empty( $attr_changer_condition_ids)){
+				$first_done =false;
+				foreach($attr_changer_condition_ids as $attr_changer_condition_id){
+					$attr_changer_condition_obj = $this->get_by_id( $attr_changer_condition_id,  $GLOBALS[ 'sst_tables' ][ 'attr_changer_condition' ] );
+					if(!empty($attr_changer_condition_obj)){
+						if($first_done==false){
+							$position = 'first';
+							$first_done = true;
+						}elseif(strtolower($attr_changer_condition_obj->condition)!='else' and $first_done==true){
+							$position = 'middle';
+						}elseif(strtolower($attr_changer_condition_obj->condition)=='else'){
+							$position = 'last';
+						}
+						$jquery_code .= $this->create_attr_changer_based_conditions($attr_changer_condition_obj,$position);
+					}else{
+						$this->error_log( 'attr_changer_condition_obj cant find you use id which not exists :'.$attr_changer_condition_id  );
+					}
+				}
+			}else{
+                $this->error_log( 'attr_changer_condition_ids after proccessing ids renturn nothing see:'.$this->input_obj->attr_changer_condition_ids  );
+			}
+		}
+		if(!empty($jquery_code )){
+			
+			$this->input_data['attr_changer_code']= "jQuery('#".$this->input_data['attrs']['id']."').on('input', function($) {".$jquery_code .'});';
+			//if()
+			//krumo($this->input_data['input_html_type']);
+			switch($this->input_data['input_html_type']){
+				case "radio":
+				case "checkbox":
+					$this->input_data['attr_changer_code']= str_replace('{self}','jQuery("#'.$this->input_data['attrs']['id'].':checked").val()',$this->input_data['attr_changer_code']);
+					break;
+				default:
+					$this->input_data['attr_changer_code']= str_replace('{self}','jQuery("#'.$this->input_data['attrs']['id'].'").val()',$this->input_data['attr_changer_code']);
+					break;
+			}
+			//
+		}
+
+	}
+	function create_attr_changer_based_conditions($attr_changer_condition_obj,$position){
+		//krumo($this->input_data['attrs']['id']);
+		switch($position){
+			case 'first':
+				$jquery_code .= 'if(' . str_replace('{name:','{name_jq_value:',$attr_changer_condition_obj->condition).'){';
+				break;
+			case 'middle':
+				$jquery_code .= 'else if(' . str_replace('{name:','{name_jq_value:',$attr_changer_condition_obj->condition).'){';
+				break;
+			case 'last':
+				$jquery_code .= 'else(' . str_replace('{name:','{name_jq_value:',$attr_changer_condition_obj->condition).'){';
+				break;
+		}
+        $attr_changer_ids = $this->get_ids( $attr_changer_condition_obj->attr_changer_ids );
+		if(!empty($attr_changer_ids)){
+			foreach($attr_changer_ids as $attr_changer_id){
+				$attr_changer_obj = $this->get_by_id( $attr_changer_id,  $GLOBALS[ 'sst_tables' ][ 'attr_changer' ] );
+				$input_ids = $this->get_ids( $attr_changer_obj->input_ids );
+				if(!empty($input_ids)){
+					foreach($input_ids as $input_id){
+						$input_obj = $this->get_by_id( $input_id,  $GLOBALS[ 'sst_tables' ][ 'input' ]);
+						if(strtolower($attr_changer_obj->remove_attr)=='remove'){
+							$jquery_code .= 'jQuery("{name:'.$input_obj->name.'}").removeAttr("'.$attr_changer_obj->attr.'");';
+						}else{
+							$jquery_code .= 'jQuery("{name:'.$input_obj->name.'}").attr("'.$attr_changer_obj->attr.'","'.$attr_changer_obj->attr.'");';
+						}
+					}
+				}else{
+					$this->error_log( 'Attr change need input ids its empty or after processing return empty.');
+				}
+			}
+		}else{
+            $this->error_log( 'No attr change ids is provided with conditions id:'.$attr_changer_condition_obj->id );
+		}
+		$jquery_code .= '}';
+ 		return $jquery_code;
+	}
     function create_input_evals(){
 		if(!empty($this->input_obj->eval_ids)){
             $input_eval_ids = $this->get_ids( $this->input_obj->eval_ids );

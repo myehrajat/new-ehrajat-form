@@ -127,5 +127,74 @@ implements common_interface {
 		}else{
 			$this->mode = 'add';
 		}
-	} 
+	}
+	
+/*this function search in process ,form, block or any type input recursivley and find which at first is matched and return the attr which you need
+use mostly for js coding*/
+function search_by_attr_to_get_other_attr( $attr_name ,$attr_value,$return_attr_name, $process_data ,$data_type) {
+    $all_inputs = get_all_inputs_data( $process_data,$data_type);
+    foreach ( $all_inputs as $input_data ) {
+        if ( $input_data[ "attrs" ][ $attr_name ] == $attr_value ) {
+            return $input_data[ "attrs" ][ $return_attr_name ];
+        }
+    }
+	return NULL;
+}
+/* Get all inputs of a process or form or block or fieldset it recursively search for childern and block in block or field set*/	
+function get_all_inputs_data( $data, $type ) {
+    static $temp;
+    static $all_input;
+    switch ( $type ) {
+        case "process":
+            if ( !empty( $data[ "form_data" ] ) ) {
+                common::get_all_inputs_data( $data[ "form_data" ], "form" );
+            }
+            break;
+        case "form":
+            if ( !empty( $data[ 'blocks_data' ] ) ) {
+                foreach ( $data[ 'blocks_data' ] as $block ) {
+                    common::get_all_inputs_data( $block, "block" );
+                }
+            }
+            if ( !empty( $data[ 'fieldsets_data' ] ) ) {
+                foreach ( $data[ 'fieldsets_data' ] as $fieldset ) {
+                    common::get_all_inputs_data( $fieldset, "fieldset" );
+                }
+            }
+            if ( !empty( $data[ "inputs_data" ] ) ) {
+                common::get_all_inputs_data( $data[ "inputs_data" ], "input" );
+            }
+            break;
+        case "block":
+            if ( !empty( $data[ 'children' ] ) ) {
+                foreach ( $data[ 'children' ] as $block ) {
+                    common::get_all_inputs_data( $block, "block" );
+                }
+            }
+            if ( !empty( $data[ "inputs_data" ] ) ) {
+                common::get_all_inputs_data( $data[ "inputs_data" ], "input" );
+            }
+            break;
+        case "fieldset":
+            if ( !empty( $data[ 'children' ] ) ) {
+                foreach ( $data[ 'children' ] as $fieldset ) {
+                    common::get_all_inputs_data( $fieldset, "fieldset" );
+                }
+            }
+            if ( !empty( $data[ "inputs_data" ] ) ) {
+                common::get_all_inputs_data( $data[ "inputs_data" ], "input" );
+            }
+            break;
+        case "input":
+            if ( !empty( $all_input ) ) {
+                $all_input = array_merge( $all_input, $data );
+            } else {
+                $all_input = $data;
+            }
+            break;
+
+    }
+    return $all_input;
+}
+
 }
