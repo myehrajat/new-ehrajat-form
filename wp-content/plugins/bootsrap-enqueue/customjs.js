@@ -110,5 +110,54 @@ function file_accept_checker(str) {
     });
     return final.join(',');
 }
+	function loadDynamicContentModal(url,modal_container_id ){
+		//
+		var options = {
+			modal : true,
+			height : 300,
+			width : 500
+		};
+	jQuery('#'+modal_container_id).load(url,jQuery('#'+modal_container_id).dialog(
+	
+	{
+      "resizable": true,
+		
+	"height": "auto",
+      "width": '80%',
+      "modal": true,
+      "buttons": {
+        "Add": function() {
+			var input_need_value_id = modal_container_id.split('_')[0];
+		  jQuery("#"+input_need_value_id).val(3);
+          jQuery( this ).dialog( "close" );
+        },
+        "Cancel": function() {
+          jQuery( this ).dialog( "close" );
+        }
+      },
+	//autoOpen: false,
+      "show": {
+        //effect: "blind",
+        "duration": 100
+      },
+      "hide": {
+        //effect: "explode",
+       "duration": 100
+      }
+    }
+	)).dialogExtend({
+	"maximizable":true,
+	"minimizable":true,
+	"collapsable":true,
+	"dblclick":'maximize',
+	"icons":{
+	  //"close" : "ui-icon-circle-closethick", // new in v1.0.1
+	  "maximize" : "ui-icon-arrowthick",
+	  "minimize" : "ui-icon-minus",
+	  "restore" : "ui-icon-newwin"	
+	}
+      });;	
+		//jQuery('#'+modal_container_id).attr('title','aaaaaa');
+	}
 
 

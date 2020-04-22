@@ -59,10 +59,12 @@ class form extends data_creator {
         $blocks = array();
         $form_obj = $this->form_obj;
         $block_ids = $this->get_ids( $form_obj->block_ids );
-        foreach ( $block_ids as $block_id ) {
-            $block_obj = new block( $block_id );
-            $blocks[] = $block_obj->block_data;
-        }
+		if(!empty($block_ids) ){
+			foreach ( $block_ids as $block_id ) {
+				$block_obj = new block( $block_id );
+				$blocks[] = $block_obj->block_data;
+			}
+		}
         $this->form_data[ 'blocks_data' ] = $blocks;
     }
 
@@ -70,10 +72,13 @@ class form extends data_creator {
         $inputs = array();
         $form_obj = $this->form_obj;
         $input_ids = $this->get_ids( $form_obj->input_ids );
-        foreach ( $input_ids as $input_id ) {
-            $input_obj = new input( $input_id );
-            $inputs[] = $input_obj->input_data;
-        }
+		if(!empty($input_ids) ){
+			
+			foreach ( $input_ids as $input_id ) {
+				$input_obj = new input( $input_id );
+				$inputs[] = $input_obj->input_data;
+			}
+		}
         $this->form_data[ 'inputs_data' ] = $inputs;
     }
 
@@ -81,10 +86,12 @@ class form extends data_creator {
         $fieldsets = array();
         $form_obj = $this->form_obj;
         $fieldset_ids = $this->get_ids( $form_obj->fieldset_ids );
-        foreach ( $fieldset_ids as $fieldset_id ) {
-            $fieldset_obj = new fieldset( $fieldset_id );
-            $fieldsets[] = $fieldset_obj->fieldset_data;
-        }
+		if(!empty($fieldset_ids) ){
+			foreach ( $fieldset_ids as $fieldset_id ) {
+				$fieldset_obj = new fieldset( $fieldset_id );
+				$fieldsets[] = $fieldset_obj->fieldset_data;
+			}
+		}
         $this->form_data[ 'fieldsets_data' ] = $fieldsets;
     }
 

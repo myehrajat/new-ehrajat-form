@@ -8,7 +8,6 @@ implements attribute_input_common_generator_interface {
     var $input_obj;
     var $common_attr;
     var $input_type_obj;
-
     var $input_type_id;
     var $input_html_type;
     var $input_type;
@@ -47,7 +46,8 @@ implements attribute_input_common_generator_interface {
                 return NULL;
             }
         } else {
-            $this->error_log( 'input id is empty.' );
+			//krumo($this->input_id);
+            $this->error_log( 'input id is empty.:');
             return NULL;
         }
     }

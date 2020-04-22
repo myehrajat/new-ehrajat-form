@@ -68,7 +68,8 @@ implements attribute_global_validator_interface {
                 $this->error_log( 'accesskey value must be only one or more character one by one space seperated you have provided a string having more than one character.' );
                 return NULL;
             } elseif ( $len < 1 ) {
-                $this->error_log( 'accesskey value must be only one character you have provided zero value character.' );
+                //$this->error_log( 'accesskey value must be only one character you have provided zero value character.' );
+				//no need to accesskey
                 return NULL;
             } else {
 				return $this->create_attribute( 'accesskey', $attr_value );
@@ -130,6 +131,7 @@ implements attribute_global_validator_interface {
     //its limitation of value all characters must be lowercase
 	//validator : https://mothereff.in/custom-element-name
     function attr_is( $attr_value ) {
+		if(!empty($attr_value)){
         $reserved_names = array( 'annotation-xml', 'color-profile', 'font-face', 'font-face-src', 'font-face-uri', 'font-face-format', 'font-face-name', 'missing-glyph' );
         $attr_value = strtolower( $attr_value ); //its limitation of value all characters must be lowercase
 		//cant start with these : You should not use the x-, polymer-, ng- prefixes.
@@ -167,6 +169,10 @@ implements attribute_global_validator_interface {
 				$this->error_log( 'You should not use the x-, polymer-, ng- prefixes. Refer to https://github.com/sindresorhus/validate-element-name.' );
 				return NULL;
 		}
+		}else{
+			//no need to this attribute
+				return NULL;
+		}
     }
     //https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemid
     //https://html.spec.whatwg.org/multipage/microdata.html#items
@@ -200,6 +206,10 @@ implements attribute_global_validator_interface {
     //https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemtype
 	//Full list of types: https://schema.org/docs/full.html
     function attr_itemtype( $attr_value ) {
+		if(empty($attr_value)){
+			//no need
+            return NULL;
+		}
         $valid = $this->is_absolute_url( $attr_value );
         if ( $valid ) {
             return $this->create_attribute( 'itemtype', $attr_value );

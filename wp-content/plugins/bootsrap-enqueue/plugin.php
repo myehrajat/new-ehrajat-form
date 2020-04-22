@@ -23,7 +23,12 @@ function bootstarp_enqueue() {
 	    wp_enqueue_script( 'popper.min.js' );
 	    wp_enqueue_script( 'bootstrap.min.js' );
 	    wp_enqueue_style( 'bootstrap.min.css' );
-
+	    wp_register_script( 'jquery-ui.js','https://code.jquery.com/ui/1.12.1/jquery-ui.js', array('jquery')  );
+	    wp_enqueue_script( 'jquery-ui.js' );
+	    wp_register_style( 'jquery-ui.css','https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css' );
+		wp_enqueue_style( 'jquery-ui.css' );
+	    wp_register_script( 'jquery.dialogextend.min.js',BOOTSTRAP_PLUGIN_URL.'jquery-dialogextend-master/build/jquery.dialogextend.min.js', array('jquery-ui.js')  );
+	    wp_enqueue_script( 'jquery.dialogextend.min.js' );
 	/************** RTL **********************/
    // wp_register_script( 'bootstrap-propper-js',BOOTSTRAP_PLUGIN_URL.'bootstrap-4.2.1-rtl/dist/js/bootstrap.bundle.min.js', array('jquery')  );
 	
@@ -35,9 +40,9 @@ function bootstarp_enqueue() {
 	/************** RTL **********************/
 	
 	    wp_register_script( 'custom.js',BOOTSTRAP_PLUGIN_URL.'customjs.js', array('jquery')  );
-	    wp_enqueue_script( 'custom.js' );
+	    wp_enqueue_script( 'custom.js',9999999999999999999 );
 	    wp_register_script( 'csslint',BOOTSTRAP_PLUGIN_URL.'csslint/dist/csslint.js', array('jquery')  );
-	    wp_enqueue_script( 'csslint' );
+	    wp_enqueue_script( 'csslint',9999999999999999999 );
 }
  
 add_action( 'wp_enqueue_scripts', 'bootstarp_enqueue' );

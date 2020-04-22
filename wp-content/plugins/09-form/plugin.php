@@ -20,6 +20,7 @@ define( 'FORM_PLUGIN_FILE', basename( __FILE__ ) );
 define('FORM_FUNC_PATH',__DIR__.'/form/');
 define('FORM_SETUP_PATH',__DIR__.'/setup/');
 define('FORM_CONTROLLER_POSITION','after');
+define('FORM_PLUGIN_URL',plugin_dir_url( __FILE__ ));
 
 //define('IS_INPUT_PLUGIN_ACTIVE',in_array(PLUGIN_FOLDER.'/'.PLUGIN_FILE, apply_filters('active_plugins', get_option('active_plugins'))));
 #############################################

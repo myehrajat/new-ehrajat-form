@@ -20,8 +20,9 @@ implements attribute_input_specific_generator_interface {
     var $text;
     var $option_data;
 
-    function __construct( string $attr_input_specific_id = NULL, string $input_html_type = NULL ) {
-        parent::__construct();
+    function __construct( string $attr_input_specific_id = NULL, string $input_html_type = NULL,$input_id ) {
+		//krumo($input_id);
+        parent::__construct($input_id);
 
         $this->input_html_type = $input_html_type;
 
@@ -434,7 +435,7 @@ implements attribute_input_specific_generator_interface {
                             $value = $this->is_eval_run( $list_obj->value );
                             if ( $value ) {
                                 $this->input_data = array();
-                                $label = $this->run_eval( $list_obj->label );
+                                $label = $this->is_eval_run( $list_obj->label );
                                 if ( $input_html_type == 'select' ) {
                                     $options[ $i ][ 'text' ] = $this->is_eval_run( $list_obj->text );
                                     if ( $value == $list_obj->selected ) {

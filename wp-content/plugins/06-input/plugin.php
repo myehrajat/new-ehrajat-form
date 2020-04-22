@@ -21,6 +21,7 @@ define('INPUT_FUNC_PATH',__DIR__.'/input/');
 define('INPUT_SETUP_PATH',__DIR__.'/setup/');
 define( 'INPUT_ADDON_PATH', __DIR__ . '/addon/' );
 define('INPUT_AUTO_GENERATE_INPUT_ID','yes');
+define('INPUT_PLUGIN_URL',plugin_dir_url( __FILE__ ));
 
 define('EXTRA_CONTROLLER_POSITION','after');
 

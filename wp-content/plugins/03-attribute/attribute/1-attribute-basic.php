@@ -72,13 +72,18 @@ https://www.w3.org/TR/REC-xml/#NT-Name
     }
     /*********************************************/
     function create_enumerated_attribute( $attr_name, $attr_value, array $enumerated_values ) {
-        $attr_value = strtolower( $attr_value );
-        if ( in_array( $attr_value, $enumerated_values ) ) {
-            return $this->create_attribute( $attr_name, $attr_value );
-        } else {
-            $this->error_log( 'this attribute need enumerated value can be some specific value but you have provide sth else!' );
-            return NULL;
-        }
+		if(!empty($attr_value)){
+			$attr_value = strtolower( $attr_value );
+			if ( in_array( $attr_value, $enumerated_values ) ) {
+				return $this->create_attribute( $attr_name, $attr_value );
+			} else {
+				$this->error_log( 'this attribute need enumerated value can be some specific value but you have provide sth else!' );
+				return NULL;
+			}
+		}else{
+			//attr value is empty means there is no need to this attrname cant be empty.
+			return NULL;
+		}
     }
     //https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id
     function attr_id_with_other_name( $attr_name, $attr_value ) {
@@ -126,6 +131,9 @@ https://www.w3.org/TR/REC-xml/#NT-Name
     }
 
     function create_int_positive_attribute( $attr_name, $attr_value ) {
+		if(empty($attr_value)){
+			return NULL;
+		}
         if ( ctype_digit( $attr_value ) ) {
             if ( $this->is_positive_number( $attr_value ) ) {
                 return $this->create_attribute( $attr_name, $attr_value );

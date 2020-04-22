@@ -180,7 +180,8 @@ class attribute_generator extends attribute_form_validator implements attribute_
                     $result_attr = $this->attr_multiple( $attr_value );
                     break;
                 case "name":
-                    $result_attr = $this->attr_name( $attr_value );
+					//krumo( $html_input_type);
+                    $result_attr = $this->attr_name( $attr_value ,$html_input_type);
                     break;
                 case "pattern":
                     $result_attr = $this->attr_pattern( $attr_value );

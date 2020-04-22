@@ -25,11 +25,12 @@ class access extends database {
             if ( !empty( $this->user_access_obj ) ) {
                 $default_view = strtolower( $this->user_access_obj->default_view );
                 $except_view = $this->get_ids( $this->user_access_obj->except_view );
-                if ( $default_view != 'enable'
-                    and $default_view != 'disable' ) {
-                    $default_view = DEFAULT_VIEW;
-                } else {
-                    $this->error_log( 'default_view must match enable or disable.' );
+                if ( $default_view != 'enable' and $default_view != 'disable' ) {
+					if(DEFAULT_VIEW == 'enable' and DEFAULT_VIEW == 'disable'){
+						$default_view = DEFAULT_VIEW;
+					}else{
+						$this->error_log( 'default_view must match enable or disable.' );
+					}
                 }
                 switch ( $default_view ) {
                     case 'enable':
@@ -53,9 +54,12 @@ class access extends database {
                 }
                 $default_edit = strtolower( $this->user_access_obj->default_edit );
                 $except_edit = $this->get_ids( $this->user_access_obj->except_edit );
-                if ( $default_edit != 'enable'
-                    and $default_edit != 'disable' ) {
-                    $default_view = DEFAULT_EDIT;
+                if ( $default_edit != 'enable' and $default_edit != 'disable' ) {
+					if(DEFAULT_EDIT == 'enable' and DEFAULT_EDIT == 'disable'){
+						$default_view = DEFAULT_EDIT;
+					}else{
+						$this->error_log( 'DEFAULT_EDIT must match enable or disable.' );
+					}
                 }
                 switch ( $default_edit ) {
                     case 'enable':
@@ -81,7 +85,11 @@ class access extends database {
                 $except_add = $this->get_ids( $this->user_access_obj->except_add );
                 if ( $default_add != 'enable'
                     and $default_add != 'disable' ) {
-                    $default_view = DEFAULT_ADD;
+					if(DEFAULT_ADD == 'enable' and DEFAULT_ADD == 'disable'){
+						$default_view = DEFAULT_ADD;
+					}else{
+						$this->error_log( 'DEFAULT_ADD must match enable or disable.' );
+					}
                 }
                 switch ( $default_add ) {
                     case 'enable':

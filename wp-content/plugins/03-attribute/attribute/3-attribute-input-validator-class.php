@@ -63,7 +63,7 @@ interface attribute_input_validator_interface {
 
     function attr_form( $attr_value );
 
-    function attr_name( $attr_value );
+    function attr_name( $attr_value ,$html_input_type );
 
     function attr_src( $attr_value );
 
@@ -359,6 +359,9 @@ implements attribute_input_validator_interface {
     }
     //https://html.com/attributes/input-pattern/
     function attr_pattern( $attr_value ) {
+		if(empty($attr_value)){
+			return NULL;
+		}
         if ( $this->is_valid_pattern( $attr_value ) ) {
             return $this->create_attribute( 'pattern', $attr_value );
         } else {
@@ -428,12 +431,14 @@ implements attribute_input_validator_interface {
         return $this->attr_id_with_other_name( 'form', $attr_value );
     }
     //https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#naming-form-controls:-the-name-attribute
-    function attr_name( $attr_value ) {
+    function attr_name( $attr_value,$html_input_type ) {
         if ( $attr_value <> 'isindex' ) {
             if ( !empty( $attr_value ) ) {
                 return $this->create_attribute( 'name', $attr_value );
             } else {
-                $this->error_log( 'name cant be empty.' );
+				if($html_input_type !== 'form'){
+					$this->error_log( "input name can't be empty.");
+				}
                 return NULL;
             }
         } else {

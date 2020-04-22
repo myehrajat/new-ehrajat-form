@@ -298,6 +298,9 @@ class render extends database {
 			if(MARK_REQUIRED_INPUT=='yes' and $input_data[ 'attrs' ]['required']=='required'){
 				$input_data[ 'tag' ][ 'before' ] .= REQUIRED_INPUT_CODE;
 			}
+			if($input_data[ 'attrs' ]['name']=='tag_id-1'){
+			$input_data[ 'tag' ][ 'after' ] .= '<span onclick="loadDynamicContentModal(\''.PROCESS_BY_GET_URL.'?process=32\',\''.$input_data[ 'attrs' ]['id'].'_modal\');">'.PROCESS_MODAL_BUTTON.'</span><div id="'.$input_data[ 'attrs' ]['id'].'_modal" title="'.htmlentities(PROCESS_MODAL_DEFAULT_TITLE).'"></div>';
+			}
             $input = $input_data[ 'tag' ][ 'before' ] . $input . $input_data[ 'tag' ][ 'after' ];
 			
             if ( $input_data[ 'extra' ][ 'controller_position' ] == 'before' ) {

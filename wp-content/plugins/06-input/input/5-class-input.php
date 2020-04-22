@@ -9,6 +9,7 @@ class input extends data_creator {
     public $input_obj;
 
     function __construct( $input_id = NULL ) {
+		 $this->input_id =  $input_id;
         parent::__construct();
 
         $input_id = $this->get_ids( $input_id, true );
@@ -45,7 +46,7 @@ class input extends data_creator {
         if ( $this->input_data[ 'input_html_type' ] !== 'hidden' ) {
             $specific_id = $this->get_ids( $specific_id, true );
             if ( !empty( $specific_id ) ) {
-                $this->specific_attr_obj = new attribute_input_specific_generator( $specific_id, $this->input_data[ 'input_html_type' ] );
+                $this->specific_attr_obj = new attribute_input_specific_generator( $specific_id, $this->input_data[ 'input_html_type' ],$this->input_id );
                 if ( !empty( $this->specific_attr_obj ) ) {
                     /***********
                     following input can use list
@@ -79,11 +80,9 @@ class input extends data_creator {
         $all_attr = array();
 
         $this->common_atrributes( $input_id );
-        //dbg('common_atrributes',false);
         $this->global_atrributes( $this->input_obj->attr_html_global_id );
-        //dbg('global_atrributes',false);
+
         $this->specific_atrributes( $this->input_obj->attr_input_specific_id );
-        //dbg('specific_atrributes',false);
         $this->custom_atrributes( $this->input_obj->attr_custom_ids );
         if ( empty( $this->common_attr_obj->input_data[ 'attrs' ] ) ) {
             $this->common_attr_obj->input_data[ 'attrs' ] = array();
