@@ -6,7 +6,6 @@ class data_action extends process {
             $this->vals = $GLOBALS[ 'vals' ];
             $this->get_data_actions();
             $this->do_data_actions();
-
         }
     }
 
@@ -41,11 +40,14 @@ class data_action extends process {
         switch ( $this->mode ) {
             case "add":
                 //create_save_id_column_if_not_exist();
+				$this->create_add_column($wpdb->prefix . $data_action_obj->table,'save_id');
                 $this->create_colval_data( $data_action_obj->colval_ids );
                 foreach ( $this->db_data as $one_ready_data ) {
                     $one_ready_data[ 'save_id' ] = addslashes( $_REQUEST[ '__sst__unique' ] );
-                    $this->add_to_table( $wpdb->prefix . $data_action_obj->table, $one_ready_data, $this->mysql_code_col_vals );
+					//krumo($data_action_obj);
+                    $insert_ref [$data_action_obj->insert_ref][] = $this->add_to_table( $wpdb->prefix . $data_action_obj->table, $one_ready_data, $this->mysql_code_col_vals );
                 }
+				krumo($insert_ref);
                 break;
             case "edit":
                 $ids = array();

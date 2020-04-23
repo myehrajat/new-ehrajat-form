@@ -1,8 +1,8 @@
 <?php
 class process extends data_creator {
     function __construct( $process_id_str=NULL ) {
-
         parent::__construct();
+		//krumo($this->user_id);
         if ( !empty( $process_id_str ) ) {
             $this->generate_vals();
             $this->apply_conditions();
@@ -90,6 +90,7 @@ class process extends data_creator {
                 $vals = gzdeflate( $vals, 9 );
             }
             if ( empty( $db_vals ) ) {
+				
                 $q = $wpdb->prepare( "INSERT INTO " . $GLOBALS[ 'sst_tables' ][ 'vals' ] .
                     " (`key`, `value`, `owner`, `created`, `modified`) 
 							VALUES ('" . "%s" . "','" . "%s" . "'," . "%d" . ",NOW(),NOW());", array( $_REQUEST[ '__sst__unique' ], $vals, $this->user_id ) );

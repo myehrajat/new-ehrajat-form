@@ -127,6 +127,7 @@ implements database_interface {
             $this->error_log( 'column_value must be array!' );
         }
     }
+	
     /**************************************************
      *version 1.0.0
      *this function is for adding to table
@@ -200,5 +201,23 @@ implements database_interface {
             }
         }
     }
-
+	function create_add_column($table,$column='save_id',$datatype='VARCHAR(255)'){
+		global $wpdb;
+		if($this->column_exists($table,$column)==false){
+			$q = 'ALTER TABLE `'.$table.'` ADD `'.$column.'` '.$datatype.';';
+			$wpdb->query($q );
+		}
+		
+		//ALTER TABLE table_name ADD column_name datatype;
+	}
+	function column_exists($table,$column){
+		global $wpdb;
+		$q = 'SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA=\''.DB_NAME.'\' AND TABLE_NAME=\''.$table.'\' AND COLUMN_NAME=\''.$column.'\' LIMIT 1;';
+		$result = $wpdb->get_results($q );
+		if(empty($result)){
+			return false;
+		}else{
+			return true;
+		}
+	}
 }
