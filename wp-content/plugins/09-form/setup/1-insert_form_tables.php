@@ -41,6 +41,7 @@ class insert_form_tables extends database {
         "`fieldset_ids` VARCHAR(255) NOT NULL," .
         "`tag_id` VARCHAR(255) NOT NULL," .
         "`access_id` VARCHAR(255) NOT NULL," .
+        "`use_ajax` VARCHAR(255) NOT NULL," .			
         "`description` LONGTEXT NOT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .
         "`created` DATETIME NOT NULL DEFAULT NOW()," .

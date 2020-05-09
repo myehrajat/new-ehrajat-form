@@ -69,6 +69,7 @@ implements str_interface {
      * this function return only numbers
      **************************************************/
     function is_positive_number( $str ) {
+		if(!empty($str)){
         if ( $str[ 0 ] <> '-'
             and $str <> 0 ) {
             //echo 'its minus<br />';
@@ -83,6 +84,9 @@ implements str_interface {
             //$this->error_log( 'its not positive.' );
             return false;
         }
+		}else{
+            return false;
+		}
     }
     /**************************************************
      *version 1.0.0

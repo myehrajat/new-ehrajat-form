@@ -11,6 +11,8 @@ implements attribute_input_common_generator_interface {
     var $input_type_id;
     var $input_html_type;
     var $input_type;
+	var $modal_process_id;
+	var $modal_insert_ref;
 
     function __construct( string $input_id = NULL ) {
         parent::__construct();
@@ -26,6 +28,8 @@ implements attribute_input_common_generator_interface {
                         if ( !empty( $this->input_type_obj->html_type )and!empty( $this->input_type_obj->type ) ) {
                             $this->input_type = $this->input_type_obj->type;
                             $this->input_html_type = $this->input_type_obj->html_type;
+                            $this->modal_process_id = $this->input_obj->modal_process_id;
+                            $this->modal_insert_ref = $this->input_obj->modal_insert_ref;
                             $this->common_attr = $this->create_attr_input_common();
                             return $this->common_attr;
                         } else {

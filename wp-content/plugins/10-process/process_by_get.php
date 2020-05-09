@@ -1,8 +1,13 @@
 <?php
+define( 'WP_USE_THEMES', false );
+require_once( '../../../wp-load.php' );
+if($_REQUEST[ '__sst__is_modal'] == 'true'){
+	$process = new process( $_REQUEST[ '__sst__process_id' ] );
+}else{
+	$process = new process( $_REQUEST[ '__sst__process_id' ] );
 
-require_once('../../../wp-load.php');
-	$process = new process($_GET['process']);
-	//krumo($process['process_data']['form_data']['tag']['after']);
+}
+
 echo '<div style="background:white;">';
-	echo $process->render();
+echo $process->render();
 echo '</div>';

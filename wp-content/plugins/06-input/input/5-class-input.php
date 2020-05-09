@@ -35,6 +35,8 @@ class input extends data_creator {
         $this->input_data[ 'input_type' ] = $this->common_attr_obj->input_type;
         $this->input_data[ 'input_html_type' ] = $this->common_attr_obj->input_html_type;
         $this->input_data[ 'function' ] = $this->common_attr_obj->input_type_obj->function;
+        $this->input_data['modal'][ 'process_id' ] = $this->common_attr_obj->modal_process_id;
+        $this->input_data['modal'][ 'insert_ref' ] = $this->common_attr_obj->modal_insert_ref;
 
     }
 
@@ -96,7 +98,7 @@ class input extends data_creator {
         if ( empty( $this->custom_attr_obj->input_data[ 'attrs' ] ) ) {
             $this->custom_attr_obj->input_data[ 'attrs' ] = array();
         }
-        $this->global_attr_obj->input_data[ 'attrs' ] = $this->autogenerate_id( $this->global_attr_obj->input_data[ 'attrs' ] );
+        $this->global_attr_obj->input_data[ 'attrs' ] = $this->autogenerate_id( $this->global_attr_obj->input_data[ 'attrs' ],INPUT_AUTO_GENERATE_INPUT_ID );
         //dbg($this->specific_atrributes->input_data[ 'attrs' ]);
         $this->input_data[ 'attrs' ] = array_merge(
             $this->global_attr_obj->input_data[ 'attrs' ],
@@ -251,13 +253,6 @@ class input extends data_creator {
         }
     }
 
-    function autogenerate_id( $attrs ) {
-        if ( INPUT_AUTO_GENERATE_INPUT_ID == 'yes'
-            and!isset( $attrs[ 'id' ] )or empty( $attrs[ 'id' ] ) ) {
-            $attrs[ 'id' ] = $this->random_string( 12 );
-        }
-        return $attrs;
-    }
 
     function render( $input_data = NULL ) {
 

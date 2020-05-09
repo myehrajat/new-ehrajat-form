@@ -92,7 +92,7 @@ function test_process(){
 	//}
 }
 	//$f = new field(1);
-add_action ('wp_head','test_process');
+add_action ('wp_head','test_process',1);//1 is necessary to be sure it is run befor dataeaction
 //add_action ('wp_head','test_form');
 //add_action ('wp_head','test_fieldset');
 //add_action ('wp_head','test_block');

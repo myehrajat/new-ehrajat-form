@@ -1,8 +1,10 @@
 <?php
 class data_action extends process {
-    function __construct() {
+    function __construct($is_modal=false) {
         parent::__construct();
-        if ( $GLOBALS[ 'vals' ][ '__sst__data_actions' ] ) {
+		$this->is_modal = $is_modal;
+		//krumo($this->is_modal );
+		if ( $GLOBALS[ 'vals' ][ '__sst__data_actions' ] ) {
             $this->vals = $GLOBALS[ 'vals' ];
             $this->get_data_actions();
             $this->do_data_actions();
@@ -44,10 +46,42 @@ class data_action extends process {
                 $this->create_colval_data( $data_action_obj->colval_ids );
                 foreach ( $this->db_data as $one_ready_data ) {
                     $one_ready_data[ 'save_id' ] = addslashes( $_REQUEST[ '__sst__unique' ] );
-					//krumo($data_action_obj);
-                    $insert_ref [$data_action_obj->insert_ref][] = $this->add_to_table( $wpdb->prefix . $data_action_obj->table, $one_ready_data, $this->mysql_code_col_vals );
+					if(isset($insert_ref [$data_action_obj->insert_ref])){
+						$i = count($insert_ref [$data_action_obj->insert_ref]);
+					}else{
+						$i = 0;
+					}
+                    $insert_ref [$data_action_obj->insert_ref][$i]['insert_id'] = $this->add_to_table( $wpdb->prefix . $data_action_obj->table, $one_ready_data, $this->mysql_code_col_vals );
+					 $insert_ref [$data_action_obj->insert_ref][$i]['data'] = $one_ready_data;
+					$res =  str_replace('{insert_id}',$insert_ref [$data_action_obj->insert_ref][$i]['insert_id'],$data_action_obj->data_action_add_result);
+					
+					//krumo($one_ready_data);
+					foreach($one_ready_data as $column=>$value){
+						$res =  str_replace('{data_value:'.$column.'}',$value,$res);
+						$res =  str_replace('{data_column:'.$column.'}',$column,$res);
+					}
+					$result[]=$res;
                 }
-				krumo($insert_ref);
+				//if($_GET['data_action_result'])
+				if($this->is_modal==true){
+					//krumo('is_modal');
+					//krumo($_GET["__sst__modal_result_container_id"]);
+					//krumo($result);
+					echo '<span id="result_content">'.implode('',$result)."</span>";
+					//
+					echo '<span hidden="hidden" id="'.$_REQUEST["__sst__modal_result_container_id"].'">';
+					if(!empty($insert_ref [$_REQUEST['__sst__insert_ref_result']])){
+						//krumo();
+						foreach($insert_ref [$_REQUEST['__sst__insert_ref_result']] as $single_insert_ref){
+							$modal_insert_ids[] = $single_insert_ref['insert_id'];
+						}
+					}
+						 echo implode(',',$modal_insert_ids);
+					echo "</span>";
+				}else{
+					//krumo('is_not_modal');
+					echo '<span id="result_content">'.implode('',$result)."</span>";
+				}
                 break;
             case "edit":
                 $ids = array();

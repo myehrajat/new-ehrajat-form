@@ -298,9 +298,30 @@ class render extends database {
 			if(MARK_REQUIRED_INPUT=='yes' and $input_data[ 'attrs' ]['required']=='required'){
 				$input_data[ 'tag' ][ 'before' ] .= REQUIRED_INPUT_CODE;
 			}
-			if($input_data[ 'attrs' ]['name']=='tag_id-1'){
-			$input_data[ 'tag' ][ 'after' ] .= '<span onclick="loadDynamicContentModal(\''.PROCESS_BY_GET_URL.'?process=32\',\''.$input_data[ 'attrs' ]['id'].'_modal\');">'.PROCESS_MODAL_BUTTON.'</span><div id="'.$input_data[ 'attrs' ]['id'].'_modal" title="'.htmlentities(PROCESS_MODAL_DEFAULT_TITLE).'"></div><sst-value id="'.$input_data[ 'attrs' ]['id'].'_value" hidden="hidden"></sst-value>';
+			
+			//click on loadDynamicContentModal js element 
+			//use modal.js on open modal send ajax to PROCESS_BY_GET_URL with 3 $_GET data => __sst__process_id=>process_id,__sst__is_modal=>true,__sst__modal_result_container_id=>modal_container_id+'_result'
+			//PROCESS_BY_GET_URL file create process (process now must be ajax submission enabled because it is modal) and return to modal.js to show it in modal
+			// to create process if it is modal create 4 hidden input for next steps __sst__is_modal,__sst__modal_result_container_id,__sst__is_modal,and set use ajax
+			//in form making then use use ajax to add js to do all by ajax on event submit append it to after tag
+			/************ CREATE MODAL ************/
+			if($this->is_positive_number($input_data['modal'][ 'process_id' ])){
+				$modal_process = $input_data['modal'][ 'process_id' ];
+				$modal_insert_ref = $input_data['modal'][ 'insert_ref' ];
+				$uniqid_modal = uniqid("_sst_modal_");
+				$input_data[ 'tag' ][ 'after' ] .= '<span onclick="loadDynamicContentModal(\''.PROCESS_BY_GET_URL.'?__sst__process_id='.$modal_process.'&__sst__insert_ref_result='.$modal_insert_ref.'\',\''.$input_data[ 'attrs' ]['id'].$uniqid_modal.'\');">'.PROCESS_MODAL_BUTTON.'</span><span id="'.$input_data[ 'attrs' ]['id'].$uniqid_modal.'" title="'.htmlentities(PROCESS_MODAL_DEFAULT_TITLE).'"></span>';
 			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
             $input = $input_data[ 'tag' ][ 'before' ] . $input . $input_data[ 'tag' ][ 'after' ];
 			
             if ( $input_data[ 'extra' ][ 'controller_position' ] == 'before' ) {

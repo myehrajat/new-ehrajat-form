@@ -15,6 +15,31 @@ class form extends data_creator {
 
 		$this->form_data = $this->create_tag_data($this->form_data,$this->form_obj); //$this->form_data['unique_id']
 		$this->form_data = $this->create_show_order_data($this->form_data, $this->form_obj ,'form');
+			/************ submit by Ajax ************/
+		if(strtolower($this->form_obj->use_ajax)=='yes'){
+			$this->form_data['use_ajax'] = strtolower($this->form_obj->use_ajax);
+		}
+		if($this->form_data['use_ajax']){
+			$this->form_data['tag']['after'] .='<script type="text/javascript">jQuery("body").on("submit","#'.$this->form_data['attrs']['id'].'",function(e) {
+									e.preventDefault();
+									var form = jQuery(\'form[id="'.$this->form_data['attrs']['id'].'"]\');
+									//var url = form.attr("action");
+									jQuery.ajax({
+											async: true,
+										   type: "'.$this->form_data[ 'attrs' ]['method'].'",
+										   //url: "'.$this->form_data[ 'attrs' ]['action'].'",
+										   url: "'.PROCESS_BY_GET_URL.'?__sst__process_id='.$_REQUEST['__sst__process_id'].'",
+										   data: form.serialize(),
+										   success: function(data)
+										   {
+										   jQuery("#'.$this->form_data[ 'unique_id' ].'").html(data);
+										   
+										  }
+										 });
+
+
+								});</script>';
+		}
     }
 
 
@@ -47,12 +72,13 @@ class form extends data_creator {
         $specific_attributs = $attribute_generator->input_data[ 'attrs' ];
 
 		$global_attributs_obj = new attribute_global_generator( $this->get_ids( $form_obj->attr_html_global_id, true ));
+        $global_attributs_obj->input_data[ 'attrs' ] = $this->autogenerate_id( $global_attributs_obj->input_data[ 'attrs' ],FORM_AUTO_GENERATE_FORM_ID );
         $global_attributs = $global_attributs_obj->input_data[ 'attrs' ];
-
 		$custom_attributs_obj = new attribute_custom_generator( $form_obj->attr_custom_ids );
         $custom_attributs = $custom_attributs_obj->input_data[ 'attrs' ];
 		
 		$this->form_data[ 'attrs' ] = array_merge( $specific_attributs, $global_attributs, $custom_attributs );
+		
     }
 
     function create_form_blocks() {
@@ -99,7 +125,7 @@ class form extends data_creator {
 
 
     function render( $form_data = NULL ) {
-
+		
         return $this->render_form( $form_data );
     }
 }

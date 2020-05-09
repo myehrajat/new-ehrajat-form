@@ -19,7 +19,6 @@ interface attribute_global_generator_interface {
 }
 class attribute_global_generator extends attribute_generator implements attribute_global_generator_interface {
     var $global_obj;
-    //var $global_attr;
 
     function __construct( $attr_html_global_id =NULL) {
 		parent::__construct();
@@ -47,6 +46,8 @@ class attribute_global_generator extends attribute_generator implements attribut
     function create_attr_html_global() {
         $attr_html_global_arr = array();
         if ( $this->global_obj ) {
+           // $global = $this->create_attr_html_global( array(
+			//krumo('come to here');
             $global = $this->create_multiple_attrs( array(
                 'accesskey' => $this->global_obj->accesskey,
                 'autocapitalize' => $this->global_obj->autocapitalize,
@@ -77,7 +78,6 @@ class attribute_global_generator extends attribute_generator implements attribut
 				$this->input_data[ 'attrs' ] = array_merge($this->input_data[ 'attrs' ],$global);
                // $attr_html_global_arr[] = $global;
             }
-			//krumo($this->input_data);
             $event = $this->create_attr_html_global_events( $this->global_obj->onevent_ids );
             if ( !empty( $event ) ) {
 				$this->input_data[ 'attrs' ] = array_merge($this->input_data[ 'attrs' ],$event);
@@ -87,12 +87,6 @@ class attribute_global_generator extends attribute_generator implements attribut
             if ( !empty( $data ) ) {
 				$this->input_data[ 'attrs' ] = array_merge($this->input_data[ 'attrs' ],$data);
                 //$attr_html_global_arr[] = $data;
-            }
-            if ( !empty( $attr_html_global_arr ) ) {
-                //$this->global_attr = implode( ' ', $attr_html_global_arr );
-                //return $this->global_attr;
-            } else {
-                return NULL;
             }
         } else {
             $this->error_log( 'cant retrieve global input attr row.' );

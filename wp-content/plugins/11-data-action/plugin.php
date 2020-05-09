@@ -29,11 +29,6 @@ define('CUSTOM_DB_PREFIX','');
 glob_includer(DATA_ACTION_SETUP_PATH);
 new insert_data_action_tables;
 glob_includer(DATA_ACTION_FUNC_PATH);
-function do_data_action(){
-	new data_action;
-}
-add_action ('wp_head','do_data_action',PHP_INT_MAX );
-
 
 
 
