@@ -10,6 +10,7 @@ class input extends data_creator {
 
     function __construct( $input_id = NULL ) {
 		 $this->input_id =  $input_id;
+        $this->input_data['id'] = $this->input_id;
         parent::__construct();
 
         $input_id = $this->get_ids( $input_id, true );
@@ -123,11 +124,18 @@ class input extends data_creator {
 		$this->create_input_metas();
 		$this->create_input_attr_changer_code();
 		$this->create_input_evals();
+		if(!empty($_REQUEST['__sst__input_the_id'])){
+			$this->input_data['attrs']['id']=$_REQUEST['__sst__input_the_id'];
+		}
+		if(!empty($_REQUEST['__sst__input_unique_id'])){
+			$this->input_data['unique_id']=$_REQUEST['__sst__input_unique_id'];
+		}
 		//krumo($this->input_data['attr_changer_code']);
 
 		//$this->input_data[ 'eval' ][] =  '$input_data["attrs"]["placeholder"] = $process_data["id"];';
 		//$this->input_data[ 'eval' ][] =  '$input_data["attrs"]["disabled"] = "disabled";';
 		//krumo('TO do : make eval input data');
+		
     }
 	function create_input_attr_changer_code(){
 		if(!empty($this->input_obj->attr_changer_condition_ids)){

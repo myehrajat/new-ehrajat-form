@@ -299,6 +299,13 @@ class render extends database {
 				$input_data[ 'tag' ][ 'before' ] .= REQUIRED_INPUT_CODE;
 			}
 			
+			
+			//krumo($input_data['id']);
+			
+			
+			
+			
+			
 			//click on loadDynamicContentModal js element 
 			//use modal.js on open modal send ajax to PROCESS_BY_GET_URL with 3 $_GET data => __sst__process_id=>process_id,__sst__is_modal=>true,__sst__modal_result_container_id=>modal_container_id+'_result'
 			//PROCESS_BY_GET_URL file create process (process now must be ajax submission enabled because it is modal) and return to modal.js to show it in modal
@@ -308,8 +315,17 @@ class render extends database {
 			if($this->is_positive_number($input_data['modal'][ 'process_id' ])){
 				$modal_process = $input_data['modal'][ 'process_id' ];
 				$modal_insert_ref = $input_data['modal'][ 'insert_ref' ];
+				
 				$uniqid_modal = uniqid("_sst_modal_");
-				$input_data[ 'tag' ][ 'after' ] .= '<span onclick="loadDynamicContentModal(\''.PROCESS_BY_GET_URL.'?__sst__process_id='.$modal_process.'&__sst__insert_ref_result='.$modal_insert_ref.'\',\''.$input_data[ 'attrs' ]['id'].$uniqid_modal.'\');">'.PROCESS_MODAL_BUTTON.'</span><span id="'.$input_data[ 'attrs' ]['id'].$uniqid_modal.'" title="'.htmlentities(PROCESS_MODAL_DEFAULT_TITLE).'"></span>';
+				$input_data[ 'tag' ][ 'after' ] .= '<span onclick="loadDynamicContentModal(';
+				$input_data[ 'tag' ][ 'after' ] .= "'".PROCESS_BY_GET_URL.'?__sst__process_id='.$modal_process.'&__sst__insert_ref_result='.$modal_insert_ref."',";
+				$input_data[ 'tag' ][ 'after' ] .= "'".$input_data[ 'attrs' ]['id'].$uniqid_modal."',";
+				$input_data[ 'tag' ][ 'after' ] .= "'".INPUT_BY_GET_URL.'?__sst__input_id='.$input_data['id'].'&__sst__input_the_id='.$input_data['attrs']['id'].'&__sst__input_unique_id='.$input_data['unique_id']."',";
+				$input_data[ 'tag' ][ 'after' ] .= "'".$input_data[ 'unique_id' ]."'";
+				$input_data[ 'tag' ][ 'after' ] .= ');">';
+				$input_data[ 'tag' ][ 'after' ] .= PROCESS_MODAL_BUTTON;
+				$input_data[ 'tag' ][ 'after' ] .= '</span>';
+				$input_data[ 'tag' ][ 'after' ] .= '<span id="'.$input_data[ 'attrs' ]['id'].$uniqid_modal.'" title="'.htmlentities(PROCESS_MODAL_DEFAULT_TITLE).'"></span>';
 			}
 			
 			
