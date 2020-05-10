@@ -100,8 +100,7 @@ if ( !empty( $_REQUEST[ 'psw' ] ) ) {
     //render_select_list
     die;
 }
-?>
-<?php
+?><?php
 
 /**************************************************
  *version 1.0.0
@@ -125,24 +124,22 @@ function sst_depend_select( $input_data_json, $process_data_json ) {
 	$p[] = 'dep_select.js';
     $js_file = implode('/',$p);
     add_action_in_function( $js_file );
-?>
-<script type="text/javascript">
-			jQuery(document).ready(function() {
 
-		append_onchange_to_controller(
-'<?php echo addslashes($input_data['attrs']['id']); ?>',
-'<?php 
+
+	$script = '<script type="text/javascript">jQuery(document).ready(function() {';
+	$script .= 'append_onchange_to_controller(';
+	$script .= "'".addslashes($input_data['attrs']['id'])."',";
+		
+
 	if(is_array($input_data['meta']['controller-input-name'])){
 		foreach($input_data['meta']['controller-input-name'] as $controller_input_name){
 			$controller_input_ids[] = addslashes(search_by_attr_to_get_other_attr('name',$controller_input_name,'id',$process_data,'process'));
 		}
-		implode(',',$controller_input_ids);
+		$script .= "'".implode(',',$controller_input_ids)."',";
 	}else{
 		$controller_input_ids = search_by_attr_to_get_other_attr('name',$input_data['meta']['controller-input-name'],'id',$process_data,'process');
-		echo addslashes($controller_input_ids); 
+		$script .= "'". addslashes($controller_input_ids)."',";
 	}
-	?>',
-'<?php 
 	$between_start = '{name:';
 	$between_end = '}';
 	$query_on_change = $input_data['meta']['query-on-change'];
@@ -152,9 +149,9 @@ function sst_depend_select( $input_data_json, $process_data_json ) {
     	$query_on_change = str_replace( $matches[ 0 ][ $k ],$between_start. $id.$between_end , $query_on_change );
 		
     }
-	echo addslashes($query_on_change);?>',
-'string',
-'<?php echo path2url(__FILE__,$_SERVER[ 'REQUEST_SCHEME' ])."'," ; 
+	$script .= "'". addslashes($query_on_change)."',";
+	$script .= "'string',";
+	$script .= "'". path2url(__FILE__,$_SERVER[ 'REQUEST_SCHEME' ])."'," ; 
 	if(!is_array($input_data['meta']['query'])){
 		$query_str =  'addslashes(\'{ "queries" : ['.$input_data['meta']['query'].']}\'));';
 	}else{
@@ -167,13 +164,22 @@ function sst_depend_select( $input_data_json, $process_data_json ) {
     	$query = str_replace( $matches[ 0 ][ $k ],$between_start. $id.$between_end , $query );
 		
 	}
-	echo $query;
-	?>	
-});
-</script>
-<?php
+	$script .=  $query;
+	$script .=  '});</script>';
+	//echo $script;
+	$input_data['tag']['after'] .= $script;
+	//krumo($input_data);
 	return $input_data;
 }
+
+
+
+
+
+
+
+
+
 
 function add_action_in_function( $file_url ) {
     static $inc_js_file;

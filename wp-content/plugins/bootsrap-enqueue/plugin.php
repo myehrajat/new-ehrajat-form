@@ -21,7 +21,7 @@ function bootstarp_enqueue() {
   wp_register_style( 'bootstrap.min.css', BOOTSTRAP_PLUGIN_URL.'asset/bootstrap-4.4.1-dist/css/bootstrap.min.css' );
   //wp_enqueue_script( 'popper.min.js' );
   wp_enqueue_script( 'bootstrap.min.js', 1 );
-  wp_enqueue_style( 'bootstrap.min.css', 99999999999 );
+  wp_enqueue_style( 'bootstrap.min.css', 1 );
   /************** RTL **********************/
   // wp_register_script( 'bootstrap-propper-js',BOOTSTRAP_PLUGIN_URL.'bootstrap-4.2.1-rtl/dist/js/bootstrap.bundle.min.js', array('jquery')  );
 
@@ -35,7 +35,7 @@ function bootstarp_enqueue() {
   wp_register_script( 'custom.js', BOOTSTRAP_PLUGIN_URL . 'asset/customjs.js', array( 'jquery' ) );
   wp_enqueue_script( 'custom.js', 9999999999999999999 );
   wp_register_script( 'csslint', BOOTSTRAP_PLUGIN_URL . 'asset/csslint/dist/csslint.js', array( 'jquery' ) );
-  wp_enqueue_script( 'csslint', 9999999999999999999 );
+  wp_enqueue_script( 'csslint', 1 );
 }
 
 add_action( 'wp_enqueue_scripts', 'bootstarp_enqueue' );

@@ -48,8 +48,11 @@ function loadDynamicContentModal(url, modal_container_id) {
             });			
 		},
 		"close":function(){
-			
-			jQuery("#"+input_id).val(jQuery("#"+modal_container_id+'_result').html().split(','));
+			try {
+				jQuery("#"+input_id).val(jQuery("#"+modal_container_id+'_result').html().split(','));
+			}catch(err) {
+			  //  Block of code to handle errors
+			}
 		},
     }).dialogExtend({
     "maximizable": true,
