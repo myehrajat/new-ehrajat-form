@@ -17,7 +17,7 @@ function bootstarp_enqueue() {
 
   //wp_enqueue_script('jquery');
 //wp_register_script( 'popper.min.js', BOOTSTRAP_PLUGIN_URL.'asset/popper-core-master/src/popper.js', array( 'jquery' ) );
-  wp_register_script( 'bootstrap.min.js', BOOTSTRAP_PLUGIN_URL.'asset/bootstrap-4.4.1-dist/js/bootstrap.min.js', array( 'jquery' ) );
+  wp_register_script( 'bootstrap.min.js', BOOTSTRAP_PLUGIN_URL.'asset/bootstrap-4.4.1-dist/js/bootstrap.min.js', array( 'jquery-ui.min.css' ) );
   wp_register_style( 'bootstrap.min.css', BOOTSTRAP_PLUGIN_URL.'asset/bootstrap-4.4.1-dist/css/bootstrap.min.css' );
   //wp_enqueue_script( 'popper.min.js' );
   wp_enqueue_script( 'bootstrap.min.js', 1 );
