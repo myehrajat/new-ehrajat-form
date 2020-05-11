@@ -313,19 +313,21 @@ class render extends database {
 			//in form making then use use ajax to add js to do all by ajax on event submit append it to after tag
 			/************ CREATE MODAL ************/
 			if($this->is_positive_number($input_data['modal'][ 'process_id' ])){
-				$modal_process = $input_data['modal'][ 'process_id' ];
-				$modal_insert_ref = $input_data['modal'][ 'insert_ref' ];
-				
+				$modal_process = $this->is_eval_run($input_data['modal'][ 'process_id' ]);
+				$modal_insert_ref = $this->is_eval_run($input_data['modal'][ 'insert_ref' ]);
+				$modal_input_id = $input_data[ 'attrs' ]['id'];
+				$modal_input_unique_id =$input_data['unique_id'];
+				$modal_input_id_num =$input_data['id'];
 				$uniqid_modal = uniqid("_sst_modal_");
 				$input_data[ 'tag' ][ 'after' ] .= '<span onclick="loadDynamicContentModal(';
 				$input_data[ 'tag' ][ 'after' ] .= "'".PROCESS_BY_GET_URL.'?__sst__process_id='.$modal_process.'&__sst__insert_ref_result='.$modal_insert_ref."',";
-				$input_data[ 'tag' ][ 'after' ] .= "'".$input_data[ 'attrs' ]['id'].$uniqid_modal."',";
-				$input_data[ 'tag' ][ 'after' ] .= "'".INPUT_BY_GET_URL.'?__sst__input_id='.$input_data['id'].'&__sst__input_the_id='.$input_data['attrs']['id'].'&__sst__input_unique_id='.$input_data['unique_id']."',";
-				$input_data[ 'tag' ][ 'after' ] .= "'".$input_data[ 'unique_id' ]."'";
+				$input_data[ 'tag' ][ 'after' ] .= "'".$modal_input_id.$uniqid_modal."',";
+				$input_data[ 'tag' ][ 'after' ] .= "'".INPUT_BY_GET_URL.'?__sst__input_id='.$modal_input_id_num.'&__sst__input_the_id='.$modal_input_id.'&__sst__input_unique_id='.$modal_input_unique_id."',";
+				$input_data[ 'tag' ][ 'after' ] .= "'".$modal_input_unique_id."'";
 				$input_data[ 'tag' ][ 'after' ] .= ');">';
 				$input_data[ 'tag' ][ 'after' ] .= PROCESS_MODAL_BUTTON;
 				$input_data[ 'tag' ][ 'after' ] .= '</span>';
-				$input_data[ 'tag' ][ 'after' ] .= '<span id="'.$input_data[ 'attrs' ]['id'].$uniqid_modal.'" title="'.htmlentities(PROCESS_MODAL_DEFAULT_TITLE).'"></span>';
+				$input_data[ 'tag' ][ 'after' ] .= '<span id="'.$modal_input_id.$uniqid_modal.'" title="'.htmlentities(PROCESS_MODAL_DEFAULT_TITLE).'"></span>';
 			}
 			
 			
@@ -824,12 +826,12 @@ class render extends database {
 			$between_start = '{name:';
 			$between_end = '}';
 			$attr_changer_code = $this->attr_changer_code;
+			//krumo($attr_changer_code);
 			preg_match_all( '/' . addslashes( $between_start ) . '(.*?)' . addslashes( $between_end ) . '/', $attr_changer_code, $matches );
 			//krumo( $matches);
 			foreach ( $matches[ 1 ] as $k => $match ) {
-				$id = common::search_by_attr_to_get_other_attr( 'name' ,$matches[ 1 ][$k],'id', $form_data ,'form');
-				//krumo( $id);
-				//krumo($matches[ 0 ][ $k ]);
+				$id = common::search_by_attr_to_get_other_attr( 'name' ,$match,'id', $form_data ,'form');
+				
 				$attr_changer_code = str_replace( $matches[ 0 ][ $k ],"#".$id, $attr_changer_code );
 			}
 			$this->attr_changer_code = $attr_changer_code;

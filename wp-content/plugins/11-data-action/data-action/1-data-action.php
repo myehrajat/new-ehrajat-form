@@ -3,7 +3,7 @@ class data_action extends process {
     function __construct($is_modal=false) {
         parent::__construct();
 		$this->is_modal = $is_modal;
-		//krumo($this->is_modal );
+
 		if ( $GLOBALS[ 'vals' ][ '__sst__data_actions' ] ) {
             $this->vals = $GLOBALS[ 'vals' ];
             $this->get_data_actions();
@@ -39,6 +39,9 @@ class data_action extends process {
 
     function do_data_action( $data_action_obj ) {
         global $wpdb;
+		if(empty($data_action_obj->insert_ref)){
+			$data_action_obj->insert_ref = $data_action_obj->id;
+		}
         switch ( $this->mode ) {
             case "add":
                 //create_save_id_column_if_not_exist();
@@ -64,14 +67,9 @@ class data_action extends process {
                 }
 				//if($_GET['data_action_result'])
 				if($this->is_modal==true){
-					//krumo('is_modal');
-					//krumo($_GET["__sst__modal_result_container_id"]);
-					//krumo($result);
 					echo '<span id="result_content">'.implode('',$result)."</span>";
-					//
 					echo '<span hidden="hidden" id="'.$_REQUEST["__sst__modal_result_container_id"].'">';
 					if(!empty($insert_ref [$_REQUEST['__sst__insert_ref_result']])){
-						//krumo();
 						foreach($insert_ref [$_REQUEST['__sst__insert_ref_result']] as $single_insert_ref){
 							$modal_insert_ids[] = $single_insert_ref['insert_id'];
 						}

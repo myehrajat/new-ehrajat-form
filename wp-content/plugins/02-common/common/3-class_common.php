@@ -134,10 +134,19 @@ implements common_interface {
 
   /*this function search in process ,form, block or any type input recursivley and find which at first is matched and return the attr which you need
   use mostly for js coding*/
-  function search_by_attr_to_get_other_attr( $attr_name, $attr_value, $return_attr_name, $process_data, $data_type ) {
-    $all_inputs = get_all_inputs_data( $process_data, $data_type );
+  function search_by_attr_to_get_other_attr( $attr_name, $attr_value, $return_attr_name, $data, $data_type ) {
+    $all_inputs = common::get_all_inputs_data( $data, $data_type );
+	//krumo($attr_name);
+	//krumo($attr_value);
+	//krumo($return_attr_name);
+	//krumo($data);
     foreach ( $all_inputs as $input_data ) {
+		
+	//krumo($input_data[ "attrs" ][ $attr_name ]);
+	//krumo($attr_value);
+
       if ( $input_data[ "attrs" ][ $attr_name ] == $attr_value ) {
+		  
         return $input_data[ "attrs" ][ $return_attr_name ];
       }
     }
@@ -145,8 +154,10 @@ implements common_interface {
   }
   /* Get all inputs of a process or form or block or fieldset it recursively search for childern and block in block or field set*/
   function get_all_inputs_data( $data, $type ) {
-    static $temp;
     static $all_input;
+    if ( debug_backtrace()[ 1 ][ 'function' ] !== __FUNCTION__ ) {
+        $all_input = array();
+    }
     switch ( $type ) {
       case "process":
         if ( !empty( $data[ "form_data" ] ) ) {

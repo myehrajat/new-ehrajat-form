@@ -165,8 +165,6 @@ class input extends data_creator {
 		if(!empty($jquery_code )){
 			
 			$this->input_data['attr_changer_code']= "jQuery('#".$this->input_data['attrs']['id']."').on('input', function($) {".$jquery_code .'});';
-			//if()
-			//krumo($this->input_data['input_html_type']);
 			switch($this->input_data['input_html_type']){
 				case "radio":
 				case "checkbox":

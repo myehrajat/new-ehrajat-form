@@ -11,7 +11,7 @@ function loadDynamicContentModal(process_url, modal_container_id, input_url, inp
     {
       "resizable": true,
       "height": "auto",
-      "width": '80%',
+      "width": '90%',
       "modal": true,
       "buttons": [{
           text: "Set Data",
@@ -50,7 +50,7 @@ function loadDynamicContentModal(process_url, modal_container_id, input_url, inp
         });
       },
       "close": function () {
-        //try {
+        try {
         //console.log(jQuery("#"+input_wrapper_id));
         jQuery.ajax({
           async: true,
@@ -67,9 +67,9 @@ function loadDynamicContentModal(process_url, modal_container_id, input_url, inp
             alert(thrownError);
           }
         });
-        //}catch(err) {
+        }catch(err) {
         //  Block of code to handle errors
-        //}
+        }
       },
     }).dialogExtend({
     "maximizable": true,
