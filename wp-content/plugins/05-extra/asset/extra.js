@@ -1,124 +1,245 @@
-
 jQuery(document).ready(function () {
-	
-	function change_tag_ids(sst){
-		sst.tag_names = ['sst-input','sst-block'];
-		sst.source_element_length = sst.clone_source_element.id.length;
-		sst.to_replace_in_middle = sst.new_clone_target_id.substr(sst.unique_id_length);
-		sst.j = 0;
+  var sst = {};
+  sst.tag_names = ['sst-input', 'sst-block', 'sst-fieldset'];
+  sst.add_contoller_suffix = '_controller_add';
+  sst.remove_contoller_suffix = '_controller_remove';
+  sst.unique_id_length = 12;
 
-		while(sst.tag_names.length>sst.j){
-			sst.new_inputs = jQuery(sst.clone_target_element).find(sst.tag_names[sst.j]);
-			sst.i=0;
-			 while(sst.new_inputs.length >sst.i){
-				sst.this_element_unique = sst.new_inputs[sst.i].id.substr(0,sst.unique_id_length);
-				sst.this_element_trailing = sst.new_inputs[sst.i].id.substr(sst.source_element_length);
-				jQuery(sst.new_inputs[sst.i]).attr('id',sst.this_element_unique.concat(sst.to_replace_in_middle).concat(sst.this_element_trailing));
-				sst.i++;
-			}
-			sst.j++;
-	}
 
-	}
-	function change_controller_ids(sst){
-		sst.all_target_add_controller = jQuery('#'+sst.new_clone_target_id).find("[id$='"+sst.add_contoller_prefix+"']");
-		sst.i=0;
-		while(sst.all_target_add_controller.length >sst.i){
-			 sst.unique_of_add_controller = sst.all_target_add_controller[sst.i].id.substr(0,sst.unique_id_length);
-			sst.trailing_of_add_controller = sst.all_target_add_controller[sst.i].id.substr(sst.unique_id_length+sst.source_identifier.length);
-			sst.new_add_controller_id= sst.unique_of_add_controller.concat(sst.target_identifier).concat(sst.trailing_of_add_controller);
-			jQuery(sst.all_target_add_controller[sst.i]).attr('id',sst.new_add_controller_id);
-			sst.i++;
-		}
-		sst.all_target_remove_controller = jQuery('#'+sst.new_clone_target_id).find("[id$='"+sst.remove_contoller_prefix+"']");
-		sst.i=0;
-		while(sst.all_target_remove_controller.length >sst.i){
-			 sst.unique_of_remove_controller = sst.all_target_remove_controller[sst.i].id.substr(0,sst.unique_id_length);
-			sst.trailing_of_remove_controller = sst.all_target_remove_controller[sst.i].id.substr(sst.unique_id_length+sst.source_identifier.length);
-			sst.new_remove_controller_id= sst.unique_of_remove_controller.concat(sst.target_identifier).concat(sst.trailing_of_remove_controller);
-			jQuery(sst.all_target_remove_controller[sst.i]).attr('id',sst.new_remove_controller_id);
-			sst.i++;
-		}
-	}
-	function change_input_names(sst){
-		sst.form_inputs = jQuery('#'+sst.new_clone_target_id).find("[name]");
-		sst.source_identifier_length = sst.source_identifier.length;
-		sst.i=0;
-		while(sst.form_inputs.length>sst.i){
-			sst.name_str =  sst.form_inputs[sst.i].name.split('[')[0];
-			sst.this_element_trailing_part = sst.form_inputs[sst.i].name.substr(sst.name_str.length+sst.source_identifier_length);	
-			sst.middle_part = sst.target_identifier.replace(/≪/g,'[').replace(/≫/g,']');
-			jQuery(sst.form_inputs[sst.i]).attr('name',sst.name_str+sst.middle_part+sst.this_element_trailing_part);
-			sst.i++;
-			  }
-		
-	}
-	var sst = {};
-	sst.add_contoller_prefix = '_controller_add';
-	sst.remove_contoller_prefix = '_controller_remove';
-	sst.unique_id_length = 12;
-	 jQuery('body').on('click',"[id$='"+sst.add_contoller_prefix+"']",function(event){
-		 //jQuery(this).hide();//to prevent fast click investigate more for test only not correct
-		 event.preventDefault();//prevent submitting in fast double click
-		  //jQuery(this).attr("disabled", "disabled");
-		 sst.unique = this.id.substr(0,sst.unique_id_length);
-		 sst.source_add_controller_id = this.id;
-		 sst.source_identifier = this.id.substr(sst.unique_id_length).split('_')[0];
-		 sst.clone_source_element = jQuery("#"+sst.unique+sst.source_identifier)[0];	
-		 sst.clone_source_last_number = sst.clone_source_element.id.match(/(≪.*?≫)/g).pop().slice(1,-1);
-		 sst.max_extra = jQuery("#"+sst.unique+sst.source_identifier+sst.add_contoller_prefix).attr('max_extra');
-		 if(sst.max_extra> sst.clone_source_last_number ){
-			// jQuery(sst.clone_source_element.outerHTML).insertAfter("#"+sst.clone_source_element.id);
-			//if(jQuery("#"+sst.unique+sst.source_identifier)[1].id){
-				 //console.log("#"+sst.unique+sst.source_identifier);
-				 //console.log(sst.clone_source_element.outerHTML);
-				 //console.log(jQuery("#"+sst.clone_source_element.id).last().attr('id'));
-			// }
-			 jQuery(sst.clone_source_element.outerHTML).insertAfter("#"+sst.clone_source_element.id)
-			 sst.clone_target_element = jQuery("#"+sst.unique+sst.source_identifier)[1];
-			 sst.clone_target_last_number = sst.clone_source_last_number-1+2;
-			 sst.target_identifier = sst.source_identifier.slice(0,-sst.clone_source_last_number.toString().length-1).concat(sst.clone_target_last_number+"≫");	
-			 //replace new number to newly added id
-			 //if(jQuery("#"+sst.unique+sst.source_identifier)[1].id){
-				 //sst.new_clone_target_id = jQuery("#"+sst.unique+sst.source_identifier)[1].id.slice(0,-sst.clone_source_last_number.toString().length-1).concat(sst.clone_target_last_number+"≫");
-				 sst.new_clone_target_id = jQuery("#"+sst.clone_source_element.id).last().attr('id').slice(0,-sst.clone_source_last_number.toString().length-1).concat(sst.clone_target_last_number+"≫");
-				 jQuery(sst.clone_target_element).attr('id',sst.new_clone_target_id );
-				 change_controller_ids(sst);
-				 change_tag_ids(sst);
-				 change_input_names(sst);
-				 jQuery(this).hide();
-				 jQuery("#"+sst.unique+sst.source_identifier+sst.remove_contoller_prefix).hide();
-				 jQuery("#"+sst.unique+sst.target_identifier+sst.remove_contoller_prefix).show();
-				 if(sst.max_extra-1 == sst.clone_source_last_number){
-					jQuery("#"+sst.unique+sst.target_identifier+sst.add_contoller_prefix).hide();
-				 }
-			// }
-		 
-		 }
-		
-		return false;
-	 });
-	function show_add_for_previous(sst){
-		sst.num_to_show_controller = sst.clone_source_last_number-1;
-		sst.num_to_show_controller_length = sst.num_to_show_controller.toString().length;
-		sst.previous_controller_base_id = sst.unique+sst.source_identifier.slice(0, -(sst.num_to_show_controller_length+2)).concat("≪"+sst.num_to_show_controller+"≫");
-		jQuery("#"+sst.previous_controller_base_id+sst.add_contoller_prefix).show();
-		if(sst.num_to_show_controller!=0){
-			jQuery("#"+sst.previous_controller_base_id+sst.remove_contoller_prefix).show();
-		}
-		
-	}
-	 jQuery('body').on('click',"[id$='"+sst.remove_contoller_prefix+"']",function(event){
-		 event.preventDefault();//prevent submitting in fast double click
-		 sst.unique = this.id.substr(0,sst.unique_id_length);
-		 sst.source_add_controller_id = this.id;
-		 sst.source_identifier = this.id.substr(sst.unique_id_length).split('_')[0];
-		 sst.source_element_id = sst.unique+sst.source_identifier;
-		 sst.clone_source_last_number = sst.source_element_id.match(/(≪.*?≫)/g).pop().slice(1,-1);
-		 jQuery("#"+sst.unique+sst.source_identifier)[0].remove();
-		 show_add_for_previous(sst);
-		 return false;
-	 });
-	
+  function remove_underlined_suffix(id) {
+    return id.split('_').shift();
+  }
+
+  function get_unqiue(id) {
+    var unqiue_part = id.split('≪').shift();
+    if (unqiue_part.length == id.length) {
+      unqiue_part = id.split('[').shift();
+    }
+    //console.log(unqiue_part);
+    return unqiue_part;
+  }
+
+  function get_identifier(id) {
+    var identifier = id.substr(get_unqiue(id).length, id.length);
+    return identifier;
+  }
+
+  function get_last_number(id) {
+    var arr = get_identifier(id).split('≪');
+    if (arr.length == 1) {
+      arr = get_identifier(id).split('[');
+    }
+    return arr.pop().slice(0, -1);
+  }
+
+  function clone_source_element(source_element_id) {
+    //var ele = jQuery("#"+remove_underlined_suffix(id_of_extra_clicked)).first();
+    //console.log( ele);
+    //console.log( source_element_id);
+    return jQuery("#" + source_element_id)[0].outerHTML;
+  }
+
+  function get_max_extra(id_of_extra_clicked) {
+    return jQuery("#" + id_of_extra_clicked).attr('max_extra');
+  }
+
+  function insert_cloned_element(clone_source_element, source_element_id) {
+    return jQuery(clone_source_element).insertAfter("#" + source_element_id);
+  }
+
+  function add_up_single_string(string, source_element_id, split_char_override = null, last_char_override = null) {
+    var new_number = get_last_number(string) - 1 + 2;
+    var source_identifier = get_identifier(source_element_id);
+    var src_iden_array = source_identifier.split('≪');
+    var split_char = '≪';
+    var last_char = '≫';
+    if (src_iden_array < 2) {
+      src_iden_array = source_identifier.split('[');
+      split_char = '[';
+      last_char = ']';
+    }
+    if (split_char_override != null) {
+      split_char = split_char_override;
+    }
+    if (last_char_override != null) {
+      last_char = last_char_override;
+    }
+    src_iden_array.pop();
+    src_iden_array[src_iden_array.length] = new_number + last_char;
+    added_up_source_identifier = src_iden_array.join(split_char);
+    var string_identifier = get_identifier(string);
+    var added_up_string_identifier = added_up_source_identifier.concat(string_identifier.slice(source_identifier.length));
+    var string_unique = get_unqiue(string);
+    var added_up = string_unique.concat(added_up_string_identifier);
+    return added_up;
+
+  }
+
+  function add_down_single_string(string, source_element_id, split_char_override = null, last_char_override = null) {
+    var new_number = get_last_number(string) - 1;
+    var source_identifier = get_identifier(source_element_id);
+    var src_iden_array = source_identifier.split('≪');
+    var split_char = '≪';
+    var last_char = '≫';
+    if (src_iden_array < 2) {
+      src_iden_array = source_identifier.split('[');
+      split_char = '[';
+      last_char = ']';
+    }
+    if (split_char_override != null) {
+      split_char = split_char_override;
+    }
+    if (last_char_override != null) {
+      last_char = last_char_override;
+    }
+    src_iden_array.pop();
+    src_iden_array[src_iden_array.length] = new_number + last_char;
+    added_up_source_identifier = src_iden_array.join(split_char);
+    var string_identifier = get_identifier(string);
+    var added_down_string_identifier = added_up_source_identifier.concat(string_identifier.slice(source_identifier.length));
+    var string_unique = get_unqiue(string);
+    var added_down = string_unique.concat(added_down_string_identifier);
+    return added_down;
+
+  }
+
+  function add_up_last_number(inserted_element, source_element_id) {
+    var all_source = [];
+    var all_cloned = [];
+    /**	The element which duplicate id will change and addup	**/
+    all_source.push(inserted_element.attr('id'));
+    jQuery(inserted_element).attr('id', add_up_single_string(inserted_element.attr('id'), source_element_id));
+    all_cloned.push(inserted_element.attr('id'));
+    /**	All tag names like input-tag block-tag and input-tag id will change and addup	**/
+    jQuery.each(sst.tag_names, function (index, tag_name) {
+      jQuery.each(jQuery(inserted_element).find(tag_name), function (index, single_child_tag) {
+        all_source.push(jQuery(single_child_tag).attr('id'));
+        jQuery(single_child_tag).attr('id', add_up_single_string(jQuery(single_child_tag).attr('id'), source_element_id));
+        all_cloned.push(jQuery(single_child_tag).attr('id'));
+      });
+    });
+    /**	All input which has name attribute name and id will change and addup	**/
+    jQuery.each(inserted_element.find("[name]"), function (index, input) {
+      all_source.push(jQuery(input).attr('id'));
+      //all_source.push(jQuery(input).attr('name'));
+      jQuery(input).attr('id', add_up_single_string(jQuery(input).attr('id'), source_element_id));
+      jQuery(input).attr('name', add_up_single_string(jQuery(input).attr('name'), source_element_id, '[', ']'));
+      all_cloned.push(jQuery(input).attr('id'));
+      //all_cloned.push(jQuery(input).attr('name'));
+    });
+    /**	All elements which has for id which is sepcific for label will change and addup	**/
+    jQuery.each(inserted_element.find("[for]"), function (index, for_attr) {
+      //all_source.push(jQuery(for_attr).attr('for'));
+      jQuery(for_attr).attr('for', add_up_single_string(jQuery(for_attr).attr('for'), source_element_id));
+      //all_cloned.push(jQuery(for_attr).attr('for'));
+    });
+    jQuery.each(all_source, function (index, needle) {
+      replace_str_for_all(inserted_element, needle, all_cloned[index]);
+    })
+    //replace_str_for_all(inserted_element, needle, replace);	
+    //console.log(all_source);
+  }
+
+  function add_down_last_number(inserted_element, source_element_id) {
+    var all_source = [];
+    var all_cloned = [];
+    /**	The element which duplicate id will change and addup	**/
+    all_source.push(inserted_element.attr('id'));
+    jQuery(inserted_element).attr('id', add_down_single_string(inserted_element.attr('id'), source_element_id));
+    all_cloned.push(inserted_element.attr('id'));
+    /**	All tag names like input-tag block-tag and input-tag id will change and addup	**/
+    jQuery.each(sst.tag_names, function (index, tag_name) {
+      jQuery.each(jQuery(inserted_element).find(tag_name), function (index, single_child_tag) {
+        all_source.push(jQuery(single_child_tag).attr('id'));
+        jQuery(single_child_tag).attr('id', add_down_single_string(jQuery(single_child_tag).attr('id'), source_element_id));
+        all_cloned.push(jQuery(single_child_tag).attr('id'));
+      });
+    });
+    /**	All input which has name attribute name and id will change and addup	**/
+    jQuery.each(inserted_element.find("[name]"), function (index, input) {
+      all_source.push(jQuery(input).attr('id'));
+      //all_source.push(jQuery(input).attr('name'));
+      jQuery(input).attr('id', add_down_single_string(jQuery(input).attr('id'), source_element_id));
+      jQuery(input).attr('name', add_down_single_string(jQuery(input).attr('name'), source_element_id, '[', ']'));
+      all_cloned.push(jQuery(input).attr('id'));
+      //all_cloned.push(jQuery(input).attr('name'));
+    });
+    /**	All elements which has for id which is sepcific for label will change and addup	**/
+    jQuery.each(inserted_element.find("[for]"), function (index, for_attr) {
+      //all_source.push(jQuery(for_attr).attr('for'));
+      jQuery(for_attr).attr('for', add_down_single_string(jQuery(for_attr).attr('for'), source_element_id));
+      //all_cloned.push(jQuery(for_attr).attr('for'));
+    });
+    jQuery.each(all_source, function (index, needle) {
+      replace_str_for_all(inserted_element, needle, all_cloned[index]);
+    })
+    //replace_str_for_all(inserted_element, needle, replace);	
+    //console.log(all_source);
+  }
+
+  function replace_str_for_all(inserted_element, needle, replace) {
+    replace_str_for_text(inserted_element, needle, replace);
+    replace_str_for_html(inserted_element, needle, replace);
+  }
+
+  function replace_str_for_text(inserted_element, needle, replace) {
+    jQuery(inserted_element).html(function (index, html) {
+      var re = new RegExp(needle, "g");
+      return html.replace(re, replace);
+    });
+  }
+
+  function replace_str_for_html(inserted_element, needle, replace) {
+    jQuery(inserted_element).find('*').each(function () {
+      var tmp = jQuery(this).children().remove();
+      var text = jQuery(this).text();
+      var re = new RegExp(needle, "g");
+      text = text.replace(re, replace);
+      jQuery(this).text(text);
+      jQuery(this).append(tmp);
+    });
+  }
+
+  function manage_controller_visibilty() {
+    jQuery("#" + sst.source_add_controller_id).hide();
+    //jQuery("#" + remove_underlined_suffix(sst.source_add_controller_id).concat(sst.remove_contoller_suffix)).hide();
+    //cloned
+    jQuery("#" + add_up_single_string(remove_underlined_suffix(sst.source_add_controller_id), sst.source_element_id).concat(sst.remove_contoller_suffix)).show();
+    if (sst.max_extra - 1 == sst.source_last_number) {
+      jQuery("#" + add_up_single_string(remove_underlined_suffix(sst.source_add_controller_id), sst.source_element_id).concat(sst.add_contoller_suffix)).hide();
+    }
+  }
+
+  jQuery('body').on('click', "[id$='" + sst.add_contoller_suffix + "']", function (event) {
+    event.preventDefault(); //prevent submitting in fast double click
+    sst.source_add_controller_id = this.id;
+    sst.source_last_number = get_last_number(remove_underlined_suffix(sst.source_add_controller_id));
+    sst.max_extra = get_max_extra(sst.source_add_controller_id);
+    if (sst.max_extra > sst.source_last_number) {
+      sst.source_element_id = remove_underlined_suffix(sst.source_add_controller_id);
+      sst.clone_source_element = clone_source_element(sst.source_element_id);
+      sst.inserted_element = insert_cloned_element(sst.clone_source_element, sst.source_element_id);
+      add_up_last_number(sst.inserted_element, sst.source_element_id);
+      manage_controller_visibilty();
+    }
+    return false;
+  });
+
+  jQuery('body').on('click', "[id$='" + sst.remove_contoller_suffix + "']", function (event) {
+    event.preventDefault(); //prevent submitting in fast double click
+    sst.source_remove_controller_id = this.id;
+    sst.source_element_id = remove_underlined_suffix(sst.source_remove_controller_id);
+    jQuery("#" + sst.source_element_id).first().remove();
+    sst.source_last_number = get_last_number(sst.source_element_id);
+    var temp = add_up_single_string(sst.source_element_id, sst.source_element_id);
+    while (jQuery("#" + temp).length > 0) {
+      add_down_last_number(jQuery("#" + temp).first(), sst.source_element_id);
+      temp = add_up_single_string(temp, sst.source_element_id);
+    }
+    sst.unique = get_unqiue(sst.source_element_id);
+    jQuery("[id^='" + sst.unique + "'][id$='" + sst.add_contoller_suffix + "']").last().show();
+    return false;
+  });
+
+
 });
-//need a double check if fast clicking to remove controller and elements

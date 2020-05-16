@@ -71,8 +71,12 @@ class fieldset extends data_creator {
         $all_fieldsets[ $fieldset_id ][ 'extra' ][ 'max' ] = $this->fieldset_obj->extra;
         $all_fieldsets[ $fieldset_id ][ 'unique_id' ] = $all_fieldsets[ $fieldset_id ][ 'unique_id' ] . str_repeat( '≪0≫', $all_fieldsets[ $fieldset_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] );
         foreach ( $all_fieldsets[ $fieldset_id ][ 'inputs_data' ] as $l => $input ) {
-            $all_fieldsets[ $fieldset_id ][ 'inputs_data' ][ $l ][ 'attrs' ][ 'name' ] = $input[ 'attrs' ][ 'name' ] . str_repeat( '[0]', $all_fieldsets[ $fieldset_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] );
-            $all_fieldsets[ $fieldset_id ][ 'inputs_data' ][ $l ][ 'unique_id' ] = $input[ 'unique_id' ] . str_repeat( '≪0≫', $all_fieldsets[ $fieldset_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] );
+			$repeated_name = str_repeat( '[0]', $all_fieldsets[ $fieldset_id ][ 'extra' ][ 'unique_id_suffix_repeat' ]);
+			$repeated_id = str_repeat( '≪0≫', $all_fieldsets[ $fieldset_id ][ 'extra' ][ 'unique_id_suffix_repeat' ]);
+            $all_fieldsets[ $fieldset_id ][ 'inputs_data' ][ $l ][ 'attrs' ][ 'name' ] = $input[ 'attrs' ][ 'name' ] . $repeated_name;
+            $all_fieldsets[ $fieldset_id ][ 'inputs_data' ][ $l ][ 'unique_id' ] = $input[ 'unique_id' ] .$repeated_id ;
+            $all_fieldsets[ $fieldset_id ][ 'inputs_data' ][ $l ][ 'tag' ][ 'after' ] = str_replace($input[ 'attrs' ][ 'id' ], $input[ 'attrs' ][ 'id' ] . $repeated_id,$all_fieldsets[ $fieldset_id ][ 'inputs_data' ][ $l ]['tag']['after'] );;
+            $all_fieldsets[ $fieldset_id ][ 'inputs_data' ][ $l ][ 'tag' ][ 'before' ] = str_replace($input[ 'attrs' ][ 'id' ], $input[ 'attrs' ][ 'id' ] . $repeated_id,$all_fieldsets[ $fieldset_id ][ 'inputs_data' ][ $l ]['tag']['before'] );;
         }
 
         $this->prevent_loop[ $fieldset_id ] = $fieldset_id;

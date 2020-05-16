@@ -1,4 +1,4 @@
-/*
+﻿/*
  Navicat Premium Data Transfer
 
  Source Server         : myehrajat
@@ -1269,8 +1269,8 @@ CREATE TABLE `wp_comments`  (
   `comment_author_email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `comment_author_url` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `comment_author_IP` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `comment_date` datetime(0) NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `comment_date_gmt` datetime(0) NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `comment_date` datetime(0) NOT NULL,
+  `comment_date_gmt` datetime(0) NOT NULL,
   `comment_content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `comment_karma` int(11) NOT NULL DEFAULT 0,
   `comment_approved` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1',
@@ -1319,7 +1319,7 @@ CREATE TABLE `wp_links`  (
   `link_visible` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Y',
   `link_owner` bigint(20) UNSIGNED NOT NULL DEFAULT 1,
   `link_rating` int(11) NOT NULL DEFAULT 0,
-  `link_updated` datetime(0) NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `link_updated` datetime(0) NOT NULL,
   `link_rel` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `link_notes` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `link_rss` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
@@ -1498,8 +1498,8 @@ DROP TABLE IF EXISTS `wp_posts`;
 CREATE TABLE `wp_posts`  (
   `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `post_author` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
-  `post_date` datetime(0) NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `post_date_gmt` datetime(0) NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `post_date` datetime(0) NOT NULL,
+  `post_date_gmt` datetime(0) NOT NULL,
   `post_content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `post_title` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `post_excerpt` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1510,8 +1510,8 @@ CREATE TABLE `wp_posts`  (
   `post_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `to_ping` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `pinged` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `post_modified` datetime(0) NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `post_modified_gmt` datetime(0) NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `post_modified` datetime(0) NOT NULL,
+  `post_modified_gmt` datetime(0) NOT NULL,
   `post_content_filtered` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `post_parent` bigint(20) UNSIGNED NOT NULL DEFAULT 0,
   `guid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
@@ -3488,7 +3488,7 @@ CREATE TABLE `wp_users`  (
   `user_nicename` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `user_email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `user_url` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `user_registered` datetime(0) NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `user_registered` datetime(0) NOT NULL,
   `user_activation_key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `user_status` int(11) NOT NULL DEFAULT 0,
   `display_name` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',

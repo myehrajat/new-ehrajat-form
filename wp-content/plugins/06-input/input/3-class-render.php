@@ -182,13 +182,14 @@ class render extends database {
     }
 
     function render_input( $input_data = NULL ) {
-		//krumo($this->process_data);
 
         if ( $input_data == NULL ) {
             $input_data = $this->input_data;
         }
 		if(!empty($input_data['attr_changer_code'])){
 			$this->attr_changer_code = $this->attr_changer_code.$input_data['attr_changer_code'];
+					//krumo($input_data);
+
 		}
 		$process_data = $this->process_data;
 
@@ -312,6 +313,7 @@ class render extends database {
 			// to create process if it is modal create 4 hidden input for next steps __sst__is_modal,__sst__modal_result_container_id,__sst__is_modal,and set use ajax
 			//in form making then use use ajax to add js to do all by ajax on event submit append it to after tag
 			/************ CREATE MODAL ************/
+			//krumo($input_data);
 			if($this->is_positive_number($input_data['modal'][ 'process_id' ])){
 				$modal_process = $this->is_eval_run($input_data['modal'][ 'process_id' ]);
 				$modal_insert_ref = $this->is_eval_run($input_data['modal'][ 'insert_ref' ]);
@@ -339,7 +341,7 @@ class render extends database {
 			
 			
 			
-			
+			//krumo($input);
             $input = $input_data[ 'tag' ][ 'before' ] . $input . $input_data[ 'tag' ][ 'after' ];
 			
             if ( $input_data[ 'extra' ][ 'controller_position' ] == 'before' ) {
@@ -356,9 +358,6 @@ class render extends database {
         }
     }
     /*****************
-
-
-
       ____    _                  _    
      | __ )  | |   ___     ___  | | __
      |  _ \  | |  / _ \   / __| | |/ /
@@ -372,13 +371,99 @@ class render extends database {
     Return: Html Text of block (extra also created)
     Note: in view or edit mode it will return all extra that you have used
     */
+	function create_input_attr_changer_code($input_data){
+		//krumo($input_data);
+		if(!empty($input_data['attr_changer_condition_ids'])){
+            $attr_changer_condition_ids = $this->get_ids($input_data['attr_changer_condition_ids'] );
+			if(!empty( $attr_changer_condition_ids)){
+				$first_done =false;
+				foreach($attr_changer_condition_ids as $attr_changer_condition_id){
+					$attr_changer_condition_obj = $this->get_by_id( $attr_changer_condition_id,  $GLOBALS[ 'sst_tables' ][ 'attr_changer_condition' ] );
+					if(!empty($attr_changer_condition_obj)){
+						if($first_done==false){
+							$position = 'first';
+							$first_done = true;
+						}elseif(strtolower($attr_changer_condition_obj->condition)!='else' and $first_done==true){
+							$position = 'middle';
+						}elseif(strtolower($attr_changer_condition_obj->condition)=='else'){
+							$position = 'last';
+						}
+						$jquery_code .= $this->create_attr_changer_based_conditions($attr_changer_condition_obj,$position);
+					}else{
+						$this->error_log( 'attr_changer_condition_obj cant find you use id which not exists :'.$attr_changer_condition_id  );
+					}
+				}
+			}else{
+                $this->error_log( 'attr_changer_condition_ids after proccessing ids renturn nothing see:'.$this->input_obj->attr_changer_condition_ids  );
+			}
+		}
+		
+		if(!empty($jquery_code )){
+			
+			$input_data['attr_changer_code']= "jQuery('#".$input_data['attrs']['id']."').on('input', function($) {".$jquery_code .'});';
+			switch($input_data['input_html_type']){
+				case "radio":
+				case "checkbox":
+					$input_data['attr_changer_code']= str_replace('{self}','jQuery("#'.$input_data['attrs']['id'].':checked").val()',$input_data['attr_changer_code']);
+					break;
+				default:
+					$input_data['attr_changer_code']= str_replace('{self}','jQuery("#'.$input_data['attrs']['id'].'").val()',$input_data['attr_changer_code']);
+					break;
+			}
+			//
+		}
+		//krumo($input_data['attr_changer_code'] );
+		return $input_data;
+	}
+	function create_attr_changer_based_conditions($attr_changer_condition_obj,$position){
+		//krumo($this->input_data['attrs']['id']);
+		switch($position){
+			case 'first':
+				$jquery_code .= 'if(' . str_replace('{name:','{name_jq_value:',$attr_changer_condition_obj->condition).'){';
+				break;
+			case 'middle':
+				$jquery_code .= 'else if(' . str_replace('{name:','{name_jq_value:',$attr_changer_condition_obj->condition).'){';
+				break;
+			case 'last':
+				$jquery_code .= 'else(' . str_replace('{name:','{name_jq_value:',$attr_changer_condition_obj->condition).'){';
+				break;
+		}//krumo($jquery_code);
+        $attr_changer_ids = $this->get_ids( $attr_changer_condition_obj->attr_changer_ids );
+		if(!empty($attr_changer_ids)){
+			foreach($attr_changer_ids as $attr_changer_id){
+				$attr_changer_obj = $this->get_by_id( $attr_changer_id,  $GLOBALS[ 'sst_tables' ][ 'attr_changer' ] );
+				$input_ids = $this->get_ids( $attr_changer_obj->input_ids );
+				//krumo($input_ids);
+				if(!empty($input_ids)){
+					foreach($input_ids as $input_id){
+						$input_obj = $this->get_by_id( $input_id,  $GLOBALS[ 'sst_tables' ][ 'input' ]);
+						//krumo($input_obj->name);
+						if(strtolower($attr_changer_obj->remove_attr)=='remove'){
+							$jquery_code .= 'jQuery("{name:'.$input_obj->name.'}").removeAttr("'.$attr_changer_obj->attr.'");';
+						}else{
+							$jquery_code .= 'jQuery("{name:'.$input_obj->name.'}").attr("'.$attr_changer_obj->attr.'","'.$attr_changer_obj->attr.'");';
+						}
+					}
+				}else{
+					$this->error_log( 'Attr change need input ids its empty or after processing return empty.');
+				}
+			}
+		}else{
+            $this->error_log( 'No attr change ids is provided with conditions id:'.$attr_changer_condition_obj->id );
+		}
+		$jquery_code .= '}';
+ 		return $jquery_code;
+	}
+	
+	
     function render_block( $block_data = NULL ) {
+		//krumo($block_data);
         if ( $block_data == NULL ) {
             $block_data = $this->block_data;
         }
         //create $block_data['extra'] details
         $block_data = $this->create_extra_data( $block_data );
-
+		
         if ( $block_data[ 'access' ][ 'visible' ] == 'no'
             and $this->mode == 'view' ) {
             return '';
@@ -396,6 +481,10 @@ class render extends database {
 
             foreach ( $block_data[ 'inputs_data' ] as $input_data ) {
                 $input_data = $this->extra_block_set_value( $block_data, $input_data );
+				if(!empty($input_data['attr_changer_condition_ids'])){
+					$input_data = $this->create_input_attr_changer_code($input_data);
+					//krumo($input_data);
+				}
                 $elements[ 'input' ] = $elements[ 'input' ] . $this->render_input( $input_data );
             }
         }
@@ -789,7 +878,7 @@ class render extends database {
 
 
     function render_form( $form_data ) {
-
+//krumo( $form_data);
         if ( $form_data == NULL ) {
             $form_data = $this->form_data;
         }
@@ -828,9 +917,10 @@ class render extends database {
 			$attr_changer_code = $this->attr_changer_code;
 			//krumo($attr_changer_code);
 			preg_match_all( '/' . addslashes( $between_start ) . '(.*?)' . addslashes( $between_end ) . '/', $attr_changer_code, $matches );
-			//krumo( $matches);
+//			krumo( $matches);
 			foreach ( $matches[ 1 ] as $k => $match ) {
 				$id = common::search_by_attr_to_get_other_attr( 'name' ,$match,'id', $form_data ,'form');
+				//krumo( $form_data);
 				
 				$attr_changer_code = str_replace( $matches[ 0 ][ $k ],"#".$id, $attr_changer_code );
 			}
@@ -844,15 +934,13 @@ class render extends database {
 			//krumo( $matches);
 			foreach ( $matches[ 1 ] as $k => $match ) {
 				$id = common::search_by_attr_to_get_other_attr( 'name' ,$matches[ 1 ][$k],'id', $form_data ,'form');
-				//krumo( $id);
-				//krumo($matches[ 0 ][ $k ]);
 				$attr_changer_code = str_replace( $matches[ 0 ][ $k ],"jQuery('#".$id."').val()", $attr_changer_code );
 			}
 			
 			$this->attr_changer_code = $attr_changer_code;
 					//	krumo($this->attr_changer_code);
 
-			$form_suffix .= '<script type="text/javascript">'.$this->attr_changer_code.'</script>';
+			$form_suffix .= '<script id="sst-script" type="text/javascript">'.$this->attr_changer_code.'</script>';
 		}
         $form_suffix .= '</form>' . $form_data[ 'tag' ][ 'after' ] . '</sst-form>';
         return $form_prefix . $form . $form_suffix;
