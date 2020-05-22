@@ -1,6 +1,7 @@
 jQuery(document).ready(function () {
   var sst = {};
   sst.tag_names = ['sst-input', 'sst-block', 'sst-fieldset'];
+  sst.script_tag_id = 'sst-script'
   sst.add_contoller_suffix = '_controller_add';
   sst.remove_contoller_suffix = '_controller_remove';
   sst.unique_id_length = 12;
@@ -121,11 +122,11 @@ jQuery(document).ready(function () {
     /**	All input which has name attribute name and id will change and addup	**/
     jQuery.each(inserted_element.find("[name]"), function (index, input) {
       all_source.push(jQuery(input).attr('id'));
-      //all_source.push(jQuery(input).attr('name'));
+      all_source.push(jQuery(input).attr('name'));
       jQuery(input).attr('id', add_up_single_string(jQuery(input).attr('id'), source_element_id));
       jQuery(input).attr('name', add_up_single_string(jQuery(input).attr('name'), source_element_id, '[', ']'));
       all_cloned.push(jQuery(input).attr('id'));
-      //all_cloned.push(jQuery(input).attr('name'));
+      all_cloned.push(jQuery(input).attr('name'));
     });
     /**	All elements which has for id which is sepcific for label will change and addup	**/
     jQuery.each(inserted_element.find("[for]"), function (index, for_attr) {
@@ -135,9 +136,34 @@ jQuery(document).ready(function () {
     });
     jQuery.each(all_source, function (index, needle) {
       replace_str_for_all(inserted_element, needle, all_cloned[index]);
-    })
-    //replace_str_for_all(inserted_element, needle, replace);	
-    //console.log(all_source);
+    });
+
+    if (document.getElementById(sst.script_tag_id + "-" + source_element_id) != null) {
+      var clone_source_script = clone_source_element(sst.script_tag_id + "-" + source_element_id);
+    } else {
+      var clone_source_script = clone_source_element(sst.script_tag_id);
+    }
+    var js = document.createElement('script');
+    js.type = 'text/javascript';
+    //console.log(source_element_id);
+    js.id = sst.script_tag_id + "-" + add_up_single_string(source_element_id, source_element_id);
+    js.innerHTML = jQuery(clone_source_script).html();
+    jQuery.each(all_source, function (index, needle) {
+      js.innerHTML = replace_str_for_text2(js.innerHTML, needle, all_cloned[index]);
+    });
+    // console.log( document.getElementById('sst-aaaaaascript'));
+    if (document.getElementById(sst.script_tag_id + "-" + add_up_single_string(source_element_id, source_element_id)) != null) {
+      document.getElementById(sst.script_tag_id) + "-" + add_up_single_string(source_element_id, source_element_id).parentNode.appendChild(js);
+    } else {
+      document.getElementById(sst.script_tag_id).parentNode.appendChild(js);
+    }
+  }
+
+  function replace_str_for_text2(html, needle, replace) {
+    var re = new RegExp(needle, "g");
+    html = html.replace(re, replace);
+    return html;
+
   }
 
   function add_down_last_number(inserted_element, source_element_id) {
@@ -158,11 +184,11 @@ jQuery(document).ready(function () {
     /**	All input which has name attribute name and id will change and addup	**/
     jQuery.each(inserted_element.find("[name]"), function (index, input) {
       all_source.push(jQuery(input).attr('id'));
-      //all_source.push(jQuery(input).attr('name'));
+      all_source.push(jQuery(input).attr('name'));
       jQuery(input).attr('id', add_down_single_string(jQuery(input).attr('id'), source_element_id));
       jQuery(input).attr('name', add_down_single_string(jQuery(input).attr('name'), source_element_id, '[', ']'));
       all_cloned.push(jQuery(input).attr('id'));
-      //all_cloned.push(jQuery(input).attr('name'));
+      all_cloned.push(jQuery(input).attr('name'));
     });
     /**	All elements which has for id which is sepcific for label will change and addup	**/
     jQuery.each(inserted_element.find("[for]"), function (index, for_attr) {
@@ -237,9 +263,43 @@ jQuery(document).ready(function () {
       temp = add_up_single_string(temp, sst.source_element_id);
     }
     sst.unique = get_unqiue(sst.source_element_id);
+    var last_element = find_last_element_id(sst.script_tag_id + "-" + sst.source_element_id);
+    last_element.remove();
+    rewrite_all_scripts_onfly();
+    //jQuery('#' + sst.script_tag_id + "-" + sst.source_element_id).remove();
     jQuery("[id^='" + sst.unique + "'][id$='" + sst.add_contoller_suffix + "']").last().show();
     return false;
   });
 
+  function find_last_element_id(source_element_id) {
+    //var split_char = '≪';
+    //var last_char = '≫';
+    var source_element_id_arr = source_element_id.split("≪");
+    source_element_id_arr.pop();
+    source_element_id_prefix = source_element_id_arr.join("≪");
+    var last_element = jQuery("body").find("[id^=" + source_element_id_prefix + "≪]").last();
+    return last_element;
+  }
 
+  function rewrite_all_scripts_onfly() {
+
+	
+    all_onfly_scripts = jQuery("body").find("script[id^=" + sst.script_tag_id + "-" + "]");
+   // var new_js_scripts = [];
+    jQuery.each(all_onfly_scripts, function (index, onfly_script) {
+      //new_js_scripts.push(create_js_script_object(jQuery(onfly_script).attr("id"), jQuery(onfly_script).html()));
+      jQuery(onfly_script).remove();
+      document.getElementById(sst.script_tag_id).parentNode.appendChild(create_js_script_object(jQuery(onfly_script).attr("id"), jQuery(onfly_script).html()));
+    });
+	
+
+  }
+
+  function create_js_script_object(script_id, script_code) {
+    var js = document.createElement('script');
+    js.type = 'text/javascript';
+    js.id = script_id;
+    js.innerHTML = script_code;
+    return js;
+  }
 });

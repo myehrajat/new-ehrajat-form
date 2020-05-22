@@ -940,7 +940,7 @@ class render extends database {
 			$this->attr_changer_code = $attr_changer_code;
 					//	krumo($this->attr_changer_code);
 
-			$form_suffix .= '<script id="sst-script" type="text/javascript">'.$this->attr_changer_code.'</script>';
+			$form_suffix .= '<script id="sst-script" type="text/javascript">jQuery(document).ready(function ($) {'.$this->attr_changer_code.'});</script>';
 		}
         $form_suffix .= '</form>' . $form_data[ 'tag' ][ 'after' ] . '</sst-form>';
         return $form_prefix . $form . $form_suffix;
