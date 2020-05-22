@@ -199,13 +199,11 @@ jQuery(document).ready(function () {
     jQuery.each(all_source, function (index, needle) {
       replace_str_for_all(inserted_element, needle, all_cloned[index]);
     })
-    //replace_str_for_all(inserted_element, needle, replace);	
-    //console.log(all_source);
   }
 
   function replace_str_for_all(inserted_element, needle, replace) {
     replace_str_for_text(inserted_element, needle, replace);
-    replace_str_for_html(inserted_element, needle, replace);
+    //replace_str_for_html(inserted_element, needle, replace);
   }
 
   function replace_str_for_text(inserted_element, needle, replace) {
@@ -216,6 +214,13 @@ jQuery(document).ready(function () {
   }
 
   function replace_str_for_html(inserted_element, needle, replace) {
+	//console.log(inserted_element);
+    jQuery(inserted_element).html(function (index, html) {
+      var re = new RegExp(needle, "g");
+     return html.replace(re, replace);
+    // jQuery(inserted_element).replaceWith(html);
+    });
+	  /*
     jQuery(inserted_element).find('*').each(function () {
       var tmp = jQuery(this).children().remove();
       var text = jQuery(this).text();
@@ -224,6 +229,7 @@ jQuery(document).ready(function () {
       jQuery(this).text(text);
       jQuery(this).append(tmp);
     });
+	*/
   }
 
   function manage_controller_visibilty() {
@@ -283,15 +289,15 @@ jQuery(document).ready(function () {
 
   function rewrite_all_scripts_onfly() {
 
-	
+
     all_onfly_scripts = jQuery("body").find("script[id^=" + sst.script_tag_id + "-" + "]");
-   // var new_js_scripts = [];
+    // var new_js_scripts = [];
     jQuery.each(all_onfly_scripts, function (index, onfly_script) {
       //new_js_scripts.push(create_js_script_object(jQuery(onfly_script).attr("id"), jQuery(onfly_script).html()));
       jQuery(onfly_script).remove();
       document.getElementById(sst.script_tag_id).parentNode.appendChild(create_js_script_object(jQuery(onfly_script).attr("id"), jQuery(onfly_script).html()));
     });
-	
+
 
   }
 

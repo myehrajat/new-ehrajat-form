@@ -58,7 +58,10 @@ function loadDynamicContentModal(process_url, modal_container_id, input_url, inp
           context: this,
           success: function (data) {
             jQuery("#" + input_wrapper_id).first().replaceWith(data);
-            jQuery("#" + input_id).val(jQuery("#" + modal_container_id + '_result').html().split(','));
+			//console.log(jQuery("#" + modal_container_id + '_result').html());
+			if(jQuery("#" + modal_container_id + '_result').html()!=undefined){
+            	jQuery("#" + input_id).val(jQuery("#" + modal_container_id + '_result').html().split(','));
+			}
 
             //jQuery('#' + modal_container_id).html(data);
           },
