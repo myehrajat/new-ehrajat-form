@@ -34,9 +34,6 @@ jQuery(document).ready(function () {
   }
 
   function clone_source_element(source_element_id) {
-    //var ele = jQuery("#"+remove_underlined_suffix(id_of_extra_clicked)).first();
-    //console.log( ele);
-    //console.log( source_element_id);
     return jQuery("#" + source_element_id)[0].outerHTML;
   }
 
@@ -140,22 +137,24 @@ jQuery(document).ready(function () {
 
     if (document.getElementById(sst.script_tag_id + "-" + source_element_id) != null) {
       var clone_source_script = clone_source_element(sst.script_tag_id + "-" + source_element_id);
-    } else {
+    } else if (document.getElementById(sst.script_tag_id) != null) {
       var clone_source_script = clone_source_element(sst.script_tag_id);
     }
-    var js = document.createElement('script');
-    js.type = 'text/javascript';
-    //console.log(source_element_id);
-    js.id = sst.script_tag_id + "-" + add_up_single_string(source_element_id, source_element_id);
-    js.innerHTML = jQuery(clone_source_script).html();
-    jQuery.each(all_source, function (index, needle) {
-      js.innerHTML = replace_str_for_text2(js.innerHTML, needle, all_cloned[index]);
-    });
-    // console.log( document.getElementById('sst-aaaaaascript'));
-    if (document.getElementById(sst.script_tag_id + "-" + add_up_single_string(source_element_id, source_element_id)) != null) {
-      document.getElementById(sst.script_tag_id) + "-" + add_up_single_string(source_element_id, source_element_id).parentNode.appendChild(js);
-    } else {
-      document.getElementById(sst.script_tag_id).parentNode.appendChild(js);
+    if (clone_source_script) {
+      var js = document.createElement('script');
+      js.type = 'text/javascript';
+      //console.log(source_element_id);
+      js.id = sst.script_tag_id + "-" + add_up_single_string(source_element_id, source_element_id);
+      js.innerHTML = jQuery(clone_source_script).html();
+      jQuery.each(all_source, function (index, needle) {
+        js.innerHTML = replace_str_for_text2(js.innerHTML, needle, all_cloned[index]);
+      });
+      // console.log( document.getElementById('sst-aaaaaascript'));
+      if (document.getElementById(sst.script_tag_id + "-" + add_up_single_string(source_element_id, source_element_id)) != null) {
+        document.getElementById(sst.script_tag_id) + "-" + add_up_single_string(source_element_id, source_element_id).parentNode.appendChild(js);
+      } else if (document.getElementById(sst.script_tag_id) != null) {
+        document.getElementById(sst.script_tag_id).parentNode.appendChild(js);
+      }
     }
   }
 
@@ -214,13 +213,13 @@ jQuery(document).ready(function () {
   }
 
   function replace_str_for_html(inserted_element, needle, replace) {
-	//console.log(inserted_element);
+    //console.log(inserted_element);
     jQuery(inserted_element).html(function (index, html) {
       var re = new RegExp(needle, "g");
-     return html.replace(re, replace);
-    // jQuery(inserted_element).replaceWith(html);
+      return html.replace(re, replace);
+      // jQuery(inserted_element).replaceWith(html);
     });
-	  /*
+    /*
     jQuery(inserted_element).find('*').each(function () {
       var tmp = jQuery(this).children().remove();
       var text = jQuery(this).text();

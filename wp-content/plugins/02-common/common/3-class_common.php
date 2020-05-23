@@ -136,12 +136,11 @@ implements common_interface {
   use mostly for js coding*/
   function search_by_attr_to_get_other_attr( $attr_name, $attr_value, $return_attr_name, $data, $data_type ) {
     $all_inputs = common::get_all_inputs_data( $data, $data_type );
-	  //krumo($this->starts_with($attr_value,$input_data[ "attrs" ][ $attr_name ].'['));
     foreach ( $all_inputs as $input_data ) {
-
       if ( $input_data[ "attrs" ][ $attr_name ] == $attr_value 
-		  or $this->starts_with($input_data[ "attrs" ][ $attr_name ],$attr_value.'≪') 
-		  or $this->starts_with($input_data[ "attrs" ][ $attr_name ],$attr_value.'[') ) {
+		  or str::starts_with($input_data[ "attrs" ][ $attr_name ],$attr_value.'≪') 
+		  or str::starts_with($input_data[ "attrs" ][ $attr_name ],$attr_value.'[') ) {
+		 
         return $input_data[ "attrs" ][ $return_attr_name ];
       }
     }
@@ -214,5 +213,4 @@ implements common_interface {
     }
     return $attrs;
   }
-
 }

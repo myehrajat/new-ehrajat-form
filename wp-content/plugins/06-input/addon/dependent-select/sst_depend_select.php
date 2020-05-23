@@ -115,6 +115,9 @@ $sst[ 'description' ] = 'This is Depened Select Field!';
 $sst[ 'slug' ] = 'depend_select';
 $sst[ 'owner' ] = 'Ehrajat';
 $sst[ 'id' ] = 24;
+	define( 'WP_USE_THEMES', false );
+	$path = preg_replace( '/wp-content.*$/', '', __DIR__ );
+	require_once( $path.'wp-load.php' );
 
 function sst_depend_select( $input_data_json, $process_data_json ) {
 	$input_data = data_decoder($input_data_json);
@@ -125,7 +128,6 @@ function sst_depend_select( $input_data_json, $process_data_json ) {
     $js_file = implode('/',$p);
     add_action_in_function( $js_file );
 
-
 	$script = '<script type="text/javascript">jQuery(document).ready(function() {';
 	$script .= 'append_onchange_to_controller(';
 	$script .= "'".addslashes($input_data['attrs']['id'])."',";
@@ -133,11 +135,11 @@ function sst_depend_select( $input_data_json, $process_data_json ) {
 
 	if(is_array($input_data['meta']['controller-input-name'])){
 		foreach($input_data['meta']['controller-input-name'] as $controller_input_name){
-			$controller_input_ids[] = addslashes(search_by_attr_to_get_other_attr('name',$controller_input_name,'id',$process_data,'process'));
+			$controller_input_ids[] = addslashes(common::search_by_attr_to_get_other_attr('name',$controller_input_name,'id',$process_data,'process'));
 		}
 		$script .= "'".implode(',',$controller_input_ids)."',";
 	}else{
-		$controller_input_ids = search_by_attr_to_get_other_attr('name',$input_data['meta']['controller-input-name'],'id',$process_data,'process');
+		$controller_input_ids = common::search_by_attr_to_get_other_attr('name',$input_data['meta']['controller-input-name'],'id',$process_data,'process');
 		$script .= "'". addslashes($controller_input_ids)."',";
 	}
 	$between_start = '{name:';
@@ -145,7 +147,7 @@ function sst_depend_select( $input_data_json, $process_data_json ) {
 	$query_on_change = $input_data['meta']['query-on-change'];
 	preg_match_all( '/' . addslashes( $between_start ) . '(.*?)' . addslashes( $between_end ) . '/', $query_on_change, $matches );
     foreach ( $matches[ 1 ] as $k => $match ) {
-		$id = search_by_attr_to_get_other_attr('name',$matches[ 1 ][$k] ,'id',$process_data,'process');
+		$id = common::search_by_attr_to_get_other_attr('name',$matches[ 1 ][$k] ,'id',$process_data,'process');
     	$query_on_change = str_replace( $matches[ 0 ][ $k ],$between_start. $id.$between_end , $query_on_change );
 		
     }
@@ -160,7 +162,7 @@ function sst_depend_select( $input_data_json, $process_data_json ) {
 	$query = $query_str;
 	preg_match_all( '/' . addslashes( $between_start ) . '(.*?)' . addslashes( $between_end ) . '/', $query, $matches );
     foreach ( $matches[ 1 ] as $k => $match ) {
-		$id = search_by_attr_to_get_other_attr('name',$matches[ 1 ][$k] ,'id',$process_data,'process');
+		$id = common::search_by_attr_to_get_other_attr('name',$matches[ 1 ][$k] ,'id',$process_data,'process');
     	$query = str_replace( $matches[ 0 ][ $k ],$between_start. $id.$between_end , $query );
 		
 	}
