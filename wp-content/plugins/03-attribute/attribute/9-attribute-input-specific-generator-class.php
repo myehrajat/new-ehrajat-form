@@ -107,54 +107,9 @@ implements attribute_input_specific_generator_interface {
         }
     }
 
-    function change_value_by_vals() {
-        if ( isset( $GLOBALS[ 'vals' ][ $this->specific_obj->name ] ) ) {
-            switch ( $this->input_html_type ) {
-                case "text":
-                case "search":
-                case "tel":
-                case "url":
-                case "submit":
-                case "range":
-                case "number":
-                case "image":
-                case "email":
-                case "date":
-                case "datetime-local":
-                case "month":
-                case "time":
-                case "week":
-                case "datetime":
-                case "color":
-                case "hidden":
-                    $this->specific_obj->value = $GLOBALS[ 'vals' ][ $this->specific_obj->name ];
-                    break;
-                case "password":
-                    if ( strtolower( ATTRIBUTE_PASSWORD_VALUE ) == 'yes' ) {
-                        $this->specific_obj->value = $GLOBALS[ 'vals' ][ $this->specific_obj->name ];
-                    }
-                    break;
-                case "file":
-                    $this->specific_obj->value = $GLOBALS[ 'vals' ][ $this->specific_obj->name ];
-                    break;
-                case "checkbox":
-                case "radio":
-                    if ( $GLOBALS[ 'vals' ][ $this->specific_obj->name ] == $this->specific_obj->value ) {
-                        $this->specific_obj->checked = 'checked';
-                    }
-                    break;
-                case "select":
-
-                    break;
-                case "textarea":
-                    $this->specific_obj->text = $GLOBALS[ 'vals' ][ $this->specific_obj->name ];
-                    break;
-            }
-        }
-    }
 
     function create_attr_input_specific() {
-        $this->change_value_by_vals();
+       // $this->change_value_by_vals();
 
         if ( !empty( $this->attr_input_specific_id ) ) {
             $attr_input_specific_arr = array();

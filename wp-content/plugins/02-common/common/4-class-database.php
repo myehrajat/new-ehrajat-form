@@ -91,16 +91,28 @@ implements database_interface {
     /**************************************************
      *version 1.0.0
      *this function is for adding to table
+	 $prevent_insert_rule param => sql query and only for value use {column_name} format this function automatically replace it with 'value' note: no need qoutation
      **************************************************/
-    function add_to_table( string $table, array $column_value, $column_mysql_code = array() ) {
+    function add_to_table( string $table, array $column_value, $column_mysql_code = array(),$prevent_insert_rule = NULL) {
         global $wpdb;
 
         if ( !is_array( $column_mysql_code ) ) {
             $column_mysql_code = array();
         }
+		//krumo($column_value);
         $column_mysql_code_column = $columns = array_keys( $column_mysql_code );
         if ( is_array( $column_value ) ) {
             if ( !empty( $column_value ) ) {
+				//krumo($prevent_insert_rule);
+				if(!empty($prevent_insert_rule)){
+					foreach($column_value as $column=>$value){
+						$prevent_insert_rule = str_replace("{".$column."}","'".$value."'",$prevent_insert_rule);
+					}
+					$prevent_insert_rule_query = "SELECT * FROM ".$table." WHERE ".$prevent_insert_rule." LIMIT 1;";
+					if(!empty($wpdb->get_row($prevent_insert_rule_query))){
+						return 'prevented';
+					}
+				}
                 $columns = array_keys( $column_value );
                 $sql = "INSERT  INTO " . $table . "(`" . implode( '`,`', $columns ) . "`";
                 if ( !empty( $column_mysql_code ) ) {
@@ -122,9 +134,11 @@ implements database_interface {
                 }
             } else {
                 $this->error_log( 'column_value must Not be empty!' );
+				return false;
             }
         } else {
             $this->error_log( 'column_value must be array!' );
+			return false;
         }
     }
 	

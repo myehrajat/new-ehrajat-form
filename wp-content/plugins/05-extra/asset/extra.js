@@ -52,6 +52,7 @@ jQuery(document).ready(function () {
     var split_char = '≪';
     var last_char = '≫';
     if (src_iden_array < 2) {
+	//if()
       src_iden_array = source_identifier.split('[');
       split_char = '[';
       last_char = ']';
@@ -100,7 +101,9 @@ jQuery(document).ready(function () {
     return added_down;
 
   }
-
+	function has_empty_bracket_of_input_name(){
+		
+	}
   function add_up_last_number(inserted_element, source_element_id) {
     var all_source = [];
     var all_cloned = [];
@@ -121,7 +124,15 @@ jQuery(document).ready(function () {
       all_source.push(jQuery(input).attr('id'));
       all_source.push(jQuery(input).attr('name'));
       jQuery(input).attr('id', add_up_single_string(jQuery(input).attr('id'), source_element_id));
-      jQuery(input).attr('name', add_up_single_string(jQuery(input).attr('name'), source_element_id, '[', ']'));
+		//has_empty_bracket_of_input_name();
+		var empty_bracket =  jQuery(input).attr('name').endsWith('[]');
+		if(empty_bracket==true){
+			var temp_name = jQuery(input).attr('name').substring(0, jQuery(input).attr('name').length - 2);
+		  jQuery(input).attr('name', add_up_single_string(temp_name, source_element_id, '[', ']')+'[]');
+
+		}else{
+		  jQuery(input).attr('name', add_up_single_string(jQuery(input).attr('name'), source_element_id, '[', ']'));
+		}
       all_cloned.push(jQuery(input).attr('id'));
       all_cloned.push(jQuery(input).attr('name'));
     });

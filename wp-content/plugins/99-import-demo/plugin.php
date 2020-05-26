@@ -82,14 +82,15 @@ function test_fieldset(){
 }
 function test_form(){
 	$f = new form(1);
-
 	echo $f->render();
 }
 function test_process(){
-	//if(!isset($_REQUEST['__sst__step'])){
-	$f = new process($_GET['pr']);
-	echo $f->render();
-	//}
+	if(isset($_REQUEST['pr'])){
+		$f = new process($_GET['pr']);
+		echo $f->render();
+	}else{
+		echo "To Run Ehrajat Form use ?pr=process num";
+	}
 }
 	//$f = new field(1);
 add_action ('wp_footer','test_process',1);//1 is necessary to be sure it is run befor dataeaction
