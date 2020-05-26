@@ -1,17 +1,17 @@
-﻿/*
+/*
  Navicat Premium Data Transfer
 
  Source Server         : myehrajat
  Source Server Type    : MySQL
- Source Server Version : 100316
+ Source Server Version : 100411
  Source Host           : localhost:3306
  Source Schema         : ehrajat-dev
 
  Target Server Type    : MySQL
- Target Server Version : 100316
+ Target Server Version : 100411
  File Encoding         : 65001
 
- Date: 12/05/2020 04:22:47
+ Date: 26/05/2020 10:40:55
 */
 
 SET NAMES utf8mb4;
@@ -1339,7 +1339,7 @@ CREATE TABLE `wp_options`  (
   PRIMARY KEY (`option_id`) USING BTREE,
   UNIQUE INDEX `option_name`(`option_name`) USING BTREE,
   INDEX `autoload`(`autoload`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1303 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1411 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of wp_options
@@ -1447,7 +1447,7 @@ INSERT INTO `wp_options` VALUES (100, 'widget_recent-comments', 'a:2:{i:2;a:2:{s
 INSERT INTO `wp_options` VALUES (101, 'widget_archives', 'a:2:{i:2;a:3:{s:5:\"title\";s:0:\"\";s:5:\"count\";i:0;s:8:\"dropdown\";i:0;}s:12:\"_multiwidget\";i:1;}', 'yes');
 INSERT INTO `wp_options` VALUES (102, 'widget_meta', 'a:2:{i:2;a:1:{s:5:\"title\";s:0:\"\";}s:12:\"_multiwidget\";i:1;}', 'yes');
 INSERT INTO `wp_options` VALUES (103, 'sidebars_widgets', 'a:4:{s:19:\"wp_inactive_widgets\";a:0:{}s:9:\"sidebar-1\";a:3:{i:0;s:8:\"search-2\";i:1;s:14:\"recent-posts-2\";i:2;s:17:\"recent-comments-2\";}s:9:\"sidebar-2\";a:3:{i:0;s:10:\"archives-2\";i:1;s:12:\"categories-2\";i:2;s:6:\"meta-2\";}s:13:\"array_version\";i:3;}', 'yes');
-INSERT INTO `wp_options` VALUES (104, 'cron', 'a:5:{i:1589242203;a:1:{s:34:\"wp_privacy_delete_old_export_files\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:6:\"hourly\";s:4:\"args\";a:0:{}s:8:\"interval\";i:3600;}}}i:1589260803;a:4:{s:32:\"recovery_mode_clean_expired_keys\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}s:17:\"wp_update_plugins\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}s:16:\"wp_update_themes\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}s:16:\"wp_version_check\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}}i:1589260816;a:2:{s:19:\"wp_scheduled_delete\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}s:25:\"delete_expired_transients\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1589260817;a:1:{s:30:\"wp_scheduled_auto_draft_delete\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}s:7:\"version\";i:2;}', 'yes');
+INSERT INTO `wp_options` VALUES (104, 'cron', 'a:6:{i:1590477003;a:1:{s:34:\"wp_privacy_delete_old_export_files\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:6:\"hourly\";s:4:\"args\";a:0:{}s:8:\"interval\";i:3600;}}}i:1590513603;a:3:{s:17:\"wp_update_plugins\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}s:16:\"wp_update_themes\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}s:16:\"wp_version_check\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}}i:1590556803;a:1:{s:32:\"recovery_mode_clean_expired_keys\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1590556816;a:2:{s:19:\"wp_scheduled_delete\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}s:25:\"delete_expired_transients\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1590556817;a:1:{s:30:\"wp_scheduled_auto_draft_delete\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}s:7:\"version\";i:2;}', 'yes');
 INSERT INTO `wp_options` VALUES (105, 'widget_pages', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes');
 INSERT INTO `wp_options` VALUES (106, 'widget_calendar', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes');
 INSERT INTO `wp_options` VALUES (107, 'widget_media_audio', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes');
@@ -1465,11 +1465,11 @@ INSERT INTO `wp_options` VALUES (144, 'fus_settings', 'a:3:{s:8:\"fus_name\";i:1
 INSERT INTO `wp_options` VALUES (145, 'recovery_mode_email_last_sent', '1584364953', 'yes');
 INSERT INTO `wp_options` VALUES (162, 'new_admin_email', 'asdas@g.com', 'yes');
 INSERT INTO `wp_options` VALUES (1150, 'core_updater.lock', '1588018410', 'no');
-INSERT INTO `wp_options` VALUES (1292, '_site_transient_timeout_theme_roots', '1589230883', 'no');
-INSERT INTO `wp_options` VALUES (1293, '_site_transient_theme_roots', 'a:1:{s:14:\"twentynineteen\";s:7:\"/themes\";}', 'no');
-INSERT INTO `wp_options` VALUES (1297, '_site_transient_update_core', 'O:8:\"stdClass\":4:{s:7:\"updates\";a:3:{i:0;O:8:\"stdClass\":10:{s:8:\"response\";s:7:\"upgrade\";s:8:\"download\";s:59:\"https://downloads.wordpress.org/release/wordpress-5.4.1.zip\";s:6:\"locale\";s:5:\"en_US\";s:8:\"packages\";O:8:\"stdClass\":5:{s:4:\"full\";s:59:\"https://downloads.wordpress.org/release/wordpress-5.4.1.zip\";s:10:\"no_content\";s:70:\"https://downloads.wordpress.org/release/wordpress-5.4.1-no-content.zip\";s:11:\"new_bundled\";s:71:\"https://downloads.wordpress.org/release/wordpress-5.4.1-new-bundled.zip\";s:7:\"partial\";b:0;s:8:\"rollback\";b:0;}s:7:\"current\";s:5:\"5.4.1\";s:7:\"version\";s:5:\"5.4.1\";s:11:\"php_version\";s:6:\"5.6.20\";s:13:\"mysql_version\";s:3:\"5.0\";s:11:\"new_bundled\";s:3:\"5.3\";s:15:\"partial_version\";s:0:\"\";}i:1;O:8:\"stdClass\":11:{s:8:\"response\";s:10:\"autoupdate\";s:8:\"download\";s:59:\"https://downloads.wordpress.org/release/wordpress-5.4.1.zip\";s:6:\"locale\";s:5:\"en_US\";s:8:\"packages\";O:8:\"stdClass\":5:{s:4:\"full\";s:59:\"https://downloads.wordpress.org/release/wordpress-5.4.1.zip\";s:10:\"no_content\";s:70:\"https://downloads.wordpress.org/release/wordpress-5.4.1-no-content.zip\";s:11:\"new_bundled\";s:71:\"https://downloads.wordpress.org/release/wordpress-5.4.1-new-bundled.zip\";s:7:\"partial\";b:0;s:8:\"rollback\";b:0;}s:7:\"current\";s:5:\"5.4.1\";s:7:\"version\";s:5:\"5.4.1\";s:11:\"php_version\";s:6:\"5.6.20\";s:13:\"mysql_version\";s:3:\"5.0\";s:11:\"new_bundled\";s:3:\"5.3\";s:15:\"partial_version\";s:0:\"\";s:9:\"new_files\";s:1:\"1\";}i:2;O:8:\"stdClass\":11:{s:8:\"response\";s:10:\"autoupdate\";s:8:\"download\";s:59:\"https://downloads.wordpress.org/release/wordpress-5.3.3.zip\";s:6:\"locale\";s:5:\"en_US\";s:8:\"packages\";O:8:\"stdClass\":5:{s:4:\"full\";s:59:\"https://downloads.wordpress.org/release/wordpress-5.3.3.zip\";s:10:\"no_content\";s:70:\"https://downloads.wordpress.org/release/wordpress-5.3.3-no-content.zip\";s:11:\"new_bundled\";s:71:\"https://downloads.wordpress.org/release/wordpress-5.3.3-new-bundled.zip\";s:7:\"partial\";s:69:\"https://downloads.wordpress.org/release/wordpress-5.3.3-partial-2.zip\";s:8:\"rollback\";s:70:\"https://downloads.wordpress.org/release/wordpress-5.3.3-rollback-2.zip\";}s:7:\"current\";s:5:\"5.3.3\";s:7:\"version\";s:5:\"5.3.3\";s:11:\"php_version\";s:6:\"5.6.20\";s:13:\"mysql_version\";s:3:\"5.0\";s:11:\"new_bundled\";s:3:\"5.3\";s:15:\"partial_version\";s:5:\"5.3.2\";s:9:\"new_files\";s:0:\"\";}}s:12:\"last_checked\";i:1589229093;s:15:\"version_checked\";s:5:\"5.3.2\";s:12:\"translations\";a:1:{i:0;a:7:{s:4:\"type\";s:4:\"core\";s:4:\"slug\";s:7:\"default\";s:8:\"language\";s:5:\"fa_IR\";s:7:\"version\";s:5:\"5.3.2\";s:7:\"updated\";s:19:\"2020-03-03 22:42:09\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/5.3.2/fa_IR.zip\";s:10:\"autoupdate\";b:1;}}}', 'no');
-INSERT INTO `wp_options` VALUES (1298, '_site_transient_update_themes', 'O:8:\"stdClass\":4:{s:12:\"last_checked\";i:1589229094;s:7:\"checked\";a:1:{s:14:\"twentynineteen\";s:0:\"\";}s:8:\"response\";a:1:{s:14:\"twentynineteen\";a:6:{s:5:\"theme\";s:14:\"twentynineteen\";s:11:\"new_version\";s:3:\"1.5\";s:3:\"url\";s:44:\"https://wordpress.org/themes/twentynineteen/\";s:7:\"package\";s:60:\"https://downloads.wordpress.org/theme/twentynineteen.1.5.zip\";s:8:\"requires\";s:5:\"4.9.6\";s:12:\"requires_php\";s:5:\"5.2.4\";}}s:12:\"translations\";a:0:{}}', 'no');
-INSERT INTO `wp_options` VALUES (1299, '_site_transient_update_plugins', 'O:8:\"stdClass\":4:{s:12:\"last_checked\";i:1589229094;s:8:\"response\";a:1:{s:33:\"jquery-updater/jquery-updater.php\";O:8:\"stdClass\":12:{s:2:\"id\";s:28:\"w.org/plugins/jquery-updater\";s:4:\"slug\";s:14:\"jquery-updater\";s:6:\"plugin\";s:33:\"jquery-updater/jquery-updater.php\";s:11:\"new_version\";s:7:\"3.5.1.1\";s:3:\"url\";s:45:\"https://wordpress.org/plugins/jquery-updater/\";s:7:\"package\";s:65:\"https://downloads.wordpress.org/plugin/jquery-updater.3.5.1.1.zip\";s:5:\"icons\";a:1:{s:7:\"default\";s:58:\"https://s.w.org/plugins/geopattern-icon/jquery-updater.svg\";}s:7:\"banners\";a:0:{}s:11:\"banners_rtl\";a:0:{}s:6:\"tested\";s:5:\"5.4.1\";s:12:\"requires_php\";s:3:\"5.6\";s:13:\"compatibility\";O:8:\"stdClass\":0:{}}}s:12:\"translations\";a:0:{}s:9:\"no_update\";a:2:{s:33:\"classic-editor/classic-editor.php\";O:8:\"stdClass\":9:{s:2:\"id\";s:28:\"w.org/plugins/classic-editor\";s:4:\"slug\";s:14:\"classic-editor\";s:6:\"plugin\";s:33:\"classic-editor/classic-editor.php\";s:11:\"new_version\";s:3:\"1.5\";s:3:\"url\";s:45:\"https://wordpress.org/plugins/classic-editor/\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/plugin/classic-editor.1.5.zip\";s:5:\"icons\";a:2:{s:2:\"2x\";s:67:\"https://ps.w.org/classic-editor/assets/icon-256x256.png?rev=1998671\";s:2:\"1x\";s:67:\"https://ps.w.org/classic-editor/assets/icon-128x128.png?rev=1998671\";}s:7:\"banners\";a:2:{s:2:\"2x\";s:70:\"https://ps.w.org/classic-editor/assets/banner-1544x500.png?rev=1998671\";s:2:\"1x\";s:69:\"https://ps.w.org/classic-editor/assets/banner-772x250.png?rev=1998676\";}s:11:\"banners_rtl\";a:0:{}}s:43:\"fast-user-switching/fast-user-switching.php\";O:8:\"stdClass\":9:{s:2:\"id\";s:33:\"w.org/plugins/fast-user-switching\";s:4:\"slug\";s:19:\"fast-user-switching\";s:6:\"plugin\";s:43:\"fast-user-switching/fast-user-switching.php\";s:11:\"new_version\";s:5:\"1.4.8\";s:3:\"url\";s:50:\"https://wordpress.org/plugins/fast-user-switching/\";s:7:\"package\";s:62:\"https://downloads.wordpress.org/plugin/fast-user-switching.zip\";s:5:\"icons\";a:3:{s:2:\"2x\";s:72:\"https://ps.w.org/fast-user-switching/assets/icon-256x256.png?rev=1736245\";s:2:\"1x\";s:64:\"https://ps.w.org/fast-user-switching/assets/icon.svg?rev=1736245\";s:3:\"svg\";s:64:\"https://ps.w.org/fast-user-switching/assets/icon.svg?rev=1736245\";}s:7:\"banners\";a:2:{s:2:\"2x\";s:75:\"https://ps.w.org/fast-user-switching/assets/banner-1544x500.png?rev=1736245\";s:2:\"1x\";s:74:\"https://ps.w.org/fast-user-switching/assets/banner-772x250.png?rev=1736245\";}s:11:\"banners_rtl\";a:0:{}}}}', 'no');
+INSERT INTO `wp_options` VALUES (1395, '_site_transient_update_core', 'O:8:\"stdClass\":4:{s:7:\"updates\";a:3:{i:0;O:8:\"stdClass\":10:{s:8:\"response\";s:7:\"upgrade\";s:8:\"download\";s:59:\"https://downloads.wordpress.org/release/wordpress-5.4.1.zip\";s:6:\"locale\";s:5:\"en_US\";s:8:\"packages\";O:8:\"stdClass\":5:{s:4:\"full\";s:59:\"https://downloads.wordpress.org/release/wordpress-5.4.1.zip\";s:10:\"no_content\";s:70:\"https://downloads.wordpress.org/release/wordpress-5.4.1-no-content.zip\";s:11:\"new_bundled\";s:71:\"https://downloads.wordpress.org/release/wordpress-5.4.1-new-bundled.zip\";s:7:\"partial\";b:0;s:8:\"rollback\";b:0;}s:7:\"current\";s:5:\"5.4.1\";s:7:\"version\";s:5:\"5.4.1\";s:11:\"php_version\";s:6:\"5.6.20\";s:13:\"mysql_version\";s:3:\"5.0\";s:11:\"new_bundled\";s:3:\"5.3\";s:15:\"partial_version\";s:0:\"\";}i:1;O:8:\"stdClass\":11:{s:8:\"response\";s:10:\"autoupdate\";s:8:\"download\";s:59:\"https://downloads.wordpress.org/release/wordpress-5.4.1.zip\";s:6:\"locale\";s:5:\"en_US\";s:8:\"packages\";O:8:\"stdClass\":5:{s:4:\"full\";s:59:\"https://downloads.wordpress.org/release/wordpress-5.4.1.zip\";s:10:\"no_content\";s:70:\"https://downloads.wordpress.org/release/wordpress-5.4.1-no-content.zip\";s:11:\"new_bundled\";s:71:\"https://downloads.wordpress.org/release/wordpress-5.4.1-new-bundled.zip\";s:7:\"partial\";b:0;s:8:\"rollback\";b:0;}s:7:\"current\";s:5:\"5.4.1\";s:7:\"version\";s:5:\"5.4.1\";s:11:\"php_version\";s:6:\"5.6.20\";s:13:\"mysql_version\";s:3:\"5.0\";s:11:\"new_bundled\";s:3:\"5.3\";s:15:\"partial_version\";s:0:\"\";s:9:\"new_files\";s:1:\"1\";}i:2;O:8:\"stdClass\":11:{s:8:\"response\";s:10:\"autoupdate\";s:8:\"download\";s:59:\"https://downloads.wordpress.org/release/wordpress-5.3.3.zip\";s:6:\"locale\";s:5:\"en_US\";s:8:\"packages\";O:8:\"stdClass\":5:{s:4:\"full\";s:59:\"https://downloads.wordpress.org/release/wordpress-5.3.3.zip\";s:10:\"no_content\";s:70:\"https://downloads.wordpress.org/release/wordpress-5.3.3-no-content.zip\";s:11:\"new_bundled\";s:71:\"https://downloads.wordpress.org/release/wordpress-5.3.3-new-bundled.zip\";s:7:\"partial\";s:69:\"https://downloads.wordpress.org/release/wordpress-5.3.3-partial-2.zip\";s:8:\"rollback\";s:70:\"https://downloads.wordpress.org/release/wordpress-5.3.3-rollback-2.zip\";}s:7:\"current\";s:5:\"5.3.3\";s:7:\"version\";s:5:\"5.3.3\";s:11:\"php_version\";s:6:\"5.6.20\";s:13:\"mysql_version\";s:3:\"5.0\";s:11:\"new_bundled\";s:3:\"5.3\";s:15:\"partial_version\";s:5:\"5.3.2\";s:9:\"new_files\";s:0:\"\";}}s:12:\"last_checked\";i:1590473434;s:15:\"version_checked\";s:5:\"5.3.2\";s:12:\"translations\";a:1:{i:0;a:7:{s:4:\"type\";s:4:\"core\";s:4:\"slug\";s:7:\"default\";s:8:\"language\";s:5:\"fa_IR\";s:7:\"version\";s:5:\"5.3.2\";s:7:\"updated\";s:19:\"2020-03-03 22:42:09\";s:7:\"package\";s:64:\"https://downloads.wordpress.org/translation/core/5.3.2/fa_IR.zip\";s:10:\"autoupdate\";b:1;}}}', 'no');
+INSERT INTO `wp_options` VALUES (1396, '_site_transient_update_themes', 'O:8:\"stdClass\":4:{s:12:\"last_checked\";i:1590473434;s:7:\"checked\";a:1:{s:14:\"twentynineteen\";s:0:\"\";}s:8:\"response\";a:1:{s:14:\"twentynineteen\";a:6:{s:5:\"theme\";s:14:\"twentynineteen\";s:11:\"new_version\";s:3:\"1.5\";s:3:\"url\";s:44:\"https://wordpress.org/themes/twentynineteen/\";s:7:\"package\";s:60:\"https://downloads.wordpress.org/theme/twentynineteen.1.5.zip\";s:8:\"requires\";s:5:\"4.9.6\";s:12:\"requires_php\";s:5:\"5.2.4\";}}s:12:\"translations\";a:0:{}}', 'no');
+INSERT INTO `wp_options` VALUES (1397, '_site_transient_update_plugins', 'O:8:\"stdClass\":4:{s:12:\"last_checked\";i:1590473413;s:8:\"response\";a:1:{s:33:\"jquery-updater/jquery-updater.php\";O:8:\"stdClass\":12:{s:2:\"id\";s:28:\"w.org/plugins/jquery-updater\";s:4:\"slug\";s:14:\"jquery-updater\";s:6:\"plugin\";s:33:\"jquery-updater/jquery-updater.php\";s:11:\"new_version\";s:7:\"3.5.1.1\";s:3:\"url\";s:45:\"https://wordpress.org/plugins/jquery-updater/\";s:7:\"package\";s:65:\"https://downloads.wordpress.org/plugin/jquery-updater.3.5.1.1.zip\";s:5:\"icons\";a:1:{s:7:\"default\";s:58:\"https://s.w.org/plugins/geopattern-icon/jquery-updater.svg\";}s:7:\"banners\";a:0:{}s:11:\"banners_rtl\";a:0:{}s:6:\"tested\";s:5:\"5.4.1\";s:12:\"requires_php\";s:3:\"5.6\";s:13:\"compatibility\";O:8:\"stdClass\":0:{}}}s:12:\"translations\";a:0:{}s:9:\"no_update\";a:2:{s:33:\"classic-editor/classic-editor.php\";O:8:\"stdClass\":9:{s:2:\"id\";s:28:\"w.org/plugins/classic-editor\";s:4:\"slug\";s:14:\"classic-editor\";s:6:\"plugin\";s:33:\"classic-editor/classic-editor.php\";s:11:\"new_version\";s:3:\"1.5\";s:3:\"url\";s:45:\"https://wordpress.org/plugins/classic-editor/\";s:7:\"package\";s:61:\"https://downloads.wordpress.org/plugin/classic-editor.1.5.zip\";s:5:\"icons\";a:2:{s:2:\"2x\";s:67:\"https://ps.w.org/classic-editor/assets/icon-256x256.png?rev=1998671\";s:2:\"1x\";s:67:\"https://ps.w.org/classic-editor/assets/icon-128x128.png?rev=1998671\";}s:7:\"banners\";a:2:{s:2:\"2x\";s:70:\"https://ps.w.org/classic-editor/assets/banner-1544x500.png?rev=1998671\";s:2:\"1x\";s:69:\"https://ps.w.org/classic-editor/assets/banner-772x250.png?rev=1998676\";}s:11:\"banners_rtl\";a:0:{}}s:43:\"fast-user-switching/fast-user-switching.php\";O:8:\"stdClass\":9:{s:2:\"id\";s:33:\"w.org/plugins/fast-user-switching\";s:4:\"slug\";s:19:\"fast-user-switching\";s:6:\"plugin\";s:43:\"fast-user-switching/fast-user-switching.php\";s:11:\"new_version\";s:5:\"1.4.8\";s:3:\"url\";s:50:\"https://wordpress.org/plugins/fast-user-switching/\";s:7:\"package\";s:62:\"https://downloads.wordpress.org/plugin/fast-user-switching.zip\";s:5:\"icons\";a:3:{s:2:\"2x\";s:72:\"https://ps.w.org/fast-user-switching/assets/icon-256x256.png?rev=1736245\";s:2:\"1x\";s:64:\"https://ps.w.org/fast-user-switching/assets/icon.svg?rev=1736245\";s:3:\"svg\";s:64:\"https://ps.w.org/fast-user-switching/assets/icon.svg?rev=1736245\";}s:7:\"banners\";a:2:{s:2:\"2x\";s:75:\"https://ps.w.org/fast-user-switching/assets/banner-1544x500.png?rev=1736245\";s:2:\"1x\";s:74:\"https://ps.w.org/fast-user-switching/assets/banner-772x250.png?rev=1736245\";}s:11:\"banners_rtl\";a:0:{}}}}', 'no');
+INSERT INTO `wp_options` VALUES (1409, '_site_transient_timeout_theme_roots', '1590475216', 'no');
+INSERT INTO `wp_options` VALUES (1410, '_site_transient_theme_roots', 'a:1:{s:14:\"twentynineteen\";s:7:\"/themes\";}', 'no');
 
 -- ----------------------------
 -- Table structure for wp_postmeta
@@ -2363,7 +2363,7 @@ CREATE TABLE `wp_tt_attr_input_select`  (
 -- ----------------------------
 INSERT INTO `wp_tt_attr_input_select` VALUES (1, 'Select Input Type', 'Select-Input-Type', 'Select Input Type', '', '', '', 'required', '', '', '', '1', 'Select Input Type', NULL, '2020-03-16 05:28:07', '2020-03-16 05:28:07');
 INSERT INTO `wp_tt_attr_input_select` VALUES (2, 'Select Form', 'Select-Form', 'Select Form', '', '', '', '', '', '', '', '2', NULL, NULL, '2020-03-17 06:14:32', '2020-03-17 06:14:32');
-INSERT INTO `wp_tt_attr_input_select` VALUES (3, 'Select Tag', 'Select-Tag', 'Select Tag', '', '', '', '', '', '', '', '3,4', NULL, NULL, '2020-03-19 07:55:43', '2020-03-19 07:55:43');
+INSERT INTO `wp_tt_attr_input_select` VALUES (3, 'Select Tag', 'Select-Tag', 'Select Tag', '', '', 'multiple', '', '', '', '', '3,4', NULL, NULL, '2020-03-19 07:55:43', '2020-03-19 07:55:43');
 INSERT INTO `wp_tt_attr_input_select` VALUES (4, 'Global Attribute', 'Global-Attribute', 'Select Global Attribute', '', '', '', '', '', '', '', '5,6', NULL, NULL, '2020-03-19 08:16:42', '2020-03-19 08:16:42');
 INSERT INTO `wp_tt_attr_input_select` VALUES (5, 'Custom Attributes', 'Custom-Attributes', 'Select Custom Attributes', '', '', 'multiple', '', '5', '', '', '7,8', NULL, NULL, '2020-03-19 08:42:11', '2020-03-19 08:42:11');
 INSERT INTO `wp_tt_attr_input_select` VALUES (6, 'User Access', 'User-Access', 'Select User Access', '', '', '', 'required', '', '', '', '9,10', NULL, NULL, '2020-03-19 09:01:23', '2020-03-19 09:01:23');
@@ -2414,7 +2414,12 @@ CREATE TABLE `wp_tt_attr_input_select_optgroup`  (
   `created` datetime(0) NOT NULL DEFAULT current_timestamp(0),
   `modified` datetime(0) NOT NULL DEFAULT current_timestamp(0),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of wp_tt_attr_input_select_optgroup
+-- ----------------------------
+INSERT INTO `wp_tt_attr_input_select_optgroup` VALUES (1, '', '', '1', '3,4', NULL, NULL, NULL, '2020-05-26 05:56:46', '2020-05-26 05:56:46');
 
 -- ----------------------------
 -- Table structure for wp_tt_attr_input_select_options
@@ -2684,7 +2689,47 @@ CREATE TABLE `wp_tt_block`  (
   `created` datetime(0) NOT NULL DEFAULT current_timestamp(0),
   `modified` datetime(0) NOT NULL DEFAULT current_timestamp(0),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 37 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of wp_tt_block
+-- ----------------------------
+INSERT INTO `wp_tt_block` VALUES (1, 'Input', 'Input', NULL, NULL, NULL, '11-26', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:21', '2020-05-23 01:54:21');
+INSERT INTO `wp_tt_block` VALUES (2, 'Input CheckBox Radio Specific Attributes', 'Input CheckBox Radio Specific Attributes', NULL, NULL, NULL, '31-37', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-16 21:12:47', '2020-05-16 21:12:47');
+INSERT INTO `wp_tt_block` VALUES (3, 'Input Color Specific Attributes ', 'Input Color Specific Attributes ', NULL, NULL, NULL, '31-32,39,33,40,41,36,37', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:36', '2020-05-23 01:54:36');
+INSERT INTO `wp_tt_block` VALUES (4, 'Input Date Time Specific Attributes ', 'Input Date Time Specific Attributes ', NULL, NULL, NULL, '31,32,39,33,40,41,42-44,35,45,36,37', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:36', '2020-05-23 01:54:36');
+INSERT INTO `wp_tt_block` VALUES (5, 'Input Email Specific Attributes ', 'Input Email Specific Attributes ', NULL, NULL, NULL, '31,32,39,33,40,41,46,47,48,49,50,44,35,51,36,37', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:36', '2020-05-23 01:54:36');
+INSERT INTO `wp_tt_block` VALUES (6, 'Input File Specific Attributes ', 'Input File Specific Attributes ', NULL, NULL, NULL, '31,32,52,33,53,48,35,36,37', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:36', '2020-05-23 01:54:36');
+INSERT INTO `wp_tt_block` VALUES (7, 'Input Image Specific Attributes ', 'Input Image Specific Attributes ', NULL, NULL, NULL, '31,32,54,33,55,56,57,58,59,60,61,36,62,37', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:36', '2020-05-23 01:54:36');
+INSERT INTO `wp_tt_block` VALUES (8, 'Input Number Specific Attributes ', 'Input Number Specific Attributes ', NULL, NULL, NULL, '31,32,39,33,40,41,42,43,50,44,35,45,36,37', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:36', '2020-05-23 01:54:36');
+INSERT INTO `wp_tt_block` VALUES (9, 'Input Password Specific Attributes ', 'Input Password Specific Attributes ', NULL, NULL, NULL, '31,32,39,33,46,47,49,50,44,35,51,36,37', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:37', '2020-05-23 01:54:37');
+INSERT INTO `wp_tt_block` VALUES (10, 'Input Range Specific Attributes ', 'Input Range Specific Attributes ', NULL, NULL, NULL, '31,32,39,33,40,41,42,43,48,45', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:37', '2020-05-23 01:54:37');
+INSERT INTO `wp_tt_block` VALUES (11, 'Input Select Specific Attributes ', 'Input Select Specific Attributes ', NULL, NULL, NULL, '31,32,63,39,33,48,35,51,64,65,66,37', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:37', '2020-05-23 01:54:37');
+INSERT INTO `wp_tt_block` VALUES (12, 'Input Submit Specific Attributes ', 'Input Submit Specific Attributes ', NULL, NULL, NULL, '31,32,33,55,56,57,58,59,36,37', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:37', '2020-05-23 01:54:37');
+INSERT INTO `wp_tt_block` VALUES (13, 'Input Tel URL Specific Attributes ', 'Input Tel URL Specific Attributes ', NULL, NULL, NULL, '31,32,39,33,40,41,46,47,49,50,44,35,51,36,37', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:37', '2020-05-23 01:54:37');
+INSERT INTO `wp_tt_block` VALUES (14, 'Input Text Search Specific Attributes ', 'Input Text Search Specific Attributes ', NULL, NULL, NULL, '31,32,39,33,67,40,41,46,47,49,50,44,35,51,36,37', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:37', '2020-05-23 01:54:37');
+INSERT INTO `wp_tt_block` VALUES (15, 'Input TextArea Specific Attributes ', 'Input TextArea Specific Attributes ', NULL, NULL, NULL, '31,32,68,39,69,70,46,47,50,44,35,71,37', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:37', '2020-05-23 01:54:37');
+INSERT INTO `wp_tt_block` VALUES (16, 'Custom Attributes', 'Custom Attributes', NULL, NULL, NULL, '81-85', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:37', '2020-05-23 01:54:37');
+INSERT INTO `wp_tt_block` VALUES (17, 'Global Attributes', 'Global Attributes', NULL, NULL, NULL, '91-119', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:37', '2020-05-23 01:54:37');
+INSERT INTO `wp_tt_block` VALUES (18, 'Global Attributes (Event Js)', 'Global Attributes (Event Js)', NULL, NULL, NULL, '131-135', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:37', '2020-05-23 01:54:37');
+INSERT INTO `wp_tt_block` VALUES (19, 'Global Attributes (Js Functions)', 'Global Attributes (Js Functions)', NULL, NULL, NULL, '141-144', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:37', '2020-05-23 01:54:37');
+INSERT INTO `wp_tt_block` VALUES (20, 'Global Attributes (Classes)', 'Global Attributes (Classes)', NULL, NULL, NULL, '151-154', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:37', '2020-05-23 01:54:37');
+INSERT INTO `wp_tt_block` VALUES (21, 'Global Attributes (Data)', 'Global Attributes (Data)', NULL, NULL, NULL, '161-165', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:37', '2020-05-23 01:54:37');
+INSERT INTO `wp_tt_block` VALUES (22, 'Global Attributes (ItemProps)', 'Global Attributes (ItemProps)', NULL, NULL, NULL, '171-174', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:37', '2020-05-23 01:54:37');
+INSERT INTO `wp_tt_block` VALUES (23, 'Global Attributes (ItemRefs)', 'Global Attributes (ItemRefs)', NULL, NULL, NULL, '181-184', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:37', '2020-05-23 01:54:37');
+INSERT INTO `wp_tt_block` VALUES (24, 'Global Attributes (Styles)', 'Global Attributes (Styles)', NULL, NULL, NULL, '191-196', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:37', '2020-05-23 01:54:37');
+INSERT INTO `wp_tt_block` VALUES (25, 'Input Specific Attributes (Lists)', 'Input Specific Attributes (Lists)', NULL, NULL, NULL, '201-210', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:37', '2020-05-23 01:54:37');
+INSERT INTO `wp_tt_block` VALUES (26, 'Input Specific Attributes (Options)', 'Input Specific Attributes (Options)', NULL, NULL, NULL, '221-231', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:37', '2020-05-23 01:54:37');
+INSERT INTO `wp_tt_block` VALUES (27, 'Input Specific Attributes (Option Groups)', 'Input Specific Attributes (Option Groups)', NULL, NULL, NULL, '241-246', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:37', '2020-05-23 01:54:37');
+INSERT INTO `wp_tt_block` VALUES (28, 'Input Specific Attributes (File Accept)', 'Input Specific Attributes (File Accept)', NULL, NULL, NULL, '251-254', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:37', '2020-05-23 01:54:37');
+INSERT INTO `wp_tt_block` VALUES (29, 'Input Attribute Changer Condition', 'Input Attribute Changer Condition', NULL, NULL, NULL, '261-265', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:37', '2020-05-23 01:54:37');
+INSERT INTO `wp_tt_block` VALUES (30, 'Input Attribute Changer', 'Input Attribute Changer', NULL, NULL, NULL, '271-277', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:37', '2020-05-23 01:54:37');
+INSERT INTO `wp_tt_block` VALUES (31, 'Input Meta', 'Input Meta', NULL, NULL, NULL, '281-285', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:37', '2020-05-23 01:54:37');
+INSERT INTO `wp_tt_block` VALUES (32, 'Tag', 'Tag', NULL, NULL, NULL, '291-296', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:37', '2020-05-23 01:54:37');
+INSERT INTO `wp_tt_block` VALUES (33, 'User Access', 'User Access', NULL, NULL, NULL, '301-309', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:37', '2020-05-23 01:54:37');
+INSERT INTO `wp_tt_block` VALUES (34, 'Eval', 'Eval', NULL, NULL, NULL, '311-314', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:37', '2020-05-23 01:54:37');
+INSERT INTO `wp_tt_block` VALUES (35, 'Variable', 'Variable', NULL, NULL, NULL, '321-325', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:37', '2020-05-23 01:54:37');
+INSERT INTO `wp_tt_block` VALUES (36, 'Option', 'Option', NULL, NULL, NULL, '331-335', NULL, NULL, NULL, '1', '3', NULL, NULL, '2020-05-23 01:54:37', '2020-05-23 01:54:37');
 
 -- ----------------------------
 -- Table structure for wp_tt_condition
@@ -2723,6 +2768,26 @@ INSERT INTO `wp_tt_condition` VALUES (13, '', '', NULL, '$result->html_type==\'t
 INSERT INTO `wp_tt_condition` VALUES (14, '', '', NULL, '$result->html_type==\'textarea\'', '15', '', NULL, '2020-03-21 02:01:05', '2020-03-21 02:01:05');
 
 -- ----------------------------
+-- Table structure for wp_tt_data_actio_sms
+-- ----------------------------
+DROP TABLE IF EXISTS `wp_tt_data_actio_sms`;
+CREATE TABLE `wp_tt_data_actio_sms`  (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `epithet` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `slug` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `userName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `from_number` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `to_numbers` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `message_body` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `flash` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `owner` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `created` datetime(0) NOT NULL DEFAULT current_timestamp(0),
+  `modified` datetime(0) NOT NULL DEFAULT current_timestamp(0),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
 -- Table structure for wp_tt_data_action
 -- ----------------------------
 DROP TABLE IF EXISTS `wp_tt_data_action`;
@@ -2730,11 +2795,10 @@ CREATE TABLE `wp_tt_data_action`  (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `epithet` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `slug` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `table` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `type_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `colval_ids` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `default_file_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `duplicate_check` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `insert_ref` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `func_before` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `func_after` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `data_action_add_result` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
@@ -2748,8 +2812,8 @@ CREATE TABLE `wp_tt_data_action`  (
 -- ----------------------------
 -- Records of wp_tt_data_action
 -- ----------------------------
-INSERT INTO `wp_tt_data_action` VALUES (1, 'Tag', 'Tag', 'tt_tags', '1-10', NULL, NULL, 'tag_id', NULL, NULL, '{insert_id}:{data_value:tag_before}:{data_column:tag_before}<br>\r\nTag entry has been added. Access it by {insert_id} id.', NULL, NULL, '2020-04-22 04:09:48', '2020-04-22 04:09:48');
-INSERT INTO `wp_tt_data_action` VALUES (2, 'test', NULL, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-05-10 22:03:21', '2020-05-10 22:03:21');
+INSERT INTO `wp_tt_data_action` VALUES (1, 'Tag', 'Tag', 'database', '1', '1-9', NULL, NULL, NULL, '', NULL, NULL, '2020-04-22 04:09:48', '2020-04-22 04:09:48');
+INSERT INTO `wp_tt_data_action` VALUES (2, 'test', NULL, '', NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, '2020-05-10 22:03:21', '2020-05-10 22:03:21');
 
 -- ----------------------------
 -- Table structure for wp_tt_data_action_colval
@@ -2770,7 +2834,7 @@ CREATE TABLE `wp_tt_data_action_colval`  (
   `created` datetime(0) NOT NULL DEFAULT current_timestamp(0),
   `modified` datetime(0) NOT NULL DEFAULT current_timestamp(0),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of wp_tt_data_action_colval
@@ -2779,11 +2843,116 @@ INSERT INTO `wp_tt_data_action_colval` VALUES (1, '', '', 'simple-variable', 'ep
 INSERT INTO `wp_tt_data_action_colval` VALUES (2, '', '', 'simple-variable', 'slug', 'slug-19', 'slug-19', NULL, NULL, '', NULL, '2020-04-22 04:12:01', '2020-04-22 04:12:01');
 INSERT INTO `wp_tt_data_action_colval` VALUES (3, '', '', 'simple-variable', 'tag_before', 'tag_before-19', 'tag_before-19', NULL, NULL, '', NULL, '2020-04-22 04:12:02', '2020-04-22 04:12:02');
 INSERT INTO `wp_tt_data_action_colval` VALUES (4, '', '', 'simple-variable', 'tag_after', 'tag_after-19', 'tag_after-19', NULL, NULL, '', NULL, '2020-04-22 04:12:03', '2020-04-22 04:12:03');
-INSERT INTO `wp_tt_data_action_colval` VALUES (5, '', '', 'simple-variable', 'parent_tag_id', 'parent_tag_id-19', 'parent_tag_id-19', NULL, NULL, '', NULL, '2020-04-22 04:12:03', '2020-04-22 04:12:03');
+INSERT INTO `wp_tt_data_action_colval` VALUES (5, '', '', 'ecode-group-before', 'parent_tag_id', 'parent_tag_id-19', 'return implode(\',\',{array:parent_tag_id});', NULL, NULL, '', NULL, '2020-04-22 04:12:03', '2020-04-22 04:12:03');
 INSERT INTO `wp_tt_data_action_colval` VALUES (6, '', '', 'simple-variable', 'description', 'description-19', 'description-19', NULL, NULL, '', NULL, '2020-04-22 04:12:06', '2020-04-22 04:12:06');
 INSERT INTO `wp_tt_data_action_colval` VALUES (7, '', '', 'variable', 'owner', '', '$this->user_id;', NULL, NULL, '', NULL, '2020-04-22 04:12:08', '2020-04-22 04:12:08');
 INSERT INTO `wp_tt_data_action_colval` VALUES (8, '', '', 'mysql-code', 'created', '', 'NOW()', NULL, NULL, '', NULL, '2020-04-22 04:12:08', '2020-04-22 04:12:08');
 INSERT INTO `wp_tt_data_action_colval` VALUES (9, '', '', 'mysql-code', 'modified', '', 'NOW()', NULL, NULL, '', NULL, '2020-04-22 04:12:11', '2020-04-22 04:12:11');
+INSERT INTO `wp_tt_data_action_colval` VALUES (10, '', '', 'ecode-group-before', '', '', '', NULL, NULL, '', NULL, '2020-05-26 06:16:44', '2020-05-26 06:16:44');
+
+-- ----------------------------
+-- Table structure for wp_tt_data_action_database
+-- ----------------------------
+DROP TABLE IF EXISTS `wp_tt_data_action_database`;
+CREATE TABLE `wp_tt_data_action_database`  (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `epithet` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `slug` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `table` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `prevent_insert_rule` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `insert_ref` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `added_result_html` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `edited_result_html` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `prevented_result_html` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `database_error_result_html` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `deleted_result_html` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `owner` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `created` datetime(0) NOT NULL DEFAULT current_timestamp(0),
+  `modified` datetime(0) NOT NULL DEFAULT current_timestamp(0),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of wp_tt_data_action_database
+-- ----------------------------
+INSERT INTO `wp_tt_data_action_database` VALUES (1, NULL, NULL, 'tt_tags', '(slug={slug} AND epithet={epithet}) OR (tag_after={tag_after})', 'tag_id', '{insert_id}:{data_value:tag_before}:{data_column:tag_before}<br>\r\nTag entry has been added. Access it by {insert_id} id.<br><br>', NULL, '{insert_id}:{data_value:tag_before}:{data_column:tag_before}<br>\r\nPPPPPPPPPPP:::::::::Tag entry has been added. Access it by {insert_id} id.<br><br>', NULL, NULL, NULL, '2020-05-25 21:59:28', '2020-05-25 21:59:28');
+
+-- ----------------------------
+-- Table structure for wp_tt_data_action_file
+-- ----------------------------
+DROP TABLE IF EXISTS `wp_tt_data_action_file`;
+CREATE TABLE `wp_tt_data_action_file`  (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `epithet` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `slug` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `body` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `path_to_save` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `extension` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `lifetime` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `owner` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `created` datetime(0) NOT NULL DEFAULT current_timestamp(0),
+  `modified` datetime(0) NOT NULL DEFAULT current_timestamp(0),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for wp_tt_data_action_mail
+-- ----------------------------
+DROP TABLE IF EXISTS `wp_tt_data_action_mail`;
+CREATE TABLE `wp_tt_data_action_mail`  (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `epithet` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `slug` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `recipient` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `cc` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `bcc` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `replyto` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `subject` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `email_body` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `alt_email_body` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `attachments` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `owner` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `created` datetime(0) NOT NULL DEFAULT current_timestamp(0),
+  `modified` datetime(0) NOT NULL DEFAULT current_timestamp(0),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for wp_tt_data_action_request
+-- ----------------------------
+DROP TABLE IF EXISTS `wp_tt_data_action_request`;
+CREATE TABLE `wp_tt_data_action_request`  (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `epithet` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `slug` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `method` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `base_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `uri` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `owner` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `created` datetime(0) NOT NULL DEFAULT current_timestamp(0),
+  `modified` datetime(0) NOT NULL DEFAULT current_timestamp(0),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for wp_tt_data_action_sms
+-- ----------------------------
+DROP TABLE IF EXISTS `wp_tt_data_action_sms`;
+CREATE TABLE `wp_tt_data_action_sms`  (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `epithet` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `slug` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `userName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `from_number` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `to_numbers` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `message_body` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `flash` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `owner` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `created` datetime(0) NOT NULL DEFAULT current_timestamp(0),
+  `modified` datetime(0) NOT NULL DEFAULT current_timestamp(0),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for wp_tt_evals
@@ -2871,47 +3040,48 @@ CREATE TABLE `wp_tt_form`  (
   `created` datetime(0) NOT NULL DEFAULT current_timestamp(0),
   `modified` datetime(0) NOT NULL DEFAULT current_timestamp(0),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 37 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of wp_tt_form
 -- ----------------------------
-INSERT INTO `wp_tt_form` VALUES (1, 'Input', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '11-26,1', '', '', '1', '1', NULL, '', NULL, '2020-03-16 05:59:30', '2020-03-16 05:59:30');
-INSERT INTO `wp_tt_form` VALUES (2, 'Input CheckBox Radio Specific Attributes', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '31-37,1', '', '', '1', '1', NULL, '', NULL, '2020-03-16 05:59:31', '2020-03-16 05:59:31');
-INSERT INTO `wp_tt_form` VALUES (3, 'Input Color Specific Attributes ', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '31-32,39,33,40,41,36,37,1', '', '', '1', '1', NULL, '', NULL, '2020-03-16 05:59:33', '2020-03-16 05:59:33');
-INSERT INTO `wp_tt_form` VALUES (4, 'Input Date Time Specific Attributes ', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '31,32,39,33,40,41,42-44,35,45,36,37,1', '', '', '1', '1', NULL, '', NULL, '2020-03-16 05:59:36', '2020-03-16 05:59:36');
-INSERT INTO `wp_tt_form` VALUES (5, 'Input Email Specific Attributes ', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '31,32,39,33,40,41,46,47,48,49,50,44,35,51,36,37,1', '', '', '1', '1', NULL, '', NULL, '2020-03-16 05:59:39', '2020-03-16 05:59:39');
-INSERT INTO `wp_tt_form` VALUES (6, 'Input File Specific Attributes ', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '31,32,52,33,53,48,35,36,37,1', '', '', '1', '1', NULL, '', NULL, '2020-03-15 00:48:09', '2020-03-15 00:48:09');
-INSERT INTO `wp_tt_form` VALUES (7, 'Input Image Specific Attributes ', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '31,32,54,33,55,56,57,58,59,60,61,36,62,37,1', '', '', '1', '1', NULL, '', NULL, '2020-03-15 00:48:35', '2020-03-15 00:48:35');
-INSERT INTO `wp_tt_form` VALUES (8, 'Input Number Specific Attributes ', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '31,32,39,33,40,41,42,43,50,44,35,45,36,37,1', '', '', '1', '1', NULL, '', NULL, '2020-03-15 00:48:50', '2020-03-15 00:48:50');
-INSERT INTO `wp_tt_form` VALUES (9, 'Input Password Specific Attributes ', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '31,32,39,33,46,47,49,50,44,35,51,36,37,1', '', '', '1', '1', NULL, '', NULL, '2020-03-15 00:48:59', '2020-03-15 00:48:59');
-INSERT INTO `wp_tt_form` VALUES (10, 'Input Range Specific Attributes ', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '31,32,39,33,40,41,42,43,48,45,1', '', '', '1', '1', NULL, '', NULL, '2020-03-15 00:49:25', '2020-03-15 00:49:25');
-INSERT INTO `wp_tt_form` VALUES (11, 'Input Select Specific Attributes ', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '31,32,63,39,33,48,35,51,64,65,66,37,1', '', '', '1', '1', NULL, '', NULL, '2020-03-15 00:49:49', '2020-03-15 00:49:49');
-INSERT INTO `wp_tt_form` VALUES (12, 'Input Submit Specific Attributes ', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '31,32,33,55,56,57,58,59,36,37,1', '', '', '1', '1', NULL, '', NULL, '2020-03-15 00:50:40', '2020-03-15 00:50:40');
-INSERT INTO `wp_tt_form` VALUES (13, 'Input Tel URL Specific Attributes ', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '31,32,39,33,40,41,46,47,49,50,44,35,51,36,37,1', '', '', '1', '1', NULL, '', NULL, '2020-03-15 00:50:48', '2020-03-15 00:50:48');
-INSERT INTO `wp_tt_form` VALUES (14, 'Input Text Search Specific Attributes ', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '31,32,39,33,67,40,41,46,47,49,50,44,35,51,36,37,1', '', '', '1', '1', NULL, '', NULL, '2020-03-15 00:50:49', '2020-03-15 00:50:49');
-INSERT INTO `wp_tt_form` VALUES (15, 'Input TextArea Specific Attributes ', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '31,32,68,39,69,70,46,47,50,44,35,71,37,1', '', '', '1', '1', NULL, '', NULL, '2020-03-16 04:42:16', '2020-03-16 04:42:16');
-INSERT INTO `wp_tt_form` VALUES (16, 'Custom Attributes', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '81-85,1', '', '', '1', '1', NULL, '', NULL, '2020-03-16 04:49:59', '2020-03-16 04:49:59');
-INSERT INTO `wp_tt_form` VALUES (17, 'Global Attributes', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '91-119,1', '', '', '1', '1', NULL, '', NULL, '2020-03-16 04:51:05', '2020-03-16 04:51:05');
-INSERT INTO `wp_tt_form` VALUES (18, 'Global Attributes (Event Js)', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '131-135,1', '', '', '1', '1', NULL, '', NULL, '2020-03-16 04:51:31', '2020-03-16 04:51:31');
-INSERT INTO `wp_tt_form` VALUES (19, 'Global Attributes (Js Functions)', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '141-144,1', '', '', '1', '1', NULL, '', NULL, '2020-03-16 04:51:45', '2020-03-16 04:51:45');
-INSERT INTO `wp_tt_form` VALUES (20, 'Global Attributes (Classes)', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '151-154,1', '', '', '1', '1', NULL, '', NULL, '2020-03-16 04:51:51', '2020-03-16 04:51:51');
-INSERT INTO `wp_tt_form` VALUES (21, 'Global Attributes (Data)', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '161-165,1', '', '', '1', '1', NULL, '', NULL, '2020-03-16 04:52:34', '2020-03-16 04:52:34');
-INSERT INTO `wp_tt_form` VALUES (22, 'Global Attributes (ItemProps)', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '171-174,1', '', '', '1', '1', NULL, '', NULL, '2020-03-16 05:01:24', '2020-03-16 05:01:24');
-INSERT INTO `wp_tt_form` VALUES (23, 'Global Attributes (ItemRefs)', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '181-184,1', '', '', '1', '1', NULL, '', NULL, '2020-03-16 05:01:37', '2020-03-16 05:01:37');
-INSERT INTO `wp_tt_form` VALUES (24, 'Global Attributes (Styles)', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '191-196,1', '', '', '1', '1', NULL, '', NULL, '2020-03-16 05:01:41', '2020-03-16 05:01:41');
-INSERT INTO `wp_tt_form` VALUES (25, 'Input Specific Attributes (Lists)', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '201-210,1', '', '', '1', '1', NULL, '', NULL, '2020-03-16 05:01:55', '2020-03-16 05:01:55');
-INSERT INTO `wp_tt_form` VALUES (26, 'Input Specific Attributes (Options)', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '221-231,1', '', '', '1', '1', NULL, '', NULL, '2020-03-16 05:01:56', '2020-03-16 05:01:56');
-INSERT INTO `wp_tt_form` VALUES (27, 'Input Specific Attributes (Option Groups)', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '241-246,1', '', '', '1', '1', NULL, '', NULL, '2020-03-16 05:02:38', '2020-03-16 05:02:38');
-INSERT INTO `wp_tt_form` VALUES (28, 'Input Specific Attributes (File Accept)', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '251-254,1', '', '', '1', '1', NULL, '', NULL, '2020-03-16 05:02:53', '2020-03-16 05:02:53');
-INSERT INTO `wp_tt_form` VALUES (29, 'Input Attribute Changer Condition', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '261-265,1', '', '', '1', '1', NULL, '', NULL, '2020-03-16 05:03:23', '2020-03-16 05:03:23');
-INSERT INTO `wp_tt_form` VALUES (30, 'Input Attribute Changer', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '271-277,1', '', '', '1', '1', NULL, '', NULL, '2020-03-16 05:03:51', '2020-03-16 05:03:51');
-INSERT INTO `wp_tt_form` VALUES (31, 'Input Meta', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '281-285,1', '', '', '1', '1', NULL, '', NULL, '2020-03-16 05:18:31', '2020-03-16 05:18:31');
-INSERT INTO `wp_tt_form` VALUES (32, 'Tag', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '291-296,1', '', '', '1', '1', 'yes', '', NULL, '2020-03-16 05:18:43', '2020-03-16 05:18:43');
-INSERT INTO `wp_tt_form` VALUES (33, 'User Access', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '301-309,1', '', '', '1', '1', NULL, '', NULL, '2020-03-16 05:18:44', '2020-03-16 05:18:44');
-INSERT INTO `wp_tt_form` VALUES (34, 'Eval', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '311-314,1', '', '', '1', '1', NULL, '', NULL, '2020-04-18 05:13:07', '2020-04-18 05:13:07');
-INSERT INTO `wp_tt_form` VALUES (35, 'Variable', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '321-325,1', '', '', '1', '1', NULL, '', NULL, '2020-04-18 05:13:09', '2020-04-18 05:13:09');
-INSERT INTO `wp_tt_form` VALUES (36, 'Option', '', '', '', '', '', '', '', 'post', '', '', '', '', '', '', '', '', '331-335,1', '', '', '1', '1', NULL, '', NULL, '2020-04-18 05:13:17', '2020-04-18 05:13:17');
+INSERT INTO `wp_tt_form` VALUES (1, 'Input', 'Input', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '1', '', '1', '1', NULL, '', NULL, '2020-03-16 05:59:30', '2020-03-16 05:59:30');
+INSERT INTO `wp_tt_form` VALUES (2, 'Input CheckBox Radio Specific Attributes', 'Input CheckBox Radio Specific Attributes', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '2', '', '1', '1', NULL, '', NULL, '2020-03-16 05:59:31', '2020-03-16 05:59:31');
+INSERT INTO `wp_tt_form` VALUES (3, 'Input Color Specific Attributes ', 'Input Color Specific Attributes ', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '3', '', '1', '1', NULL, '', NULL, '2020-03-16 05:59:33', '2020-03-16 05:59:33');
+INSERT INTO `wp_tt_form` VALUES (4, 'Input Date Time Specific Attributes ', 'Input Date Time Specific Attributes ', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '4', '', '1', '1', NULL, '', NULL, '2020-03-16 05:59:36', '2020-03-16 05:59:36');
+INSERT INTO `wp_tt_form` VALUES (5, 'Input Email Specific Attributes ', 'Input Email Specific Attributes ', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '5', '', '1', '1', NULL, '', NULL, '2020-03-16 05:59:39', '2020-03-16 05:59:39');
+INSERT INTO `wp_tt_form` VALUES (6, 'Input File Specific Attributes ', 'Input File Specific Attributes ', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '6', '', '1', '1', NULL, '', NULL, '2020-03-15 00:48:09', '2020-03-15 00:48:09');
+INSERT INTO `wp_tt_form` VALUES (7, 'Input Image Specific Attributes ', 'Input Image Specific Attributes ', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '7', '', '1', '1', NULL, '', NULL, '2020-03-15 00:48:35', '2020-03-15 00:48:35');
+INSERT INTO `wp_tt_form` VALUES (8, 'Input Number Specific Attributes ', 'Input Number Specific Attributes ', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '8', '', '1', '1', NULL, '', NULL, '2020-03-15 00:48:50', '2020-03-15 00:48:50');
+INSERT INTO `wp_tt_form` VALUES (9, 'Input Password Specific Attributes ', 'Input Password Specific Attributes ', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '9', '', '1', '1', NULL, '', NULL, '2020-03-15 00:48:59', '2020-03-15 00:48:59');
+INSERT INTO `wp_tt_form` VALUES (10, 'Input Range Specific Attributes ', 'Input Range Specific Attributes ', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '10', '', '1', '1', NULL, '', NULL, '2020-03-15 00:49:25', '2020-03-15 00:49:25');
+INSERT INTO `wp_tt_form` VALUES (11, 'Input Select Specific Attributes ', 'Input Select Specific Attributes ', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '11', '', '1', '1', NULL, '', NULL, '2020-03-15 00:49:49', '2020-03-15 00:49:49');
+INSERT INTO `wp_tt_form` VALUES (12, 'Input Submit Specific Attributes ', 'Input Submit Specific Attributes ', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '12', '', '1', '1', NULL, '', NULL, '2020-03-15 00:50:40', '2020-03-15 00:50:40');
+INSERT INTO `wp_tt_form` VALUES (13, 'Input Tel URL Specific Attributes ', 'Input Tel URL Specific Attributes ', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '13', '', '1', '1', NULL, '', NULL, '2020-03-15 00:50:48', '2020-03-15 00:50:48');
+INSERT INTO `wp_tt_form` VALUES (14, 'Input Text Search Specific Attributes ', 'Input Text Search Specific Attributes ', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '14', '', '1', '1', NULL, '', NULL, '2020-03-15 00:50:49', '2020-03-15 00:50:49');
+INSERT INTO `wp_tt_form` VALUES (15, 'Input TextArea Specific Attributes ', 'Input TextArea Specific Attributes ', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '15', '', '1', '1', NULL, '', NULL, '2020-03-16 04:42:16', '2020-03-16 04:42:16');
+INSERT INTO `wp_tt_form` VALUES (16, 'Custom Attributes', 'Custom Attributes', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '16', '', '1', '1', NULL, '', NULL, '2020-03-16 04:49:59', '2020-03-16 04:49:59');
+INSERT INTO `wp_tt_form` VALUES (17, 'Global Attributes', 'Global Attributes', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '17', '', '1', '1', NULL, '', NULL, '2020-03-16 04:51:05', '2020-03-16 04:51:05');
+INSERT INTO `wp_tt_form` VALUES (18, 'Global Attributes (Event Js)', 'Global Attributes (Event Js)', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '18', '', '1', '1', NULL, '', NULL, '2020-03-16 04:51:31', '2020-03-16 04:51:31');
+INSERT INTO `wp_tt_form` VALUES (19, 'Global Attributes (Js Functions)', 'Global Attributes (Js Functions)', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '19', '', '1', '1', NULL, '', NULL, '2020-03-16 04:51:45', '2020-03-16 04:51:45');
+INSERT INTO `wp_tt_form` VALUES (20, 'Global Attributes (Classes)', 'Global Attributes (Classes)', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '20', '', '1', '1', NULL, '', NULL, '2020-03-16 04:51:51', '2020-03-16 04:51:51');
+INSERT INTO `wp_tt_form` VALUES (21, 'Global Attributes (Data)', 'Global Attributes (Data)', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '21', '', '1', '1', NULL, '', NULL, '2020-03-16 04:52:34', '2020-03-16 04:52:34');
+INSERT INTO `wp_tt_form` VALUES (22, 'Global Attributes (ItemProps)', 'Global Attributes (ItemProps)', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '22', '', '1', '1', NULL, '', NULL, '2020-03-16 05:01:24', '2020-03-16 05:01:24');
+INSERT INTO `wp_tt_form` VALUES (23, 'Global Attributes (ItemRefs)', 'Global Attributes (ItemRefs)', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '23', '', '1', '1', NULL, '', NULL, '2020-03-16 05:01:37', '2020-03-16 05:01:37');
+INSERT INTO `wp_tt_form` VALUES (24, 'Global Attributes (Styles)', 'Global Attributes (Styles)', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '24', '', '1', '1', NULL, '', NULL, '2020-03-16 05:01:41', '2020-03-16 05:01:41');
+INSERT INTO `wp_tt_form` VALUES (25, 'Input Specific Attributes (Lists)', 'Input Specific Attributes (Lists)', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '25', '', '1', '1', NULL, '', NULL, '2020-03-16 05:01:55', '2020-03-16 05:01:55');
+INSERT INTO `wp_tt_form` VALUES (26, 'Input Specific Attributes (Options)', 'Input Specific Attributes (Options)', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '26', '', '1', '1', NULL, '', NULL, '2020-03-16 05:01:56', '2020-03-16 05:01:56');
+INSERT INTO `wp_tt_form` VALUES (27, 'Input Specific Attributes (Option Groups)', 'Input Specific Attributes (Option Groups)', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '27', '', '1', '1', NULL, '', NULL, '2020-03-16 05:02:38', '2020-03-16 05:02:38');
+INSERT INTO `wp_tt_form` VALUES (28, 'Input Specific Attributes (File Accept)', 'Input Specific Attributes (File Accept)', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '28', '', '1', '1', NULL, '', NULL, '2020-03-16 05:02:53', '2020-03-16 05:02:53');
+INSERT INTO `wp_tt_form` VALUES (29, 'Input Attribute Changer Condition', 'Input Attribute Changer Condition', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '29', '', '1', '1', NULL, '', NULL, '2020-03-16 05:03:23', '2020-03-16 05:03:23');
+INSERT INTO `wp_tt_form` VALUES (30, 'Input Attribute Changer', 'Input Attribute Changer', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '30', '', '1', '1', NULL, '', NULL, '2020-03-16 05:03:51', '2020-03-16 05:03:51');
+INSERT INTO `wp_tt_form` VALUES (31, 'Input Meta', 'Input Meta', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '31', '', '1', '1', NULL, '', NULL, '2020-03-16 05:18:31', '2020-03-16 05:18:31');
+INSERT INTO `wp_tt_form` VALUES (32, 'Tag', 'Tag', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '32', '', '1', '1', NULL, '', NULL, '2020-03-16 05:18:43', '2020-03-16 05:18:43');
+INSERT INTO `wp_tt_form` VALUES (33, 'User Access', 'User Access', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '33', '', '1', '1', NULL, '', NULL, '2020-03-16 05:18:44', '2020-03-16 05:18:44');
+INSERT INTO `wp_tt_form` VALUES (34, 'Eval', 'Eval', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '34', '', '1', '1', NULL, '', NULL, '2020-04-18 05:13:07', '2020-04-18 05:13:07');
+INSERT INTO `wp_tt_form` VALUES (35, 'Variable', 'Variable', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '35', '', '1', '1', NULL, '', NULL, '2020-04-18 05:13:09', '2020-04-18 05:13:09');
+INSERT INTO `wp_tt_form` VALUES (36, 'Option', 'Option', '', '', '', '', '', '', 'post', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '36', '', '1', '1', NULL, '', NULL, '2020-04-18 05:13:17', '2020-04-18 05:13:17');
+INSERT INTO `wp_tt_form` VALUES (37, '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'block', 'fieldset', 'input', '1', '37', '', '', '', NULL, '', NULL, '2020-05-23 01:53:43', '2020-05-23 01:53:43');
 
 -- ----------------------------
 -- Table structure for wp_tt_input
@@ -3374,10 +3544,10 @@ CREATE TABLE `wp_tt_tags`  (
 INSERT INTO `wp_tt_tags` VALUES (1, 'Form Tag', 'Form-Tag', '<div style=\"padding:12px;\"><h2 style=\"text-shadow:1px 1px 5px blue;\">{own-data:epithet}</h2>', '</div>', NULL, NULL, NULL, '2020-03-16 06:08:08', '2020-03-16 06:08:08', NULL);
 INSERT INTO `wp_tt_tags` VALUES (2, 'Block Tag', NULL, NULL, NULL, NULL, NULL, NULL, '2020-03-16 06:44:01', '2020-03-16 06:44:01', NULL);
 INSERT INTO `wp_tt_tags` VALUES (3, 'FieldSet Tag', NULL, NULL, NULL, NULL, NULL, NULL, '2020-03-16 06:44:03', '2020-03-16 06:44:03', NULL);
-INSERT INTO `wp_tt_tags` VALUES (4, 'Bootstrap Form Input (With Label)', 'Bootstrap Form-Input-With-Label', '<div class=\"form-group\"><label for=\"{attr:id}\">{own-data:epithet}</label>', '<small id=\"passwordHelpBlock\" class=\"form-text text-muted\">{own-data:description}</small></div>', NULL, NULL, NULL, '2020-03-16 06:09:12', '2020-03-16 06:09:12', NULL);
+INSERT INTO `wp_tt_tags` VALUES (4, 'Bootstrap Form Input (With Label)', 'Bootstrap Form-Input-With-Label', '<div class=\"form-group\"><label for=\"{attr:id}\">{own-data:epithet}</label>--{attr:id}', '<small id=\"passwordHelpBlock\" class=\"form-text text-muted\">{own-data:description}</small></div>', NULL, NULL, NULL, '2020-03-16 06:09:12', '2020-03-16 06:09:12', NULL);
 INSERT INTO `wp_tt_tags` VALUES (5, 'Bootstrap Form Checkbox Input', NULL, '<div class=\"form-group form-check\">\r\n', '<label class=\"form-check-label\" for=\"{attr:id}\">{own-data:epithet}</label><small class=\"text-muted\">{own-data:description}</small></div>', NULL, NULL, NULL, '2020-03-17 06:08:12', '2020-03-17 06:08:12', NULL);
 INSERT INTO `wp_tt_tags` VALUES (6, 'Bootstrap Form Toggle Checkbox Input', NULL, '<div class=\"form-group form-check\">\r\n', '<small class=\"text-muted\">{own-data:description}</small></div>', NULL, NULL, NULL, '2020-04-19 03:05:25', '2020-04-19 03:05:25', NULL);
-INSERT INTO `wp_tt_tags` VALUES (7, 'ddddddddd', '', '', '', 'add-new-tag', '', '0', '2020-05-12 01:01:30', '2020-05-12 01:01:30', '0_5eb9b61e7daca6.15865660');
+INSERT INTO `wp_tt_tags` VALUES (7, 'bbbbbbb', 'bbbbbbbbbbbb', 'bbbbbbbbbbbb', 'bbbbbbbbbbbbbbbbbbbbbb', 'add-new-tag,2,4', 'bbbbbbbbbb', '0', '2020-05-26 08:34:42', '2020-05-26 08:34:42', '0_5ecc95459c13a9.61135724');
 
 -- ----------------------------
 -- Table structure for wp_tt_user_access
@@ -3418,12 +3588,12 @@ CREATE TABLE `wp_tt_vals`  (
   `modified` datetime(0) NOT NULL DEFAULT current_timestamp(0),
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `key`(`key`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 343 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 356 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of wp_tt_vals
 -- ----------------------------
-INSERT INTO `wp_tt_vals` VALUES (342, '0_5eb9b61e7daca6.15865660', 0x7B22657069746865742D3139223A22646464646464646464222C22736C75672D3139223A22222C227461675F6265666F72652D3139223A22222C227461675F61667465722D3139223A22222C22706172656E745F7461675F69642D3139223A226164642D6E65772D746167222C226465736372697074696F6E2D3139223A22222C22223A6E756C6C7D, '0', '2020-05-12 01:01:30', '2020-05-12 01:01:30');
+INSERT INTO `wp_tt_vals` VALUES (355, '0_5ecc95459c13a9.61135724', 0x7B22223A6E756C6C2C22657069746865742D31395B305D223A2262626262626262222C22736C75672D31395B305D223A22626262626262626262626262222C227461675F6265666F72652D31395B305D223A22626262626262626262626262222C227461675F61667465722D31395B305D223A2262626262626262626262626262626262626262626262222C226465736372697074696F6E2D31395B305D223A2262626262626262626262222C22706172656E745F7461675F69642D31395B305D5B305D223A226164642D6E65772D746167222C22706172656E745F7461675F69642D31395B305D5B315D223A2232222C22706172656E745F7461675F69642D31395B305D5B325D223A2234227D, '0', '2020-05-26 08:34:41', '2020-05-26 08:34:42');
 
 -- ----------------------------
 -- Table structure for wp_tt_variable
