@@ -228,18 +228,7 @@ jQuery(document).ready(function () {
     jQuery(inserted_element).html(function (index, html) {
       var re = new RegExp(needle, "g");
       return html.replace(re, replace);
-      // jQuery(inserted_element).replaceWith(html);
     });
-    /*
-    jQuery(inserted_element).find('*').each(function () {
-      var tmp = jQuery(this).children().remove();
-      var text = jQuery(this).text();
-      var re = new RegExp(needle, "g");
-      text = text.replace(re, replace);
-      jQuery(this).text(text);
-      jQuery(this).append(tmp);
-    });
-	*/
   }
 
   function manage_controller_visibilty() {

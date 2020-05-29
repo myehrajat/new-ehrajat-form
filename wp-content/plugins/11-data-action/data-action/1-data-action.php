@@ -93,7 +93,7 @@ class data_action extends process {
           } else {
             $res = $data_action_specific_obj->database_error_result_html;
           }
-          krumo( $_REQUEST );
+          //krumo( $_REQUEST );
           foreach ( $one_ready_data as $column => $value ) {
             $res = str_replace( '{data_value:' . $column . '}', $value, $res );
             $res = str_replace( '{data_column:' . $column . '}', $column, $res );
