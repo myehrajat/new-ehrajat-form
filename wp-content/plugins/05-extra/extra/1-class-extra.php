@@ -17,21 +17,19 @@ class extra extends database {
 
     function extra_data( $extra, $unique_id ) {
         if ( $extra > 0 ) {
-            $this->extra_remove_controller_arr[ 'onclick' ] = 'return false;';
             $this->extra_add_controller_arr[ 'type' ] = 'image';
             $this->extra_add_controller_arr[ 'src' ] = EXTRA_PLUGIN_ADD_ICON_URL;
             $this->extra_add_controller_arr[ 'max_extra' ] = $extra;
             $this->extra_add_controller_arr[ 'id' ] = $unique_id . '_controller_add';
             $this->extra_add_controller_arr[ 'alt' ] = 'Add New';
 
-            $this->extra_remove_controller_arr[ 'onclick' ] = 'return false;';
             $this->extra_remove_controller_arr[ 'type' ] = 'image';
             $this->extra_remove_controller_arr[ 'src' ] = EXTRA_PLUGIN_REMOVE_ICON_URL;
             $this->extra_remove_controller_arr[ 'id' ] = $unique_id . '_controller_remove';
             $this->extra_remove_controller_arr[ 'alt' ] = 'Remove';
             $this->extra_remove_controller_arr[ 'style' ] = 'display: none;';
             $this->extra_remove_controller_arr[ 'disabled' ] = 'disabled';
-			
+
         }
     }
 
