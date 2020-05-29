@@ -84,8 +84,7 @@ class input extends data_creator {
 
         $this->common_atrributes( $input_id );
         $this->global_atrributes( $this->input_obj->attr_html_global_id );
-
-        $this->specific_atrributes( $this->input_obj->attr_input_specific_id );
+		$this->specific_atrributes( $this->input_obj->attr_input_specific_id );
         $this->custom_atrributes( $this->input_obj->attr_custom_ids );
         if ( empty( $this->common_attr_obj->input_data[ 'attrs' ] ) ) {
             $this->common_attr_obj->input_data[ 'attrs' ] = array();

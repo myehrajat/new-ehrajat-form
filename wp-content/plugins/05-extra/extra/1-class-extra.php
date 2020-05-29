@@ -30,6 +30,8 @@ class extra extends database {
             $this->extra_remove_controller_arr[ 'id' ] = $unique_id . '_controller_remove';
             $this->extra_remove_controller_arr[ 'alt' ] = 'Remove';
             $this->extra_remove_controller_arr[ 'style' ] = 'display: none;';
+            $this->extra_remove_controller_arr[ 'disabled' ] = 'disabled';
+			
         }
     }
 

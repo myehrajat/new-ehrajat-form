@@ -74,6 +74,7 @@ class data_action extends process {
         //create_save_id_column_if_not_exist();
         $this->create_add_column( $wpdb->prefix . $data_action_specific_obj->table, 'save_id' );
         $this->create_colval_data();
+		if(!empty($this->db_data)){
         foreach ( $this->db_data as $one_ready_data ) {
           $one_ready_data[ 'save_id' ] = addslashes( $_REQUEST[ '__sst__unique' ] );
           if ( isset( $insert_ref[ $data_action_specific_obj->insert_ref ] ) ) {
@@ -92,7 +93,7 @@ class data_action extends process {
           } else {
             $res = $data_action_specific_obj->database_error_result_html;
           }
-			krumo($_REQUEST);
+          krumo( $_REQUEST );
           foreach ( $one_ready_data as $column => $value ) {
             $res = str_replace( '{data_value:' . $column . '}', $value, $res );
             $res = str_replace( '{data_column:' . $column . '}', $column, $res );
@@ -117,6 +118,10 @@ class data_action extends process {
           //krumo('is_not_modal');
           echo '<span id="result_content">' . implode( '', $result ) . "</span>";
         }
+		}else{
+        $this->error_log( '$this->dbdata is NULL' );
+
+		}
         break;
       case "edit":
         $ids = array();
@@ -170,116 +175,131 @@ class data_action extends process {
   }
 
   function sort_all_colval_by_depth( $colval_ids_str ) {
-    $colval_ids = $this->get_ids( $colval_ids_str );
-    $i = 0;
+    if ( !empty( $colval_ids_str ) ) {
+      $colval_ids = $this->get_ids( $colval_ids_str );
+      $i = 0;
+      if ( !empty( $colval_ids ) ) {
+        foreach ( $colval_ids as $colval_id ) {
+          $colval_obj = $this->get_by_id( $colval_id, $GLOBALS[ 'sst_tables' ][ 'data_action_colval' ] );
+          if ( $colval_obj != false ) {
+            $colval_obj->type = strtolower( $colval_obj->type );
+            if ( $colval_obj->type !== 'file' ) {
+              $colval_sort_by_depth[ $i ][ 'depth' ] = $this->find_array_depth( $this->vals[ $colval_obj->input_name ] );
+              $colval_sort_by_depth[ $i ][ 'colval_obj' ] = $colval_obj;
 
-    foreach ( $colval_ids as $colval_id ) {
-      $colval_obj = $this->get_by_id( $colval_id, $GLOBALS[ 'sst_tables' ][ 'data_action_colval' ] );
-      if ( $colval_obj != false ) {
-        $colval_obj->type = strtolower( $colval_obj->type );
-        if ( $colval_obj->type !== 'file' ) {
-          $colval_sort_by_depth[ $i ][ 'depth' ] = $this->find_array_depth( $this->vals[ $colval_obj->input_name ] );
-          $colval_sort_by_depth[ $i ][ 'colval_obj' ] = $colval_obj;
 
-
-        } elseif ( $colval_obj->type !== 'mysql-code' ) {
-          $colval_sort_by_depth[ $i ][ 'depth' ] = $this->find_array_depth( $this->vals[ '__sst__files' ][ $colval_obj->input_name ][ 'name' ] );
-          $colval_sort_by_depth[ $i ][ 'colval_obj' ] = $colval_obj;
+            } elseif ( $colval_obj->type !== 'mysql-code' ) {
+              $colval_sort_by_depth[ $i ][ 'depth' ] = $this->find_array_depth( $this->vals[ '__sst__files' ][ $colval_obj->input_name ][ 'name' ] );
+              $colval_sort_by_depth[ $i ][ 'colval_obj' ] = $colval_obj;
+            }
+            $i++;
+          } else {
+            $this->error_log( 'colval_id provided is not correct no obj found:.' . $colval_id );
+          }
         }
-        $i++;
-      } else {
-        $this->error_log( 'colval_id provided is not correct no obj found:.' . $colval_id );
-      }
-    }
-    $sort_depth = array_column( $colval_sort_by_depth, 'depth' );
+        $sort_depth = array_column( $colval_sort_by_depth, 'depth' );
 
-    $sort_colval_obj = array_column( $colval_sort_by_depth, 'colval_obj' );
-    $sorted_colvals_obj = $this->array_orderby( $colval_sort_by_depth, $sort_depth, SORT_ASC );
-    return $sorted_colvals_obj;
+        $sort_colval_obj = array_column( $colval_sort_by_depth, 'colval_obj' );
+        $sorted_colvals_obj = $this->array_orderby( $colval_sort_by_depth, $sort_depth, SORT_ASC );
+        return $sorted_colvals_obj;
+      } else {
+        $this->error_log( 'no colval_id you have provided after processing, however you have provided string' );
+        return false;
+      }
+    } else {
+      $this->error_log( 'no colval_id string have provided ' );
+      return false;
+    }
   }
 
   function create_colval_data() {
     $colval_ids_str = $this->data_action_obj->colval_ids;
     $sorted_colvals_obj = $this->sort_all_colval_by_depth( $colval_ids_str );
-    $this->mysql_code_col_vals = '';
     if ( !empty( $sorted_colvals_obj ) ) {
-      foreach ( $sorted_colvals_obj as $u => $sorted_colvals_vals ) {
-        switch ( $sorted_colvals_vals[ 'colval_obj' ]->type ) {
-          case "simple-variable":
-            $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->value ] );
-            if ( !isset( $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] ) ) {
-              $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] = $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ];
-            }
-            break;
-          case "variable":
-          case "function":
-            $ecodes[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = 'return ' . $sorted_colvals_vals[ 'colval_obj' ]->value;
-            $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
-            if ( !isset( $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] ) ) {
-              $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
-            }
-            break;
-          case "ecode":
-            //case "ecode-one-per-record":
-            $ecodes[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $sorted_colvals_vals[ 'colval_obj' ]->value;
-            $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
-            if ( !isset( $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] ) ) {
-              $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
-            }
-            break;
-          case "ecode-group-before":
-          case "ecode-group":
-            //case "ecode-multiple-per-record":
-            $ecodes_multiple[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $sorted_colvals_vals[ 'colval_obj' ]->value;
-            $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
-            if ( !isset( $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] ) ) {
-              $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
-            }
-            break;
-          case "ecode-group-after":
-            break;
-          case "temp":
-            $is_there_temp = true;
-            $all_values[ 'DONT-SAVE-ME-' . $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
-            break;
-          case "file":
-            $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->upload_files(
-              $this->vals[ '__sst__files' ][ $sorted_colvals_vals[ 'colval_obj' ]->value ],
-              $sorted_colvals_vals[ 'colval_obj' ]->file_path,
-              $this->data_action_obj->default_file_path );
-            if ( !isset( $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->column ] ) ) {
-              $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ];
-            }
-            break;
-          case "mysql-code":
-            $mysql_code_col_vals[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $sorted_colvals_vals[ 'colval_obj' ]->value;
-            $this->mysql_code_col_vals = $mysql_code_col_vals;
-            unset( $sorted_colvals_obj[ $u ] );
-            break;
-          default:
-            break;
+      $this->mysql_code_col_vals = '';
+      if ( !empty( $sorted_colvals_obj ) ) {
+        foreach ( $sorted_colvals_obj as $u => $sorted_colvals_vals ) {
+          switch ( $sorted_colvals_vals[ 'colval_obj' ]->type ) {
+            case "simple-variable":
+              $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->value ] );
+              if ( !isset( $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] ) ) {
+                $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] = $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ];
+              }
+              break;
+            case "variable":
+            case "function":
+              $ecodes[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = 'return ' . $sorted_colvals_vals[ 'colval_obj' ]->value;
+              $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
+              if ( !isset( $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] ) ) {
+                $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
+              }
+              break;
+            case "ecode":
+              //case "ecode-one-per-record":
+              $ecodes[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $sorted_colvals_vals[ 'colval_obj' ]->value;
+              $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
+              if ( !isset( $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] ) ) {
+                $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
+              }
+              break;
+            case "ecode-group-before":
+            case "ecode-group":
+              //case "ecode-multiple-per-record":
+              $ecodes_multiple[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $sorted_colvals_vals[ 'colval_obj' ]->value;
+              $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
+              if ( !isset( $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] ) ) {
+                $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
+              }
+              break;
+            case "ecode-group-after":
+              break;
+            case "temp":
+              $is_there_temp = true;
+              $all_values[ 'DONT-SAVE-ME-' . $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
+              break;
+            case "file":
+              $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->upload_files(
+                $this->vals[ '__sst__files' ][ $sorted_colvals_vals[ 'colval_obj' ]->value ],
+                $sorted_colvals_vals[ 'colval_obj' ]->file_path,
+                $this->data_action_obj->default_file_path );
+              if ( !isset( $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->column ] ) ) {
+                $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ];
+              }
+              break;
+            case "mysql-code":
+              $mysql_code_col_vals[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $sorted_colvals_vals[ 'colval_obj' ]->value;
+              $this->mysql_code_col_vals = $mysql_code_col_vals;
+              unset( $sorted_colvals_obj[ $u ] );
+              break;
+            default:
+              break;
+          }
         }
+        #send columns which has more elements go to last of column level ordering based on number elements of column 
+
+        $all_values = $this->more_element_last( $all_values );
+        //QUESTION: USE RAW DATA OR ECODE RUNNED DATA? MAY NEED SOME OPTION TO MAKE SURE WHICH ONE MUST RUN FIRST do_ecode_multiple_before_ecode or do_ecodes
+        $all_values = $this->do_ecode_multiple_before_ecode( $all_values, $ecodes_multiple );
+        $all_values = $this->more_element_last( $all_values );
+        // this is original sent data before triggering data-action
+        $ready_data = $this->create_all_data( $all_values );
+        //this used for creating database query 
+
+        $ready_data = $this->do_ecodes( $ready_data, $ecodes );
+        //this used for creating database query
+        $ready_data = $this->delete_temp_cloumns( $ready_data, $is_there_temp );
+        $this->db_data = $ready_data;
+        //$this->ready_data_for_db( $ready_data, $sorted_colvals_obj );
+        $this->save_final_vals( $save_raw_data );
+      } else {
+        $this->error_log( 'colval_id provided is not correct no obj found:.' . $colval_id );
+        $this->db_data = NULL;
       }
-      #send columns which has more elements go to last of column level ordering based on number elements of column 
-
-      $all_values = $this->more_element_last( $all_values );
-      //QUESTION: USE RAW DATA OR ECODE RUNNED DATA? MAY NEED SOME OPTION TO MAKE SURE WHICH ONE MUST RUN FIRST do_ecode_multiple_before_ecode or do_ecodes
-      $all_values = $this->do_ecode_multiple_before_ecode( $all_values, $ecodes_multiple );
-      $all_values = $this->more_element_last( $all_values );
-      // this is original sent data before triggering data-action
-      $ready_data = $this->create_all_data( $all_values );
-      //this used for creating database query 
-
-      $ready_data = $this->do_ecodes( $ready_data, $ecodes );
-      //this used for creating database query
-      $ready_data = $this->delete_temp_cloumns( $ready_data, $is_there_temp );
-      $this->db_data = $ready_data;
-      //$this->ready_data_for_db( $ready_data, $sorted_colvals_obj );
-      $this->save_final_vals( $save_raw_data );
     } else {
-      $this->error_log( 'colval_id provided is not correct no obj found:.' . $colval_id );
-    }
+      $this->error_log( '$sorted_colvals_obj return false it may caused for empty colval_id empty' );
+      $this->db_data = NULL;
 
+    }
   }
 
   /**********

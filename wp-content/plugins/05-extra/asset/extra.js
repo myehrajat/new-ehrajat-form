@@ -246,7 +246,9 @@ jQuery(document).ready(function () {
     jQuery("#" + sst.source_add_controller_id).hide();
     //jQuery("#" + remove_underlined_suffix(sst.source_add_controller_id).concat(sst.remove_contoller_suffix)).hide();
     //cloned
-    jQuery("#" + add_up_single_string(remove_underlined_suffix(sst.source_add_controller_id), sst.source_element_id).concat(sst.remove_contoller_suffix)).show();
+    var toShow_remove_controller = jQuery("#" + add_up_single_string(remove_underlined_suffix(sst.source_add_controller_id), sst.source_element_id).concat(sst.remove_contoller_suffix));
+	  toShow_remove_controller.show();
+	  toShow_remove_controller.removeAttr('disabled');
     if (sst.max_extra - 1 == sst.source_last_number) {
       jQuery("#" + add_up_single_string(remove_underlined_suffix(sst.source_add_controller_id), sst.source_element_id).concat(sst.add_contoller_suffix)).hide();
     }
@@ -268,6 +270,8 @@ jQuery(document).ready(function () {
   });
 
   jQuery('body').on('click', "[id$='" + sst.remove_contoller_suffix + "']", function (event) {
+	  console.log(sst.remove_contoller_suffix);
+	  console.log('remove triggered');
     event.preventDefault(); //prevent submitting in fast double click
     sst.source_remove_controller_id = this.id;
     sst.source_element_id = remove_underlined_suffix(sst.source_remove_controller_id);

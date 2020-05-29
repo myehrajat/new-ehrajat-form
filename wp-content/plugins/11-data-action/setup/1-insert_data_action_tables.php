@@ -49,6 +49,11 @@ class insert_data_action_tables extends database {
 		"`table` VARCHAR(255) NOT NULL," .
         "`prevent_insert_rule` VARCHAR(255) default NULL ," .
         "`insert_ref` VARCHAR(255) default NULL," .
+		"`added_result_html` LONGTEXT NOT NULL," .
+		"`edited_result_html` LONGTEXT NOT NULL," .
+		"`prevented_result_html` LONGTEXT NOT NULL," .
+		"`database_error_result_html` LONGTEXT NOT NULL," .
+		"`deleted_result_html` LONGTEXT NOT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .
         "`created` DATETIME NOT NULL DEFAULT NOW()," .
         "`modified` DATETIME NOT NULL DEFAULT NOW(),
