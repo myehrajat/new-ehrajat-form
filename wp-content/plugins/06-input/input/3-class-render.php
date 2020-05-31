@@ -476,7 +476,6 @@ class render extends database {
       //krumo($input_data);
       if ( $this->is_positive_number( $input_data[ 'modal' ][ 'process_id' ] ) ) {
         $modal_process = $this->is_eval_run( $input_data[ 'modal' ][ 'process_id' ] );
-        $modal_input_id = $input_data[ 'attrs' ][ 'id' ];
         if ( !empty( $input_data[ 'modal' ][ 'insert_ref' ] ) ) {
           $modal_insert_ref = $this->is_eval_run( $input_data[ 'modal' ][ 'insert_ref' ] );
           $modal_input_id = $input_data[ 'attrs' ][ 'id' ];
