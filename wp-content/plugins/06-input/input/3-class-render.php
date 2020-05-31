@@ -191,7 +191,7 @@ class render extends database {
         $multiple_select = true;
         $multiple_select_single_string = true;
       } else {
-		  
+
         foreach ( $GLOBALS[ 'vals' ] as $global_name => $global_value ) {
           $global_name_arr = explode( '[', $global_name );
           array_pop( $global_name_arr );
@@ -244,39 +244,39 @@ class render extends database {
 
           break;
         case "select":
-          if ( is_array( $input_data[ 'option_data' ] )) {
+          if ( is_array( $input_data[ 'option_data' ] ) ) {
             foreach ( $input_data[ 'option_data' ] as $k => $option ) {
-              if ( $option[ 'attrs' ][ 'value' ] == $GLOBALS[ 'vals' ][ $input_data[ 'attrs' ][ 'name' ] ]and $multiple_select == false) {
+              if ( $option[ 'attrs' ][ 'value' ] == $GLOBALS[ 'vals' ][ $input_data[ 'attrs' ][ 'name' ] ]and $multiple_select == false ) {
                 $input_data[ 'option_data' ][ $k ][ 'attrs' ][ 'selected' ] = 'selected';
                 break;
-				  
-				  
+
+
               } elseif ( $multiple_select == true and $multiple_select_single_string == false ) {
-				  unset( $input_data[ 'option_data' ][ $k ][ 'attrs' ][ 'selected' ] );
+                unset( $input_data[ 'option_data' ][ $k ][ 'attrs' ][ 'selected' ] );
                 foreach ( $GLOBALS[ 'vals' ] as $global_name => $global_value ) {
                   $global_name_arr = explode( '[', $global_name );
                   array_pop( $global_name_arr );
                   $trimmed_global_name = implode( '[', $global_name_arr );
-					
+
                   if ( $trimmed_global_name == $input_data[ 'attrs' ][ 'name' ] ) {
                     if ( $option[ 'attrs' ][ 'value' ] == $GLOBALS[ 'vals' ][ $global_name ] ) {
-						
+
                       $input_data[ 'option_data' ][ $k ][ 'attrs' ][ 'selected' ] = 'selected';
                     }
                   }
                 }
-				  
+
               } elseif ( $multiple_select == true and $multiple_select_single_string = true ) {
 
-                    $value_seperator = ',';
-                    $values_arr = explode( $value_seperator, $GLOBALS[ 'vals' ][ $input_data[ 'attrs' ][ 'name' ] ] );
-                    if ( in_array( $option[ 'attrs' ][ 'value' ], $values_arr ) ) {
-                      $input_data[ 'option_data' ][ $k ][ 'attrs' ][ 'selected' ] = 'selected';
-                    } else {
-                      unset( $input_data[ 'option_data' ][ $k ][ 'attrs' ][ 'selected' ] );
-                    }
-				  
-				  
+                $value_seperator = ',';
+                $values_arr = explode( $value_seperator, $GLOBALS[ 'vals' ][ $input_data[ 'attrs' ][ 'name' ] ] );
+                if ( in_array( $option[ 'attrs' ][ 'value' ], $values_arr ) ) {
+                  $input_data[ 'option_data' ][ $k ][ 'attrs' ][ 'selected' ] = 'selected';
+                } else {
+                  unset( $input_data[ 'option_data' ][ $k ][ 'attrs' ][ 'selected' ] );
+                }
+
+
               } elseif ( isset( $input_data[ 'option_data' ][ $k ][ 'attrs' ][ 'selected' ] ) ) {
                 unset( $input_data[ 'option_data' ][ $k ][ 'attrs' ][ 'selected' ] );
               }
@@ -292,10 +292,10 @@ class render extends database {
                   if ( $option[ 'attrs' ][ 'value' ] == $GLOBALS[ 'vals' ][ $input_data[ 'attrs' ][ 'name' ] ]and $multiple_select == false ) {
                     $input_data[ 'optgroup_data' ][ $j ][ 'options' ][ $k ][ 'attrs' ][ 'selected' ] = 'selected';
                     break;
-					  
-					  
+
+
                   } elseif ( $multiple_select == true and $multiple_select_single_string = false ) {
-					  unset( $input_data[ 'optgroup_data' ][ $j ][ 'options' ][ $k ][ 'attrs' ][ 'selected' ] );
+                    unset( $input_data[ 'optgroup_data' ][ $j ][ 'options' ][ $k ][ 'attrs' ][ 'selected' ] );
                     foreach ( $GLOBALS[ 'vals' ] as $global_name => $global_value ) {
                       $global_name_arr = explode( '[', $global_name );
                       array_pop( $global_name_arr );
@@ -307,9 +307,8 @@ class render extends database {
                         }
                       }
                     }
-					  
-					  
-					  
+
+
                   } elseif ( $multiple_select == true and $multiple_select_single_string = true ) {
                     $value_seperator = ',';
                     $values_arr = explode( $value_seperator, $GLOBALS[ 'vals' ][ $input_data[ 'attrs' ][ 'name' ] ] );
@@ -318,8 +317,8 @@ class render extends database {
                     } else {
                       unset( $input_data[ 'optgroup_data' ][ $j ][ 'options' ][ $k ][ 'attrs' ][ 'selected' ] );
                     }
-					  
-					  
+
+
                   } elseif ( isset( $input_data[ 'optgroup_data' ][ $j ][ 'options' ][ $k ][ 'attrs' ][ 'selected' ] ) ) {
                     unset( $input_data[ 'optgroup_data' ][ $j ][ 'options' ][ $k ][ 'attrs' ][ 'selected' ] );
                   }
@@ -395,9 +394,9 @@ class render extends database {
         and $this->mode == 'add' ) {
         return '';
       }
-		if(isset($GLOBALS['vals'])){
-      $input_data = $this->change_value_by_vals( $input_data );
-		}
+      if ( isset( $GLOBALS[ 'vals' ] ) ) {
+        $input_data = $this->change_value_by_vals( $input_data );
+      }
       //		krumo($input_data );
       switch ( $input_data[ 'input_html_type' ] ) {
 
@@ -477,23 +476,27 @@ class render extends database {
       //krumo($input_data);
       if ( $this->is_positive_number( $input_data[ 'modal' ][ 'process_id' ] ) ) {
         $modal_process = $this->is_eval_run( $input_data[ 'modal' ][ 'process_id' ] );
-        $modal_insert_ref = $this->is_eval_run( $input_data[ 'modal' ][ 'insert_ref' ] );
         $modal_input_id = $input_data[ 'attrs' ][ 'id' ];
-        $modal_input_unique_id = $input_data[ 'unique_id' ];
-        $modal_input_id_num = $input_data[ 'id' ];
-        $uniqid_modal = uniqid( "_sst_modal_" );
-        $input_data[ 'tag' ][ 'after' ] .= '<span onclick="loadDynamicContentModal(';
-        $input_data[ 'tag' ][ 'after' ] .= "'" . PROCESS_BY_GET_URL . '?__sst__process_id=' . $modal_process . '&__sst__insert_ref_result=' . $modal_insert_ref . "',";
-        $input_data[ 'tag' ][ 'after' ] .= "'" . $modal_input_id . $uniqid_modal . "',";
-        $input_data[ 'tag' ][ 'after' ] .= "'" . INPUT_BY_GET_URL . '?__sst__input_id=' . $modal_input_id_num . '&__sst__input_the_id=' . $modal_input_id . '&__sst__input_unique_id=' . $modal_input_unique_id . "',";
-        $input_data[ 'tag' ][ 'after' ] .= "'" . $modal_input_unique_id . "'";
-        $input_data[ 'tag' ][ 'after' ] .= ');">';
-        $input_data[ 'tag' ][ 'after' ] .= PROCESS_MODAL_BUTTON;
-        $input_data[ 'tag' ][ 'after' ] .= '</span>';
-        $input_data[ 'tag' ][ 'after' ] .= '<span id="' . $modal_input_id . $uniqid_modal . '" title="' . htmlentities( PROCESS_MODAL_DEFAULT_TITLE ) . '"></span>';
+        if ( !empty( $input_data[ 'modal' ][ 'insert_ref' ] ) ) {
+          $modal_insert_ref = $this->is_eval_run( $input_data[ 'modal' ][ 'insert_ref' ] );
+          $modal_input_id = $input_data[ 'attrs' ][ 'id' ];
+          $modal_input_unique_id = $input_data[ 'unique_id' ];
+          $modal_input_id_num = $input_data[ 'id' ];
+          $uniqid_modal = uniqid( "_sst_modal_" );
+          $input_data[ 'tag' ][ 'after' ] .= '<span onclick="loadDynamicContentModal(';
+          $input_data[ 'tag' ][ 'after' ] .= "'" . PROCESS_BY_GET_URL . '?__sst__process_id=' . $modal_process . '&__sst__insert_ref_result=' . $modal_insert_ref . "',";
+          $input_data[ 'tag' ][ 'after' ] .= "'" . $modal_input_id . $uniqid_modal . "',";
+          $input_data[ 'tag' ][ 'after' ] .= "'" . INPUT_BY_GET_URL . '?__sst__input_id=' . $modal_input_id_num . '&__sst__input_the_id=' . $modal_input_id . '&__sst__input_unique_id=' . $modal_input_unique_id . "',";
+          $input_data[ 'tag' ][ 'after' ] .= "'" . $modal_input_unique_id . "'";
+          $input_data[ 'tag' ][ 'after' ] .= ');">';
+          $input_data[ 'tag' ][ 'after' ] .= PROCESS_MODAL_BUTTON;
+          $input_data[ 'tag' ][ 'after' ] .= '</span>';
+          $input_data[ 'tag' ][ 'after' ] .= '<span id="' . $modal_input_id . $uniqid_modal . '" title="' . htmlentities( PROCESS_MODAL_DEFAULT_TITLE ) . '"></span>';
+        } else {
+          $this->error_log( 'modal_insert_ref is empty its necessary for adding by modal choose it form insert_ref or id of data_Action_database ' );
+        }
+
       }
-
-
       //krumo($input);
       $input = $input_data[ 'tag' ][ 'before' ] . $input . $input_data[ 'tag' ][ 'after' ];
 

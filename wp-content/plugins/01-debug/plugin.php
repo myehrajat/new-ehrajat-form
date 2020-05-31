@@ -46,5 +46,7 @@ use if($GLOBALS['plugins_loaded']==true){ to be sure all plugins loaded the do e
 /*show some data for debuging and permit logging error*/
 	define('DEBUG',false);
 	define('LOGGING',true);
+	define('DELETE_LOG_BY_NEW_REQUEST',true);
+
 	define('DEBUG_ERROR_LOG',DEBUG_PLUGIN_PATH.'error.log');
 	require_once(DEBUG_FUNC_PATH.'class-debug.php');

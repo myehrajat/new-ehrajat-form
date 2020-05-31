@@ -20,6 +20,11 @@ class form extends data_creator {
 			$this->form_data['use_ajax'] = strtolower($this->form_obj->use_ajax);
 		}
 		if($this->form_data['use_ajax']){
+			if(!isset($_REQUEST['__sst__process_id'])){
+				$ajax_process_id = $_REQUEST[PROCESS_ID_KEYWORD];
+			}else{
+				$ajax_process_id = $_REQUEST['__sst__process_id'];
+			}
 			$this->form_data['tag']['after'] .='<script type="text/javascript">jQuery("body").on("submit","#'.$this->form_data['attrs']['id'].'",function(e) {
 									e.preventDefault();
 									var form = jQuery(\'form[id="'.$this->form_data['attrs']['id'].'"]\');
@@ -28,7 +33,7 @@ class form extends data_creator {
 											async: true,
 										   type: "'.$this->form_data[ 'attrs' ]['method'].'",
 										   //url: "'.$this->form_data[ 'attrs' ]['action'].'",
-										   url: "'.PROCESS_BY_GET_URL.'?__sst__process_id='.$_REQUEST['__sst__process_id'].'",
+										   url: "'.PROCESS_BY_GET_URL.'?__sst__process_id='.$ajax_process_id.'",
 										   data: form.serialize(),
 										   success: function(data)
 										   {

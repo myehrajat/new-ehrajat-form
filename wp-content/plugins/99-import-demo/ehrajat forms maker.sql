@@ -11,7 +11,7 @@
  Target Server Version : 100411
  File Encoding         : 65001
 
- Date: 26/05/2020 10:40:55
+ Date: 31/05/2020 04:55:11
 */
 
 SET NAMES utf8mb4;
@@ -1306,6 +1306,28 @@ CREATE TABLE `wp_custom_country`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Table structure for wp_custom_currency
+-- ----------------------------
+DROP TABLE IF EXISTS `wp_custom_currency`;
+CREATE TABLE `wp_custom_currency`  (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `country_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `currency` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `currency_sign` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `currency_abbr` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `sub_currency` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `sub_currency_ratio` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `sub_currency_sign` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `sub_currency_abbr` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `desc` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `save_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `owner` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `created` datetime(0) NOT NULL DEFAULT current_timestamp(0),
+  `modified` datetime(0) NOT NULL DEFAULT current_timestamp(0),
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
 -- Table structure for wp_links
 -- ----------------------------
 DROP TABLE IF EXISTS `wp_links`;
@@ -1339,7 +1361,7 @@ CREATE TABLE `wp_options`  (
   PRIMARY KEY (`option_id`) USING BTREE,
   UNIQUE INDEX `option_name`(`option_name`) USING BTREE,
   INDEX `autoload`(`autoload`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1411 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1412 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of wp_options
@@ -1447,7 +1469,7 @@ INSERT INTO `wp_options` VALUES (100, 'widget_recent-comments', 'a:2:{i:2;a:2:{s
 INSERT INTO `wp_options` VALUES (101, 'widget_archives', 'a:2:{i:2;a:3:{s:5:\"title\";s:0:\"\";s:5:\"count\";i:0;s:8:\"dropdown\";i:0;}s:12:\"_multiwidget\";i:1;}', 'yes');
 INSERT INTO `wp_options` VALUES (102, 'widget_meta', 'a:2:{i:2;a:1:{s:5:\"title\";s:0:\"\";}s:12:\"_multiwidget\";i:1;}', 'yes');
 INSERT INTO `wp_options` VALUES (103, 'sidebars_widgets', 'a:4:{s:19:\"wp_inactive_widgets\";a:0:{}s:9:\"sidebar-1\";a:3:{i:0;s:8:\"search-2\";i:1;s:14:\"recent-posts-2\";i:2;s:17:\"recent-comments-2\";}s:9:\"sidebar-2\";a:3:{i:0;s:10:\"archives-2\";i:1;s:12:\"categories-2\";i:2;s:6:\"meta-2\";}s:13:\"array_version\";i:3;}', 'yes');
-INSERT INTO `wp_options` VALUES (104, 'cron', 'a:6:{i:1590477003;a:1:{s:34:\"wp_privacy_delete_old_export_files\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:6:\"hourly\";s:4:\"args\";a:0:{}s:8:\"interval\";i:3600;}}}i:1590513603;a:3:{s:17:\"wp_update_plugins\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}s:16:\"wp_update_themes\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}s:16:\"wp_version_check\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}}i:1590556803;a:1:{s:32:\"recovery_mode_clean_expired_keys\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1590556816;a:2:{s:19:\"wp_scheduled_delete\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}s:25:\"delete_expired_transients\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1590556817;a:1:{s:30:\"wp_scheduled_auto_draft_delete\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}s:7:\"version\";i:2;}', 'yes');
+INSERT INTO `wp_options` VALUES (104, 'cron', 'a:6:{i:1590495003;a:1:{s:34:\"wp_privacy_delete_old_export_files\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:6:\"hourly\";s:4:\"args\";a:0:{}s:8:\"interval\";i:3600;}}}i:1590513603;a:3:{s:17:\"wp_update_plugins\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}s:16:\"wp_update_themes\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}s:16:\"wp_version_check\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:10:\"twicedaily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:43200;}}}i:1590556803;a:1:{s:32:\"recovery_mode_clean_expired_keys\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1590556816;a:2:{s:19:\"wp_scheduled_delete\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}s:25:\"delete_expired_transients\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}i:1590556817;a:1:{s:30:\"wp_scheduled_auto_draft_delete\";a:1:{s:32:\"40cd750bba9870f18aada2478b24840a\";a:3:{s:8:\"schedule\";s:5:\"daily\";s:4:\"args\";a:0:{}s:8:\"interval\";i:86400;}}}s:7:\"version\";i:2;}', 'yes');
 INSERT INTO `wp_options` VALUES (105, 'widget_pages', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes');
 INSERT INTO `wp_options` VALUES (106, 'widget_calendar', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes');
 INSERT INTO `wp_options` VALUES (107, 'widget_media_audio', 'a:1:{s:12:\"_multiwidget\";i:1;}', 'yes');
@@ -2559,7 +2581,7 @@ CREATE TABLE `wp_tt_attr_input_submit`  (
 -- ----------------------------
 -- Records of wp_tt_attr_input_submit
 -- ----------------------------
-INSERT INTO `wp_tt_attr_input_submit` VALUES (1, 'Submit', 'Submit', '', '', '', '', '', '', 'Submit', NULL, NULL, '2020-03-16 06:53:11', '2020-03-16 06:53:11');
+INSERT INTO `wp_tt_attr_input_submit` VALUES (1, 'Submit', 'Submit', '', '', '', '', '', '', 'ذخیره', NULL, NULL, '2020-03-16 06:53:11', '2020-03-16 06:53:11');
 
 -- ----------------------------
 -- Table structure for wp_tt_attr_input_tel_url
@@ -2799,8 +2821,8 @@ CREATE TABLE `wp_tt_data_action`  (
   `type_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `colval_ids` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `default_file_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `func_before` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `func_after` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `single_func_before` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `single_func_after` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `data_action_add_result` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `data_action_edit_result` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `owner` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -2861,11 +2883,13 @@ CREATE TABLE `wp_tt_data_action_database`  (
   `table` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `prevent_insert_rule` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `insert_ref` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `added_result_html` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `edited_result_html` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `added_result_html` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `edited_result_html` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `prevented_result_html` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-  `database_error_result_html` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `deleted_result_html` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `database_error_result_html` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `deleted_result_html` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `multiple_func_before` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `multiple_func_after` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `owner` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `created` datetime(0) NOT NULL DEFAULT current_timestamp(0),
   `modified` datetime(0) NOT NULL DEFAULT current_timestamp(0),
@@ -2875,7 +2899,7 @@ CREATE TABLE `wp_tt_data_action_database`  (
 -- ----------------------------
 -- Records of wp_tt_data_action_database
 -- ----------------------------
-INSERT INTO `wp_tt_data_action_database` VALUES (1, NULL, NULL, 'tt_tags', '(slug={slug} AND epithet={epithet}) OR (tag_after={tag_after})', 'tag_id', '{insert_id}:{data_value:tag_before}:{data_column:tag_before}<br>\r\nTag entry has been added. Access it by {insert_id} id.<br><br>', NULL, '{insert_id}:{data_value:tag_before}:{data_column:tag_before}<br>\r\nPPPPPPPPPPP:::::::::Tag entry has been added. Access it by {insert_id} id.<br><br>', NULL, NULL, NULL, '2020-05-25 21:59:28', '2020-05-25 21:59:28');
+INSERT INTO `wp_tt_data_action_database` VALUES (1, NULL, NULL, 'tt_tags', '(slug={slug} AND epithet={epithet}) OR (tag_after={tag_after})', 'tag_id', '{insert_id}:{data_value:tag_before}:{data_column:tag_before}<br>\r\nTag entry has been added. Access it by {insert_id} id.<br><br>', NULL, '{insert_id}:{data_value:tag_before}:{data_column:tag_before}<br>\r\nPPPPPPPPPPP:::::::::Tag entry has been added. Access it by {insert_id} id.<br><br>', NULL, NULL, NULL, NULL, NULL, '2020-05-25 21:59:28', '2020-05-25 21:59:28');
 
 -- ----------------------------
 -- Table structure for wp_tt_data_action_file
@@ -2889,6 +2913,8 @@ CREATE TABLE `wp_tt_data_action_file`  (
   `path_to_save` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `extension` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `lifetime` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `multiple_func_before` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `multiple_func_after` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `owner` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `created` datetime(0) NOT NULL DEFAULT current_timestamp(0),
   `modified` datetime(0) NOT NULL DEFAULT current_timestamp(0),
@@ -2911,6 +2937,8 @@ CREATE TABLE `wp_tt_data_action_mail`  (
   `email_body` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `alt_email_body` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `attachments` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `multiple_func_before` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `multiple_func_after` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `owner` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `created` datetime(0) NOT NULL DEFAULT current_timestamp(0),
   `modified` datetime(0) NOT NULL DEFAULT current_timestamp(0),
@@ -2928,6 +2956,8 @@ CREATE TABLE `wp_tt_data_action_request`  (
   `method` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `base_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `uri` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `multiple_func_before` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `multiple_func_after` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `owner` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `created` datetime(0) NOT NULL DEFAULT current_timestamp(0),
   `modified` datetime(0) NOT NULL DEFAULT current_timestamp(0),
@@ -2948,6 +2978,8 @@ CREATE TABLE `wp_tt_data_action_sms`  (
   `to_numbers` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `message_body` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `flash` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `multiple_func_before` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `multiple_func_after` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `owner` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `created` datetime(0) NOT NULL DEFAULT current_timestamp(0),
   `modified` datetime(0) NOT NULL DEFAULT current_timestamp(0),
@@ -3547,7 +3579,6 @@ INSERT INTO `wp_tt_tags` VALUES (3, 'FieldSet Tag', NULL, NULL, NULL, NULL, NULL
 INSERT INTO `wp_tt_tags` VALUES (4, 'Bootstrap Form Input (With Label)', 'Bootstrap Form-Input-With-Label', '<div class=\"form-group\"><label for=\"{attr:id}\">{own-data:epithet}</label>--{attr:id}', '<small id=\"passwordHelpBlock\" class=\"form-text text-muted\">{own-data:description}</small></div>', NULL, NULL, NULL, '2020-03-16 06:09:12', '2020-03-16 06:09:12', NULL);
 INSERT INTO `wp_tt_tags` VALUES (5, 'Bootstrap Form Checkbox Input', NULL, '<div class=\"form-group form-check\">\r\n', '<label class=\"form-check-label\" for=\"{attr:id}\">{own-data:epithet}</label><small class=\"text-muted\">{own-data:description}</small></div>', NULL, NULL, NULL, '2020-03-17 06:08:12', '2020-03-17 06:08:12', NULL);
 INSERT INTO `wp_tt_tags` VALUES (6, 'Bootstrap Form Toggle Checkbox Input', NULL, '<div class=\"form-group form-check\">\r\n', '<small class=\"text-muted\">{own-data:description}</small></div>', NULL, NULL, NULL, '2020-04-19 03:05:25', '2020-04-19 03:05:25', NULL);
-INSERT INTO `wp_tt_tags` VALUES (7, 'bbbbbbb', 'bbbbbbbbbbbb', 'bbbbbbbbbbbb', 'bbbbbbbbbbbbbbbbbbbbbb', 'add-new-tag,2,4', 'bbbbbbbbbb', '0', '2020-05-26 08:34:42', '2020-05-26 08:34:42', '0_5ecc95459c13a9.61135724');
 
 -- ----------------------------
 -- Table structure for wp_tt_user_access

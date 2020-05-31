@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : shahab
+ Source Server         : myehrajat
  Source Server Type    : MySQL
- Source Server Version : 100316
+ Source Server Version : 100411
  Source Host           : localhost:3306
- Source Schema         : ehrajat-dev-backup
+ Source Schema         : sample-ehrajat
 
  Target Server Type    : MySQL
- Target Server Version : 100316
+ Target Server Version : 100411
  File Encoding         : 65001
 
- Date: 08/04/2020 04:01:18
+ Date: 31/05/2020 04:56:08
 */
 
 SET NAMES utf8mb4;

@@ -127,17 +127,17 @@ implements database_interface {
                 $result = $wpdb->query( $sql );
                 if ( $wpdb->last_error !== '' ) {
                     //$wpdb->print_error();
-                    $this->error_log( '$this->add_to_table() MYSQL syntax error:' . $wpdb->print_error() );
+                    debug::error_log( '$this->add_to_table() MYSQL syntax error:' . $wpdb->print_error() );
                     return false;
                 } else {
                     return $wpdb->insert_id;
                 }
             } else {
-                $this->error_log( 'column_value must Not be empty!' );
+                debug::error_log( 'column_value must Not be empty!' );
 				return false;
             }
         } else {
-            $this->error_log( 'column_value must be array!' );
+            debug::error_log( 'column_value must be array!' );
 			return false;
         }
     }

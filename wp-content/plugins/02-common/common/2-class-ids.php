@@ -179,7 +179,7 @@ class ids extends str implements ids_interface {
 		//}
         $ecode = str_replace( EVAL_STR, '', $ecode );
         try {
-            $result = eval( $ecode );
+            $result = eval( $ecode.';' );
         } catch ( Throwable $error ) {
 			//krumo();
             debug::error_log( 'eval string has syntax error.This code is problematic: '.$ecode );

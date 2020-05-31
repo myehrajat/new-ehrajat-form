@@ -1,4 +1,5 @@
 <?php
+
 class debug {
     function __construct() {
 
@@ -73,6 +74,9 @@ class debug {
         }
     }
 
+}
+if(DELETE_LOG_BY_NEW_REQUEST==true){
+debug::sst_delete_log();
 }
 add_action( 'wp_head', 'krumo_left' );
 function krumo_left(){

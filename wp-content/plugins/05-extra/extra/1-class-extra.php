@@ -22,12 +22,14 @@ class extra extends database {
             $this->extra_add_controller_arr[ 'max_extra' ] = $extra;
             $this->extra_add_controller_arr[ 'id' ] = $unique_id . '_controller_add';
             $this->extra_add_controller_arr[ 'alt' ] = 'Add New';
+            $this->extra_remove_controller_arr[ 'label' ] = 'Add New';
             $this->extra_add_controller_arr[ 'style' ] = 'cursor:pointer';
 
 			// $this->extra_remove_controller_arr[ 'type' ] = 'image';
             $this->extra_remove_controller_arr[ 'src' ] = EXTRA_PLUGIN_REMOVE_ICON_URL;
             $this->extra_remove_controller_arr[ 'id' ] = $unique_id . '_controller_remove';
             $this->extra_remove_controller_arr[ 'alt' ] = 'Remove';
+            $this->extra_remove_controller_arr[ 'label' ] = 'Remove';
             $this->extra_remove_controller_arr[ 'style' ] = 'display: none;cursor:pointer';
            // $this->extra_remove_controller_arr[ 'disabled' ] = 'disabled';
 

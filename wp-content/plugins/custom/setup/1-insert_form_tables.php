@@ -15,6 +15,8 @@ class insert_custom_tables extends database {
 		global $wpdb;
         $GLOBALS[ 'sst_custom' ][ 'country' ]  = $wpdb->prefix .'custom_'. 'country';
         $GLOBALS[ 'sst_custom' ][ 'currency' ]  = $wpdb->prefix .'custom_'. 'currency';
+        $GLOBALS[ 'sst_custom' ][ 'currency_rate' ]  = $wpdb->prefix .'custom_'. 'currency_rate';
+        $GLOBALS[ 'sst_custom' ][ 'tax' ]  = $wpdb->prefix .'custom_'. 'tax';
     }
 	
     function insert_tables() {
@@ -37,11 +39,24 @@ class insert_custom_tables extends database {
         "`country_id` VARCHAR(255) NOT NULL," .
         "`currency` VARCHAR(255) NOT NULL," .
         "`currency_sign` VARCHAR(255) NOT NULL," .
-        "`currency_abbr` VARCHAR(255) NOT NULL," .
-        "`sub_currency` VARCHAR(255) NOT NULL," .
-        "`sub_currency_ratio` VARCHAR(255) NOT NULL," .
-        "`sub_currency_sign` VARCHAR(255) NOT NULL," .
-        "`sub_currency_abbr` VARCHAR(255) NOT NULL," .
+        "`currency_code` VARCHAR(255) NOT NULL," .
+        "`currency_sign_position` VARCHAR(255) NOT NULL," .
+        "`parent_currency_id` VARCHAR(255) NOT NULL," .
+        "`parent_currency_ratio` VARCHAR(255) NOT NULL COMMENT 'How many of this currency make parent currency'," .
+        "`desc` VARCHAR(255) NOT NULL," .
+        "`save_id` VARCHAR(255) NOT NULL," .
+        "`owner` VARCHAR(255) DEFAULT NULL," .
+        "`created` DATETIME NOT NULL DEFAULT NOW()," .
+        "`modified` DATETIME NOT NULL DEFAULT NOW(),
+        PRIMARY KEY id  (`id`)) $this->collate_charset;";
+		global $wpdb;
+        $this->create_tables( $sql );
+		
+		$sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_custom' ][ 'currency_rate' ] . " (" .
+        "`id` INT(10) NOT NULL auto_increment," .
+        "`base_currency_id` VARCHAR(255) NOT NULL," .
+        "`exchanged_currency_id` VARCHAR(255) NOT NULL," .
+        "`rate` VARCHAR(255) NOT NULL," .
         "`desc` VARCHAR(255) NOT NULL," .
         "`save_id` VARCHAR(255) NOT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .

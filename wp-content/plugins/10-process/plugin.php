@@ -36,4 +36,5 @@ define('PROCESS_RECORD_ID_KEYWORD','record_id');
 glob_includer(PROCESS_SETUP_PATH);
 new insert_process_tables;
 glob_includer(PROCESS_FUNC_PATH);
+define('PROCESS_ID_KEYWORD','pr');
 

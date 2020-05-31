@@ -72,6 +72,7 @@ class process extends data_creator {
   }
 
   function save_files_to_vals() {
+	 
     if ( isset( $_FILES ) ) {
       if ( !isset( $this->vals[ '__sst__files' ] ) ) {
         $files[ '__sst__files' ] = array();
@@ -84,6 +85,7 @@ class process extends data_creator {
   }
 
   function save_vals( $final_vals = NULL ) {
+	  
     if ( isset( $_REQUEST[ '__sst__unique' ] ) ) {
       global $wpdb;
       $db_vals = $this->get_vals();
