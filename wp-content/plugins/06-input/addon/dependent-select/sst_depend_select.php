@@ -95,6 +95,11 @@ if ( !empty( $_REQUEST[ 'psw' ] ) ) {
         $q .= ' return $all_options;';
 
         $options_obj = eval( $q );
+		if(empty($options_obj) and strtolower( $_REQUEST[ 'return_type' ] ) == 'string'){
+			$options_obj = '<option disabled="disabled" sst_onfly="yes">No Option On Change Found!</option>"';
+		}
+		//var_dump($options_obj);
+
         echo $options_obj;
     }
     //render_select_list
