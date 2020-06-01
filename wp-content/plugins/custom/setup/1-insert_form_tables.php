@@ -65,6 +65,20 @@ class insert_custom_tables extends database {
         PRIMARY KEY id  (`id`)) $this->collate_charset;";
 		global $wpdb;
         $this->create_tables( $sql );
+		
+		$sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_custom' ][ 'tax' ] . " (" .
+        "`id` INT(10) NOT NULL auto_increment," .
+        "`tax_name` VARCHAR(255) NOT NULL," .
+        "`rate` VARCHAR(255) NOT NULL," .
+        "`type` VARCHAR(255) NOT NULL COMMENT 'inclusive(vat)/exlusive(without vat)/compund/fixed/normal'," .
+        "`desc` VARCHAR(255) NOT NULL," .
+        "`save_id` VARCHAR(255) NOT NULL," .
+        "`owner` VARCHAR(255) DEFAULT NULL," .
+        "`created` DATETIME NOT NULL DEFAULT NOW()," .
+        "`modified` DATETIME NOT NULL DEFAULT NOW(),
+        PRIMARY KEY id  (`id`)) $this->collate_charset;";
+		global $wpdb;
+        $this->create_tables( $sql );
     }
 }
 new insert_custom_tables;

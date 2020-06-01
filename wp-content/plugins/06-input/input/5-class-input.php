@@ -100,12 +100,24 @@ class input extends data_creator {
         }
         $this->global_attr_obj->input_data[ 'attrs' ] = $this->autogenerate_id( $this->global_attr_obj->input_data[ 'attrs' ],INPUT_AUTO_GENERATE_INPUT_ID );
         //dbg($this->specific_atrributes->input_data[ 'attrs' ]);
-        $this->input_data[ 'attrs' ] = array_merge(
-            $this->global_attr_obj->input_data[ 'attrs' ],
-            $this->common_attr_obj->input_data[ 'attrs' ],
-            $this->custom_attr_obj->input_data[ 'attrs' ],
-            $this->specific_attr_obj->input_data[ 'attrs' ]
-        );
+		if(INPUT_CUSTOM_ATTR_OVERRIDE){
+			$this->input_data[ 'attrs' ] = array_merge(
+				$this->global_attr_obj->input_data[ 'attrs' ],
+				$this->common_attr_obj->input_data[ 'attrs' ],
+				$this->specific_attr_obj->input_data[ 'attrs' ],
+				$this->custom_attr_obj->input_data[ 'attrs' ]
+			);
+
+		}else{
+			
+			$this->input_data[ 'attrs' ] = array_merge(
+				$this->custom_attr_obj->input_data[ 'attrs' ],
+				$this->global_attr_obj->input_data[ 'attrs' ],
+				$this->common_attr_obj->input_data[ 'attrs' ],
+				$this->specific_attr_obj->input_data[ 'attrs' ]
+			);
+		}
+
 
 
         $this->input_data = $this->create_access_data( $this->input_data, $this->input_obj );

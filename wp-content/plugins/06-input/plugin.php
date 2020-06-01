@@ -25,6 +25,7 @@ define('INPUT_PLUGIN_URL',plugin_dir_url( __FILE__ ));
 define('INPUT_BY_GET_URL',INPUT_PLUGIN_URL.'input_by_get.php');
 
 define('EXTRA_CONTROLLER_POSITION','after');
+define('INPUT_CUSTOM_ATTR_OVERRIDE',true);
 
 //define('IS_INPUT_PLUGIN_ACTIVE',in_array(PLUGIN_FOLDER.'/'.PLUGIN_FILE, apply_filters('active_plugins', get_option('active_plugins'))));
 #############################################
