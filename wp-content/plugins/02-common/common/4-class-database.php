@@ -105,10 +105,12 @@ implements database_interface {
             if ( !empty( $column_value ) ) {
 				//krumo($prevent_insert_rule);
 				if(!empty($prevent_insert_rule)){
+					//krumo($column_value);
 					foreach($column_value as $column=>$value){
 						$prevent_insert_rule = str_replace("{".$column."}","'".$value."'",$prevent_insert_rule);
 					}
 					$prevent_insert_rule_query = "SELECT * FROM ".$table." WHERE ".$prevent_insert_rule." LIMIT 1;";
+					//krumo($prevent_insert_rule_query);
 					if(!empty($wpdb->get_row($prevent_insert_rule_query))){
 						return 'prevented';
 					}
@@ -124,6 +126,7 @@ implements database_interface {
                     $sql .= ',' . implode( ',', $column_mysql_code );
                 }
                 $sql .= ")";
+				
                 $result = $wpdb->query( $sql );
                 if ( $wpdb->last_error !== '' ) {
                     //$wpdb->print_error();
