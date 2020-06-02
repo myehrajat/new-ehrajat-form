@@ -75,7 +75,7 @@ class input extends data_creator {
     }
 
     function custom_atrributes( string $custom_id ) {
-        $this->custom_attr_obj = new attribute_custom_generator( $input_obj->attr_custom_ids );
+        $this->custom_attr_obj = new attribute_custom_generator( $custom_id );
     }
 
     function all_attributes( $input_id ) {
@@ -83,6 +83,7 @@ class input extends data_creator {
         $all_attr = array();
 
         $this->common_atrributes( $input_id );
+		
         $this->global_atrributes( $this->input_obj->attr_html_global_id );
 		$this->specific_atrributes( $this->input_obj->attr_input_specific_id );
         $this->custom_atrributes( $this->input_obj->attr_custom_ids );
