@@ -72,8 +72,8 @@ class process extends data_creator {
   }
 
   function save_files_to_vals() {
-	 
-    if ( isset( $_FILES ) ) {
+	 // krumo($_FILES);
+    if ( !empty( $_FILES ) ) {
       if ( !isset( $this->vals[ '__sst__files' ] ) ) {
         $files[ '__sst__files' ] = array();
       }

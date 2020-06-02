@@ -17,6 +17,7 @@ class insert_custom_tables extends database {
         $GLOBALS[ 'sst_custom' ][ 'currency' ]  = $wpdb->prefix .'custom_'. 'currency';
         $GLOBALS[ 'sst_custom' ][ 'currency_rate' ]  = $wpdb->prefix .'custom_'. 'currency_rate';
         $GLOBALS[ 'sst_custom' ][ 'tax' ]  = $wpdb->prefix .'custom_'. 'tax';
+		$GLOBALS[ 'sst_custom' ][ 'income_expenditure_source' ] =  $wpdb->prefix .'custom_'. 'income_expenditure_source';
     }
 	
     function insert_tables() {
@@ -68,7 +69,7 @@ class insert_custom_tables extends database {
 		
 		$sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_custom' ][ 'tax' ] . " (" .
         "`id` INT(10) NOT NULL auto_increment," .
-        "`tax_name` VARCHAR(255) NOT NULL," .
+        "`name` VARCHAR(255) NOT NULL," .
         "`rate` VARCHAR(255) NOT NULL," .
         "`type` VARCHAR(255) NOT NULL COMMENT 'inclusive(vat)/exlusive(without vat)/compund/fixed/normal'," .
         "`desc` VARCHAR(255) NOT NULL," .
@@ -79,6 +80,20 @@ class insert_custom_tables extends database {
         PRIMARY KEY id  (`id`)) $this->collate_charset;";
 		global $wpdb;
         $this->create_tables( $sql );
-    }
+
+		$sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_custom' ][ 'income_expenditure_source' ] . " (" .
+        "`id` INT(10) NOT NULL auto_increment," .
+        "`name` VARCHAR(255) NOT NULL," .
+        "`type` VARCHAR(255) NOT NULL COMMENT 'income/expenditure'," .
+        "`parent_id` VARCHAR(255) NOT NULL COMMENT 'income/expenditure'," .
+        "`desc` VARCHAR(255) NOT NULL," .
+        "`save_id` VARCHAR(255) NOT NULL," .
+        "`owner` VARCHAR(255) DEFAULT NULL," .
+        "`created` DATETIME NOT NULL DEFAULT NOW()," .
+        "`modified` DATETIME NOT NULL DEFAULT NOW(),
+        PRIMARY KEY id  (`id`)) $this->collate_charset;";
+		global $wpdb;
+        $this->create_tables( $sql );
+}
 }
 new insert_custom_tables;

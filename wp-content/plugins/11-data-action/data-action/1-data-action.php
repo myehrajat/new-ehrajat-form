@@ -81,6 +81,7 @@ class data_action extends process {
         $this->create_add_column( $wpdb->prefix . $data_action_specific_obj->table, 'save_id' );
 
         $this->create_colval_data();
+			//krumo($this->db_data);
         if ( !empty( $this->db_data ) ) {
           foreach ( $this->db_data as $one_ready_data ) {
             $one_ready_data[ 'save_id' ] = addslashes( $_REQUEST[ '__sst__unique' ] );

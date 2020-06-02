@@ -76,18 +76,20 @@ class block extends data_creator {
         //$all_blocks[ $block_id ] = $this->set_show_order($all_blocks[ $block_id ]);
         $all_blocks[ $block_id ][ 'extra' ][ 'max' ] = $this->block_obj->extra;
         $all_blocks[ $block_id ][ 'unique_id' ] = $all_blocks[ $block_id ][ 'unique_id' ] . str_repeat( '≪0≫', $all_blocks[ $block_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] );
+		if(!empty($all_blocks[ $block_id ][ 'inputs_data' ])){
+			foreach ( $all_blocks[ $block_id ][ 'inputs_data' ] as $l => $input ) {
+				$repeated_name = str_repeat( '[0]', $all_blocks[ $block_id ][ 'extra' ][ 'unique_id_suffix_repeat' ]);
+				$repeated_id = str_repeat( '≪0≫', $all_blocks[ $block_id ][ 'extra' ][ 'unique_id_suffix_repeat' ]);
 
-        foreach ( $all_blocks[ $block_id ][ 'inputs_data' ] as $l => $input ) {
-			$repeated_name = str_repeat( '[0]', $all_blocks[ $block_id ][ 'extra' ][ 'unique_id_suffix_repeat' ]);
-			$repeated_id = str_repeat( '≪0≫', $all_blocks[ $block_id ][ 'extra' ][ 'unique_id_suffix_repeat' ]);
-
-            $all_blocks[ $block_id ][ 'inputs_data' ][ $l ][ 'attrs' ][ 'name' ] = $input[ 'attrs' ][ 'name' ] . $repeated_name;
-            $all_blocks[ $block_id ][ 'inputs_data' ][ $l ][ 'attrs' ][ 'id' ] = $input[ 'attrs' ][ 'id' ] . $repeated_id;
-            $all_blocks[ $block_id ][ 'inputs_data' ][ $l ][ 'unique_id' ] = $input[ 'unique_id' ] . $repeated_id;
-			$all_blocks[ $block_id ][ 'inputs_data' ][ $l ]['tag']['after'] = str_replace($input[ 'attrs' ][ 'id' ], $input[ 'attrs' ][ 'id' ] . $repeated_id,$all_blocks[ $block_id ][ 'inputs_data' ][ $l ]['tag']['after'] );
-			$all_blocks[ $block_id ][ 'inputs_data' ][ $l ]['tag']['before'] = str_replace($input[ 'attrs' ][ 'id' ], $input[ 'attrs' ][ 'id' ] . $repeated_id,$all_blocks[ $block_id ][ 'inputs_data' ][ $l ]['tag']['before'] );
-        }
-
+				$all_blocks[ $block_id ][ 'inputs_data' ][ $l ][ 'attrs' ][ 'name' ] = $input[ 'attrs' ][ 'name' ] . $repeated_name;
+				$all_blocks[ $block_id ][ 'inputs_data' ][ $l ][ 'attrs' ][ 'id' ] = $input[ 'attrs' ][ 'id' ] . $repeated_id;
+				$all_blocks[ $block_id ][ 'inputs_data' ][ $l ][ 'unique_id' ] = $input[ 'unique_id' ] . $repeated_id;
+				$all_blocks[ $block_id ][ 'inputs_data' ][ $l ]['tag']['after'] = str_replace($input[ 'attrs' ][ 'id' ], $input[ 'attrs' ][ 'id' ] . $repeated_id,$all_blocks[ $block_id ][ 'inputs_data' ][ $l ]['tag']['after'] );
+				$all_blocks[ $block_id ][ 'inputs_data' ][ $l ]['tag']['before'] = str_replace($input[ 'attrs' ][ 'id' ], $input[ 'attrs' ][ 'id' ] . $repeated_id,$all_blocks[ $block_id ][ 'inputs_data' ][ $l ]['tag']['before'] );
+			}
+		}else{
+          $this->error_log( 'there is no input in block' );
+		}
         $this->prevent_loop[ $block_id ] = $block_id;
         $all_blocks[ $block_id ][ 'fieldsets_data' ] = $this->create_fieldsets( $this->block_obj->fieldset_ids, $all_blocks[ $block_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] );
 
