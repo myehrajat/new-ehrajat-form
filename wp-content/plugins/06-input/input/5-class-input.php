@@ -46,10 +46,13 @@ class input extends data_creator {
     }
 
     function specific_atrributes( string $specific_id ) {
-        if ( $this->input_data[ 'input_html_type' ] !== 'hidden' ) {
+      // if ( $this->input_data[ 'input_html_type' ] !== 'hidden' ) {
             $specific_id = $this->get_ids( $specific_id, true );
+			//krumo( $specific_id);
             if ( !empty( $specific_id ) ) {
+				
                 $this->specific_attr_obj = new attribute_input_specific_generator( $specific_id, $this->input_data[ 'input_html_type' ],$this->input_id );
+				//krumo( $this->specific_attr_obj );
                 if ( !empty( $this->specific_attr_obj ) ) {
                     /***********
                     following input can use list
@@ -71,7 +74,7 @@ class input extends data_creator {
                 return NULL;
             }
 
-        }
+       // }
     }
 
     function custom_atrributes( string $custom_id ) {
@@ -85,6 +88,7 @@ class input extends data_creator {
         $this->common_atrributes( $input_id );
 		
         $this->global_atrributes( $this->input_obj->attr_html_global_id );
+		//krumo($this->input_obj->attr_input_specific_id);
 		$this->specific_atrributes( $this->input_obj->attr_input_specific_id );
         $this->custom_atrributes( $this->input_obj->attr_custom_ids );
         if ( empty( $this->common_attr_obj->input_data[ 'attrs' ] ) ) {

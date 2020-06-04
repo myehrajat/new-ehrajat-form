@@ -80,6 +80,10 @@ implements attribute_input_specific_generator_interface {
                     case "textarea":
                         $this->specific_obj = $this->get_by_id( $this->attr_input_specific_id, $GLOBALS[ 'sst_tables' ][ 'attr_input_textarea' ] );
                         break;
+                    case "hidden":
+                        $this->specific_obj = $this->get_by_id( $this->attr_input_specific_id, $GLOBALS[ 'sst_tables' ][ 'attr_input_hidden' ] );
+						//krumo($this->specific_obj);
+                        break;
                     default:
                         $this->specific_obj = NULL;
                         $this->error_log( 'input_type arguments is invalid.' );
@@ -110,7 +114,7 @@ implements attribute_input_specific_generator_interface {
 
     function create_attr_input_specific() {
        // $this->change_value_by_vals();
-
+//krumo($this->input_html_type=='hidden');
         if ( !empty( $this->attr_input_specific_id ) ) {
             $attr_input_specific_arr = array();
             switch ( $this->input_html_type ) {
@@ -309,6 +313,13 @@ implements attribute_input_specific_generator_interface {
                         'wrap' => $this->specific_obj->wrap,
                     ), $this->input_html_type );
                     $this->input_data[ 'text' ] = $this->specific_obj->text;
+                    break;
+                case "hidden":
+					//krumo($this->specific_obj);
+                    $specific = $this->create_multiple_attrs( array(
+                        'value' => $this->specific_obj->value,
+                    ), $this->input_html_type );
+					//krumo($specific);
                     break;
             }
         } else {

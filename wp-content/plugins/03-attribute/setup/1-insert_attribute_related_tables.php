@@ -45,6 +45,7 @@ class insert_attribute_related_tables extends database {
         $GLOBALS[ 'sst_tables' ][ 'attr_input_text_search' ] = $this->full_prefix . 'attr_input_text_search';
         $GLOBALS[ 'sst_tables' ][ 'attr_input_select' ] = $this->full_prefix . 'attr_input_select';
         $GLOBALS[ 'sst_tables' ][ 'attr_input_textarea' ] = $this->full_prefix . 'attr_input_textarea';
+        $GLOBALS[ 'sst_tables' ][ 'attr_input_hidden' ] = $this->full_prefix . 'attr_input_hidden';
         /************SPECIFIC RELATED INPUT ATTRIBUTE AND RELATED ATTRIBUTE TABLES*************/
         $GLOBALS[ 'sst_tables' ][ 'attr_input_select_optgroup' ] = $this->full_prefix . 'attr_input_select_optgroup';
         $GLOBALS[ 'sst_tables' ][ 'attr_input_select_options' ] = $this->full_prefix . 'attr_input_select_options';
@@ -524,6 +525,17 @@ class insert_attribute_related_tables extends database {
         "`required` VARCHAR(255) NOT NULL," .
         "`rows` VARCHAR(255) NOT NULL," .
         "`wrap` VARCHAR(255) NOT NULL," .
+        "`description` LONGTEXT DEFAULT NULL," .
+        "`owner` VARCHAR(255) DEFAULT NULL," .
+        "`created` DATETIME NOT NULL DEFAULT NOW()," .
+        "`modified` DATETIME NOT NULL DEFAULT NOW(),
+        PRIMARY KEY id  (`id`)) $this->collate_charset;";
+        ##################################################
+        $sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'attr_input_hidden' ] . " (" .
+        "`id` INT(10) NOT NULL auto_increment," .
+        "`epithet` VARCHAR(255) NOT NULL," .
+        "`slug` VARCHAR(255) NOT NULL," .
+        "`value` LONGTEXT NOT NULL," .
         "`description` LONGTEXT DEFAULT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .
         "`created` DATETIME NOT NULL DEFAULT NOW()," .
