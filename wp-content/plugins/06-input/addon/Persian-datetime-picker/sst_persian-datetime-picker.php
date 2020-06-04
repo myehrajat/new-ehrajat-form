@@ -16,9 +16,17 @@ $sst['id']=27;
 function sst_persian_bootstrap4_datetime_picker($input_data_json,$process_data_json=NULL){
 	$input_data = data_decoder($input_data_json);
 	require_once('register_js_css.php');
+	//$targetDateSelector = common::search_by_attr_to_get_other_attr('name',$input_data['meta']['targetDateSelector'],'id',$input_data,'input');
+$suffix_of_date_input_id = '_bootstrap4_datetime_picker';
 	//$input_data['attrs']['class'] .= ' form-control';
-	$input_data['tag']['before'] .= '<div class="conatiner"><div class="row"><div class="col-sm-6"><div class="input-group"><div class="input-group-prepend"> <span class="input-group-text cursor-pointer" id="'.$input_data['attrs']['id'].'_bootstrap4_datetime_picker'.'" data-mdpersiandatetimepicker="" data-original-title="" title="">Icon</span></div>';
+	$input_data['tag']['before'] .= '<div class="conatiner"><div class="row"><div class="col-sm-6"><div class="input-group"><div class="input-group-prepend"> <span class="input-group-text cursor-pointer" id="'.$input_data['attrs']['id'].'_bootstrap4_datetime_picker'.'" data-mdpersiandatetimepicker="" data-original-title="" title="">Date</span></div>';
 	$input_data['tag']['after'] .= '</div><label id="showDate_class"></label></div></div></div>';
+	
+	
+	
+	
+	
+	
 	$input_data['tag']['after'] .= '<script type="text/javascript">jQuery(function($) {jQuery("#'.$input_data['attrs']['id'].'_bootstrap4_datetime_picker'.'" ).MdPersianDateTimePicker({';
 	if(!is_array($input_data['meta']['englishNumber']) and !empty($input_data['meta']['englishNumber'])){
 		$input_data['tag']['after'] .= 'englishNumber:"'.$input_data['meta']['englishNumber'].'",';
@@ -33,7 +41,7 @@ function sst_persian_bootstrap4_datetime_picker($input_data_json,$process_data_j
 		$input_data['tag']['after'] .= 'enableTimePicker:"'.$input_data['meta']['enableTimePicker'].'",';
 	}
 	//if(!is_array($input_data['meta']['targetTextSelector']) and !empty($input_data['meta']['targetTextSelector'])){
-		$input_data['tag']['after'] .= 'targetTextSelector:"#'.$input_data['attrs']['id'].'",';
+	$input_data['tag']['after'] .= 'targetTextSelector:"#'.$input_data['attrs']['id'].'",';
 	//}
 	if(!is_array($input_data['meta']['targetDateSelector']) and !empty($input_data['meta']['targetDateSelector'])){
 		$input_data['tag']['after'] .= 'targetDateSelector:"#'.$input_data['meta']['targetDateSelector'].'",';

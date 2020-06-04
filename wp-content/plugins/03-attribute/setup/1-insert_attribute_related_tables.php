@@ -63,11 +63,11 @@ class insert_attribute_related_tables extends database {
         "`source_type` VARCHAR(255) DEFAULT NULL COMMENT 'Values:query | json_url | value'," .
         "`query` LONGTEXT DEFAULT NULL," . //query will override value
         "`json_url` LONGTEXT DEFAULT NULL," .
-        "`label` VARCHAR(255) DEFAULT NULL," .
-        "`value` VARCHAR(255) DEFAULT NULL," .
+        "`label` LONGTEXT DEFAULT NULL," .
+        "`value` LONGTEXT DEFAULT NULL," .
         "`disabled` VARCHAR(255) DEFAULT NULL," .
         "`attr_html_global_id` VARCHAR(255) DEFAULT NULL," .
-        "`description`  LONGTEXT DEFAULT NULL," .
+        "`description` LONGTEXT DEFAULT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .
         "`created` DATETIME NOT NULL DEFAULT NOW()," .
         "`modified` DATETIME NOT NULL DEFAULT NOW(),
@@ -172,7 +172,7 @@ class insert_attribute_related_tables extends database {
         "`id` INT(10) NOT NULL auto_increment," .
         "`epithet` VARCHAR(255) NOT NULL," .
         "`slug` VARCHAR(255) NOT NULL," .
-        "`label` VARCHAR(255) NOT NULL," .
+        "`label` LONGTEXT  NOT NULL," .
         "`option_ids` VARCHAR(255) NOT NULL," .
         "`attr_html_global_id` VARCHAR(255) DEFAULT NULL," .
         "`description` LONGTEXT DEFAULT NULL," .
@@ -189,9 +189,9 @@ class insert_attribute_related_tables extends database {
         "`source_type` VARCHAR(255) DEFAULT NULL COMMENT 'Values:query | json_url | value'," .
         "`query` LONGTEXT DEFAULT NULL," .
         "`json_url` LONGTEXT DEFAULT NULL," .
-        "`text` VARCHAR(255) DEFAULT NULL," .
-        "`label` VARCHAR(255) NOT NULL," .
-        "`value` VARCHAR(255) NOT NULL," .
+        "`text` LONGTEXT DEFAULT NULL," .
+        "`label` LONGTEXT  NOT NULL," .
+        "`value` LONGTEXT  NOT NULL," .
         "`disabled` VARCHAR(255) NOT NULL," .
         "`selected` VARCHAR(255) NOT NULL," .
         "`attr_html_global_id` VARCHAR(255) DEFAULT NULL," .

@@ -286,6 +286,7 @@ class data_action extends process {
                 $this->vals[ '__sst__files' ][ $sorted_colvals_vals[ 'colval_obj' ]->value ],
                 $sorted_colvals_vals[ 'colval_obj' ]->file_path,
                 $this->data_action_obj->default_file_path );
+				 
               if ( !isset( $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->column ] ) ) {
                 $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ];
               }
@@ -621,7 +622,6 @@ class data_action extends process {
         //Unkown Error
       }
     }
-
     return $urls;
     //if(is_array($files['name']){
 

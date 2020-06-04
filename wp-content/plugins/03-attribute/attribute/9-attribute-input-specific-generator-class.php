@@ -382,13 +382,13 @@ implements attribute_input_specific_generator_interface {
 						$list_obj = $this->get_by_id( $list_id, $GLOBALS[ 'sst_tables' ][ 'attr_input_attr_list' ] );
 				}
 				//strtolower($list_obj->source_type);
-                if ( in_array($list_obj->source_type , array( 'json', 'query', 'value' ) ) ) {
+                if ( in_array(strtolower($list_obj->source_type) , array( 'json', 'query', 'value' ) ) ) {
                     switch ( $list_obj->source_type ) {
                         case 'value':
 							
                             $opt_attrs[ 'specific' ] = array();
                             $value = $this->is_eval_run( $list_obj->value );
-                            if ( $value ) {
+                           // if ( $value ) {
                                 $this->input_data = array();
                                 $label = $this->is_eval_run( $list_obj->label );
                                 if ( $input_html_type == 'select' ) {
@@ -403,10 +403,11 @@ implements attribute_input_specific_generator_interface {
                                 $this->create_attribute( 'value', $value );
                                 $this->create_attribute( 'label', $label );
                                 $options[ $i ][ 'attrs' ] = array_merge( $opt_attrs[ 'global' ], $opt_attrs[ 'specific' ], $this->input_data[ 'attrs' ] );
+								
                                 $i++;
-                            } else {
-                                $this->error_log( 'list | option VALUE is empty.' );
-                            }
+                            //} else {
+                             //   $this->error_log( 'list | option VALUE is empty.' );
+                            //}
                             break;
                         case 'query':
                             global $wpdb;
