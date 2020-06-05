@@ -107,7 +107,9 @@ class insert_input_related_tables extends database {
         "`id` INT(10) NOT NULL auto_increment," .
         "`epithet` VARCHAR(255) DEFAULT NULL," .
         "`slug` VARCHAR(255) DEFAULT NULL," .
-        "`input_ids` VARCHAR(255) NOT NULL," .
+        "`input_ids` VARCHAR(255) NOT NULL COMMENT 'Make any change you want before redending input in input_data you only need change $ input_data it will return it automatically'," .
+        "`block_ids` VARCHAR(255) NOT NULL COMMENT 'Make any change you want before redending block in block_data you only need change $ block_data it will return it automatically'," .
+        "`fieldset_ids` VARCHAR(255) NOT NULL COMMENT 'Make any change you want before redending fieldset in fieldset_data you only need change $ fieldset_data it will return it automatically'," .
         "`attr` VARCHAR(255) NOT NULL," .
 		"`value` VARCHAR(255) NOT NULL," .
 		"`remove_attr` VARCHAR(255) NOT NULL," .

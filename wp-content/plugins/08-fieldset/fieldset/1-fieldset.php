@@ -62,13 +62,13 @@ class fieldset extends data_creator {
     $fieldset_obj = $this->get_fieldset_object( $fieldset_id );
     $all_fieldsets[ $fieldset_id ] = $this->create_inputs( $fieldset_obj ); //$fieldset_id;
     //this part change unique_ids and names of fields and javascript extra handle add and remove
-    if ( $this->fieldset_obj->extra > 0 ) {
+    if ( $fieldset_obj->extra > 0 ) {
       $all_fieldsets[ $fieldset_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] = $parent_fieldset[ 'extra' ][ 'unique_id_suffix_repeat' ] + 1;
     } else {
       $all_fieldsets[ $fieldset_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] = $parent_fieldset[ 'extra' ][ 'unique_id_suffix_repeat' ];
     }
     $all_fieldsets[ $fieldset_id ] = $this->create_show_order_data( $all_fieldsets[ $fieldset_id ], $fieldset_obj, 'fieldset' );
-    $all_fieldsets[ $fieldset_id ][ 'extra' ][ 'max' ] = $this->fieldset_obj->extra;
+    $all_fieldsets[ $fieldset_id ][ 'extra' ][ 'max' ] = $fieldset_obj->extra;
     $all_fieldsets[ $fieldset_id ][ 'unique_id' ] = $all_fieldsets[ $fieldset_id ][ 'unique_id' ] . str_repeat( '≪0≫', $all_fieldsets[ $fieldset_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] );
     if ( !empty( $all_fieldsets[ $fieldset_id ][ 'inputs_data' ] ) ) {
       foreach ( $all_fieldsets[ $fieldset_id ][ 'inputs_data' ] as $l => $input ) {
@@ -83,11 +83,11 @@ class fieldset extends data_creator {
           $this->error_log( 'there is no input in fieldset' );
 	}
     $this->prevent_loop[ $fieldset_id ] = $fieldset_id;
-    $all_fieldsets[ $fieldset_id ][ 'blocks_data' ] = $this->create_blocks( $this->fieldset_obj->block_ids, $all_fieldsets[ $fieldset_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] );
+    $all_fieldsets[ $fieldset_id ][ 'blocks_data' ] = $this->create_blocks( $fieldset_obj->block_ids, $all_fieldsets[ $fieldset_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] );
 
-    //$all_fieldsets[ $fieldset_id ][ 'blocks_data' ] = $this->create_blocks( $this->fieldset_obj->block_ids );
-    if ( !empty( $this->fieldset_obj->fieldset_ids ) ) {
-      $child_fieldset_ids = $this->get_ids( $this->fieldset_obj->fieldset_ids );
+    //$all_fieldsets[ $fieldset_id ][ 'blocks_data' ] = $this->create_blocks( $fieldset_obj->block_ids );
+    if ( !empty( $fieldset_obj->fieldset_ids ) ) {
+      $child_fieldset_ids = $this->get_ids( $fieldset_obj->fieldset_ids );
       foreach ( $child_fieldset_ids as $k => $child_fieldset_id ) {
         if ( in_array( $child_fieldset_id, $this->prevent_loop ) == false ) {
           $this->prevent_loop[ $child_fieldset_id ] = $child_fieldset_id;
@@ -152,6 +152,7 @@ class fieldset extends data_creator {
     $fieldset_id = $this->get_ids( $fieldset_id, true );
     if ( $this->is_positive_number( $fieldset_id ) ) {
       $this->fieldset_obj = $this->get_by_id( $fieldset_id, $GLOBALS[ 'sst_tables' ][ 'fieldset' ] );
+	  return $this->fieldset_obj;
     } else {
       $this->error_log( 'fieldset id is empty or is not positive int.' );
       return NULL;

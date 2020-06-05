@@ -652,12 +652,12 @@ class render extends database {
     if ( !empty( $block_data[ 'fieldsets_data' ] ) ) {
       $fieldsets = '';
       foreach ( $block_data[ 'fieldsets_data' ] as $fieldsets_data ) {
-        $elements[ 'fieldset' ] = $elements[ 'fieldset' ] . $this->render_fieldset( $fieldsets_data );
+        $elements[ 'fieldset' ] .= $elements[ 'fieldset' ] . $this->render_fieldset( $fieldsets_data );
       }
     }
     if ( !empty( $block_data[ 'children' ] ) ) {
       foreach ( $block_data[ 'children' ] as $new_block_data ) {
-        $elements[ 'block' ] = $this->render_block( $new_block_data );
+        $elements[ 'block' ] .= $this->render_block( $new_block_data );
       }
     }
 
@@ -862,12 +862,12 @@ class render extends database {
     if ( !empty( $fieldset_data[ 'blocks_data' ] ) ) {
       $blocks = '';
       foreach ( $fieldset_data[ 'blocks_data' ] as $blocks_data ) {
-        $elements[ 'block' ] = $elements[ 'block' ] . $this->render_block( $blocks_data );
+        $elements[ 'block' ] .= $elements[ 'block' ] . $this->render_block( $blocks_data );
       }
     }
     if ( !empty( $fieldset_data[ 'children' ] ) ) {
       foreach ( $fieldset_data[ 'children' ] as $new_fieldset_data ) {
-        $elements[ 'fieldset' ] = $this->render_fieldset( $new_fieldset_data );
+        $elements[ 'fieldset' ] .= $this->render_fieldset( $new_fieldset_data );
       }
     }
     $fieldset_prefix = '<sst-fieldset id="' . $fieldset_data[ 'unique_id' ] . '">' . $this->render_extra( $fieldset_data[ 'extra' ], 'before' ) . $fieldset_data[ 'tag' ][ 'before' ] . '<fieldset ' . $this->render_attrs( $fieldset_data[ 'attrs' ] ) . '>' . $this->render_legend( $fieldset_data[ 'legend' ] );

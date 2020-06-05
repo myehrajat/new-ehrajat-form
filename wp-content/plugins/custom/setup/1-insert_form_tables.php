@@ -22,6 +22,7 @@ class insert_custom_tables extends database {
     $GLOBALS[ 'sst_custom' ][ 'legal_preson_type' ] = $wpdb->prefix . 'custom_' . 'legal_person_type';
     $GLOBALS[ 'sst_custom' ][ 'acquaintance_type' ] = $wpdb->prefix . 'custom_' . 'acquaintance_type';
     $GLOBALS[ 'sst_custom' ][ 'social_network' ] = $wpdb->prefix . 'custom_' . 'social_network';
+    $GLOBALS[ 'sst_custom' ][ 'education' ] = $wpdb->prefix . 'custom_' . 'education';
     $GLOBALS[ 'sst_custom' ][ 'person' ] = $wpdb->prefix . 'custom_' . 'person';
   }
 
@@ -151,38 +152,51 @@ class insert_custom_tables extends database {
     global $wpdb;
     $this->create_tables( $sql );
 
+    $sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_custom' ][ 'education' ] . " (" .
+    "`id` INT(10) NOT NULL auto_increment," .
+    "`name` VARCHAR(255) NOT NULL," .
+    "`desc` LONGTEXT NOT NULL," .
+    "`save_id` VARCHAR(255) NOT NULL," .
+    "`owner` VARCHAR(255) DEFAULT NULL," .
+    "`created` DATETIME NOT NULL DEFAULT NOW()," .
+    "`modified` DATETIME NOT NULL DEFAULT NOW(),
+        PRIMARY KEY id  (`id`)) $this->collate_charset;";
+    global $wpdb;
+    $this->create_tables( $sql );
+
+
     $sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_custom' ][ 'person' ] . " (" .
     "`id` INT(10) NOT NULL auto_increment," .
     "`name` VARCHAR(255) NOT NULL," .
     "`last_name` VARCHAR(255) NOT NULL," .
+    "`image` VARCHAR(255) NOT NULL," .
     "`is_legal` VARCHAR(255) NOT NULL," .
     "`legal_person_type_id` VARCHAR(255) NOT NULL," .
+    "`legal_person_national_id` VARCHAR(255) NOT NULL," .
+    "`legal_person_notary_id` VARCHAR(255) NOT NULL," .
+    "`statute_image` VARCHAR(255) NOT NULL," .
     "`national_id` VARCHAR(255) NOT NULL," .
-    "`national_id_2` VARCHAR(255) NOT NULL," .
-    "`birth_date` VARCHAR(255) NOT NULL," .
-    "`tax_code` VARCHAR(255) NOT NULL," .
     "`national_card` VARCHAR(255) NOT NULL," .
-    "`email` VARCHAR(255) NOT NULL," .
-    "`website` VARCHAR(255) NOT NULL," .
+    "`birth_date` VARCHAR(255) NOT NULL," .
+    "`birth_place` VARCHAR(255) NOT NULL," .
+    "`father_name` VARCHAR(255) NOT NULL," .
+    "`national_id_2` VARCHAR(255) NOT NULL," .
+    "`national_card_2` VARCHAR(255) NOT NULL," .
+    "`driving_licence_no` VARCHAR(255) NOT NULL," .
+    "`driving_licence_issue_date` VARCHAR(255) NOT NULL," .
+    "`driving_licence_card` VARCHAR(255) NOT NULL," .
+    "`currency_id` VARCHAR(255) NOT NULL," .
+    "`passport_no` VARCHAR(255) NOT NULL," .
+    "`passport_image` VARCHAR(255) NOT NULL," .
+    "`nationality` VARCHAR(255) NOT NULL," .
+    "`tax_code` VARCHAR(255) NOT NULL," .
     "`reference_person_id` VARCHAR(255) NOT NULL," .
     "`acquaintance_type_id` VARCHAR(255) NOT NULL," .
+    "`job` VARCHAR(255) NOT NULL," .
+    "`education` VARCHAR(255) NOT NULL," .
+    "`email` VARCHAR(255) NOT NULL," .
+    "`website` VARCHAR(255) NOT NULL," .
     "`desc` LONGTEXT NOT NULL," .
-
-    /*
-
-        person_id
-        acquaintance_type_id
-                "`last_name` VARCHAR(255) NOT NULL," .
-                "`lagal_person_type_id` VARCHAR(255) NOT NULL," .
-                "`birth_date` VARCHAR(255) NOT NULL," .
-                "`parent_name` VARCHAR(255) NOT NULL," .
-                "`parent_name` VARCHAR(255) NOT NULL," .
-                "`parent_name` VARCHAR(255) NOT NULL," .
-                "`parent_name` VARCHAR(255) NOT NULL," .
-                "`parent_name` VARCHAR(255) NOT NULL," .
-                "`parent_name` VARCHAR(255) NOT NULL," .
-                "`desc` VARCHAR(255) NOT NULL," .
-    			*/
     "`save_id` VARCHAR(255) NOT NULL," .
     "`owner` VARCHAR(255) DEFAULT NULL," .
     "`created` DATETIME NOT NULL DEFAULT NOW()," .

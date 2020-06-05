@@ -10,7 +10,11 @@ class block extends data_creator {
 
         $this->prevent_loop = $force_prevent_loop;
         $this->get_block_object( $block_id );
+		
         $this->block_data = $this->create_block_structure( $block_id );
+				//krumo($this->block_data);
+
+
     }
     function create_fieldsets( $fieldset_ids_str, $unique_id_suffix_repeat = 0 ) {
         $fieldset_block_id_cause_forever_loop = array();
@@ -63,18 +67,21 @@ class block extends data_creator {
     }
 
 
-    function create_block_structure( $block_id, $parent_block = NULL ) {
+function create_block_structure( $block_id, $parent_block = NULL ) {
         $block_obj = $this->get_block_object( $block_id );
+		//$all_blocks[ $block_id ]['attr_changer_condition_ids']= $block_obj->attr_changer_condition_ids;
+				
+
         $all_blocks[ $block_id ] = $this->create_inputs( $block_obj ); //$block_id;
         //this part change unique_ids and names of fields and javascript extra handle add and remove
-        if ( $this->block_obj->extra > 0 ) {
+        if ( $block_obj->extra > 0 ) {
             $all_blocks[ $block_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] = $parent_block[ 'extra' ][ 'unique_id_suffix_repeat' ] + 1;
         } else {
             $all_blocks[ $block_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] = $parent_block[ 'extra' ][ 'unique_id_suffix_repeat' ];
         }
         $all_blocks[ $block_id ] = $this->create_show_order_data( $all_blocks[ $block_id ], $block_obj, 'block' );
         //$all_blocks[ $block_id ] = $this->set_show_order($all_blocks[ $block_id ]);
-        $all_blocks[ $block_id ][ 'extra' ][ 'max' ] = $this->block_obj->extra;
+        $all_blocks[ $block_id ][ 'extra' ][ 'max' ] = $block_obj->extra;
         $all_blocks[ $block_id ][ 'unique_id' ] = $all_blocks[ $block_id ][ 'unique_id' ] . str_repeat( '≪0≫', $all_blocks[ $block_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] );
 		if(!empty($all_blocks[ $block_id ][ 'inputs_data' ])){
 			foreach ( $all_blocks[ $block_id ][ 'inputs_data' ] as $l => $input ) {
@@ -91,10 +98,10 @@ class block extends data_creator {
           $this->error_log( 'there is no input in block' );
 		}
         $this->prevent_loop[ $block_id ] = $block_id;
-        $all_blocks[ $block_id ][ 'fieldsets_data' ] = $this->create_fieldsets( $this->block_obj->fieldset_ids, $all_blocks[ $block_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] );
+        $all_blocks[ $block_id ][ 'fieldsets_data' ] = $this->create_fieldsets( $block_obj->fieldset_ids, $all_blocks[ $block_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] );
 
-        if ( !empty( $this->block_obj->block_ids ) ) {
-            $child_block_ids = $this->get_ids( $this->block_obj->block_ids );
+        if ( !empty( $block_obj->block_ids ) ) {
+            $child_block_ids = $this->get_ids( $block_obj->block_ids );
             foreach ( $child_block_ids as $k => $child_block_id ) {
                 if ( in_array( $child_block_id, $this->prevent_loop ) == false ) {
                     $this->prevent_loop[ $child_block_id ] = $child_block_id;
@@ -110,11 +117,11 @@ class block extends data_creator {
         }
         return $all_blocks[ $block_id ];
     }
-
     function get_block_object( $block_id ) {
         $block_id = $this->get_ids( $block_id, true );
         if ( $this->is_positive_number( $block_id ) ) {
             $this->block_obj = $this->get_by_id( $block_id, $GLOBALS[ 'sst_tables' ][ 'block' ] );
+			return $this->block_obj;
         } else {
             $this->error_log( 'block id is empty or is not positive int.' );
             return NULL;
