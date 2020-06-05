@@ -10,10 +10,8 @@ class block extends data_creator {
 
         $this->prevent_loop = $force_prevent_loop;
         $this->get_block_object( $block_id );
-		
         $this->block_data = $this->create_block_structure( $block_id );
-				//krumo($this->block_data);
-
+		krumo($this->block_data);
 
     }
     function create_fieldsets( $fieldset_ids_str, $unique_id_suffix_repeat = 0 ) {
@@ -69,7 +67,7 @@ class block extends data_creator {
 
 function create_block_structure( $block_id, $parent_block = NULL ) {
         $block_obj = $this->get_block_object( $block_id );
-		//$all_blocks[ $block_id ]['attr_changer_condition_ids']= $block_obj->attr_changer_condition_ids;
+		
 				
 
         $all_blocks[ $block_id ] = $this->create_inputs( $block_obj ); //$block_id;
@@ -115,6 +113,8 @@ function create_block_structure( $block_id, $parent_block = NULL ) {
             }
 
         }
+	//krumo($block_obj->attr_changer_condition_ids);
+		$all_blocks[ $block_id ]['attr_changer_condition_ids']= $block_obj->attr_changer_condition_ids;
         return $all_blocks[ $block_id ];
     }
     function get_block_object( $block_id ) {

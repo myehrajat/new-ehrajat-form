@@ -101,6 +101,7 @@ class fieldset extends data_creator {
       }
 
     }
+	$all_fieldsets[ $all_fieldsets ]['attr_changer_condition_ids']= $fieldset_obj->attr_changer_condition_ids;
     return $all_fieldsets[ $fieldset_id ];
   }
 
