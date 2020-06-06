@@ -1,7 +1,7 @@
 jQuery(document).ready(function () {
   var sst = {};
   sst.tag_names = ['sst-input', 'sst-block', 'sst-fieldset'];
-  sst.script_tag_id = 'sst-script'
+  sst.script_tag_id = 'sst-script';
   sst.add_contoller_suffix = '_controller_add';
   sst.remove_contoller_suffix = '_controller_remove';
   sst.unique_id_length = 12;
@@ -52,7 +52,7 @@ jQuery(document).ready(function () {
     var split_char = '≪';
     var last_char = '≫';
     if (src_iden_array < 2) {
-	//if()
+      //if()
       src_iden_array = source_identifier.split('[');
       split_char = '[';
       last_char = ']';
@@ -101,9 +101,11 @@ jQuery(document).ready(function () {
     return added_down;
 
   }
-	function has_empty_bracket_of_input_name(){
-		
-	}
+
+  function has_empty_bracket_of_input_name() {
+
+  }
+
   function add_up_last_number(inserted_element, source_element_id) {
     var all_source = [];
     var all_cloned = [];
@@ -124,15 +126,15 @@ jQuery(document).ready(function () {
       all_source.push(jQuery(input).attr('id'));
       all_source.push(jQuery(input).attr('name'));
       jQuery(input).attr('id', add_up_single_string(jQuery(input).attr('id'), source_element_id));
-		//has_empty_bracket_of_input_name();
-		var empty_bracket =  jQuery(input).attr('name').endsWith('[]');
-		if(empty_bracket==true){
-			var temp_name = jQuery(input).attr('name').substring(0, jQuery(input).attr('name').length - 2);
-		  jQuery(input).attr('name', add_up_single_string(temp_name, source_element_id, '[', ']')+'[]');
+      //has_empty_bracket_of_input_name();
+      var empty_bracket = jQuery(input).attr('name').endsWith('[]');
+      if (empty_bracket == true) {
+        var temp_name = jQuery(input).attr('name').substring(0, jQuery(input).attr('name').length - 2);
+        jQuery(input).attr('name', add_up_single_string(temp_name, source_element_id, '[', ']') + '[]');
 
-		}else{
-		  jQuery(input).attr('name', add_up_single_string(jQuery(input).attr('name'), source_element_id, '[', ']'));
-		}
+      } else {
+        jQuery(input).attr('name', add_up_single_string(jQuery(input).attr('name'), source_element_id, '[', ']'));
+      }
       all_cloned.push(jQuery(input).attr('id'));
       all_cloned.push(jQuery(input).attr('name'));
     });
@@ -236,20 +238,23 @@ jQuery(document).ready(function () {
     //jQuery("#" + remove_underlined_suffix(sst.source_add_controller_id).concat(sst.remove_contoller_suffix)).hide();
     //cloned
     var toShow_remove_controller = jQuery("#" + add_up_single_string(remove_underlined_suffix(sst.source_add_controller_id), sst.source_element_id).concat(sst.remove_contoller_suffix));
-	  toShow_remove_controller.show();
-	  toShow_remove_controller.removeAttr('disabled');
+    toShow_remove_controller.show();
+    toShow_remove_controller.removeAttr('disabled');
     if (sst.max_extra - 1 == sst.source_last_number) {
       jQuery("#" + add_up_single_string(remove_underlined_suffix(sst.source_add_controller_id), sst.source_element_id).concat(sst.add_contoller_suffix)).hide();
     }
   }
 
   jQuery('body').on('click', "[id$='" + sst.add_contoller_suffix + "']", function (event) {
+    sst.script_tag_id = 'sst-script' + '-' + jQuery(this).parents('sst-form:first').attr('id');
+	    //console.log(sst.script_tag_id)
     event.preventDefault(); //prevent submitting in fast double click
     sst.source_add_controller_id = this.id;
     sst.source_last_number = get_last_number(remove_underlined_suffix(sst.source_add_controller_id));
     sst.max_extra = get_max_extra(sst.source_add_controller_id);
     if (sst.max_extra > sst.source_last_number) {
       sst.source_element_id = remove_underlined_suffix(sst.source_add_controller_id);
+
       sst.clone_source_element = clone_source_element(sst.source_element_id);
       sst.inserted_element = insert_cloned_element(sst.clone_source_element, sst.source_element_id);
       add_up_last_number(sst.inserted_element, sst.source_element_id);
@@ -259,11 +264,13 @@ jQuery(document).ready(function () {
   });
 
   jQuery('body').on('click', "[id$='" + sst.remove_contoller_suffix + "']", function (event) {
-	  console.log(sst.remove_contoller_suffix);
-	  console.log('remove triggered');
+    sst.script_tag_id = 'sst-script' + '-' + jQuery(this).parents('sst-form:first').attr('id');
+    //console.log(sst.remove_contoller_suffix);
+    //console.log('remove triggered');
     event.preventDefault(); //prevent submitting in fast double click
     sst.source_remove_controller_id = this.id;
     sst.source_element_id = remove_underlined_suffix(sst.source_remove_controller_id);
+
     jQuery("#" + sst.source_element_id).first().remove();
     sst.source_last_number = get_last_number(sst.source_element_id);
     var temp = add_up_single_string(sst.source_element_id, sst.source_element_id);
@@ -272,6 +279,7 @@ jQuery(document).ready(function () {
       temp = add_up_single_string(temp, sst.source_element_id);
     }
     sst.unique = get_unqiue(sst.source_element_id);
+	
     var last_element = find_last_element_id(sst.script_tag_id + "-" + sst.source_element_id);
     last_element.remove();
     rewrite_all_scripts_onfly();

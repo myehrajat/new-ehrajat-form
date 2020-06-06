@@ -14,6 +14,17 @@ class fieldset extends data_creator {
     $this->fieldset_data = $this->create_fieldset_structure( $fieldset_id );
   }
 
+  function get_fieldset_object( $fieldset_id ) {
+    $fieldset_id = $this->get_ids( $fieldset_id, true );
+    if ( $this->is_positive_number( $fieldset_id ) ) {
+      $this->fieldset_obj = $this->get_by_id( $fieldset_id, $GLOBALS[ 'sst_tables' ][ 'fieldset' ] );
+      return $this->fieldset_obj;
+    } else {
+      $this->error_log( 'fieldset id is empty or is not positive int.' );
+      return NULL;
+    }
+  }
+
   function create_blocks( $fieldset_ids_str, $unique_id_suffix_repeat = 0 ) {
     $block_fieldset_id_cause_forever_loop = array();
     $all_blocks = array();
@@ -61,6 +72,16 @@ class fieldset extends data_creator {
   function create_fieldset_structure( $fieldset_id, $parent_fieldset = NULL ) {
     $fieldset_obj = $this->get_fieldset_object( $fieldset_id );
     $all_fieldsets[ $fieldset_id ] = $this->create_inputs( $fieldset_obj ); //$fieldset_id;
+
+
+    $all_fieldsets[ $fieldset_id ][ 'id' ] = $fieldset_obj->id;
+
+
+    $all_fieldsets[ $fieldset_id ] = $this->create_unique_id_data( $all_fieldsets[ $fieldset_id ] );
+    $all_fieldsets[ $fieldset_id ] = $this->create_access_data( $all_fieldsets[ $fieldset_id ], $fieldset_obj );
+    $all_fieldsets[ $fieldset_id ] = $this->create_tag_data( $all_fieldsets[ $fieldset_id ], $fieldset_obj );
+
+
     //this part change unique_ids and names of fields and javascript extra handle add and remove
     if ( $fieldset_obj->extra > 0 ) {
       $all_fieldsets[ $fieldset_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] = $parent_fieldset[ 'extra' ][ 'unique_id_suffix_repeat' ] + 1;
@@ -79,9 +100,9 @@ class fieldset extends data_creator {
         $all_fieldsets[ $fieldset_id ][ 'inputs_data' ][ $l ][ 'tag' ][ 'after' ] = str_replace( $input[ 'attrs' ][ 'id' ], $input[ 'attrs' ][ 'id' ] . $repeated_id, $all_fieldsets[ $fieldset_id ][ 'inputs_data' ][ $l ][ 'tag' ][ 'after' ] );;
         $all_fieldsets[ $fieldset_id ][ 'inputs_data' ][ $l ][ 'tag' ][ 'before' ] = str_replace( $input[ 'attrs' ][ 'id' ], $input[ 'attrs' ][ 'id' ] . $repeated_id, $all_fieldsets[ $fieldset_id ][ 'inputs_data' ][ $l ][ 'tag' ][ 'before' ] );;
       }
-    }else{
-          $this->error_log( 'there is no input in fieldset' );
-	}
+    } else {
+      $this->error_log( 'there is no input in fieldset' );
+    }
     $this->prevent_loop[ $fieldset_id ] = $fieldset_id;
     $all_fieldsets[ $fieldset_id ][ 'blocks_data' ] = $this->create_blocks( $fieldset_obj->block_ids, $all_fieldsets[ $fieldset_id ][ 'extra' ][ 'unique_id_suffix_repeat' ] );
 
@@ -100,8 +121,9 @@ class fieldset extends data_creator {
         }
       }
 
-    }
-	$all_fieldsets[ $all_fieldsets ]['attr_changer_condition_ids']= $fieldset_obj->attr_changer_condition_ids;
+    }else{
+		$all_fieldsets[ $fieldset_id ][ 'children' ] = NULL;
+	}
     return $all_fieldsets[ $fieldset_id ];
   }
 
@@ -149,16 +171,6 @@ class fieldset extends data_creator {
       $specific_attr_obj->input_data[ 'attrs' ] );
   }
 
-  function get_fieldset_object( $fieldset_id ) {
-    $fieldset_id = $this->get_ids( $fieldset_id, true );
-    if ( $this->is_positive_number( $fieldset_id ) ) {
-      $this->fieldset_obj = $this->get_by_id( $fieldset_id, $GLOBALS[ 'sst_tables' ][ 'fieldset' ] );
-	  return $this->fieldset_obj;
-    } else {
-      $this->error_log( 'fieldset id is empty or is not positive int.' );
-      return NULL;
-    }
-  }
 
   function create_inputs( $fieldset_obj = NULL ) {
     if ( $fieldset_obj == NULL ) {
@@ -174,17 +186,15 @@ class fieldset extends data_creator {
       $this->create_legend_data( $this->get_ids( $fieldset_obj->legend_id, true ) );
 
       if ( !empty( $this->fieldset_data[ 'input_ids' ] ) ) {
-        $this->fieldset_data = $this->create_unique_id_data( $this->fieldset_data );
         foreach ( $this->fieldset_data[ 'input_ids' ] as $k => $input_id ) {
           $input_obj = new input( $input_id );
           $this->fieldset_data[ 'inputs_data' ][] = $input_obj->input_data;
         }
-        $this->fieldset_data = $this->create_access_data( $this->fieldset_data, $fieldset_obj );
-
-        $this->fieldset_data = $this->create_tag_data( $this->fieldset_data, $fieldset_obj );
       } else {
-        $this->error_log( 'no input ids after processing input ids of your fieldset.' );
-        return NULL;
+        $this->fieldset_data[ 'input_ids' ] = NULL;
+        $this->fieldset_data[ 'inputs_data' ] = NULL;
+        //$this->error_log( 'no input ids after processing input ids of your fieldset.' );
+        //return NULL;
       }
 
     } else {

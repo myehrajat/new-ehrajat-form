@@ -37,7 +37,6 @@ class insert_fieldset_tables extends database {
         "`tag_id` VARCHAR(255) DEFAULT NULL," .
         "`access_id` VARCHAR(255) DEFAULT NULL," .
         "`extra` VARCHAR(255) DEFAULT NULL," .
-        "`attr_changer_condition_ids` VARCHAR(255) DEFAULT NULL," .
         "`description` LONGTEXT DEFAULT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .
         "`created` DATETIME NOT NULL DEFAULT NOW()," .

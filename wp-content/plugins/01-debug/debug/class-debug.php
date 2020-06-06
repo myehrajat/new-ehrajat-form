@@ -37,7 +37,7 @@ class debug {
             }
             error_log( '[' . date( "Y-m-d h:i:sa" ) . ']Source Function:' . $func_series . PHP_EOL . 'SOUREC FILE:' . $backtrace[ 1 ][ 'file' ] . PHP_EOL . $error_txt . PHP_EOL . PHP_EOL, 3, DEBUG_ERROR_LOG );
         } else {
-            $this->sst_delete_log();
+            debug::sst_delete_log();
         }
     }
     /**************************************************

@@ -137,20 +137,30 @@ implements common_interface {
   function search_by_attr_to_get_other_attr( $attr_name, $attr_value, $return_attr_name, $data, $data_type ) {
     $all_inputs = common::get_all_inputs_data( $data, $data_type );
     foreach ( $all_inputs as $input_data ) {
-      if ( $input_data[ "attrs" ][ $attr_name ] == $attr_value 
-		  or str::starts_with($input_data[ "attrs" ][ $attr_name ],$attr_value.'≪') 
-		  or str::starts_with($input_data[ "attrs" ][ $attr_name ],$attr_value.'[') ) {
-		 
+      if ( $input_data[ "attrs" ][ $attr_name ] == $attr_value or str::starts_with( $input_data[ "attrs" ][ $attr_name ], $attr_value . '≪' )or str::starts_with( $input_data[ "attrs" ][ $attr_name ], $attr_value . '[' ) ) {
+
         return $input_data[ "attrs" ][ $return_attr_name ];
       }
     }
     return NULL;
   }
+
+
+  function autogenerate_id( $attrs, $enable = 'yes' ) {
+    //krumo( 'this is auto generator of id' );
+    if ( $enable == 'yes'
+      and!isset( $attrs[ 'id' ] )or empty( $attrs[ 'id' ] ) ) {
+      $attrs[ 'id' ] = $this->random_string( 12 );
+    }
+    return $attrs;
+  }
+
+
   /* Get all inputs of a process or form or block or fieldset it recursively search for childern and block in block or field set*/
   function get_all_inputs_data( $data, $type ) {
     static $all_input;
     if ( debug_backtrace()[ 1 ][ 'function' ] !== __FUNCTION__ ) {
-        $all_input = array();
+      $all_input = array();
     }
     switch ( $type ) {
       case "process":
@@ -179,6 +189,11 @@ implements common_interface {
             common::get_all_inputs_data( $block, "block" );
           }
         }
+        if ( !empty( $data[ 'fieldsets_data' ] ) ) {
+          foreach ( $data[ 'fieldsets_data' ] as $fieldset ) {
+            common::get_all_inputs_data( $fieldset, "fieldset" );
+          }
+        }
         if ( !empty( $data[ "inputs_data" ] ) ) {
           common::get_all_inputs_data( $data[ "inputs_data" ], "input" );
         }
@@ -189,6 +204,11 @@ implements common_interface {
             common::get_all_inputs_data( $fieldset, "fieldset" );
           }
         }
+        if ( !empty( $data[ 'blocks_data' ] ) ) {
+          foreach ( $data[ 'blocks_data' ] as $block ) {
+            common::get_all_inputs_data( $block, "block" );
+          }
+        }
         if ( !empty( $data[ "inputs_data" ] ) ) {
           common::get_all_inputs_data( $data[ "inputs_data" ], "input" );
         }
@@ -197,7 +217,13 @@ implements common_interface {
         if ( !empty( $all_input ) ) {
           $all_input = array_merge( $all_input, $data );
         } else {
-          $all_input = $data;
+          reset( $data );
+          $first_key = key( $data );
+          if ( is_int( $first_key ) ) {
+            $all_input = $data;
+          } else {
+            $all_input = array( $data );
+          }
         }
         break;
 
@@ -205,12 +231,115 @@ implements common_interface {
     return $all_input;
   }
 
-  function autogenerate_id( $attrs, $enable = 'yes' ) {
-    //krumo( 'this is auto generator of id' );
-    if ( $enable == 'yes'
-      and!isset( $attrs[ 'id' ] )or empty( $attrs[ 'id' ] ) ) {
-      $attrs[ 'id' ] = $this->random_string( 12 );
+
+  /* Get all inputs of a process or form or block or fieldset it recursively search for childern and block in block or field set*/
+  function get_all_blocks_data( $data, $type ) {
+    static $all_block;
+    if ( debug_backtrace()[ 1 ][ 'function' ] !== __FUNCTION__ ) {
+      $all_block = array();
     }
-    return $attrs;
+    switch ( $type ) {
+      case "process":
+        if ( !empty( $data[ "form_data" ] ) ) {
+          common::get_all_blocks_data( $data[ "form_data" ], "form" );
+        }
+        break;
+      case "form":
+        if ( !empty( $data[ 'blocks_data' ] ) ) {
+          foreach ( $data[ 'blocks_data' ] as $block ) {
+            common::get_all_blocks_data( $block, "block" );
+          }
+        }
+        if ( !empty( $data[ 'fieldsets_data' ] ) ) {
+          foreach ( $data[ 'fieldsets_data' ] as $fieldset ) {
+            common::get_all_blocks_data( $fieldset, "fieldset" );
+          }
+        }
+        break;
+      case "fieldset":
+        if ( !empty( $data[ 'children' ] ) ) {
+          foreach ( $data[ 'children' ] as $fieldset ) {
+            common::get_all_blocks_data( $fieldset, "fieldset" );
+          }
+        }
+        if ( !empty( $data[ 'blocks_data' ] ) ) {
+          foreach ( $data[ 'blocks_data' ] as $block ) {
+            common::get_all_blocks_data( $block, "block" );
+          }
+        }
+        break;
+      case "block":
+        if ( !empty( $data[ 'children' ] ) ) {
+          foreach ( $data[ 'children' ] as $block ) {
+            common::get_all_blocks_data( $block, "block" );
+          }
+        }
+        if ( !empty( $data[ 'fieldsets_data' ] ) ) {
+          foreach ( $data[ 'fieldsets_data' ] as $fieldset ) {
+            common::get_all_blocks_data( $fieldset, "fieldset" );
+          }
+        }
+        $all_block[$data['id']] = $data;
+        break;
+
+    }
+    //krumo($all_block);
+    return $all_block;
   }
+
+  /* Get all inputs of a process or form or block or fieldset it recursively search for childern and block in block or field set*/
+  function get_all_fieldsets_data( $data, $type ) {
+    static $all_fieldset;
+    if ( debug_backtrace()[ 1 ][ 'function' ] !== __FUNCTION__ ) {
+      $all_fieldset = array();
+    }
+    switch ( $type ) {
+      case "process":
+        if ( !empty( $data[ "form_data" ] ) ) {
+          common::get_all_fieldsets_data( $data[ "form_data" ], "form" );
+        }
+        break;
+      case "form":
+        if ( !empty( $data[ 'blocks_data' ] ) ) {
+          foreach ( $data[ 'blocks_data' ] as $block ) {
+            common::get_all_fieldsets_data( $block, "block" );
+          }
+        }
+        if ( !empty( $data[ 'fieldsets_data' ] ) ) {
+          foreach ( $data[ 'fieldsets_data' ] as $fieldset ) {
+            common::get_all_fieldsets_data( $fieldset, "fieldset" );
+          }
+        }
+        break;
+      case "block":
+        if ( !empty( $data[ 'children' ] ) ) {
+          foreach ( $data[ 'children' ] as $block ) {
+            common::get_all_fieldsets_data( $block, "block" );
+          }
+        }
+        if ( !empty( $data[ 'fieldsets_data' ] ) ) {
+          foreach ( $data[ 'fieldsets_data' ] as $fieldset ) {
+            common::get_all_fieldsets_data( $fieldset, "fieldset" );
+          }
+        }
+        break;
+      case "fieldset":
+        if ( !empty( $data[ 'children' ] ) ) {
+          foreach ( $data[ 'children' ] as $fieldset ) {
+            common::get_all_fieldsets_data( $fieldset, "fieldset" );
+          }
+        }
+        if ( !empty( $data[ 'blocks_data' ] ) ) {
+          foreach ( $data[ 'blocks_data' ] as $block ) {
+            common::get_all_fieldsets_data( $block, "block" );
+          }
+        }
+        $all_fieldset[] = $data;
+
+        break;
+    }
+    return $all_fieldset;
+  }
+
+
 }

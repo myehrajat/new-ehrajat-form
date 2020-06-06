@@ -343,13 +343,18 @@ class render extends database {
     if ( $input_data == NULL ) {
       $input_data = $this->input_data;
     }
+    //    krumo( $input_data );
+    // $this->create_attr_changer_code( $x_data );
+    /* all of attr changer collected to add at last
+	  attr_changer_condition_ids
+		  if()
     if ( !empty( $input_data[ 'attr_changer_code' ] ) ) {
-      $this->attr_changer_code = $this->attr_changer_code . $input_data[ 'attr_changer_code' ];
-      //krumo($input_data);
-
+      $this->attr_changer_code .= $input_data[ 'attr_changer_code' ];
+		krumo($this->attr_changer_code);
+    }*/
+    if ( !empty( $process_data ) ) {
+      $process_data = $this->process_data;
     }
-    $process_data = $this->process_data;
-
     if ( !empty( $input_data )and!empty( $input_data[ 'function' ] ) ) {
       //if($input_data[ 'function' ] =='sst_depend_select'){
       //krumo(EVAL_STR . 'return ' . $input_data[ 'function' ] . '("' . addslashes( json_encode( $input_data ) ) . '","' . addslashes( json_encode( $this->process_data ) ) . '");' );
@@ -394,6 +399,9 @@ class render extends database {
         and $this->mode == 'add' ) {
         return '';
       }
+      /*******************/
+      $this->create_attr_changer_code( $input_data );
+
       if ( isset( $GLOBALS[ 'vals' ] ) ) {
         $input_data = $this->change_value_by_vals( $input_data );
       }
@@ -521,96 +529,6 @@ class render extends database {
                                     
   https://www.messletters.com/en/big-text/
   *******************/
-  /*
-  Do everything to create a block 
-  Return: Html Text of block (extra also created)
-  Note: in view or edit mode it will return all extra that you have used
-  */
-  function create_input_attr_changer_code( $input_data ) {
-    //krumo($input_data);
-    if ( !empty( $input_data[ 'attr_changer_condition_ids' ] ) ) {
-      $attr_changer_condition_ids = $this->get_ids( $input_data[ 'attr_changer_condition_ids' ] );
-      if ( !empty( $attr_changer_condition_ids ) ) {
-        $first_done = false;
-        foreach ( $attr_changer_condition_ids as $attr_changer_condition_id ) {
-          $attr_changer_condition_obj = $this->get_by_id( $attr_changer_condition_id, $GLOBALS[ 'sst_tables' ][ 'attr_changer_condition' ] );
-          if ( !empty( $attr_changer_condition_obj ) ) {
-            if ( $first_done == false ) {
-              $position = 'first';
-              $first_done = true;
-            } elseif ( strtolower( $attr_changer_condition_obj->condition ) != 'else'
-              and $first_done == true ) {
-              $position = 'middle';
-            } elseif ( strtolower( $attr_changer_condition_obj->condition ) == 'else' ) {
-              $position = 'last';
-            }
-            $jquery_code .= $this->create_attr_changer_based_conditions( $attr_changer_condition_obj, $position );
-          } else {
-            $this->error_log( 'attr_changer_condition_obj cant find you use id which not exists :' . $attr_changer_condition_id );
-          }
-        }
-      } else {
-        $this->error_log( 'attr_changer_condition_ids after proccessing ids renturn nothing see:' . $this->input_obj->attr_changer_condition_ids );
-      }
-    }
-
-    if ( !empty( $jquery_code ) ) {
-
-      $input_data[ 'attr_changer_code' ] = "jQuery('#" . $input_data[ 'attrs' ][ 'id' ] . "').on('input', function($) {" . $jquery_code . '});';
-      switch ( $input_data[ 'input_html_type' ] ) {
-        case "radio":
-        case "checkbox":
-          $input_data[ 'attr_changer_code' ] = str_replace( '{self}', 'jQuery("#' . $input_data[ 'attrs' ][ 'id' ] . ':checked").val()', $input_data[ 'attr_changer_code' ] );
-          break;
-        default:
-          $input_data[ 'attr_changer_code' ] = str_replace( '{self}', 'jQuery("#' . $input_data[ 'attrs' ][ 'id' ] . '").val()', $input_data[ 'attr_changer_code' ] );
-          break;
-      }
-      //
-    }
-    //krumo($input_data['attr_changer_code'] );
-    return $input_data;
-  }
-
-  function create_attr_changer_based_conditions( $attr_changer_condition_obj, $position ) {
-    //krumo($this->input_data['attrs']['id']);
-    switch ( $position ) {
-      case 'first':
-        $jquery_code .= 'if(' . str_replace( '{name:', '{name_jq_value:', $attr_changer_condition_obj->condition ) . '){';
-        break;
-      case 'middle':
-        $jquery_code .= 'else if(' . str_replace( '{name:', '{name_jq_value:', $attr_changer_condition_obj->condition ) . '){';
-        break;
-      case 'last':
-        $jquery_code .= 'else(' . str_replace( '{name:', '{name_jq_value:', $attr_changer_condition_obj->condition ) . '){';
-        break;
-    } //krumo($jquery_code);
-    $attr_changer_ids = $this->get_ids( $attr_changer_condition_obj->attr_changer_ids );
-    if ( !empty( $attr_changer_ids ) ) {
-      foreach ( $attr_changer_ids as $attr_changer_id ) {
-        $attr_changer_obj = $this->get_by_id( $attr_changer_id, $GLOBALS[ 'sst_tables' ][ 'attr_changer' ] );
-        $input_ids = $this->get_ids( $attr_changer_obj->input_ids );
-        //krumo($input_ids);
-        if ( !empty( $input_ids ) ) {
-          foreach ( $input_ids as $input_id ) {
-            $input_obj = $this->get_by_id( $input_id, $GLOBALS[ 'sst_tables' ][ 'input' ] );
-            //krumo($input_obj->name);
-            if ( strtolower( $attr_changer_obj->remove_attr ) == 'remove' ) {
-              $jquery_code .= 'jQuery("{name:' . $input_obj->name . '}").removeAttr("' . $attr_changer_obj->attr . '");';
-            } else {
-              $jquery_code .= 'jQuery("{name:' . $input_obj->name . '}").attr("' . $attr_changer_obj->attr . '","' . $attr_changer_obj->attr . '");';
-            }
-          }
-        } else {
-          $this->error_log( 'Attr change need input ids its empty or after processing return empty.' );
-        }
-      }
-    } else {
-      $this->error_log( 'No attr change ids is provided with conditions id:' . $attr_changer_condition_obj->id );
-    }
-    $jquery_code .= '}';
-    return $jquery_code;
-  }
 
 
   function render_block( $block_data = NULL ) {
@@ -634,14 +552,10 @@ class render extends database {
       and $this->mode == 'add' ) {
       return '';
     }
-    if ( isset( $block_data[ 'inputs_data' ] ) ) {
 
+    if ( isset( $block_data[ 'inputs_data' ] ) ) {
       foreach ( $block_data[ 'inputs_data' ] as $input_data ) {
         $input_data = $this->extra_block_set_value( $block_data, $input_data );
-        if ( !empty( $input_data[ 'attr_changer_condition_ids' ] ) ) {
-          $input_data = $this->create_input_attr_changer_code( $input_data );
-          //krumo($input_data);
-        }
         $elements[ 'input' ] = $elements[ 'input' ] . $this->render_input( $input_data );
       }
     }
@@ -849,6 +763,8 @@ class render extends database {
       and $this->mode == 'add' ) {
       return '';
     }
+
+
     if ( isset( $fieldset_data[ 'inputs_data' ] ) ) {
       foreach ( $fieldset_data[ 'inputs_data' ] as $input_data ) {
         $input_data = $this->extra_fieldset_set_value( $fieldset_data, $input_data );
@@ -1034,7 +950,7 @@ class render extends database {
   **************************************/
 
 
-  function render_form( $form_data ) {
+  function render_form( $form_data, $process_data = NULL ) {
     //krumo( $form_data);
     if ( $form_data == NULL ) {
       $form_data = $this->form_data;
@@ -1051,54 +967,31 @@ class render extends database {
     if ( isset( $form_data[ 'inputs_data' ] ) ) {
       foreach ( $form_data[ 'inputs_data' ] as $input_data ) {
         $elements[ 'input' ] = $elements[ 'input' ] . $this->render_input( $input_data );
+
       }
     }
 
     if ( !empty( $form_data[ 'blocks_data' ] ) ) {
       foreach ( $form_data[ 'blocks_data' ] as $blocks_data ) {
         $elements[ 'block' ] = $elements[ 'block' ] . $this->render_block( $blocks_data );
+        //krumo($blocks_data);
       }
     }
     if ( !empty( $form_data[ 'fieldsets_data' ] ) ) {
       foreach ( $form_data[ 'fieldsets_data' ] as $fieldset_data ) {
         $elements[ 'fieldset' ] = $elements[ 'fieldset' ] . $this->render_fieldset( $fieldset_data );
+        //
       }
     }
     $form_prefix = '<sst-form id="' . $form_data[ 'unique_id' ] . '">' . $form_data[ 'tag' ][ 'before' ] . '<form ' . $this->render_attrs( $form_data[ 'attrs' ] ) . '>';
 
     $form = $elements[ $form_data[ 'order' ][ 'show_first' ] ] . $elements[ $form_data[ 'order' ][ 'show_second' ] ] . $elements[ $form_data[ 'order' ][ 'show_third' ] ];
+    //krumo($this->attr_changer_code);
+    // $this->attr_changer_code added by input render
 
-    if ( !empty( $this->attr_changer_code ) ) {
-      $between_start = '{name:';
-      $between_end = '}';
-      $attr_changer_code = $this->attr_changer_code;
-      //krumo($attr_changer_code);
-      preg_match_all( '/' . addslashes( $between_start ) . '(.*?)' . addslashes( $between_end ) . '/', $attr_changer_code, $matches );
-      //			krumo( $matches);
-      foreach ( $matches[ 1 ] as $k => $match ) {
-        $id = common::search_by_attr_to_get_other_attr( 'name', $match, 'id', $form_data, 'form' );
-        //krumo( $form_data);
 
-        $attr_changer_code = str_replace( $matches[ 0 ][ $k ], "#" . $id, $attr_changer_code );
-      }
-      $this->attr_changer_code = $attr_changer_code;
-
-      //krumo($this->attr_changer_code);
-      $between_start = '{name_jq_value:';
-      $between_end = '}';
-      $attr_changer_code = $this->attr_changer_code;
-      preg_match_all( '/' . addslashes( $between_start ) . '(.*?)' . addslashes( $between_end ) . '/', $attr_changer_code, $matches );
-      //krumo( $matches);
-      foreach ( $matches[ 1 ] as $k => $match ) {
-        $id = common::search_by_attr_to_get_other_attr( 'name', $matches[ 1 ][ $k ], 'id', $form_data, 'form' );
-        $attr_changer_code = str_replace( $matches[ 0 ][ $k ], "jQuery('#" . $id . "').val()", $attr_changer_code );
-      }
-
-      $this->attr_changer_code = $attr_changer_code;
-      //	krumo($this->attr_changer_code);
-
-      $form_suffix .= '<script id="sst-script" type="text/javascript">jQuery(document).ready(function ($) {' . $this->attr_changer_code . '});</script>';
-    }
+    $form_suffix = $this->add_attr_changer_to_form_suffix( $form_suffix );
+    //krumo( $form_suffix  );
     $form_suffix .= '</form>' . $form_data[ 'tag' ][ 'after' ] . '</sst-form>';
     return $form_prefix . $form . $form_suffix;
 
@@ -1112,6 +1005,7 @@ class render extends database {
    | |      | |    | (_) | | (__  |  __/ \__ \ \__ \
    |_|      |_|     \___/   \___|  \___| |___/ |___/
                                                     
+  https://www.messletters.com/en/big-text/
   **************************************/
   //static $process_data;
 
@@ -1121,7 +1015,194 @@ class render extends database {
       $process_data = $this->process_data;
     }
     $this->process_data = $process_data;
-    //		krumo($this->process_data);
-    return $this->render_form( $process_data[ 'form_data' ] );
+    
+
+    return $this->render_form( $process_data[ 'form_data' ], $process_data );
+  }
+
+
+  /************************************
+	
+     _      _     _            _   _               _               ____   _                                           
+    / \    | |_  | |_   _ __  (_) | |__    _   _  | |_    ___     / ___| | |__     __ _   _ __     __ _    ___   _ __ 
+   / _ \   | __| | __| | '__| | | | '_ \  | | | | | __|  / _ \   | |     | '_ \   / _` | | '_ \   / _` |  / _ \ | '__|
+  / ___ \  | |_  | |_  | |    | | | |_) | | |_| | | |_  |  __/   | |___  | | | | | (_| | | | | | | (_| | |  __/ | |   
+ /_/   \_\  \__|  \__| |_|    |_| |_.__/   \__,_|  \__|  \___|    \____| |_| |_|  \__,_| |_| |_|  \__, |  \___| |_|   
+                                                                                                  |___/               	
+	https://www.messletters.com/en/big-text/
+  /************************************
+  /*
+  Do everything to create a block 
+  Return: Html Text of block (extra also created)
+  Note: in view or edit mode it will return all extra that you have used
+  */
+  function create_attr_changer_code( $x_data ) {
+    if ( !empty( $x_data[ 'attr_changer_condition_ids' ] ) ) {
+      $attr_changer_condition_ids = $this->get_ids( $x_data[ 'attr_changer_condition_ids' ] );
+      if ( !empty( $attr_changer_condition_ids ) ) {
+        $first_done = false;
+        foreach ( $attr_changer_condition_ids as $attr_changer_condition_id ) {
+          $attr_changer_condition_obj = $this->get_by_id( $attr_changer_condition_id, $GLOBALS[ 'sst_tables' ][ 'attr_changer_condition' ] );
+          if ( !empty( $attr_changer_condition_obj ) ) {
+            if ( $first_done == false ) {
+              $position = 'first';
+              $first_done = true;
+            } elseif ( strtolower( $attr_changer_condition_obj->condition ) != 'else'
+              and $first_done == true ) {
+              $position = 'middle';
+            } elseif ( strtolower( $attr_changer_condition_obj->condition ) == 'else' ) {
+                $position = 'last';
+              }
+              /* create raw if(balabala){balabala}eles if(balabala){balabala}else{balabala}  but raw data eg {name:XXXX} of {self}*/
+            $jquery_code .= $this->create_attr_changer_based_conditions( $attr_changer_condition_obj, $position );
+          } else {
+            $this->error_log( 'attr_changer_condition_obj cant find you use id which not exists :' . $attr_changer_condition_id );
+          }
+        }
+      } else {
+        $this->error_log( 'attr_changer_condition_ids after proccessing ids renturn nothing see:' . $this->input_obj->attr_changer_condition_ids );
+      }
+    }
+    //$jquery_code is like this 
+    //if({self}=='value'){jQuery("{name:query-12}").attr("disabled","disabled");jQuery("{name:json_url-12}").attr("disabled","disabled");}else if({name_jq_value:source_type-12}=='query'){jQuery("{name:json_url-12}").attr("disabled","disabled");jQuery("{name:query-12}").removeAttr("disabled");}else if({self}=='json'){jQuery("{name:query-12}").attr("disabled","disabled");jQuery("{name:json_url-12}").removeAttr("disabled");}
+
+    if ( !empty( $jquery_code ) ) {
+      $temp_attr_changer_code .= "jQuery( document ).ready(function($) {" . "\n" . "attr_changer();});" . "\n";
+      $temp_attr_changer_code .= "jQuery('#" . $x_data[ 'attrs' ][ 'id' ] . "').on('input keyup keypress focus blur click', function($) {" . "\n" . "attr_changer();});" . "\n";
+      $temp_attr_changer_code .= "function attr_changer(){" . $jquery_code . "}" . "\n";
+
+
+      switch ( $x_data[ 'input_html_type' ] ) {
+        case "radio":
+        case "checkbox":
+          $temp_attr_changer_code = str_replace( '{self}', 'jQuery("#' . $x_data[ 'attrs' ][ 'id' ] . ':checked").val()', $temp_attr_changer_code );
+          break;
+        default:
+          $temp_attr_changer_code = str_replace( '{self}', 'jQuery("#' . $x_data[ 'attrs' ][ 'id' ] . '").val()', $temp_attr_changer_code );
+          break;
+      }
+      //
+    }
+    $this->attr_changer_code .= $temp_attr_changer_code;
+    //return $x_data;
+  }
+  /*
+  this create jquery of attr changer but one step more needed which is replacing shortcodes
+  */
+  function create_attr_changer_based_conditions( $attr_changer_condition_obj, $position ) {
+    //krumo($this->input_data['attrs']['id']);
+    switch ( $position ) {
+      case 'first':
+        $jquery_code .= "\n" . 'if(' . str_replace( '{name:', '{name_jq_value:', $attr_changer_condition_obj->condition ) . '){' . "\n";
+        break;
+      case 'middle':
+        $jquery_code .= 'else if(' . str_replace( '{name:', '{name_jq_value:', $attr_changer_condition_obj->condition ) . '){' . "\n";
+        break;
+      case 'last':
+        $jquery_code .= 'else(' . str_replace( '{name:', '{name_jq_value:', $attr_changer_condition_obj->condition ) . '){' . "\n";
+        break;
+    } //krumo($jquery_code);
+    $attr_changer_ids = $this->get_ids( $attr_changer_condition_obj->attr_changer_ids );
+    if ( !empty( $attr_changer_ids ) ) {
+      foreach ( $attr_changer_ids as $attr_changer_id ) {
+        $attr_changer_obj = $this->get_by_id( $attr_changer_id, $GLOBALS[ 'sst_tables' ][ 'attr_changer' ] );
+        $input_ids = $this->get_ids( $attr_changer_obj->input_ids );
+        $fieldset_ids = $this->get_ids( $attr_changer_obj->fieldset_ids );
+
+        if ( !empty( $input_ids ) ) {
+          foreach ( $input_ids as $input_id ) {
+            $input_obj = $this->get_by_id( $input_id, $GLOBALS[ 'sst_tables' ][ 'input' ] );
+            if ( strtolower( $attr_changer_obj->remove_attr ) == 'remove' ) {
+              $jquery_code .= 'jQuery("{name:' . $input_obj->name . '}").removeAttr("' . $attr_changer_obj->attr . '");' . "\n";
+            } else {
+              $jquery_code .= 'jQuery("{name:' . $input_obj->name . '}").attr("' . $attr_changer_obj->attr . '","' . $attr_changer_obj->attr . '");' . "\n";
+            }
+          }
+        } else {
+          $this->error_log( 'Attr change need input ids its empty or after processing return empty.' );
+        }
+        $block_ids = $this->get_ids( $attr_changer_obj->block_ids );
+        $all_blocks = common::get_all_blocks_data( $this->process_data, "process" );
+		  
+        if ( !empty( $block_ids ) ) {
+          foreach ( $block_ids as $block_id ) {
+            if ( strtolower( $attr_changer_obj->remove_attr ) == 'remove' ) {
+              $jquery_code .= 'jQuery("#' . $all_blocks[$block_id]['unique_id'] . ' :input").removeAttr("' . $attr_changer_obj->attr . '");' . "\n";
+            } else {
+				//can be used for all global but at now we use only hidden this part change block-tag or fieldset-tag
+				if(strtolower($attr_changer_obj->attr)=='hidden'){
+					  $jquery_code .= 'jQuery("#' . $all_blocks[$block_id]['unique_id'] . '").attr("' . $attr_changer_obj->attr . '","' . $attr_changer_obj->attr . '");' . "\n";
+				}
+
+              $jquery_code .= 'jQuery("#' . $all_blocks[$block_id]['unique_id'] . ' :input").attr("' . $attr_changer_obj->attr . '","' . $attr_changer_obj->attr . '");' . "\n";
+            }
+          }
+        } else {
+          $this->error_log( 'Attr change need input ids its empty or after processing return empty.' );
+        }
+        $fieldset_ids = $this->get_ids( $attr_changer_obj->fieldset_ids );
+        $all_fieldsets = common::get_all_fieldsets_data( $this->process_data, "process" );
+		  
+        if ( !empty( $fieldset_ids ) ) {
+          foreach ( $fieldset_ids as $fieldset_id ) {
+            if ( strtolower( $attr_changer_obj->remove_attr ) == 'remove' ) {
+              $jquery_code .= 'jQuery("#' . $all_fieldsets[$fieldset_id]['unique_id'] . ' :input").removeAttr("' . $attr_changer_obj->attr . '");' . "\n";
+            } else {
+				//can be used for all global but at now we use only hidden this part change block-tag or fieldset-tag
+				if(strtolower($attr_changer_obj->attr)=='hidden'){
+					  $jquery_code .= 'jQuery("#' . $all_fieldsets[$fieldset_id]['unique_id'] . '").attr("' . $attr_changer_obj->attr . '","' . $attr_changer_obj->attr . '");' . "\n";
+				}
+              $jquery_code .= 'jQuery("#' . $all_fieldsets[$fieldset_id]['unique_id'] . ' :input").attr("' . $attr_changer_obj->attr . '","' . $attr_changer_obj->attr . '");' . "\n";
+            }
+          }
+        } else {
+          $this->error_log( 'Attr change need input ids its empty or after processing return empty.' );
+        }
+      }
+    } else {
+      $this->error_log( 'No attr change ids is provided with conditions id:' . $attr_changer_condition_obj->id );
+    }
+    $jquery_code .= '}';
+    return $jquery_code;
+  }
+
+  function add_attr_changer_to_form_suffix( $form_suffix ) {
+    if ( !empty( $this->attr_changer_code ) ) {
+      $between_start = '{name:';
+      $between_end = '}';
+      $attr_changer_code = $this->attr_changer_code;
+      //krumo($attr_changer_code);
+      preg_match_all( '/' . addslashes( $between_start ) . '(.*?)' . addslashes( $between_end ) . '/', $attr_changer_code, $matches );
+      //			krumo( $matches);
+      foreach ( $matches[ 1 ] as $k => $match ) {
+        // krumo($this->process_data);
+        $id = common::search_by_attr_to_get_other_attr( 'name', $match, 'id', $this->process_data, 'process' );
+        //krumo( $form_data);
+
+        $attr_changer_code = str_replace( $matches[ 0 ][ $k ], "#" . $id, $attr_changer_code );
+      }
+      $this->attr_changer_code = $attr_changer_code;
+
+      //krumo($this->attr_changer_code);
+      $between_start = '{name_jq_value:';
+      $between_end = '}';
+      $attr_changer_code = $this->attr_changer_code;
+      preg_match_all( '/' . addslashes( $between_start ) . '(.*?)' . addslashes( $between_end ) . '/', $attr_changer_code, $matches );
+      //krumo( $matches);
+      foreach ( $matches[ 1 ] as $k => $match ) {
+        $id = common::search_by_attr_to_get_other_attr( 'name', $matches[ 1 ][ $k ], 'id', $this->process_data, 'process' );
+        $attr_changer_code = str_replace( $matches[ 0 ][ $k ], "jQuery('#" . $id . "').val()", $attr_changer_code );
+      }
+
+      $this->attr_changer_code = $attr_changer_code;
+      $sst_script_name = "sst-script" . "-" . $this->process_data[ 'form_data' ][ 'unique_id' ];
+      //krumo($sst_script_name);
+      $form_suffix .= "\n" . '<script id="' . $sst_script_name . '" type="text/javascript">' . "\n";
+      //$form_suffix .= 'jQuery(document).ready(function ($) {'."\n";
+      $form_suffix .= $this->attr_changer_code . "\n";
+      //$form_suffix .= '});'."\n" ;
+      $form_suffix .= '</script>' . "\n";;
+    }
+    return $form_suffix;
   }
 }
