@@ -42,5 +42,8 @@ function sst_checkbox_bootstrap_toggle($input_data_json,$process_data_json=NULL)
 	if(!is_array($input_data['meta']['data-off']) and !empty($input_data['meta']['data-off'])){
 		$input_data['attrs']['data-off']=$input_data['meta']['data-off'];//string | html
 	}
+
+	//$input_data['tag']['after'] .= '<script type="text/javascript">jQuery("#'.$input_data['attrs']['id'].'").on("change",function(){jQuery("#'.$input_data['attrs']['id'].'").attr("checked",document.getElementById("'.$input_data['attrs']['id'].'").checked);});</script>';
+
 	return $input_data;
 }

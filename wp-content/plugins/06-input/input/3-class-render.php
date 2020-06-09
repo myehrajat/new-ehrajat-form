@@ -1015,7 +1015,7 @@ class render extends database {
       $process_data = $this->process_data;
     }
     $this->process_data = $process_data;
-    
+
 
     return $this->render_form( $process_data[ 'form_data' ], $process_data );
   }
@@ -1037,6 +1037,7 @@ class render extends database {
   Note: in view or edit mode it will return all extra that you have used
   */
   function create_attr_changer_code( $x_data ) {
+	 //static $func_num;
     if ( !empty( $x_data[ 'attr_changer_condition_ids' ] ) ) {
       $attr_changer_condition_ids = $this->get_ids( $x_data[ 'attr_changer_condition_ids' ] );
       if ( !empty( $attr_changer_condition_ids ) ) {
@@ -1067,9 +1068,10 @@ class render extends database {
     //if({self}=='value'){jQuery("{name:query-12}").attr("disabled","disabled");jQuery("{name:json_url-12}").attr("disabled","disabled");}else if({name_jq_value:source_type-12}=='query'){jQuery("{name:json_url-12}").attr("disabled","disabled");jQuery("{name:query-12}").removeAttr("disabled");}else if({self}=='json'){jQuery("{name:query-12}").attr("disabled","disabled");jQuery("{name:json_url-12}").removeAttr("disabled");}
 
     if ( !empty( $jquery_code ) ) {
-      $temp_attr_changer_code .= "jQuery( document ).ready(function($) {" . "\n" . "attr_changer();});" . "\n";
-      $temp_attr_changer_code .= "jQuery('#" . $x_data[ 'attrs' ][ 'id' ] . "').on('input keyup keypress focus blur click', function($) {" . "\n" . "attr_changer();});" . "\n";
-      $temp_attr_changer_code .= "function attr_changer(){" . $jquery_code . "}" . "\n";
+	$attr_changer_func_name = 'attr_changer_'.rand(1,99999999);
+      $temp_attr_changer_code .= "jQuery( document ).ready(function($) {" . "\n" .$attr_changer_func_name. "();});" . "\n";
+      $temp_attr_changer_code .= "jQuery('#" . $x_data[ 'attrs' ][ 'id' ] . "').on('input keyup keypress focus blur click change', function($) {" . "\n" .$attr_changer_func_name. "();});" . "\n";
+      $temp_attr_changer_code .= "function ".$attr_changer_func_name."(){console.log('hhhhhhhhh');" . $jquery_code . "}" . "\n";
 
 
       switch ( $x_data[ 'input_html_type' ] ) {
@@ -1099,23 +1101,48 @@ class render extends database {
         $jquery_code .= 'else if(' . str_replace( '{name:', '{name_jq_value:', $attr_changer_condition_obj->condition ) . '){' . "\n";
         break;
       case 'last':
-        $jquery_code .= 'else(' . str_replace( '{name:', '{name_jq_value:', $attr_changer_condition_obj->condition ) . '){' . "\n";
+        //$jquery_code .= 'else(' . str_replace( '{name:', '{name_jq_value:', $attr_changer_condition_obj->condition ) . '){' . "\n";
+        $jquery_code .= 'else{' . "\n";
         break;
     } //krumo($jquery_code);
     $attr_changer_ids = $this->get_ids( $attr_changer_condition_obj->attr_changer_ids );
     if ( !empty( $attr_changer_ids ) ) {
       foreach ( $attr_changer_ids as $attr_changer_id ) {
         $attr_changer_obj = $this->get_by_id( $attr_changer_id, $GLOBALS[ 'sst_tables' ][ 'attr_changer' ] );
+        $attr_changer_obj->attr = strtolower( $attr_changer_obj->attr );
         $input_ids = $this->get_ids( $attr_changer_obj->input_ids );
         $fieldset_ids = $this->get_ids( $attr_changer_obj->fieldset_ids );
-
+        $boolean_attr = array( "async", "autocomplete", "autofocus", "autoplay", "border", "challenge", "checked", "compact", "contenteditable", "controls", "default", "defer", "disabled", "formNoValidate", "frameborder", "hidden", "indeterminate", "ismap", "loop", "multiple", "muted", "nohref", "noresize", "noshade", "novalidate", "nowrap", "open", "readonly", "required", "reversed", "scoped", "scrolling", "seamless", "selected", "sortable", "spellcheck", "translate" );
         if ( !empty( $input_ids ) ) {
           foreach ( $input_ids as $input_id ) {
             $input_obj = $this->get_by_id( $input_id, $GLOBALS[ 'sst_tables' ][ 'input' ] );
-            if ( strtolower( $attr_changer_obj->remove_attr ) == 'remove' ) {
-              $jquery_code .= 'jQuery("{name:' . $input_obj->name . '}").removeAttr("' . $attr_changer_obj->attr . '");' . "\n";
-            } else {
-              $jquery_code .= 'jQuery("{name:' . $input_obj->name . '}").attr("' . $attr_changer_obj->attr . '","' . $attr_changer_obj->attr . '");' . "\n";
+            if ( $attr_changer_obj->remove_attr == 'remove' ) {
+              //full list of boolean attribute which must removed by prop :https://gist.github.com/ArjanSchouten/0b8574a6ad7f5065a5e7
+              if ( in_array( $attr_changer_obj->attr, $boolean_attr ) ) {
+                if ( $attr_changer_obj->attr == 'hidden' ) {
+                  //$jquery_code .= 'console.log(jQuery("{name:' . $input_obj->name . '}").closest("sst-input").attr("id")+ " is showing");'."\n";
+                  $jquery_code .= "\t".'/*input:' . $input_obj->name . '*/' . "\n";
+                  $jquery_code .= "\t".'jQuery("{name:' . $input_obj->name . '}").closest("sst-input").prop("' . $attr_changer_obj->attr . '",false);' . "\n";
+                }
+                $jquery_code .= "\t".'/*input:' . $input_obj->name . '*/' . "\n";
+                $jquery_code .= "\t".'jQuery("{name:' . $input_obj->name . '}").prop("' . $attr_changer_obj->attr . '",false);' . "\n";
+              } else {
+                $jquery_code .= "\t".'/*input:' . $input_obj->name . '*/' . "\n";
+                $jquery_code .= "\t".'jQuery("{name:' . $input_obj->name . '}").removeAttr("' . $attr_changer_obj->attr . '");' . "\n";
+              }
+            } else { //this is not remove
+              if ( in_array( $attr_changer_obj->attr, $boolean_attr ) ) {
+                if ( $attr_changer_obj->attr == 'hidden' ) {
+                  //$jquery_code .= 'console.log(jQuery("{name:' . $input_obj->name . '}").closest("sst-input").attr("id")+ " is hidding");'."\n";
+                  $jquery_code .= "\t".'/*input:' . $input_obj->name . '*/' . "\n";
+                  $jquery_code .= "\t".'jQuery("{name:' . $input_obj->name . '}").closest("sst-input").prop("' . $attr_changer_obj->attr . '",true);' . "\n";
+                }
+                $jquery_code .= "\t".'/*input:' . $input_obj->name . '*/' . "\n";
+                $jquery_code .= "\t".'jQuery("{name:' . $input_obj->name . '}").prop("' . $attr_changer_obj->attr . '",true);' . "\n";
+              } else {
+                $jquery_code .= "\t".'/*input:' . $input_obj->name . '*/' . "\n";
+                $jquery_code .= "\t".'jQuery("{name:' . $input_obj->name . '}").prop("' . $attr_changer_obj->attr . '","' . $attr_changer_obj->value . '");' . "\n";
+              }
             }
           }
         } else {
@@ -1123,18 +1150,31 @@ class render extends database {
         }
         $block_ids = $this->get_ids( $attr_changer_obj->block_ids );
         $all_blocks = common::get_all_blocks_data( $this->process_data, "process" );
-		  
         if ( !empty( $block_ids ) ) {
           foreach ( $block_ids as $block_id ) {
-            if ( strtolower( $attr_changer_obj->remove_attr ) == 'remove' ) {
-              $jquery_code .= 'jQuery("#' . $all_blocks[$block_id]['unique_id'] . ' :input").removeAttr("' . $attr_changer_obj->attr . '");' . "\n";
-            } else {
-				//can be used for all global but at now we use only hidden this part change block-tag or fieldset-tag
-				if(strtolower($attr_changer_obj->attr)=='hidden'){
-					  $jquery_code .= 'jQuery("#' . $all_blocks[$block_id]['unique_id'] . '").attr("' . $attr_changer_obj->attr . '","' . $attr_changer_obj->attr . '");' . "\n";
-				}
+            if ( $attr_changer_obj->remove_attr == 'remove' ) {
+              //full list of boolean attribute which must removed by prop :https://gist.github.com/ArjanSchouten/0b8574a6ad7f5065a5e7
+              if ( in_array( $attr_changer_obj->attr, $boolean_attr ) ) {
+                $jquery_code .= "\t" . '/*block/remove/boolean:' . $all_blocks[ $block_id ][ 'id' ] . '*/' . "\n";
+                $jquery_code .= "\t" . 'jQuery("#' . $all_blocks[ $block_id ][ 'unique_id' ] . '").prop("' . $attr_changer_obj->attr . '",false);' . "\n";
+                $jquery_code .= "\t" . 'jQuery("#' . $all_blocks[ $block_id ][ 'unique_id' ] . ' :input").prop("' . $attr_changer_obj->attr . '",false);' . "\n";
+              } else {
+                $jquery_code .= "\t" . '/*block/remove/non-boolean:' . $all_blocks[ $block_id ][ 'id' ] . '*/' . "\n";
+                $jquery_code .= "\t" . 'jQuery("#' . $all_blocks[ $block_id ][ 'unique_id' ] . '").removeAttr("' . $attr_changer_obj->attr . '");' . "\n";
+                $jquery_code .= "\t" . 'jQuery("#' . $all_blocks[ $block_id ][ 'unique_id' ] . ' :input").removeAttr("' . $attr_changer_obj->attr . '");' . "\n";
+              }
+            } else { //not remove
+              //can be used for all global but at now we use only hidden this part change block-tag or fieldset-tag
+              if ( in_array( $attr_changer_obj->attr, $boolean_attr ) ) {
+                $jquery_code .= "\t" . '/*block/assign:' . $all_blocks[ $block_id ][ 'id' ] . '*/' . "\n";
 
-              $jquery_code .= 'jQuery("#' . $all_blocks[$block_id]['unique_id'] . ' :input").attr("' . $attr_changer_obj->attr . '","' . $attr_changer_obj->attr . '");' . "\n";
+                $jquery_code .= "\t" . 'jQuery("#' . $all_blocks[ $block_id ][ 'unique_id' ] . '").prop("' . $attr_changer_obj->attr . '",true);' . "\n";
+                $jquery_code .= "\t" . 'jQuery("#' . $all_blocks[ $block_id ][ 'unique_id' ] . ' :input").prop("' . $attr_changer_obj->attr . '",true);' . "\n";
+              } else {
+                $jquery_code .= "\t" . '/*block/assign:' . $all_blocks[ $block_id ][ 'id' ] . '*/' . "\n";
+                $jquery_code .= "\t" . 'jQuery("#' . $all_blocks[ $block_id ][ 'unique_id' ] . '").prop("' . $attr_changer_obj->attr . '","' . $attr_changer_obj->value . '");' . "\n";
+                $jquery_code .= "\t" . 'jQuery("#' . $all_blocks[ $block_id ][ 'unique_id' ] . ' :input").prop("' . $attr_changer_obj->attr . '","' . $attr_changer_obj->value . '");' . "\n";
+              }
             }
           }
         } else {
@@ -1142,17 +1182,27 @@ class render extends database {
         }
         $fieldset_ids = $this->get_ids( $attr_changer_obj->fieldset_ids );
         $all_fieldsets = common::get_all_fieldsets_data( $this->process_data, "process" );
-		  
+
         if ( !empty( $fieldset_ids ) ) {
           foreach ( $fieldset_ids as $fieldset_id ) {
             if ( strtolower( $attr_changer_obj->remove_attr ) == 'remove' ) {
-              $jquery_code .= 'jQuery("#' . $all_fieldsets[$fieldset_id]['unique_id'] . ' :input").removeAttr("' . $attr_changer_obj->attr . '");' . "\n";
-            } else {
-				//can be used for all global but at now we use only hidden this part change block-tag or fieldset-tag
-				if(strtolower($attr_changer_obj->attr)=='hidden'){
-					  $jquery_code .= 'jQuery("#' . $all_fieldsets[$fieldset_id]['unique_id'] . '").attr("' . $attr_changer_obj->attr . '","' . $attr_changer_obj->attr . '");' . "\n";
-				}
-              $jquery_code .= 'jQuery("#' . $all_fieldsets[$fieldset_id]['unique_id'] . ' :input").attr("' . $attr_changer_obj->attr . '","' . $attr_changer_obj->attr . '");' . "\n";
+              //full list of boolean attribute which must removed by prop :https://gist.github.com/ArjanSchouten/0b8574a6ad7f5065a5e7
+              if ( in_array( strtolower( $attr_changer_obj->attr ), $boolean_attr ) ) {
+                $jquery_code .= 'jQuery("#' . $fieldset_ids[ $fieldset_id ][ 'unique_id' ] . '").prop("' . $attr_changer_obj->attr . '",false);' . "\n";
+                $jquery_code .= 'jQuery("#' . $fieldset_ids[ $fieldset_id ][ 'unique_id' ] . ' :input").prop("' . $attr_changer_obj->attr . '",false);' . "\n";
+              } else {
+                $jquery_code .= 'jQuery("#' . $fieldset_ids[ $fieldset_id ][ 'unique_id' ] . ' :input").prop("' . $attr_changer_obj->attr . '","' . $attr_changer_obj->value . '");' . "\n";
+                $jquery_code .= 'jQuery("#' . $fieldset_ids[ $fieldset_id ][ 'unique_id' ] . ' :input").prop("' . $attr_changer_obj->attr . '","' . $attr_changer_obj->value . '");' . "\n";
+              }
+            } else { //not remove
+              //can be used for all global but at now we use only hidden this part change block-tag or fieldset-tag
+              if ( in_array( strtolower( $attr_changer_obj->attr ), $boolean_attr ) ) {
+                $jquery_code .= 'jQuery("#' . $fieldset_ids[ $fieldset_id ][ 'unique_id' ] . '").prop("' . $attr_changer_obj->attr . '",true);' . "\n";
+                $jquery_code .= 'jQuery("#' . $fieldset_ids[ $fieldset_id ][ 'unique_id' ] . ' :input").prop("' . $attr_changer_obj->attr . '",true);' . "\n";
+              } else {
+                $jquery_code .= 'jQuery("#' . $fieldset_ids[ $fieldset_id ][ 'unique_id' ] . '").prop("' . $attr_changer_obj->attr . '","' . $attr_changer_obj->value . '");' . "\n";
+                $jquery_code .= 'jQuery("#' . $fieldset_ids[ $fieldset_id ][ 'unique_id' ] . ' :input").prop("' . $attr_changer_obj->attr . '","' . $attr_changer_obj->value . '");' . "\n";
+              }
             }
           }
         } else {
@@ -1162,7 +1212,9 @@ class render extends database {
     } else {
       $this->error_log( 'No attr change ids is provided with conditions id:' . $attr_changer_condition_obj->id );
     }
+    $jquery_code .= "\t" .'console.log("sssssssssss");'. "\n";
     $jquery_code .= '}';
+    // $jquery_code = "<script>alert('sssssssssss');</script>";
     return $jquery_code;
   }
 
@@ -1191,7 +1243,17 @@ class render extends database {
       //krumo( $matches);
       foreach ( $matches[ 1 ] as $k => $match ) {
         $id = common::search_by_attr_to_get_other_attr( 'name', $matches[ 1 ][ $k ], 'id', $this->process_data, 'process' );
+        $html_type = common::search_by_attr_to_get_other_attr( 'name', $matches[ 1 ][ $k ], 'type', $this->process_data, 'process' );
+      switch ( $html_type ) {
+        case "radio":
+        case "checkbox":
+        $attr_changer_code = str_replace( $matches[ 0 ][ $k ], "jQuery('#" . $id . " :checked').val()", $attr_changer_code );
+          break;
+        default:
         $attr_changer_code = str_replace( $matches[ 0 ][ $k ], "jQuery('#" . $id . "').val()", $attr_changer_code );
+
+          break;
+      }
       }
 
       $this->attr_changer_code = $attr_changer_code;
