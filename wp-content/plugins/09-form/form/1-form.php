@@ -23,7 +23,7 @@ class form extends data_creator {
       if ( !isset( $_REQUEST[ '__sst__process_id' ] ) ) {
         $ajax_process_id = $_REQUEST[ PROCESS_ID_KEYWORD ];
       } else {
-        $ajax_process_id = $_REQUEST[ '__sst__process_id' ];
+        $ajax_process_id = $_REQUEST[ '__sst__process_id' ];//means its modal
       }
       $this->form_data[ 'tag' ][ 'after' ] .= '<script type="text/javascript">
 	  console.log("Use web worker to prevent warning error of Deprecation");

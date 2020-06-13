@@ -1,5 +1,7 @@
 function dep_select(dependent_id, controller_ids, pre_query, return_type, url_to_process, query) {
   var matches = pre_query.match(/\{name:(.*?)\}/g);
+	//console.log( matches);
+  //jQuery.each(matches, function (key, value) {
   jQuery.each(matches, function (key, value) {
     // console.log(value);
     var placeHolder = value.match(/\{name:(.*?)\}/);
@@ -43,7 +45,6 @@ function dep_select(dependent_id, controller_ids, pre_query, return_type, url_to
       psw: "12345",
       pre_query: pre_query,
       query: query,
-      query: query,
       return_type: 'string',
     },
     success: function (data) {
@@ -64,13 +65,17 @@ function remove_onfly_options(dependent_id) {
 }
 
 function append_onchange_to_controller(dependent_id, controller_ids, pre_query, return_type, url_to_process, query) {
+
   controller_ids = controller_ids.split(',');
   jQuery.each(controller_ids, function (key, value) {
     var current_onchange = jQuery("#" + value).attr("onchange");
     if (current_onchange === undefined) {
       current_onchange = '';
     }
-    jQuery("#" + value).attr('onchange', current_onchange + ";dep_select('" + dependent_id + "',['" + controller_ids.join("','") + "'],'" + pre_query + "','" + return_type + "','" + url_to_process + "','" + query + "')");
+	 // console.log("['" + controller_ids.join("','") + "']");
+		eval(";dep_select('" + dependent_id + "',['" + controller_ids.join("','") + "'],'" + pre_query + "','" + return_type + "','" + url_to_process + "','" + query + "');")
+	  jQuery("#" + value).attr('onchange', current_onchange + ";dep_select('" + dependent_id + "',['" + controller_ids.join("','") + "'],'" + pre_query + "','" + return_type + "','" + url_to_process + "','" + query + "')");
+	  
   });
 }
 

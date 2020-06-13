@@ -343,6 +343,10 @@ class render extends database {
     if ( $input_data == NULL ) {
       $input_data = $this->input_data;
     }
+    if ( $_GET[ '__sst__is_modal' ]and( $input_data[ 'input_html_type' ] == 'submit'
+        or $input_data[ 'input_html_type' ] == 'image' ) ) {
+      return;
+    }
     //    krumo( $input_data );
     // $this->create_attr_changer_code( $x_data );
     /* all of attr changer collected to add at last
@@ -490,12 +494,35 @@ class render extends database {
           $modal_input_unique_id = $input_data[ 'unique_id' ];
           $modal_input_id_num = $input_data[ 'id' ];
           $uniqid_modal = uniqid( "_sst_modal_" );
-          $input_data[ 'tag' ][ 'after' ] .= '<span onclick="loadDynamicContentModal(';
-          $input_data[ 'tag' ][ 'after' ] .= "'" . PROCESS_BY_GET_URL . '?__sst__process_id=' . $modal_process . '&__sst__insert_ref_result=' . $modal_insert_ref . "',";
-          $input_data[ 'tag' ][ 'after' ] .= "'" . $modal_input_id . $uniqid_modal . "',";
-          $input_data[ 'tag' ][ 'after' ] .= "'" . INPUT_BY_GET_URL . '?__sst__input_id=' . $modal_input_id_num . '&__sst__input_the_id=' . $modal_input_id . '&__sst__input_unique_id=' . $modal_input_unique_id . "',";
-          $input_data[ 'tag' ][ 'after' ] .= "'" . $modal_input_unique_id . "'";
-          $input_data[ 'tag' ][ 'after' ] .= ');">';
+          $input_data[ 'tag' ][ 'after' ] .= "\n" . '<span id="' . $input_data[ 'unique_id' ] . '_clickable">' . "\n";
+          /*
+		 $input_data[ 'tag' ][ 'after' ] .= '<script type="text/javascript">'."\n";
+			
+		 $input_data[ 'tag' ][ 'after' ] .= 'jQuery( document ).ready(function($) {'."\n";
+		 $input_data[ 'tag' ][ 'after' ] .= "\t".'jQuery( "#'.$input_data[ 'unique_id' ].'_clickable" ).on("click ",function($) {'."\n";
+			$input_data[ 'tag' ][ 'after' ] .= "\t"."\t".'loadDynamicContentModal('."\n";
+          $input_data[ 'tag' ][ 'after' ] .= "\t"."\t"."'" . PROCESS_BY_GET_URL . '?__sst__process_id=' . $modal_process . '&__sst__insert_ref_result=' . $modal_insert_ref . "',"."\n";
+          $input_data[ 'tag' ][ 'after' ] .= "\t"."\t"."'" . $modal_input_id . $uniqid_modal . "',"."\n";
+          $input_data[ 'tag' ][ 'after' ] .= "\t"."\t"."'" . INPUT_BY_GET_URL . '?__sst__input_id=' . $modal_input_id_num . '&__sst__input_the_id=' . $modal_input_id . '&__sst__input_unique_id=' . $modal_input_unique_id . "',"."\n";
+          $input_data[ 'tag' ][ 'after' ] .= "\t"."\t"."'" . $modal_input_unique_id . "'"."\n";
+          $input_data[ 'tag' ][ 'after' ] .= "\t"."\t".');'."\n";
+          $input_data[ 'tag' ][ 'after' ] .= "\t".'});'."\n";
+          $input_data[ 'tag' ][ 'after' ] .= '});'."\n";
+          $input_data[ 'tag' ][ 'after' ] .= '</script>';
+		  */
+          //$this->modal_js
+          $this->modal_js .= '';
+          $this->modal_js .= "\t" . 'jQuery( "#' . $input_data[ 'unique_id' ] . '_clickable" ).on("click ",function($) {' . "\n";
+          $this->modal_js .= "\t" . "\t" . 'loadDynamicContentModal(' . "\n";
+          $this->modal_js .= "\t" . "\t" . "'" . PROCESS_BY_GET_URL . '?__sst__process_id=' . $modal_process . '&__sst__insert_ref_result=' . $modal_insert_ref . "'," . "\n";
+          $this->modal_js .= "\t" . "\t" . "'" . $modal_input_id . $uniqid_modal . "'," . "\n";
+          $this->modal_js .= "\t" . "\t" . "'" . INPUT_BY_GET_URL . '?__sst__input_id=' . $modal_input_id_num . '&__sst__input_the_id=' . $modal_input_id . '&__sst__input_unique_id=' . $modal_input_unique_id . "'," . "\n";
+          $this->modal_js .= "\t" . "\t" . "'" . $modal_input_unique_id . "'" . "\n";
+          $this->modal_js .= "\t" . "\t" . ');' . "\n";
+          $this->modal_js .= "\t" . '});' . "\n";
+          $this->modal_js .= '';
+
+
           $input_data[ 'tag' ][ 'after' ] .= PROCESS_MODAL_BUTTON;
           $input_data[ 'tag' ][ 'after' ] .= '</span>';
           $input_data[ 'tag' ][ 'after' ] .= '<span id="' . $modal_input_id . $uniqid_modal . '" title="' . htmlentities( PROCESS_MODAL_DEFAULT_TITLE ) . '"></span>';
@@ -514,7 +541,10 @@ class render extends database {
       } else {
         $input = $input . $input_data[ 'extra' ][ 'add_controller' ] . $input_data[ 'extra' ][ 'remove_controller' ];
       }
-
+		//krumo($input_data[ 'dep_sel' ]);
+		if(isset($input_data[ 'js_code' ])){
+			$this->inptut_js_code .= $input_data[ 'js_code' ];
+		}
       $input = '<sst-input id="' . "" . $input_data[ 'unique_id' ] . '" >' . $input . '</sst-input>';
       $this->input = $input;
       return $this->input;
@@ -990,7 +1020,19 @@ class render extends database {
     // $this->attr_changer_code added by input render
 
 
-    $form_suffix = $this->add_attr_changer_to_form_suffix( $form_suffix );
+    $this->js_codes['attr_changer_code'] = $this->add_attr_changer_to_form_suffix( $form_suffix );
+	$this->js_codes['modal_code']   .=  $this->modal_js . "\n";
+	  $this->js_codes['inptut_js_code']   .=  $this->inptut_js_code . "\n";
+	  //krumo($this->js_codes);
+	  $form_suffix  .= "\n".'<script type="text/javascript">';
+	  $form_suffix  .= "\n".'jQuery( document ).ready(function($) {' . "\n";
+	 $form_suffix .= implode('',$this->js_codes);
+	  $form_suffix  .=  '});' . "\n";
+	  $form_suffix  .=  '</script>' . "\n";
+	 // krumo($this->dep_select);
+	  
+	  //$form_suffix  .= $this->dep_select ;
+
     //krumo( $form_suffix  );
     $form_suffix .= '</form>' . $form_data[ 'tag' ][ 'after' ] . '</sst-form>';
     return $form_prefix . $form . $form_suffix;
@@ -1037,7 +1079,7 @@ class render extends database {
   Note: in view or edit mode it will return all extra that you have used
   */
   function create_attr_changer_code( $x_data ) {
-	 //static $func_num;
+    //static $func_num;
     if ( !empty( $x_data[ 'attr_changer_condition_ids' ] ) ) {
       $attr_changer_condition_ids = $this->get_ids( $x_data[ 'attr_changer_condition_ids' ] );
       if ( !empty( $attr_changer_condition_ids ) ) {
@@ -1068,10 +1110,10 @@ class render extends database {
     //if({self}=='value'){jQuery("{name:query-12}").attr("disabled","disabled");jQuery("{name:json_url-12}").attr("disabled","disabled");}else if({name_jq_value:source_type-12}=='query'){jQuery("{name:json_url-12}").attr("disabled","disabled");jQuery("{name:query-12}").removeAttr("disabled");}else if({self}=='json'){jQuery("{name:query-12}").attr("disabled","disabled");jQuery("{name:json_url-12}").removeAttr("disabled");}
 
     if ( !empty( $jquery_code ) ) {
-	$attr_changer_func_name = 'attr_changer_'.rand(1,99999999);
-      $temp_attr_changer_code .= "jQuery( document ).ready(function($) {" . "\n" .$attr_changer_func_name. "();});" . "\n";
-      $temp_attr_changer_code .= "jQuery('#" . $x_data[ 'attrs' ][ 'id' ] . "').on('input keyup keypress focus blur click change', function($) {" . "\n" .$attr_changer_func_name. "();});" . "\n";
-      $temp_attr_changer_code .= "function ".$attr_changer_func_name."(){console.log('hhhhhhhhh');" . $jquery_code . "}" . "\n";
+      $attr_changer_func_name = 'attr_changer_' . rand( 1, 99999999 );
+      $temp_attr_changer_code .= "jQuery( document ).ready(function($) {" . "\n" . $attr_changer_func_name . "();});" . "\n";
+      $temp_attr_changer_code .= "jQuery('#" . $x_data[ 'attrs' ][ 'id' ] . "').on('input keyup keypress focus blur click change', function($) {" . "\n" . $attr_changer_func_name . "();});" . "\n";
+      $temp_attr_changer_code .= "function " . $attr_changer_func_name . "(){" . $jquery_code . "}" . "\n";
 
 
       switch ( $x_data[ 'input_html_type' ] ) {
@@ -1121,27 +1163,27 @@ class render extends database {
               if ( in_array( $attr_changer_obj->attr, $boolean_attr ) ) {
                 if ( $attr_changer_obj->attr == 'hidden' ) {
                   //$jquery_code .= 'console.log(jQuery("{name:' . $input_obj->name . '}").closest("sst-input").attr("id")+ " is showing");'."\n";
-                  $jquery_code .= "\t".'/*input:' . $input_obj->name . '*/' . "\n";
-                  $jquery_code .= "\t".'jQuery("{name:' . $input_obj->name . '}").closest("sst-input").prop("' . $attr_changer_obj->attr . '",false);' . "\n";
+                  $jquery_code .= "\t" . '/*input:' . $input_obj->name . '*/' . "\n";
+                  $jquery_code .= "\t" . 'jQuery("{name:' . $input_obj->name . '}").closest("sst-input").prop("' . $attr_changer_obj->attr . '",false);' . "\n";
                 }
-                $jquery_code .= "\t".'/*input:' . $input_obj->name . '*/' . "\n";
-                $jquery_code .= "\t".'jQuery("{name:' . $input_obj->name . '}").prop("' . $attr_changer_obj->attr . '",false);' . "\n";
+                $jquery_code .= "\t" . '/*input:' . $input_obj->name . '*/' . "\n";
+                $jquery_code .= "\t" . 'jQuery("{name:' . $input_obj->name . '}").prop("' . $attr_changer_obj->attr . '",false);' . "\n";
               } else {
-                $jquery_code .= "\t".'/*input:' . $input_obj->name . '*/' . "\n";
-                $jquery_code .= "\t".'jQuery("{name:' . $input_obj->name . '}").removeAttr("' . $attr_changer_obj->attr . '");' . "\n";
+                $jquery_code .= "\t" . '/*input:' . $input_obj->name . '*/' . "\n";
+                $jquery_code .= "\t" . 'jQuery("{name:' . $input_obj->name . '}").removeAttr("' . $attr_changer_obj->attr . '");' . "\n";
               }
             } else { //this is not remove
               if ( in_array( $attr_changer_obj->attr, $boolean_attr ) ) {
                 if ( $attr_changer_obj->attr == 'hidden' ) {
                   //$jquery_code .= 'console.log(jQuery("{name:' . $input_obj->name . '}").closest("sst-input").attr("id")+ " is hidding");'."\n";
-                  $jquery_code .= "\t".'/*input:' . $input_obj->name . '*/' . "\n";
-                  $jquery_code .= "\t".'jQuery("{name:' . $input_obj->name . '}").closest("sst-input").prop("' . $attr_changer_obj->attr . '",true);' . "\n";
+                  $jquery_code .= "\t" . '/*input:' . $input_obj->name . '*/' . "\n";
+                  $jquery_code .= "\t" . 'jQuery("{name:' . $input_obj->name . '}").closest("sst-input").prop("' . $attr_changer_obj->attr . '",true);' . "\n";
                 }
-                $jquery_code .= "\t".'/*input:' . $input_obj->name . '*/' . "\n";
-                $jquery_code .= "\t".'jQuery("{name:' . $input_obj->name . '}").prop("' . $attr_changer_obj->attr . '",true);' . "\n";
+                $jquery_code .= "\t" . '/*input:' . $input_obj->name . '*/' . "\n";
+                $jquery_code .= "\t" . 'jQuery("{name:' . $input_obj->name . '}").prop("' . $attr_changer_obj->attr . '",true);' . "\n";
               } else {
-                $jquery_code .= "\t".'/*input:' . $input_obj->name . '*/' . "\n";
-                $jquery_code .= "\t".'jQuery("{name:' . $input_obj->name . '}").prop("' . $attr_changer_obj->attr . '","' . $attr_changer_obj->value . '");' . "\n";
+                $jquery_code .= "\t" . '/*input:' . $input_obj->name . '*/' . "\n";
+                $jquery_code .= "\t" . 'jQuery("{name:' . $input_obj->name . '}").prop("' . $attr_changer_obj->attr . '","' . $attr_changer_obj->value . '");' . "\n";
               }
             }
           }
@@ -1212,7 +1254,7 @@ class render extends database {
     } else {
       $this->error_log( 'No attr change ids is provided with conditions id:' . $attr_changer_condition_obj->id );
     }
-    $jquery_code .= "\t" .'console.log("sssssssssss");'. "\n";
+  //  $jquery_code .= "\t" . 'console.log("sssssssssss");' . "\n";
     $jquery_code .= '}';
     // $jquery_code = "<script>alert('sssssssssss');</script>";
     return $jquery_code;
@@ -1244,26 +1286,27 @@ class render extends database {
       foreach ( $matches[ 1 ] as $k => $match ) {
         $id = common::search_by_attr_to_get_other_attr( 'name', $matches[ 1 ][ $k ], 'id', $this->process_data, 'process' );
         $html_type = common::search_by_attr_to_get_other_attr( 'name', $matches[ 1 ][ $k ], 'type', $this->process_data, 'process' );
-      switch ( $html_type ) {
-        case "radio":
-        case "checkbox":
-        $attr_changer_code = str_replace( $matches[ 0 ][ $k ], "jQuery('#" . $id . " :checked').val()", $attr_changer_code );
-          break;
-        default:
-        $attr_changer_code = str_replace( $matches[ 0 ][ $k ], "jQuery('#" . $id . "').val()", $attr_changer_code );
+        switch ( $html_type ) {
+          case "radio":
+          case "checkbox":
+            $attr_changer_code = str_replace( $matches[ 0 ][ $k ], "jQuery('#" . $id . " :checked').val()", $attr_changer_code );
+            break;
+          default:
+            $attr_changer_code = str_replace( $matches[ 0 ][ $k ], "jQuery('#" . $id . "').val()", $attr_changer_code );
 
-          break;
-      }
+
+            break;
+        }
       }
 
       $this->attr_changer_code = $attr_changer_code;
-      $sst_script_name = "sst-script" . "-" . $this->process_data[ 'form_data' ][ 'unique_id' ];
+     // $sst_script_name = "sst-script" . "-" . $this->process_data[ 'form_data' ][ 'unique_id' ];
       //krumo($sst_script_name);
-      $form_suffix .= "\n" . '<script id="' . $sst_script_name . '" type="text/javascript">' . "\n";
+      //$form_suffix .= "\n" . '<script id="' . $sst_script_name . '" type="text/javascript">' . "\n";
       //$form_suffix .= 'jQuery(document).ready(function ($) {'."\n";
       $form_suffix .= $this->attr_changer_code . "\n";
       //$form_suffix .= '});'."\n" ;
-      $form_suffix .= '</script>' . "\n";;
+     // $form_suffix .= '</script>' . "\n";;
     }
     return $form_suffix;
   }

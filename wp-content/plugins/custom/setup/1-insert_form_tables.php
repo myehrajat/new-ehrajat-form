@@ -24,6 +24,17 @@ class insert_custom_tables extends database {
     $GLOBALS[ 'sst_custom' ][ 'social_network' ] = $wpdb->prefix . 'custom_' . 'social_network';
     $GLOBALS[ 'sst_custom' ][ 'education' ] = $wpdb->prefix . 'custom_' . 'education';
     $GLOBALS[ 'sst_custom' ][ 'person' ] = $wpdb->prefix . 'custom_' . 'person';
+    $GLOBALS[ 'sst_custom' ][ 'state' ] = $wpdb->prefix . 'custom_' . 'state';  
+    $GLOBALS[ 'sst_custom' ][ 'city' ] = $wpdb->prefix . 'custom_' . 'city';
+    $GLOBALS[ 'sst_custom' ][ 'area' ] = $wpdb->prefix . 'custom_' . 'area';
+    /*$GLOBALS[ 'sst_custom' ][ 'relation' ] = $wpdb->prefix . 'custom_' . 'relation';
+    $GLOBALS[ 'sst_custom' ][ 'person_relation' ] = $wpdb->prefix . 'custom_' . 'person_relation';
+    $GLOBALS[ 'sst_custom' ][ 'area' ] = $wpdb->prefix . 'custom_' . 'area';
+    $GLOBALS[ 'sst_custom' ][ 'phone' ] = $wpdb->prefix . 'custom_' . 'phone';
+    $GLOBALS[ 'sst_custom' ][ 'address' ] = $wpdb->prefix . 'custom_' . 'address';
+    
+$GLOBALS[ 'sst_custom' ][ 'address' ] = $wpdb->prefix . 'custom_' . 'state';
+*/
   }
 
   function insert_tables() {
@@ -32,6 +43,7 @@ class insert_custom_tables extends database {
     "`id` INT(10) NOT NULL auto_increment," .
     "`country` VARCHAR(255) NOT NULL," .
     "`flag` VARCHAR(255) NOT NULL," .
+    "`phone_code` VARCHAR(255) NOT NULL," .
     "`desc` LONGTEXT DEFAULT NULL," .
     "`save_id` VARCHAR(255) NOT NULL," .
     "`owner` VARCHAR(255) DEFAULT NULL," .
@@ -204,6 +216,60 @@ class insert_custom_tables extends database {
             PRIMARY KEY id  (`id`)) $this->collate_charset;";
     global $wpdb;
     $this->create_tables( $sql );
+
+    $sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_custom' ][ 'state' ] . " (" .
+    "`id` INT(10) NOT NULL auto_increment," .
+    "`country_id` VARCHAR(255) NOT NULL," .
+    "`state_name` VARCHAR(255) NOT NULL," .
+    "`phone_code` VARCHAR(255) NOT NULL," .
+    "`desc` LONGTEXT NOT NULL," .
+    "`save_id` VARCHAR(255) NOT NULL," .
+    "`owner` VARCHAR(255) DEFAULT NULL," .
+    "`created` DATETIME NOT NULL DEFAULT NOW()," .
+    "`modified` DATETIME NOT NULL DEFAULT NOW(),
+        PRIMARY KEY id  (`id`)) $this->collate_charset;";
+    global $wpdb;
+	  
+    $this->create_tables( $sql );
+    $sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_custom' ][ 'city' ] . " (" .
+    "`id` INT(10) NOT NULL auto_increment," .
+    "`country_id` VARCHAR(255) NOT NULL," .
+    "`state_id` VARCHAR(255) NOT NULL," .
+    "`city_name` VARCHAR(255) NOT NULL," .
+    "`phone_code` VARCHAR(255) NOT NULL," .
+    "`desc` LONGTEXT NOT NULL," .
+    "`save_id` VARCHAR(255) NOT NULL," .
+    "`owner` VARCHAR(255) DEFAULT NULL," .
+    "`created` DATETIME NOT NULL DEFAULT NOW()," .
+    "`modified` DATETIME NOT NULL DEFAULT NOW(),
+        PRIMARY KEY id  (`id`)) $this->collate_charset;";
+    global $wpdb;
+	  
+    $this->create_tables( $sql );
+    $sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_custom' ][ 'area' ] . " (" .
+    "`id` INT(10) NOT NULL auto_increment," .
+    "`country_id` VARCHAR(255) NOT NULL," .
+    "`state_id` VARCHAR(255) NOT NULL," .
+    "`city_id` VARCHAR(255) NOT NULL," .
+    "`area_name` VARCHAR(255) NOT NULL," .
+    "`desc` LONGTEXT NOT NULL," .
+    "`save_id` VARCHAR(255) NOT NULL," .
+    "`owner` VARCHAR(255) DEFAULT NULL," .
+    "`created` DATETIME NOT NULL DEFAULT NOW()," .
+    "`modified` DATETIME NOT NULL DEFAULT NOW(),
+        PRIMARY KEY id  (`id`)) $this->collate_charset;";
+    global $wpdb;
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+    $this->create_tables( $sql );
+
 
   }
 }
