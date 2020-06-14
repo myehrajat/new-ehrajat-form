@@ -27,8 +27,8 @@ class insert_custom_tables extends database {
     $GLOBALS[ 'sst_custom' ][ 'state' ] = $wpdb->prefix . 'custom_' . 'state';  
     $GLOBALS[ 'sst_custom' ][ 'city' ] = $wpdb->prefix . 'custom_' . 'city';
     $GLOBALS[ 'sst_custom' ][ 'area' ] = $wpdb->prefix . 'custom_' . 'area';
-    /*$GLOBALS[ 'sst_custom' ][ 'relation' ] = $wpdb->prefix . 'custom_' . 'relation';
-    $GLOBALS[ 'sst_custom' ][ 'person_relation' ] = $wpdb->prefix . 'custom_' . 'person_relation';
+    $GLOBALS[ 'sst_custom' ][ 'relation' ] = $wpdb->prefix . 'custom_' . 'relation';
+    /*$GLOBALS[ 'sst_custom' ][ 'relationship' ] = $wpdb->prefix . 'custom_' . 'relationship';
     $GLOBALS[ 'sst_custom' ][ 'area' ] = $wpdb->prefix . 'custom_' . 'area';
     $GLOBALS[ 'sst_custom' ][ 'phone' ] = $wpdb->prefix . 'custom_' . 'phone';
     $GLOBALS[ 'sst_custom' ][ 'address' ] = $wpdb->prefix . 'custom_' . 'address';
@@ -243,7 +243,6 @@ $GLOBALS[ 'sst_custom' ][ 'address' ] = $wpdb->prefix . 'custom_' . 'state';
     "`created` DATETIME NOT NULL DEFAULT NOW()," .
     "`modified` DATETIME NOT NULL DEFAULT NOW(),
         PRIMARY KEY id  (`id`)) $this->collate_charset;";
-    global $wpdb;
 	  
     $this->create_tables( $sql );
     $sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_custom' ][ 'area' ] . " (" .
@@ -258,7 +257,17 @@ $GLOBALS[ 'sst_custom' ][ 'address' ] = $wpdb->prefix . 'custom_' . 'state';
     "`created` DATETIME NOT NULL DEFAULT NOW()," .
     "`modified` DATETIME NOT NULL DEFAULT NOW(),
         PRIMARY KEY id  (`id`)) $this->collate_charset;";
-    global $wpdb;
+	  
+    $this->create_tables( $sql );
+    $sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_custom' ][ 'relation' ] . " (" .
+    "`id` INT(10) NOT NULL auto_increment," .
+    "`relation` VARCHAR(255) NOT NULL," .
+    "`desc` LONGTEXT NOT NULL," .
+    "`save_id` VARCHAR(255) NOT NULL," .
+    "`owner` VARCHAR(255) DEFAULT NULL," .
+    "`created` DATETIME NOT NULL DEFAULT NOW()," .
+    "`modified` DATETIME NOT NULL DEFAULT NOW(),
+        PRIMARY KEY id  (`id`)) $this->collate_charset;";
 	  
 	  
 	  

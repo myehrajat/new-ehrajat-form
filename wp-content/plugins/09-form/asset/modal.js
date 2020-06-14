@@ -1,5 +1,5 @@
-function loadDynamicContentModal(process_url, modal_container_id, input_url, input_wrapper_id) {
-//alert('sssssssssss');
+function loadDynamicContentModal(process_url, modal_container_id, input_url, input_wrapper_id, form_id) {
+  //alert('sssssssssss');
   var options = {
     modal: true,
     height: 300,
@@ -17,14 +17,14 @@ function loadDynamicContentModal(process_url, modal_container_id, input_url, inp
       "buttons": [{
           text: "Submit",
           click: function () {
-              console.log(jQuery("#" + modal_container_id + '_result'));
+            console.log(jQuery("#" + modal_container_id + '_result'));
             //jQuery("form").last().on('submit',function(){alert('ddddddddd');});
             jQuery("form").last().submit();
 
             console.log(jQuery("#" + modal_container_id + '_result'));
-			 if(jQuery( "my_dialog" ).dialog( "open" )){
-            console.log(jQuery("#" + modal_container_id + '_result'));
-			 }
+            if (jQuery("my_dialog").dialog("open")) {
+              console.log(jQuery("#" + modal_container_id + '_result'));
+            }
 
             //jQuery("#" + modal_container_id + "_submit").hide();
             jQuery("#" + modal_container_id + "_set").show();
@@ -47,7 +47,13 @@ function loadDynamicContentModal(process_url, modal_container_id, input_url, inp
                   if (jQuery("#" + modal_container_id + '_result').html() != undefined) {
                     jQuery("#" + input_id).val(jQuery("#" + modal_container_id + '_result').html().split(','));
                   }
+                  //get_form_id();
+
+
+                  //alert("ssssssssssss");
                   my_dialog.dialog('close');
+                  rewrite_js('sst_' + form_id + '_js_script', form_id);
+
                   //jQuery('#' + modal_container_id).html(data);
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
@@ -112,5 +118,19 @@ function loadDynamicContentModal(process_url, modal_container_id, input_url, inp
       "restore": "ui-icon-newwin"
     }
   });
+}
+
+function rewrite_js(js_script_id, form_id) {
+  var cloned = jQuery("#" + js_script_id)[0].outerHTML;
+
+  var js = document.createElement('script');
+  js.type = 'text/javascript';
+
+  js.id = js_script_id + 'sssssssssssssssssssss';
+  js.innerHTML = jQuery(cloned).html();
+  console.log(js);
+  jQuery("#" + js_script_id).remove();
+  document.getElementById(form_id).appendChild(js);
+
 
 }

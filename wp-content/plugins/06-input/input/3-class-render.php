@@ -356,9 +356,9 @@ class render extends database {
       $this->attr_changer_code .= $input_data[ 'attr_changer_code' ];
 		krumo($this->attr_changer_code);
     }*/
-    if ( !empty( $process_data ) ) {
       $process_data = $this->process_data;
-    }
+	 // krumo($process_data);
+
     if ( !empty( $input_data )and!empty( $input_data[ 'function' ] ) ) {
       //if($input_data[ 'function' ] =='sst_depend_select'){
       //krumo(EVAL_STR . 'return ' . $input_data[ 'function' ] . '("' . addslashes( json_encode( $input_data ) ) . '","' . addslashes( json_encode( $this->process_data ) ) . '");' );
@@ -517,11 +517,11 @@ class render extends database {
           $this->modal_js .= "\t" . "\t" . "'" . PROCESS_BY_GET_URL . '?__sst__process_id=' . $modal_process . '&__sst__insert_ref_result=' . $modal_insert_ref . "'," . "\n";
           $this->modal_js .= "\t" . "\t" . "'" . $modal_input_id . $uniqid_modal . "'," . "\n";
           $this->modal_js .= "\t" . "\t" . "'" . INPUT_BY_GET_URL . '?__sst__input_id=' . $modal_input_id_num . '&__sst__input_the_id=' . $modal_input_id . '&__sst__input_unique_id=' . $modal_input_unique_id . "'," . "\n";
-          $this->modal_js .= "\t" . "\t" . "'" . $modal_input_unique_id . "'" . "\n";
+          $this->modal_js .= "\t" . "\t" . "'" . $modal_input_unique_id . "'," . "\n";
+          $this->modal_js .= "\t" . "\t" . "'" . $process_data['form_data']['unique_id'] . "'" . "\n";
           $this->modal_js .= "\t" . "\t" . ');' . "\n";
           $this->modal_js .= "\t" . '});' . "\n";
           $this->modal_js .= '';
-
 
           $input_data[ 'tag' ][ 'after' ] .= PROCESS_MODAL_BUTTON;
           $input_data[ 'tag' ][ 'after' ] .= '</span>';
@@ -1024,7 +1024,7 @@ class render extends database {
 	$this->js_codes['modal_code']   .=  $this->modal_js . "\n";
 	  $this->js_codes['inptut_js_code']   .=  $this->inptut_js_code . "\n";
 	  //krumo($this->js_codes);
-	  $form_suffix  .= "\n".'<script type="text/javascript">';
+	  $form_suffix  .= "\n".'<script id="sst_'.$form_data['unique_id'].'_js_script" type="text/javascript">';
 	  $form_suffix  .= "\n".'jQuery( document ).ready(function($) {' . "\n";
 	 $form_suffix .= implode('',$this->js_codes);
 	  $form_suffix  .=  '});' . "\n";

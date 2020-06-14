@@ -160,7 +160,7 @@ jQuery(document).ready(function () {
       js.id = sst.script_tag_id + "-" + add_up_single_string(source_element_id, source_element_id);
       js.innerHTML = jQuery(clone_source_script).html();
       jQuery.each(all_source, function (index, needle) {
-        js.innerHTML = replace_str_for_text2(js.innerHTML, needle, all_cloned[index]);
+	      js.innerHTML = replace_str_for_text2(js.innerHTML, needle, all_cloned[index]);
       });
       // console.log( document.getElementById('sst-aaaaaascript'));
       if (document.getElementById(sst.script_tag_id + "-" + add_up_single_string(source_element_id, source_element_id)) != null) {

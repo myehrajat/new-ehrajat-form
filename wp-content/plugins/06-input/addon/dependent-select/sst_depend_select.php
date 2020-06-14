@@ -99,7 +99,7 @@ if ( !empty( $_REQUEST[ 'psw' ] ) ) {
       $options_obj = '<option disabled="disabled" sst_onfly="yes">No Option On Change Found!</option>"';
     }
     //var_dump($options_obj);
-
+//$options_obj .= '<script>alert("sssssssssss");</script>';
     echo $options_obj;
   }
   //render_select_list
@@ -138,10 +138,10 @@ function sst_depend_select( $input_data_json, $process_data_json ) {
     foreach ( $input_data[ 'meta' ][ 'controller-input-name' ] as $controller_input_name ) {
       $controller_input_ids[] = addslashes( common::search_by_attr_to_get_other_attr( 'name', $controller_input_name, 'id', $process_data, 'process' ) );
     }
-    $controller_inputs_str = "'" . implode( ',', $controller_input_ids ) . "'," . "\n";
+    $controller_inputs_str = implode( ',', $controller_input_ids ) ;
   } else {
     $controller_input_ids = common::search_by_attr_to_get_other_attr( 'name', $input_data[ 'meta' ][ 'controller-input-name' ], 'id', $process_data, 'process' );
-    $controller_inputs_str = "'" . addslashes( $controller_input_ids ) . "'," . "\n";
+    $controller_inputs_str =  addslashes( $controller_input_ids );
   }
   //$script = '<script type="text/javascript">' . "\n";
   //$script .= 'jQuery(document).ready(function($) {' . "\n";
@@ -150,7 +150,7 @@ function sst_depend_select( $input_data_json, $process_data_json ) {
   $script .= "'" . addslashes( $input_data[ 'attrs' ][ 'id' ] ) . "'," . "\n";
 
 
-  $script .= $controller_inputs_str;
+  $script .= "'" .$controller_inputs_str . "'," . "\n";
 	
 
   $between_start = '{name:';
@@ -184,7 +184,11 @@ function sst_depend_select( $input_data_json, $process_data_json ) {
 	//$script .= '</script>';
   //echo $script;
   //$input_data[ 'tag' ][ 'after' ] .= $script;
-  $input_data[ 'js_code' ] .= $script;
+	//krumo($controller_inputs_str);
+	//krumo(explode(',', $controller_inputs_str));
+	//$controller_inputs_str_id_selector = implode(',#',explode(',', $controller_inputs_str));
+ // $input_data[ 'js_code' ] .= 'jQuery("#'. $controller_inputs_str_id_selector .'").on("change remove create",function(){alert("سسسسسسسسسسسسسسسسسس")});';
+	$input_data[ 'js_code' ] .= $script;
   //$input_data[ 'tag' ][ 'before' ] .= '<script type="text/javascript">alert("sssssssssss");</script>';
   //$input_data[ 'tag' ][ 'before' ] .= '<script type="text/javascript"></script>';
   //krumo($input_data);
