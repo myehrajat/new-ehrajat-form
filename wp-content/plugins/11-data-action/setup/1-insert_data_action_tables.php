@@ -47,7 +47,7 @@ class insert_data_action_tables extends database {
         "`epithet` VARCHAR(255) default NULL," .
         "`slug` VARCHAR(255) default NULL," .
 		"`table` VARCHAR(255) NOT NULL," .
-        "`prevent_insert_rule` VARCHAR(255) default NULL ," .
+        "`prevent_insert_rule` LONGTEXT default NULL ," .
         "`insert_ref` VARCHAR(255) default NULL," .
 		"`added_result_html` LONGTEXT NOT NULL," .
 		"`edited_result_html` LONGTEXT NOT NULL," .

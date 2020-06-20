@@ -233,6 +233,7 @@ class data_action extends process {
   }
 
   function create_colval_data() {
+//	  krumo($this->vals);
     $colval_ids_str = $this->data_action_obj->colval_ids;
     $sorted_colvals_obj = $this->sort_all_colval_by_depth( $colval_ids_str );
     if ( !empty( $sorted_colvals_obj ) ) {
@@ -278,6 +279,7 @@ class data_action extends process {
             case "ecode-group-after":
               break;
             case "temp":
+            case "temporary":
               $is_there_temp = true;
               $all_values[ 'DONT-SAVE-ME-' . $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
               break;
