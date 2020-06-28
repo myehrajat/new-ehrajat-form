@@ -58,7 +58,7 @@ class insert_form_tables extends database {
         "`process_id` VARCHAR(255) NOT NULL," .
         "`insert_ref` VARCHAR(255) NOT NULL," .
         "`readonly_input_ids` VARCHAR(255) NOT NULL," .
-        "`reload_input_ids` VARCHAR(255) NOT NULL," .
+        "`trigger_change_event_input_ids` VARCHAR(255) NOT NULL," .
         "`description` LONGTEXT NOT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .
         "`created` DATETIME NOT NULL DEFAULT NOW()," .

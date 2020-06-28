@@ -1,5 +1,5 @@
-function loadDynamicContentModal(process_url, modal_container_id, input_url, input_wrapper_id, form_id) {
-  //alert('sssssssssss');
+function loadDynamicContentModal(process_url, modal_container_id, input_url, input_wrapper_id, form_id, trigger_change_event_input_ids, readonly_input_ids) {
+
   var options = {
     modal: true,
     height: 300,
@@ -46,7 +46,12 @@ function loadDynamicContentModal(process_url, modal_container_id, input_url, inp
                   jQuery("#" + input_wrapper_id).first().replaceWith(data);
                   //console.log(jQuery("#" + modal_container_id + '_result').html());
                   if (jQuery("#" + modal_container_id + '_result').html() != undefined) {
+                    var trigger_change_event_input_ids_arr = trigger_change_event_input_ids.split(",");
+                    jQuery.each(trigger_change_event_input_ids_arr, function (key, trigger_change_event_input_id) {
+                      jQuery("[sst-input-id='" + trigger_change_event_input_id + "']").first().trigger("change");
+                    });
                     jQuery("#" + input_id).val(jQuery("#" + modal_container_id + '_result').html().split(','));
+                    //jQuery("#" + input_id).val(jQuery("#" + modal_container_id + '_result').html().split(',')).change();
                   }
                   rewrite_js('sst_' + form_id + '_js_script', form_id);
                   my_dialog.dialog('close');
@@ -90,6 +95,20 @@ function loadDynamicContentModal(process_url, modal_container_id, input_url, inp
           context: this,
           success: function (data) {
             jQuery('#' + modal_container_id).html(data);
+            var readonly_input_ids_arr = readonly_input_ids.split(",");
+            jQuery.each(readonly_input_ids_arr, function (key, readonly_input_id) {
+              var pair = readonly_input_id.split(":");
+              var to_hide = pair[0];
+              var to_set_val = pair[1];
+              jQuery('#' + modal_container_id + " [sst-input-id='" + to_hide + "']").attr("readonly", "readonly");/*on select there is no readonly*/
+              jQuery('#' + modal_container_id + " [sst-input-id='" + to_hide + "']").parent().closest('sst-input').attr("hidden", "hidden");
+              jQuery('#' + modal_container_id + " [sst-input-id='" + to_hide + "']").val(jQuery('#' + form_id + " [sst-input-id='" + to_set_val + "']").val());				
+             // console.log(to_hide);
+             // console.log(to_set_val);
+
+
+            });
+
           },
           error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);

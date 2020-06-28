@@ -356,8 +356,8 @@ class render extends database {
       $this->attr_changer_code .= $input_data[ 'attr_changer_code' ];
 		krumo($this->attr_changer_code);
     }*/
-      $process_data = $this->process_data;
-	 // krumo($process_data);
+    $process_data = $this->process_data;
+    // krumo($process_data);
 
     if ( !empty( $input_data )and!empty( $input_data[ 'function' ] ) ) {
       //if($input_data[ 'function' ] =='sst_depend_select'){
@@ -494,31 +494,18 @@ class render extends database {
           $modal_input_id_num = $input_data[ 'id' ];
           $uniqid_modal = uniqid( "_sst_modal_" );
           $input_data[ 'tag' ][ 'after' ] .= "\n" . '<span id="' . $input_data[ 'unique_id' ] . '_clickable">' . "\n";
-          /*
-		 $input_data[ 'tag' ][ 'after' ] .= '<script type="text/javascript">'."\n";
-			
-		 $input_data[ 'tag' ][ 'after' ] .= 'jQuery( document ).ready(function($) {'."\n";
-		 $input_data[ 'tag' ][ 'after' ] .= "\t".'jQuery( "#'.$input_data[ 'unique_id' ].'_clickable" ).on("click ",function($) {'."\n";
-			$input_data[ 'tag' ][ 'after' ] .= "\t"."\t".'loadDynamicContentModal('."\n";
-          $input_data[ 'tag' ][ 'after' ] .= "\t"."\t"."'" . PROCESS_BY_GET_URL . '?__sst__process_id=' . $modal_process . '&__sst__insert_ref_result=' . $modal_insert_ref . "',"."\n";
-          $input_data[ 'tag' ][ 'after' ] .= "\t"."\t"."'" . $modal_input_id . $uniqid_modal . "',"."\n";
-          $input_data[ 'tag' ][ 'after' ] .= "\t"."\t"."'" . INPUT_BY_GET_URL . '?__sst__input_id=' . $modal_input_id_num . '&__sst__input_the_id=' . $modal_input_id . '&__sst__input_unique_id=' . $modal_input_unique_id . "',"."\n";
-          $input_data[ 'tag' ][ 'after' ] .= "\t"."\t"."'" . $modal_input_unique_id . "'"."\n";
-          $input_data[ 'tag' ][ 'after' ] .= "\t"."\t".');'."\n";
-          $input_data[ 'tag' ][ 'after' ] .= "\t".'});'."\n";
-          $input_data[ 'tag' ][ 'after' ] .= '});'."\n";
-          $input_data[ 'tag' ][ 'after' ] .= '</script>';
-		  */
-          //$this->modal_js
+
           $this->modal_js .= '';
           $this->modal_js .= "\t" . 'jQuery( "#' . $input_data[ 'unique_id' ] . '_clickable" ).on("click ",function($) {' . "\n";
           $this->modal_js .= "\t" . "\t" . 'loadDynamicContentModal(' . "\n";
           $this->modal_js .= "\t" . "\t" . "'" . PROCESS_BY_GET_URL . '?__sst__process_id=' . $modal_process . '&__sst__insert_ref_result=' . $modal_insert_ref . "'," . "\n";
           $this->modal_js .= "\t" . "\t" . "'" . $modal_input_id . $uniqid_modal . "'," . "\n";
           $this->modal_js .= "\t" . "\t" . "'" . INPUT_BY_GET_URL . '?__sst__input_id=' . $modal_input_id_num . '&__sst__input_the_id=' . $modal_input_id . '&__sst__input_unique_id=' . $modal_input_unique_id . "'," . "\n";
-			//load again 
+          //load again 
           $this->modal_js .= "\t" . "\t" . "'" . $modal_input_unique_id . "'," . "\n";
-          $this->modal_js .= "\t" . "\t" . "'" . $process_data['form_data']['unique_id'] . "'" . "\n";
+          $this->modal_js .= "\t" . "\t" . "'" . $process_data[ 'form_data' ][ 'unique_id' ] . "'," . "\n";
+          $this->modal_js .= "\t" . "\t" . "'" . $input_data[ 'modal' ][ 'trigger_change_event_input_ids' ] . "'," . "\n";
+          $this->modal_js .= "\t" . "\t" . "'" . $input_data[ 'modal' ][ 'readonly_input_ids' ] . "'" . "\n";
           $this->modal_js .= "\t" . "\t" . ');' . "\n";
           $this->modal_js .= "\t" . '});' . "\n";
           $this->modal_js .= '';
@@ -537,14 +524,14 @@ class render extends database {
       if ( $input_data[ 'extra' ][ 'controller_position' ] == 'before' ) {
         $input = $input_data[ 'extra' ][ 'add_controller' ] . $input_data[ 'extra' ][ 'remove_controller' ] . $input;
       } elseif ( $input_data[ 'extra' ][ 'controller_position' ] == 'after' ) {
-        $input = $input . $input_data[ 'extra' ][ 'add_controller' ] . $input_data[ 'extra' ][ 'remove_controller' ];
-      } else {
-        $input = $input . $input_data[ 'extra' ][ 'add_controller' ] . $input_data[ 'extra' ][ 'remove_controller' ];
+          $input = $input . $input_data[ 'extra' ][ 'add_controller' ] . $input_data[ 'extra' ][ 'remove_controller' ];
+        } else {
+          $input = $input . $input_data[ 'extra' ][ 'add_controller' ] . $input_data[ 'extra' ][ 'remove_controller' ];
+        }
+        //krumo($input_data[ 'dep_sel' ]);
+      if ( isset( $input_data[ 'js_code' ] ) ) {
+        $this->inptut_js_code .= $input_data[ 'js_code' ];
       }
-		//krumo($input_data[ 'dep_sel' ]);
-		if(isset($input_data[ 'js_code' ])){
-			$this->inptut_js_code .= $input_data[ 'js_code' ];
-		}
       $input = '<sst-input id="' . "" . $input_data[ 'unique_id' ] . '" >' . $input . '</sst-input>';
       $this->input = $input;
       return $this->input;
@@ -1020,18 +1007,18 @@ class render extends database {
     // $this->attr_changer_code added by input render
 
 
-    $this->js_codes['attr_changer_code'] = $this->add_attr_changer_to_form_suffix( $form_suffix );
-	$this->js_codes['modal_code']   .=  $this->modal_js . "\n";
-	  $this->js_codes['inptut_js_code']   .=  $this->inptut_js_code . "\n";
-	  //krumo($this->js_codes);
-	  $form_suffix  .= "\n".'<script id="sst_'.$form_data['unique_id'].'_js_script" type="text/javascript">';
-	  $form_suffix  .= "\n".'jQuery( document ).ready(function($) {' . "\n";
-	 $form_suffix .= implode('',$this->js_codes);
-	  $form_suffix  .=  '});' . "\n";
-	  $form_suffix  .=  '</script>' . "\n";
-	 // krumo($this->dep_select);
-	  
-	  //$form_suffix  .= $this->dep_select ;
+    $this->js_codes[ 'attr_changer_code' ] = $this->add_attr_changer_to_form_suffix( $form_suffix );
+    $this->js_codes[ 'modal_code' ] .= $this->modal_js . "\n";
+    $this->js_codes[ 'inptut_js_code' ] .= $this->inptut_js_code . "\n";
+    //krumo($this->js_codes);
+    $form_suffix .= "\n" . '<script id="sst_' . $form_data[ 'unique_id' ] . '_js_script" type="text/javascript">';
+    $form_suffix .= "\n" . 'jQuery( document ).ready(function($) {' . "\n";
+    $form_suffix .= implode( '', $this->js_codes );
+    $form_suffix .= '});' . "\n";
+    $form_suffix .= '</script>' . "\n";
+    // krumo($this->dep_select);
+
+    //$form_suffix  .= $this->dep_select ;
 
     //krumo( $form_suffix  );
     $form_suffix .= '</form>' . $form_data[ 'tag' ][ 'after' ] . '</sst-form>';
@@ -1254,7 +1241,7 @@ class render extends database {
     } else {
       $this->error_log( 'No attr change ids is provided with conditions id:' . $attr_changer_condition_obj->id );
     }
-  //  $jquery_code .= "\t" . 'console.log("sssssssssss");' . "\n";
+    //  $jquery_code .= "\t" . 'console.log("sssssssssss");' . "\n";
     $jquery_code .= '}';
     // $jquery_code = "<script>alert('sssssssssss');</script>";
     return $jquery_code;
@@ -1300,13 +1287,13 @@ class render extends database {
       }
 
       $this->attr_changer_code = $attr_changer_code;
-     // $sst_script_name = "sst-script" . "-" . $this->process_data[ 'form_data' ][ 'unique_id' ];
+      // $sst_script_name = "sst-script" . "-" . $this->process_data[ 'form_data' ][ 'unique_id' ];
       //krumo($sst_script_name);
       //$form_suffix .= "\n" . '<script id="' . $sst_script_name . '" type="text/javascript">' . "\n";
       //$form_suffix .= 'jQuery(document).ready(function ($) {'."\n";
       $form_suffix .= $this->attr_changer_code . "\n";
       //$form_suffix .= '});'."\n" ;
-     // $form_suffix .= '</script>' . "\n";;
+      // $form_suffix .= '</script>' . "\n";;
     }
     return $form_suffix;
   }

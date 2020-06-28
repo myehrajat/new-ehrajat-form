@@ -63,7 +63,7 @@ implements attribute_input_common_generator_interface {
 			$this->modal_data['process_id'] =  $modal_obj->process_id;
 			$this->modal_data['insert_ref'] =  $modal_obj->insert_ref;
 			$this->modal_data['readonly_input_ids'] =  $modal_obj->readonly_input_ids;
-			$this->modal_data['reload_input_ids'] =  $modal_obj->reload_input_ids;
+			$this->modal_data['trigger_change_event_input_ids'] =  $modal_obj->trigger_change_event_input_ids;
 			
 		}
 		//krumo($this->modal_data);
