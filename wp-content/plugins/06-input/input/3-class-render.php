@@ -485,7 +485,6 @@ class render extends database {
       // to create process if it is modal create 4 hidden input for next steps __sst__is_modal,__sst__modal_result_container_id,__sst__is_modal,and set use ajax
       //in form making then use use ajax to add js to do all by ajax on event submit append it to after tag
       /************ CREATE MODAL ************/
-      //krumo($input_data);
       if ( $this->is_positive_number( $input_data[ 'modal' ][ 'process_id' ] ) ) {
         $modal_process = $this->is_eval_run( $input_data[ 'modal' ][ 'process_id' ] );
         if ( !empty( $input_data[ 'modal' ][ 'insert_ref' ] ) ) {
@@ -517,6 +516,7 @@ class render extends database {
           $this->modal_js .= "\t" . "\t" . "'" . PROCESS_BY_GET_URL . '?__sst__process_id=' . $modal_process . '&__sst__insert_ref_result=' . $modal_insert_ref . "'," . "\n";
           $this->modal_js .= "\t" . "\t" . "'" . $modal_input_id . $uniqid_modal . "'," . "\n";
           $this->modal_js .= "\t" . "\t" . "'" . INPUT_BY_GET_URL . '?__sst__input_id=' . $modal_input_id_num . '&__sst__input_the_id=' . $modal_input_id . '&__sst__input_unique_id=' . $modal_input_unique_id . "'," . "\n";
+			//load again 
           $this->modal_js .= "\t" . "\t" . "'" . $modal_input_unique_id . "'," . "\n";
           $this->modal_js .= "\t" . "\t" . "'" . $process_data['form_data']['unique_id'] . "'" . "\n";
           $this->modal_js .= "\t" . "\t" . ');' . "\n";

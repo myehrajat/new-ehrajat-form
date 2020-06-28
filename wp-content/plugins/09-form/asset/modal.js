@@ -17,13 +17,13 @@ function loadDynamicContentModal(process_url, modal_container_id, input_url, inp
       "buttons": [{
           text: "Submit",
           click: function () {
-            console.log(jQuery("#" + modal_container_id + '_result'));
+            // console.log(jQuery("#" + modal_container_id + '_result'));
             //jQuery("form").last().on('submit',function(){alert('ddddddddd');});
             jQuery("form").last().submit();
 
-            console.log(jQuery("#" + modal_container_id + '_result'));
+            //console.log(jQuery("#" + modal_container_id + '_result'));
             if (jQuery("my_dialog").dialog("open")) {
-              console.log(jQuery("#" + modal_container_id + '_result'));
+              // console.log(jQuery("#" + modal_container_id + '_result'));
             }
 
             //jQuery("#" + modal_container_id + "_submit").hide();
@@ -42,18 +42,14 @@ function loadDynamicContentModal(process_url, modal_container_id, input_url, inp
                 url: input_url,
                 context: this,
                 success: function (data) {
+                  //console.log(data);
                   jQuery("#" + input_wrapper_id).first().replaceWith(data);
                   //console.log(jQuery("#" + modal_container_id + '_result').html());
                   if (jQuery("#" + modal_container_id + '_result').html() != undefined) {
                     jQuery("#" + input_id).val(jQuery("#" + modal_container_id + '_result').html().split(','));
                   }
-                  //get_form_id();
-
-
-                  //alert("ssssssssssss");
-                  my_dialog.dialog('close');
                   rewrite_js('sst_' + form_id + '_js_script', form_id);
-
+                  my_dialog.dialog('close');
                   //jQuery('#' + modal_container_id).html(data);
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
@@ -112,7 +108,7 @@ function loadDynamicContentModal(process_url, modal_container_id, input_url, inp
     "collapsable": true,
     "dblclick": 'maximize',
     "icons": {
-      //"close" : "ui-icon-circle-closethick", // new in v1.0.1
+      "close": "ui-icon-circle-closethick", // new in v1.0.1
       "maximize": "ui-icon-arrowthick",
       "minimize": "ui-icon-minus",
       "restore": "ui-icon-newwin"
@@ -121,16 +117,18 @@ function loadDynamicContentModal(process_url, modal_container_id, input_url, inp
 }
 
 function rewrite_js(js_script_id, form_id) {
-  var cloned = jQuery("#" + js_script_id)[0].outerHTML;
-
-  var js = document.createElement('script');
-  js.type = 'text/javascript';
-
-  js.id = js_script_id + 'sssssssssssssssssssss';
-  js.innerHTML = jQuery(cloned).html();
-  console.log(js);
-  jQuery("#" + js_script_id).remove();
-  document.getElementById(form_id).appendChild(js);
+  //console.log(js_script_id);
+  jQuery.each(jQuery("[id^=" + js_script_id + "]"), function (key, script) {
+    // console.log(jQuery(script).attr("id"));
+    var cloned = jQuery(script).outerHTML;
+    var js = document.createElement('script');
+    js.type = 'text/javascript';
+    js.id = jQuery(script).attr("id");
+    js.innerHTML = jQuery(cloned).html();
+    jQuery("#" + js.id).remove();
+    document.getElementById(form_id).appendChild(js);
+  });
+  //var cloned = jQuery("#" + js_script_id)[0].outerHTML;
 
 
 }

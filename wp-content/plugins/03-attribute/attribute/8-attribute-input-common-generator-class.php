@@ -28,8 +28,7 @@ implements attribute_input_common_generator_interface {
                         if ( !empty( $this->input_type_obj->html_type )and!empty( $this->input_type_obj->type ) ) {
                             $this->input_type = $this->input_type_obj->type;
                             $this->input_html_type = $this->input_type_obj->html_type;
-                            $this->modal_process_id = $this->input_obj->modal_process_id;
-                            $this->modal_insert_ref = $this->input_obj->modal_insert_ref;
+							$this->modal_input_data_creator();
                             $this->common_attr = $this->create_attr_input_common();
                             return $this->common_attr;
                         } else {
@@ -57,7 +56,18 @@ implements attribute_input_common_generator_interface {
     }
 
 
-
+	function modal_input_data_creator(){
+		$modal_id = $this->input_obj->modal_id ;
+		if(!empty($modal_id)){
+            $modal_obj = $this->get_by_id($modal_id, $GLOBALS[ 'sst_tables' ][ 'modal' ] );
+			$this->modal_data['process_id'] =  $modal_obj->process_id;
+			$this->modal_data['insert_ref'] =  $modal_obj->insert_ref;
+			$this->modal_data['readonly_input_ids'] =  $modal_obj->readonly_input_ids;
+			$this->modal_data['reload_input_ids'] =  $modal_obj->reload_input_ids;
+			
+		}
+		//krumo($this->modal_data);
+	}
     function create_attr_input_common() {
 		//krumo($this->input_obj);
         $attr_input_common_arr = array();

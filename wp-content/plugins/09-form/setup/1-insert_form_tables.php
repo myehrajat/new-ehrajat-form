@@ -13,6 +13,7 @@ class insert_form_tables extends database {
 
     function table_names() {
         $GLOBALS[ 'sst_tables' ][ 'form' ]  = $this->full_prefix . 'form';
+        $GLOBALS[ 'sst_tables' ][ 'modal' ]  = $this->full_prefix . 'modal';
     }
 	
     function insert_tables() {
@@ -47,7 +48,23 @@ class insert_form_tables extends database {
         "`created` DATETIME NOT NULL DEFAULT NOW()," .
         "`modified` DATETIME NOT NULL DEFAULT NOW(),
         PRIMARY KEY id  (`id`)) $this->collate_charset;";
-		global $wpdb;
+
+		
+		
+		$sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'modal' ] . " (" .
+        "`id` INT(10) NOT NULL auto_increment," .
+        "`epithet` VARCHAR(255) NOT NULL," .
+        "`slug` VARCHAR(255) NOT NULL," .
+        "`process_id` VARCHAR(255) NOT NULL," .
+        "`insert_ref` VARCHAR(255) NOT NULL," .
+        "`readonly_input_ids` VARCHAR(255) NOT NULL," .
+        "`reload_input_ids` VARCHAR(255) NOT NULL," .
+        "`description` LONGTEXT NOT NULL," .
+        "`owner` VARCHAR(255) DEFAULT NULL," .
+        "`created` DATETIME NOT NULL DEFAULT NOW()," .
+        "`modified` DATETIME NOT NULL DEFAULT NOW(),
+        PRIMARY KEY id  (`id`)) $this->collate_charset;";
+		
         $this->create_tables( $sql );
     }
 }

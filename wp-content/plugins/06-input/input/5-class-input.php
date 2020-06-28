@@ -36,8 +36,9 @@ class input extends data_creator {
         $this->input_data[ 'input_type' ] = $this->common_attr_obj->input_type;
         $this->input_data[ 'input_html_type' ] = $this->common_attr_obj->input_html_type;
         $this->input_data[ 'function' ] = $this->common_attr_obj->input_type_obj->function;
-        $this->input_data['modal'][ 'process_id' ] = $this->common_attr_obj->modal_process_id;
-        $this->input_data['modal'][ 'insert_ref' ] = $this->common_attr_obj->modal_insert_ref;
+		
+        $this->input_data['modal'] = $this->common_attr_obj->modal_data;
+		//krumo($this->input_data['modal']);
 
     }
 
@@ -122,6 +123,7 @@ class input extends data_creator {
 				$this->specific_attr_obj->input_data[ 'attrs' ]
 			);
 		}
+		$this->input_data[ 'attrs' ]['sst-input-id']=$this->input_obj->id;
 
 
 
@@ -179,7 +181,6 @@ class input extends data_creator {
                 foreach ( $input_meta_ids as $input_meta_id ) {
                     $input_meta_obj = $this->get_by_id( $input_meta_id, $GLOBALS[ 'sst_tables' ][ 'input_meta' ] );
                     if ( !empty( $input_meta_obj ) ) {
-
 						if(!isset($this->input_data[ 'meta' ][ $input_meta_obj->key ])){
 							$this->input_data[ 'meta' ][ $input_meta_obj->key ] = $input_meta_obj->value;
 						}elseif(!is_array($this->input_data[ 'meta' ][ $input_meta_obj->key ])){
