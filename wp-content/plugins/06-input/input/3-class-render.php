@@ -1080,7 +1080,8 @@ class render extends database {
             } elseif ( strtolower( $attr_changer_condition_obj->condition ) != 'else'
               and $first_done == true ) {
               $position = 'middle';
-            } elseif ( strtolower( $attr_changer_condition_obj->condition ) == 'else' ) {
+            } elseif ( strtolower( $attr_changer_condition_obj->condition ) == 'else'
+                and $first_done == true ) {
                 $position = 'last';
               }
               /* create raw if(balabala){balabala}eles if(balabala){balabala}else{balabala}  but raw data eg {name:XXXX} of {self}*/
@@ -1122,6 +1123,7 @@ class render extends database {
   */
   function create_attr_changer_based_conditions( $attr_changer_condition_obj, $position ) {
     //krumo($this->input_data['attrs']['id']);
+	  //krumo($position);
     switch ( $position ) {
       case 'first':
         $jquery_code .= "\n" . 'if(' . str_replace( '{name:', '{name_jq_value:', $attr_changer_condition_obj->condition ) . '){' . "\n";

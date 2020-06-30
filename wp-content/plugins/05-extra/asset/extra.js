@@ -347,13 +347,19 @@ jQuery(document).ready(function () {
       }
     }
   }
-
+function remove_last_number_part(str){
+	var str_arr = str.split("≪");
+	str_arr.pop();
+	return str_arr.join("≪");
+}
   function manage_controller_visibilty_on_remove() {
-    sst.unique = get_unique(sst.source_element_id);
+	 var base =  remove_last_number_part(sst.source_element_id);
+	 // console.log(jQuery("[id^='" + base + "'][id$='" + sst.add_contoller_suffix + "']").last());
     if (animation == true) {
-      jQuery("[id^='" + sst.unique + "'][id$='" + sst.add_contoller_suffix + "']").last().show('slow');
+      jQuery("[id^='" + base + "'][id$='" + sst.add_contoller_suffix + "']").last().show('slow');
+
     } else {
-      jQuery("[id^='" + sst.unique + "'][id$='" + sst.add_contoller_suffix + "']").last().show();
+      jQuery("[id^='" + base + "'][id$='" + sst.add_contoller_suffix + "']").last().show();
     }
 
   }
