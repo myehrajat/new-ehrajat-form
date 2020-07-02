@@ -32,7 +32,13 @@ class register_addon extends database {
    *this for process of creating inputs
    **************************************************/
   function register_field_type( string $html_type, string $type, $function, $epithet = NULL, $description = NULL, $slug = NULL, $owner = NULL, $id = NULL ) {
-    return $this->add_to_table( $GLOBALS[ 'sst_tables' ][ 'input_type' ], array( 'id' => $id, 'epithet' => $epithet, 'slug' => $slug, 'html_type' => $html_type, 'type' => $type, 'function' => $function, 'description' => $description, 'owner' => $owner, 'created' => date( 'Y-m-d H:i:s' ), 'modified' => date( 'Y-m-d H:i:s' ) ) );
+    
+	$reg = $this->add_to_table( $GLOBALS[ 'sst_tables' ][ 'input_type' ], array( 'id' => $id, 'epithet' => $epithet, 'slug' => $slug, 'html_type' => $html_type, 'type' => $type, 'function' => $function, 'description' => $description, 'owner' => $owner, 'created' => date( 'Y-m-d H:i:s' ), 'modified' => date( 'Y-m-d H:i:s' ) ) );
+	  if($reg['result']==true){
+		  return $reg['insert_id'];
+	  }else{
+		  return false;
+	  }
   }
 
 }

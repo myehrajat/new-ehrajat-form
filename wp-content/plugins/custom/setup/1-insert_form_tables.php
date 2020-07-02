@@ -299,7 +299,6 @@ class insert_custom_tables extends database {
     "`phone_id` VARCHAR(255) NOT NULL," .
     "`address_id` VARCHAR(255) NOT NULL," .
     "`type` VARCHAR(255) NOT NULL," .//work,home,mobile
-    "`desc` LONGTEXT NOT NULL," .
     "`save_id` VARCHAR(255) NOT NULL," .
     "`owner` VARCHAR(255) DEFAULT NULL," .
     "`created` DATETIME NOT NULL DEFAULT NOW()," .

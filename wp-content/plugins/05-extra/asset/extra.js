@@ -354,7 +354,6 @@ function remove_last_number_part(str){
 }
   function manage_controller_visibilty_on_remove() {
 	 var base =  remove_last_number_part(sst.source_element_id);
-	 // console.log(jQuery("[id^='" + base + "'][id$='" + sst.add_contoller_suffix + "']").last());
     if (animation == true) {
       jQuery("[id^='" + base + "'][id$='" + sst.add_contoller_suffix + "']").last().show('slow');
 

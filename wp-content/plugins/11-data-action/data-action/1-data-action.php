@@ -65,9 +65,9 @@ class data_action extends process {
   function data_action_database() {
     global $wpdb;
     $data_action_obj = $this->data_action_obj;
-	$this->run_eval( EVAL_STR . $data_action_obj->single_func_before );
+    $this->run_eval( EVAL_STR . $data_action_obj->single_func_before );
 
-	  //krumo($this->vals);
+    //krumo($this->vals);
     $data_action_specific_obj = $this->get_by_id( $data_action_obj->type_id, $GLOBALS[ 'sst_tables' ][ 'data_action_database' ] );
     $this->multiple_func_after = $data_action_specific_obj->multiple_func_after;
     $this->multiple_func_before = $data_action_specific_obj->multiple_func_before;
@@ -81,7 +81,7 @@ class data_action extends process {
         $this->create_add_column( $wpdb->prefix . $data_action_specific_obj->table, 'save_id' );
 
         $this->create_colval_data();
-			//krumo($this->db_data);
+        //krumo($this->db_data);
         if ( !empty( $this->db_data ) ) {
           foreach ( $this->db_data as $one_ready_data ) {
             $one_ready_data[ 'save_id' ] = addslashes( $_REQUEST[ '__sst__unique' ] );
@@ -92,18 +92,21 @@ class data_action extends process {
             }
             //krumo($data_action_specific_obj);
             $this->run_eval( EVAL_STR . $this->multiple_func_before );
-            $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ] = $this->add_to_table( $wpdb->prefix . $data_action_specific_obj->table, $one_ready_data, $this->mysql_code_col_vals, $data_action_specific_obj->prevent_insert_rule );
-            $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'data' ] = $one_ready_data;
+            $db_result = $this->add_to_table( $wpdb->prefix . $data_action_specific_obj->table, $one_ready_data, $this->mysql_code_col_vals, $data_action_specific_obj->prevent_insert_rule_ids );
 
-            if ( $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ] != false and $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ] != 'prevented' ) {
+            // != false and $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ] != 'prevented'
+            if ( $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ] ) {
+              $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ] = $db_result[ 'insert_id' ];
+              $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'data' ] = $one_ready_data;
               $res = str_replace( '{insert_id}', $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ], $data_action_specific_obj->added_result_html );
               $this->multiple_func_after = str_replace( '{insert_id}', $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ], $this->multiple_func_after );
-            } elseif ( $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ] == 'prevented' ) {
-                $res = $data_action_specific_obj->prevented_result_html;
-              } else {
-                $res = $data_action_specific_obj->database_error_result_html;
-              }
-              //krumo( $_REQUEST );
+            } elseif ( $db_result[ 'result' ] == false ) {
+              $res =  $db_result[ 'html_error' ];
+            } else {
+              $res = $data_action_specific_obj->database_error_result_html;
+            }
+
+            //krumo( $_REQUEST );
             foreach ( $one_ready_data as $column => $value ) {
               $res = str_replace( '{data_value:' . $column . '}', $value, $res );
               $res = str_replace( '{data_column:' . $column . '}', $column, $res );
@@ -172,8 +175,8 @@ class data_action extends process {
                 break;
 				*/
     }
-	 // krumo($this->vals);
-	$this->run_eval( EVAL_STR . $data_action_obj->single_func_after );
+    // krumo($this->vals);
+    $this->run_eval( EVAL_STR . $data_action_obj->single_func_after );
   }
 
   function data_action_email() {
@@ -233,7 +236,7 @@ class data_action extends process {
   }
 
   function create_colval_data() {
-//	  krumo($this->vals);
+    //	  krumo($this->vals);
     $colval_ids_str = $this->data_action_obj->colval_ids;
     $sorted_colvals_obj = $this->sort_all_colval_by_depth( $colval_ids_str );
     if ( !empty( $sorted_colvals_obj ) ) {
@@ -288,7 +291,7 @@ class data_action extends process {
                 $this->vals[ '__sst__files' ][ $sorted_colvals_vals[ 'colval_obj' ]->value ],
                 $sorted_colvals_vals[ 'colval_obj' ]->file_path,
                 $this->data_action_obj->default_file_path );
-				 
+
               if ( !isset( $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->column ] ) ) {
                 $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ];
               }

@@ -20,6 +20,7 @@ class insert_data_action_tables extends database {
         $GLOBALS[ 'sst_tables' ][ 'data_action_file' ]  = $this->full_prefix . 'data_action_file';
         $GLOBALS[ 'sst_tables' ][ 'data_action_colval' ]  = $this->full_prefix . 'data_action_colval';
 		$GLOBALS[ 'sst_tables' ][ 'vals' ] = $this->full_prefix . 'vals';
+		$GLOBALS[ 'sst_tables' ][ 'data_action_prevent_insert_rule' ] = $this->full_prefix . 'data_action_prevent_insert_rule';
     }
 	
     function insert_tables() {
@@ -47,11 +48,11 @@ class insert_data_action_tables extends database {
         "`epithet` VARCHAR(255) default NULL," .
         "`slug` VARCHAR(255) default NULL," .
 		"`table` VARCHAR(255) NOT NULL," .
-        "`prevent_insert_rule` LONGTEXT default NULL ," .
+        "`prevent_insert_rule_ids` LONGTEXT default NULL ," .
         "`insert_ref` VARCHAR(255) default NULL," .
 		"`added_result_html` LONGTEXT NOT NULL," .
 		"`edited_result_html` LONGTEXT NOT NULL," .
-		"`prevented_result_html` LONGTEXT NOT NULL," .
+		//"`prevented_result_html` LONGTEXT NOT NULL," .
 		"`database_error_result_html` LONGTEXT NOT NULL," .
 		"`deleted_result_html` LONGTEXT NOT NULL," .
         "`multiple_func_before` LONGTEXT NOT NULL COMMENT 'Run after every time insert has done .Support this formats {insert_id}=>return insertid and {data_value:column_name}=>return value of single dbdata and {data_column:column_name}=>return column name of single dbdata and {array:column_name}=>return array of grouped value extra in extra and {vals:column_name}=>return value of column_name (It seems like {data_value:column_name} and {data_column:column_name} is unuseful but be aware that this are created for html results and replace applied after insertion used for function_after and html result only)'," .
@@ -141,8 +142,7 @@ class insert_data_action_tables extends database {
         "`created` DATETIME NOT NULL DEFAULT NOW()," .
         "`modified` DATETIME NOT NULL DEFAULT NOW(),
         PRIMARY KEY id  (`id`)) $this->collate_charset;";		
-		global $wpdb;
-        $this->create_tables( $sql );
+
         $sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'vals' ] . " (" .
         "`id` INT(10) NOT NULL auto_increment," .
         "`key` VARCHAR(255) NOT NULL UNIQUE," .
@@ -151,7 +151,19 @@ class insert_data_action_tables extends database {
         "`created` DATETIME NOT NULL DEFAULT NOW()," .
         "`modified` DATETIME NOT NULL DEFAULT NOW(),
         PRIMARY KEY id  (`id`)) $this->collate_charset;";		
-		global $wpdb;
-        $this->create_tables( $sql );
+
+        $sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_tables' ][ 'data_action_prevent_insert_rule' ] . " (" .
+        "`id` INT(10) NOT NULL auto_increment," .
+        "`epithet` VARCHAR(255) NOT NULL," .
+        "`slug` VARCHAR(255) NOT NULL," .
+        "`prevent_insert_rule` LONGTEXT NOT NULL," .
+        "`prevented_result_html` LONGTEXT NOT NULL," .
+        "`description` LONGTEXT NOT NULL," .
+        "`owner` VARCHAR(255) DEFAULT NULL," .
+        "`created` DATETIME NOT NULL DEFAULT NOW()," .
+        "`modified` DATETIME NOT NULL DEFAULT NOW(),
+        PRIMARY KEY id  (`id`)) $this->collate_charset;";		
+
+		$this->create_tables( $sql );
     }
 }
