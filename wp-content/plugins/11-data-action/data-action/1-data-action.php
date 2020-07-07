@@ -25,8 +25,24 @@ class data_action extends process {
     }
   }
 
+  function get_all_prevent_insert_rule_ids() {
+    $all_prevent_insert_rule_ids = array();
+    foreach ( $this->data_actions as $data_action_obj ) {
+      if ( strtolower( $data_action_obj->type ) == "database" ) {
+        $data_action_specific_obj = $this->get_by_id( $data_action_obj->type_id, $GLOBALS[ 'sst_tables' ][ 'data_action_database' ] );
+        $this_prevent_insert_rule_ids = $this->get_ids( $data_action_specific_obj->prevent_insert_rule_ids );
+        if ( !empty( $this_prevent_insert_rule_ids ) ) {
+          $all_prevent_insert_rule_ids = array_merge( $this_prevent_insert_rule_ids, $all_prevent_insert_rule_ids );
+        }
+      }
+    }
+    $this->all_prevent_insert_rule_ids = implode( ',', $all_prevent_insert_rule_ids );
+
+  }
+
   function do_data_actions() {
     if ( !empty( $this->data_actions ) ) {
+      $this->get_all_prevent_insert_rule_ids();
       foreach ( $this->data_actions as $data_action_obj ) {
         $this->data_action_obj = $data_action_obj;
         $this->do_data_action();
@@ -41,7 +57,6 @@ class data_action extends process {
 
     switch ( strtolower( $this->data_action_obj->type ) ) {
       case "database":
-        //		krumo('ssssssss');
         $this->data_action_database();
         break;
       case "email":
@@ -92,16 +107,17 @@ class data_action extends process {
             }
             //krumo($data_action_specific_obj);
             $this->run_eval( EVAL_STR . $this->multiple_func_before );
-            $db_result = $this->add_to_table( $wpdb->prefix . $data_action_specific_obj->table, $one_ready_data, $this->mysql_code_col_vals, $data_action_specific_obj->prevent_insert_rule_ids );
+//			  krumo($this->all_prevent_insert_rule_ids );
+            $db_result = $this->add_to_table( $wpdb->prefix . $data_action_specific_obj->table, $one_ready_data, $this->mysql_code_col_vals, $this->all_prevent_insert_rule_ids );
 
             // != false and $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ] != 'prevented'
-            if ( $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ] ) {
+            if ( $db_result[ 'result' ] == true ) {
               $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ] = $db_result[ 'insert_id' ];
               $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'data' ] = $one_ready_data;
               $res = str_replace( '{insert_id}', $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ], $data_action_specific_obj->added_result_html );
               $this->multiple_func_after = str_replace( '{insert_id}', $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ], $this->multiple_func_after );
             } elseif ( $db_result[ 'result' ] == false ) {
-              $res =  $db_result[ 'html_error' ];
+              $res = $db_result[ 'html_error' ];
             } else {
               $res = $data_action_specific_obj->database_error_result_html;
             }
