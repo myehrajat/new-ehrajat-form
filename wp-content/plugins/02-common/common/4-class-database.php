@@ -120,7 +120,8 @@ implements database_interface {
               $ecode = 'if(' . $php_rule . '){return true;}else{return false;}';
               $php_res = $this->run_eval( $ecode );
               if ( $php_res == true ) {
-                return array( 'result' => false, 'html_error' => 'PHP ERROR :' . $prevent_insert_rule_obj->prevented_result_html );
+				  //'PHP ERROR :' .
+                return array( 'result' => false, 'html_error' =>  $prevent_insert_rule_obj->prevented_result_html );
               }
             }
           }
@@ -138,7 +139,8 @@ implements database_interface {
               $mysql_rule_query = "SELECT * FROM " . $mysql_rule_table . " WHERE " . $mysql_rule . " LIMIT 1;";
 
               if ( !empty( $wpdb->get_row( $mysql_rule_query ) ) ) {
-                return array( 'result' => false, 'html_error' => 'MYSQL ERROR :' . $prevent_insert_rule_obj->prevented_result_html );
+				  //'MYSQL ERROR :' . 
+                return array( 'result' => false, 'html_error' => $prevent_insert_rule_obj->prevented_result_html );
               }
             }
           }
