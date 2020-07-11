@@ -158,6 +158,7 @@ class insert_data_action_tables extends database {
         "`slug` VARCHAR(255) NOT NULL," .
         "`php_rule` LONGTEXT NOT NULL," .
         "`mysql_rule` LONGTEXT NOT NULL," .
+        "`mysql_table` VARCHAR(255) NOT NULL," .
         "`prevented_result_html` LONGTEXT NOT NULL," .
         "`description` LONGTEXT NOT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .
