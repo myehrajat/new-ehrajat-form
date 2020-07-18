@@ -45,6 +45,7 @@ class data_action extends process {
       $this->get_all_prevent_insert_rule_ids();
       foreach ( $this->data_actions as $data_action_obj ) {
         $this->data_action_obj = $data_action_obj;
+
         $this->do_data_action();
       }
       unset( $this->data_action_obj );
@@ -54,7 +55,7 @@ class data_action extends process {
   }
 
   function do_data_action() {
-
+    //krumo($this->data_action_obj);
     switch ( strtolower( $this->data_action_obj->type ) ) {
       case "database":
         $this->data_action_database();
@@ -80,6 +81,7 @@ class data_action extends process {
   function data_action_database() {
     global $wpdb;
     $data_action_obj = $this->data_action_obj;
+    //single refer to single record
     $this->run_eval( EVAL_STR . $data_action_obj->single_func_before );
 
     //krumo($this->vals);
@@ -91,13 +93,15 @@ class data_action extends process {
     }
     switch ( $this->mode ) {
       case "add":
-
+        //krumo($_REQUEST);
         //create_save_id_column_if_not_exist();
         $this->create_add_column( $wpdb->prefix . $data_action_specific_obj->table, 'save_id' );
 
         $this->create_colval_data();
-        //krumo($this->db_data);
+        //
+krumo( $this->vals );
         if ( !empty( $this->db_data ) ) {
+
           foreach ( $this->db_data as $one_ready_data ) {
             $one_ready_data[ 'save_id' ] = addslashes( $_REQUEST[ '__sst__unique' ] );
             if ( isset( $insert_ref[ $data_action_specific_obj->insert_ref ] ) ) {
@@ -107,13 +111,14 @@ class data_action extends process {
             }
             //krumo($data_action_specific_obj);
             $this->run_eval( EVAL_STR . $this->multiple_func_before );
-//			  krumo($this->all_prevent_insert_rule_ids );
+            //krumo($this->all_prevent_insert_rule_ids );
             $db_result = $this->add_to_table( $wpdb->prefix . $data_action_specific_obj->table, $one_ready_data, $this->mysql_code_col_vals, $this->all_prevent_insert_rule_ids );
 
             // != false and $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ] != 'prevented'
             if ( $db_result[ 'result' ] == true ) {
               $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ] = $db_result[ 'insert_id' ];
               $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'data' ] = $one_ready_data;
+				
               $res = str_replace( '{insert_id}', $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ], $data_action_specific_obj->added_result_html );
               $this->multiple_func_after = str_replace( '{insert_id}', $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ], $this->multiple_func_after );
             } elseif ( $db_result[ 'result' ] == false ) {
@@ -191,7 +196,7 @@ class data_action extends process {
                 break;
 				*/
     }
-    // krumo($this->vals);
+    //krumo($this->vals);
     $this->run_eval( EVAL_STR . $data_action_obj->single_func_after );
   }
 
@@ -252,20 +257,23 @@ class data_action extends process {
   }
 
   function create_colval_data() {
-    //	  krumo($this->vals);
+    //krumo($this->vals);
     $colval_ids_str = $this->data_action_obj->colval_ids;
     $sorted_colvals_obj = $this->sort_all_colval_by_depth( $colval_ids_str );
+    //krumo($sorted_colvals_obj );
     if ( !empty( $sorted_colvals_obj ) ) {
       $this->mysql_code_col_vals = '';
       if ( !empty( $sorted_colvals_obj ) ) {
+
         foreach ( $sorted_colvals_obj as $u => $sorted_colvals_vals ) {
           switch ( $sorted_colvals_vals[ 'colval_obj' ]->type ) {
             case "simple-variable":
-
+              //krumo($this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->value ] );
               $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->value ] );
               if ( !isset( $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] ) ) {
                 $save_raw_data[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] = $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ];
               }
+
               break;
             case "variable":
             case "function":
@@ -322,21 +330,45 @@ class data_action extends process {
           }
         }
         #send columns which has more elements go to last of column level ordering based on number elements of column 
-
+        //krumo($all_values );
         $all_values = $this->more_element_last( $all_values );
+        //krumo('1');
+        //krumo($this->vals);
+        //krumo($all_values );
         //QUESTION: USE RAW DATA OR ECODE RUNNED DATA? MAY NEED SOME OPTION TO MAKE SURE WHICH ONE MUST RUN FIRST do_ecode_multiple_before_ecode or do_ecodes
         $all_values = $this->do_ecode_multiple_before_ecode( $all_values, $ecodes_multiple );
+        //krumo('2');
+        //krumo($this->vals);
+
         $all_values = $this->more_element_last( $all_values );
         // this is original sent data before triggering data-action
+        //krumo('3');
+        //krumo($this->vals);
+
         $ready_data = $this->create_all_data( $all_values );
+        //krumo('4');
+        //krumo($this->vals);
+
         //this used for creating database query 
 
         $ready_data = $this->do_ecodes( $ready_data, $ecodes );
+        //krumo('5');
+        //krumo($this->vals);
+
         //this used for creating database query
         $ready_data = $this->delete_temp_cloumns( $ready_data, $is_there_temp );
+        //krumo('6');
+        //krumo($this->vals);
+
         $this->db_data = $ready_data;
+        //krumo('7');
+        //krumo($this->vals);
+
         //$this->ready_data_for_db( $ready_data, $sorted_colvals_obj );
-        $this->save_final_vals( $save_raw_data );
+        //$this->save_final_vals( $save_raw_data );
+        //krumo('8');
+        //krumo($this->vals);
+
       } else {
         $this->error_log( 'colval_id provided is not correct no obj found:.' . $colval_id );
         $this->db_data = NULL;
@@ -346,8 +378,10 @@ class data_action extends process {
       $this->db_data = NULL;
 
     }
-    // krumo($this->db_data);
-    // krumo($_REQUEST);
+    //krumo('9');
+    //krumo($this->vals);
+    //krumo($this->db_data);
+    //krumo($_REQUEST);
   }
 
   /**********
@@ -513,7 +547,7 @@ class data_action extends process {
   }
   #move element (input with same level) with more data to last
   function more_element_last( $all_values ) {
-    //	  krumo($all_values);
+    //krumo($all_values);
     $all_values = $this->remove_empty( $all_values );
     $array_key_last = array_key_last( $all_values );
     $i = 0;
@@ -861,4 +895,12 @@ class data_action extends process {
     return $all_values;
   }
 
+}
+if ( !function_exists( 'array_key_last' )) {
+    function array_key_last( $array ) {
+      end( $array ); // move the internal pointer to the end of the array
+      $key = key( $array ); // fetches the key of the element pointed to by the internal pointer
+      return $key;
+    }
+  
 }

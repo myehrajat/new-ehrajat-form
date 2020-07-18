@@ -111,13 +111,19 @@ implements database_interface {
           $php_rule = $prevent_insert_rule_obj->php_rule;
           if ( !empty( $php_rule ) ) {
             $php_rule_check_change = $php_rule;
+			  //krumo($column_value);
             foreach ( $column_value as $column => $value ) {
+				//krumo($column .'=>'.$value  );
               //$php_rule = str_replace( '{col-name:' . $column . "}", '$column_value["' . $column . '"]', $php_rule );
               $php_rule = str_replace( '{col-value:' . $column . "}", '"' . $value . '"', $php_rule );
               //$php_rule = str_replace( '{col-name:'  . $column . "}", '"' . $value . '"', $php_rule );
             }
             if ( $php_rule != $php_rule_check_change) {
+				
               $ecode = 'if(' . $php_rule . '){return true;}else{return false;}';
+				//krumo($ecode);
+				//krumo($php_rule);
+				//krumo($php_rule_check_change);
               $php_res = $this->run_eval( $ecode );
               if ( $php_res == true ) {
 				  //'PHP ERROR :' .

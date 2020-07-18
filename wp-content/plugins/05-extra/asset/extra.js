@@ -142,6 +142,7 @@ jQuery(document).ready(function () {
   }
   /* string is an string to addup*/
   function add_up_down_single_string(string, source_element_id, up_or_down, split_char_override = null, last_char_override = null) {
+
     new_string = remove_underlined_suffix(string);
     if (new_string != string) {
       var suffix = get_underlined_suffix(string);
@@ -165,14 +166,26 @@ jQuery(document).ready(function () {
       console.log(source_identifier + " cant be added up");
     }
     if (split_char_override != null) {
+
       split_char = split_char_override;
+     // console.log("split_char_override" + split_char);
+
     }
     if (last_char_override != null) {
       last_char = last_char_override;
+      //console.log("last_char_override" + last_char);
     }
     src_iden_array.pop();
     src_iden_array[src_iden_array.length] = new_number + last_char;
+
     added_up_source_identifier = src_iden_array.join(split_char);
+	  
+    if (last_char_override != null) {
+		added_up_source_identifier=added_up_source_identifier.replace("≫",last_char);
+      //console.log(source_element_id);
+      //console.log(src_iden_array);
+      //console.log("added_up_source_identifier:" + added_up_source_identifier);
+    }
     var string_identifier = get_identifier(string);
     var added_up_string_identifier = added_up_source_identifier.concat(string_identifier.slice(source_identifier.length));
     var string_unique = get_unique(string);
@@ -230,8 +243,12 @@ jQuery(document).ready(function () {
       if (empty_bracket == true) {
         var temp_name = jQuery(input).attr('name').substring(0, jQuery(input).attr('name').length - 2);
         jQuery(input).attr('name', add_up_down_single_string(temp_name, source_element_id, '[', ']') + '[]', up_or_down);
+        //console.log(add_up_down_single_string(temp_name, source_element_id, '[', ']'));
       } else {
         jQuery(input).attr('name', add_up_down_single_string(jQuery(input).attr('name'), source_element_id, up_or_down, '[', ']'));
+
+        //console.log(add_up_down_single_string(jQuery(input).attr('name'), source_element_id, up_or_down, '[', ']'));
+
       }
       var v2 = jQuery(input).attr('name');
       var new_add_up = {
@@ -347,13 +364,15 @@ jQuery(document).ready(function () {
       }
     }
   }
-function remove_last_number_part(str){
-	var str_arr = str.split("≪");
-	str_arr.pop();
-	return str_arr.join("≪");
-}
+
+  function remove_last_number_part(str) {
+    var str_arr = str.split("≪");
+    str_arr.pop();
+    return str_arr.join("≪");
+  }
+
   function manage_controller_visibilty_on_remove() {
-	 var base =  remove_last_number_part(sst.source_element_id);
+    var base = remove_last_number_part(sst.source_element_id);
     if (animation == true) {
       jQuery("[id^='" + base + "'][id$='" + sst.add_contoller_suffix + "']").last().show('slow');
 
