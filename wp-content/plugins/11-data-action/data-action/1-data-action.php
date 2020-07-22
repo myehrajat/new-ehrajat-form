@@ -80,6 +80,7 @@ class data_action extends process {
 
   function data_action_database() {
     global $wpdb;
+	static $insert_ref;
     $data_action_obj = $this->data_action_obj;
     //single refer to single record
     $this->run_eval( EVAL_STR . $data_action_obj->single_func_before );
@@ -98,17 +99,19 @@ class data_action extends process {
         $this->create_add_column( $wpdb->prefix . $data_action_specific_obj->table, 'save_id' );
 
         $this->create_colval_data();
-        //
-krumo( $this->vals );
+			krumo( $this->vals );
+			krumo( $insert_ref );
+			krumo( $this->db_data );
         if ( !empty( $this->db_data ) ) {
 
-          foreach ( $this->db_data as $one_ready_data ) {
+          foreach ( $this->db_data as $key_route=>$one_ready_data ) {
             $one_ready_data[ 'save_id' ] = addslashes( $_REQUEST[ '__sst__unique' ] );
             if ( isset( $insert_ref[ $data_action_specific_obj->insert_ref ] ) ) {
               $i = count( $insert_ref[ $data_action_specific_obj->insert_ref ] );
             } else {
               $i = 0;
             }
+			  $i= $key_route;
             //krumo($data_action_specific_obj);
             $this->run_eval( EVAL_STR . $this->multiple_func_before );
             //krumo($this->all_prevent_insert_rule_ids );

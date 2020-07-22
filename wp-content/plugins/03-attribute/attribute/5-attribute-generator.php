@@ -268,8 +268,7 @@ class attribute_generator extends attribute_form_validator implements attribute_
 				//krumo($attr );
                 if ( !empty( $attr ) ) {
                     //itemid requires existence of itemscope and itemtype
-                    if ( $attr_name == 'itemid'
-                        and $attr_name_value[ 'itemscope' ]and $attr_name_value[ 'itemtype' ] ) {
+                    if ( $attr_name == 'itemid' and $attr_name_value[ 'itemscope' ] and $attr_name_value[ 'itemtype' ] ) {
                         $attrs[] = $attr;
                         //itemref requires existence of itemscope
                     } elseif ( $attr_name == 'itemref'
@@ -282,7 +281,7 @@ class attribute_generator extends attribute_form_validator implements attribute_
             }
 
         }
-		
+		//krumo($attrs);
         if ( !empty( $attrs ) ) {
             return implode( ' ', $attrs );
         } else {

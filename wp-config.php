@@ -26,7 +26,7 @@ define( 'DB_NAME', $_GET['db'] );
 	define( 'DB_NAME', 'new-sys' );
 }
 
-
+define('WP_ALLOW_REPAIR', true);
 /** MySQL database username */
 define( 'DB_USER', 'root' );
 

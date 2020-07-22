@@ -48,7 +48,7 @@ class attribute_global_generator extends attribute_generator implements attribut
         if ( $this->global_obj ) {
            // $global = $this->create_attr_html_global( array(
 			//krumo('come to here');
-            $global = $this->create_multiple_attrs( array(
+			$d = array(
                 'accesskey' => $this->global_obj->accesskey,
                 'autocapitalize' => $this->global_obj->autocapitalize,
                 'class' => $this->create_attr_html_global_classes( $this->global_obj->class_ids ), //space seperated values
@@ -73,7 +73,10 @@ class attribute_global_generator extends attribute_generator implements attribut
                 'tabindex' => $this->global_obj->tabindex,
                 'title' => $this->global_obj->title,
                 'translate' => $this->global_obj->translate,
-            ) );
+            );
+            $global = $this->create_multiple_attrs(  $d );
+			//krumo($d );
+			//krumo($global );
             if ( !empty( $global ) ) {
 				$this->input_data[ 'attrs' ] = array_merge($this->input_data[ 'attrs' ],$global);
                // $attr_html_global_arr[] = $global;
