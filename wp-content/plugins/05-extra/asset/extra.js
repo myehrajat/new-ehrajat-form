@@ -145,7 +145,7 @@ jQuery(document).ready(function () {
 	}
   /* string is an string to addup*/
   function add_up_down_single_string(string, source_element_id, up_or_down, split_char_override = null, last_char_override = null) {
-	  console.log("start");
+	  //console.log("start");
     new_string = remove_underlined_suffix(string);
     if (new_string != string) {
       var suffix = get_underlined_suffix(string);
@@ -156,7 +156,7 @@ jQuery(document).ready(function () {
     } else {
       var new_number = get_last_number(source_element_id) - 1;
     }
-	  console.log(get_last_number(source_element_id));
+	  //console.log(get_last_number(source_element_id));
     var source_identifier = get_identifier(source_element_id);
     var src_iden_array = source_identifier.split('≪');
     var split_char = '≪';
@@ -167,7 +167,7 @@ jQuery(document).ready(function () {
       last_char = ']';
     }
     if (src_iden_array < 2) {
-      console.log(source_identifier + " cant be added up");
+      //console.log(source_identifier + " cant be added up");
     }
     if (split_char_override != null) {
 
@@ -183,7 +183,9 @@ jQuery(document).ready(function () {
     src_iden_array[src_iden_array.length] = new_number + last_char;
     added_up_source_identifier = src_iden_array.join(split_char);
     if (last_char_override != null) {
-		added_up_source_identifier=added_up_source_identifier.replace("≫",last_char);
+		//      console.log("added_up_source_identifier:" + added_up_source_identifier);
+
+		added_up_source_identifier=added_up_source_identifier.replace(/≫/g,last_char);
       //console.log(source_element_id);
       //console.log(src_iden_array);
       //console.log("added_up_source_identifier:" + added_up_source_identifier);
@@ -195,11 +197,11 @@ jQuery(document).ready(function () {
     if (suffix) {
       added_up = added_up.concat(suffix);
     }
-	  console.log("result");
-	  console.log(source_element_id);
-	  console.log(string);
-	  console.log(added_up);
-	  console.log("end");
+	  //console.log("result");
+	  //console.log(source_element_id);
+	  //console.log(string);
+	  //console.log(added_up);
+	  //console.log("end");
 
     return added_up;
   }

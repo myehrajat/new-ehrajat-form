@@ -115,7 +115,9 @@ class data_action extends process {
             //krumo($data_action_specific_obj);
             $this->run_eval( EVAL_STR . $this->multiple_func_before );
             //krumo($this->all_prevent_insert_rule_ids );
-            $db_result = $this->add_to_table( $wpdb->prefix . $data_action_specific_obj->table, $one_ready_data, $this->mysql_code_col_vals, $this->all_prevent_insert_rule_ids );
+			//if(){
+				$db_result = $this->add_to_table( $wpdb->prefix . $data_action_specific_obj->table, $one_ready_data, $this->mysql_code_col_vals, $this->all_prevent_insert_rule_ids );
+			//}
 
             // != false and $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ] != 'prevented'
             if ( $db_result[ 'result' ] == true ) {
