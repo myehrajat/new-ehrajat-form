@@ -252,9 +252,22 @@ class insert_custom_tables extends database {
     "`modified` DATETIME NOT NULL DEFAULT NOW(),
         PRIMARY KEY id  (`id`)) $this->collate_charset;";
 	  
+    $sql[] = "CREATE TABLE IF NOT EXISTS " .$GLOBALS[ 'sst_custom' ][ 'contact' ] . " (" .
+    "`id` INT(10) NOT NULL auto_increment," .
+    "`person_id` VARCHAR(255) NOT NULL," .
+    "`relation_id` VARCHAR(255) NOT NULL," .
+    "`name` VARCHAR(255) NOT NULL," .
+    "`last_name` VARCHAR(255) NOT NULL," .
+    "`type` VARCHAR(255) NOT NULL," .//work,home,mobile
+    "`save_id` VARCHAR(255) NOT NULL," .
+    "`owner` VARCHAR(255) DEFAULT NULL," .
+    "`created` DATETIME NOT NULL DEFAULT NOW()," .
+    "`modified` DATETIME NOT NULL DEFAULT NOW(),
+        PRIMARY KEY id  (`id`)) $this->collate_charset;";
 
     $sql[] = "CREATE TABLE IF NOT EXISTS " .$GLOBALS[ 'sst_custom' ][ 'phone' ] . " (" .
     "`id` INT(10) NOT NULL auto_increment," .
+    "`contact_id` VARCHAR(255) NOT NULL," .
     "`phone_type` VARCHAR(255) NOT NULL," .
     "`country_code` VARCHAR(255) NOT NULL," .
     "`state_code` VARCHAR(255) NOT NULL," .
@@ -272,6 +285,7 @@ class insert_custom_tables extends database {
 
     $sql[] = "CREATE TABLE IF NOT EXISTS " .$GLOBALS[ 'sst_custom' ][ 'address' ] . " (" .
     "`id` INT(10) NOT NULL auto_increment," .
+    "`contact_id` VARCHAR(255) NOT NULL," .
     "`country_id` VARCHAR(255) NOT NULL," .
     "`state_id` VARCHAR(255) NOT NULL," .
     "`city_id` VARCHAR(255) NOT NULL," .
@@ -289,23 +303,22 @@ class insert_custom_tables extends database {
     "`created` DATETIME NOT NULL DEFAULT NOW()," .
     "`modified` DATETIME NOT NULL DEFAULT NOW(),
         PRIMARY KEY id  (`id`)) $this->collate_charset;";	  
-	  	  
-    $sql[] = "CREATE TABLE IF NOT EXISTS " .$GLOBALS[ 'sst_custom' ][ 'contact' ] . " (" .
-    "`id` INT(10) NOT NULL auto_increment," .
-    "`person_id` VARCHAR(255) NOT NULL," .
-    "`relation_id` VARCHAR(255) NOT NULL," .
-    "`name` VARCHAR(255) NOT NULL," .
-    "`last_name` VARCHAR(255) NOT NULL," .
-    "`phone_id` VARCHAR(255) NOT NULL," .
-    "`address_id` VARCHAR(255) NOT NULL," .
-    "`type` VARCHAR(255) NOT NULL," .//work,home,mobile
-    "`save_id` VARCHAR(255) NOT NULL," .
-    "`owner` VARCHAR(255) DEFAULT NULL," .
-    "`created` DATETIME NOT NULL DEFAULT NOW()," .
-    "`modified` DATETIME NOT NULL DEFAULT NOW(),
-        PRIMARY KEY id  (`id`)) $this->collate_charset;";
+	  	 
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
     $this->create_tables( $sql );
-
 
   }
 }

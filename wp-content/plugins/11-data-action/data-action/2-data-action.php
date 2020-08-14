@@ -1,30 +1,20 @@
 <?php
-class data_action extends process {
+class data_action extends data_action_fundamental {
+  var $all_prevent_insert_rule_ids;
+  var $data_action_obj;
+  var $multiple_func_after;
+  var $multiple_func_before;
+
   function __construct( $is_modal = false ) {
     parent::__construct();
-    $this->is_modal = $is_modal;
-
-    if ( $GLOBALS[ 'vals' ][ '__sst__data_actions' ] ) {
-      $this->vals = $GLOBALS[ 'vals' ];
-      $this->get_data_actions();
-      $this->do_data_actions();
-    }
   }
 
-  function get_data_actions() {
-    $this->data_actions = array();
-    $data_action_ids_str = $this->vals[ '__sst__data_actions' ];
-    $data_action_ids = $this->get_ids( $data_action_ids_str );
-    foreach ( $data_action_ids as $data_action_id ) {
-      $data_action_obj = $this->get_by_id( $data_action_id, $GLOBALS[ 'sst_tables' ][ 'data_action' ] );
-      if ( !empty( $data_action_obj ) ) {
-        $this->data_actions[] = $data_action_obj;
-      } else {
-        $this->error_log( 'this data action id cant be retrived:' . $data_action_id );
-      }
-    }
-  }
 
+  /*********************
+  for data action which is database may there is some rules to prevent insert
+  this function collect all rules defined in data_action_database
+
+  ***********************/
   function get_all_prevent_insert_rule_ids() {
     $all_prevent_insert_rule_ids = array();
     foreach ( $this->data_actions as $data_action_obj ) {
@@ -39,13 +29,17 @@ class data_action extends process {
     $this->all_prevent_insert_rule_ids = implode( ',', $all_prevent_insert_rule_ids );
 
   }
+  /*********************
+  do multiple data actions
+  collect prevent_insert_rule_ids and trigger data action
 
+  *********************/
   function do_data_actions() {
     if ( !empty( $this->data_actions ) ) {
       $this->get_all_prevent_insert_rule_ids();
       foreach ( $this->data_actions as $data_action_obj ) {
         $this->data_action_obj = $data_action_obj;
-
+        //krumo($data_action_obj->id);
         $this->do_data_action();
       }
       unset( $this->data_action_obj );
@@ -53,7 +47,10 @@ class data_action extends process {
       $this->error_log( '$this->data_actions is empty' );
     }
   }
+  /********************
+  run data action based on its type:database/email/sms/http-request/save-file
 
+  *********************/
   function do_data_action() {
     //krumo($this->data_action_obj);
     switch ( strtolower( $this->data_action_obj->type ) ) {
@@ -78,61 +75,66 @@ class data_action extends process {
     }
   }
 
-  function data_action_database() {
-    global $wpdb;
-	static $insert_ref;
+  function get_data_action_specific_obj() {
     $data_action_obj = $this->data_action_obj;
-    //single refer to single record
+    //single refer to single record of data action
+    // do sth before this data action starts
     $this->run_eval( EVAL_STR . $data_action_obj->single_func_before );
-
-    //krumo($this->vals);
     $data_action_specific_obj = $this->get_by_id( $data_action_obj->type_id, $GLOBALS[ 'sst_tables' ][ 'data_action_database' ] );
+    //set multiple_func_after,multiple_func_before for later use
     $this->multiple_func_after = $data_action_specific_obj->multiple_func_after;
     $this->multiple_func_before = $data_action_specific_obj->multiple_func_before;
+    //set insert_ref to its id 
     if ( empty( $data_action_specific_obj->insert_ref ) ) {
       $data_action_specific_obj->insert_ref = $data_action_specific_obj->id;
     }
+    return $data_action_specific_obj;
+  }
+
+  function data_action_database() {
+    global $wpdb;
+    static $insert_ref;
+    $data_action_specific_obj = $this->get_data_action_specific_obj();
     switch ( $this->mode ) {
       case "add":
-        //krumo($_REQUEST);
         //create_save_id_column_if_not_exist();
         $this->create_add_column( $wpdb->prefix . $data_action_specific_obj->table, 'save_id' );
-
         $this->create_colval_data();
-			krumo( $this->vals );
-			krumo( $insert_ref );
-			krumo( $this->db_data );
+        //krumo($this->db_data);
+        //krumo($this->vals);
         if ( !empty( $this->db_data ) ) {
 
-          foreach ( $this->db_data as $key_route=>$one_ready_data ) {
+          foreach ( $this->db_data as $key_route => $one_ready_data ) {
             $one_ready_data[ 'save_id' ] = addslashes( $_REQUEST[ '__sst__unique' ] );
             if ( isset( $insert_ref[ $data_action_specific_obj->insert_ref ] ) ) {
               $i = count( $insert_ref[ $data_action_specific_obj->insert_ref ] );
             } else {
               $i = 0;
             }
-			  $i= $key_route;
+            $i = $key_route;
             //krumo($data_action_specific_obj);
             $this->run_eval( EVAL_STR . $this->multiple_func_before );
             //krumo($this->all_prevent_insert_rule_ids );
-			//if(){
-				$db_result = $this->add_to_table( $wpdb->prefix . $data_action_specific_obj->table, $one_ready_data, $this->mysql_code_col_vals, $this->all_prevent_insert_rule_ids );
-			//}
+            //if(){
+            $db_result = $this->add_to_table( $wpdb->prefix . $data_action_specific_obj->table, $one_ready_data, $this->mysql_code_col_vals, $this->all_prevent_insert_rule_ids );
+            //}
 
             // != false and $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ] != 'prevented'
             if ( $db_result[ 'result' ] == true ) {
               $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ] = $db_result[ 'insert_id' ];
               $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'data' ] = $one_ready_data;
-				
+              if ( $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ] != false and $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ] != 'prevented' ) {
+                $this->vals[ "__sst__insert_ids" ][ $data_action_specific_obj->insert_ref ][ $i ] = $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ];
+              }
               $res = str_replace( '{insert_id}', $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ], $data_action_specific_obj->added_result_html );
               $this->multiple_func_after = str_replace( '{insert_id}', $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ], $this->multiple_func_after );
             } elseif ( $db_result[ 'result' ] == false ) {
-              $res = $db_result[ 'html_error' ];
-            } else {
-              $res = $data_action_specific_obj->database_error_result_html;
-            }
-
-            //krumo( $_REQUEST );
+                $res = $db_result[ 'html_error' ];
+              } else {
+                $res = $data_action_specific_obj->database_error_result_html;
+              }
+              // {insert_id:insert_name:level_to_be_same}
+              //krumo( $_REQUEST );
             foreach ( $one_ready_data as $column => $value ) {
               $res = str_replace( '{data_value:' . $column . '}', $value, $res );
               $res = str_replace( '{data_column:' . $column . '}', $column, $res );
@@ -142,7 +144,6 @@ class data_action extends process {
             }
             $result[] = $res;
           }
-
           //krumo($result);
           //if($_GET['data_action_result'])
           if ( $this->is_modal == true ) {
@@ -222,7 +223,10 @@ class data_action extends process {
   function data_action_file() {
 
   }
+  /**********************
 
+
+  **********************/
   function sort_all_colval_by_depth( $colval_ids_str ) {
     if ( !empty( $colval_ids_str ) ) {
       $colval_ids = $this->get_ids( $colval_ids_str );
@@ -260,9 +264,10 @@ class data_action extends process {
       return false;
     }
   }
-
+  /************************
+  this is the most important core create single record data and prepare to insert
+  **************************/
   function create_colval_data() {
-    //krumo($this->vals);
     $colval_ids_str = $this->data_action_obj->colval_ids;
     $sorted_colvals_obj = $this->sort_all_colval_by_depth( $colval_ids_str );
     //krumo($sorted_colvals_obj );
@@ -271,7 +276,12 @@ class data_action extends process {
       if ( !empty( $sorted_colvals_obj ) ) {
 
         foreach ( $sorted_colvals_obj as $u => $sorted_colvals_vals ) {
+
           switch ( $sorted_colvals_vals[ 'colval_obj' ]->type ) {
+
+            /*
+			
+            */
             case "simple-variable":
               //krumo($this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->value ] );
               $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->value ] );
@@ -330,11 +340,21 @@ class data_action extends process {
               $this->mysql_code_col_vals = $mysql_code_col_vals;
               unset( $sorted_colvals_obj[ $u ] );
               break;
+            case "insert-id":
+            case "insert-ref":
+              $colval_inserted_ids[] = $sorted_colvals_vals[ 'colval_obj' ];
+              //do it later
+              // GOTO:
+              //	krumo($this->vals);
+              //	krumo($sorted_colvals_vals[ 'colval_obj' ]->value);
+
+              break;
             default:
               break;
           }
         }
         #send columns which has more elements go to last of column level ordering based on number elements of column 
+        //krumo($this->vals );
         //krumo($all_values );
         $all_values = $this->more_element_last( $all_values );
         //krumo('1');
@@ -343,7 +363,7 @@ class data_action extends process {
         //QUESTION: USE RAW DATA OR ECODE RUNNED DATA? MAY NEED SOME OPTION TO MAKE SURE WHICH ONE MUST RUN FIRST do_ecode_multiple_before_ecode or do_ecodes
         $all_values = $this->do_ecode_multiple_before_ecode( $all_values, $ecodes_multiple );
         //krumo('2');
-        //krumo($this->vals);
+        //krumo($all_values);
 
         $all_values = $this->more_element_last( $all_values );
         // this is original sent data before triggering data-action
@@ -352,7 +372,7 @@ class data_action extends process {
 
         $ready_data = $this->create_all_data( $all_values );
         //krumo('4');
-        //krumo($this->vals);
+        //krumo($ready_data);
 
         //this used for creating database query 
 
@@ -363,11 +383,11 @@ class data_action extends process {
         //this used for creating database query
         $ready_data = $this->delete_temp_cloumns( $ready_data, $is_there_temp );
         //krumo('6');
-        //krumo($this->vals);
-
+        //krumo( $ready_data);
+        $ready_data = $this->inserted_ids_columns( $ready_data, $colval_inserted_ids );
         $this->db_data = $ready_data;
         //krumo('7');
-        //krumo($this->vals);
+        //krumo($this->db_data);
 
         //$this->ready_data_for_db( $ready_data, $sorted_colvals_obj );
         //$this->save_final_vals( $save_raw_data );
@@ -388,7 +408,29 @@ class data_action extends process {
     //krumo($this->db_data);
     //krumo($_REQUEST);
   }
+//do insert_id colval type
+  function inserted_ids_columns( $ready_data, $colval_inserted_ids ) {
+    //krumo($ready_data);
+    if ( is_array( $colval_inserted_ids ) ) {
+      if ( !empty( $colval_inserted_ids ) ) {
+        $insert_ids = $this->vals[ '__sst__insert_ids' ];
+        foreach ( $colval_inserted_ids as $colval_inserted_id ) {
+          foreach ( $insert_ids[ $colval_inserted_id->value ] as $insert_route => $insert_id_value ) {
+            foreach ( $ready_data as $ready_data_route => $ready_data_vals ) {
+              if ( $this->starts_with( $ready_data_route, $insert_route ) ) {
+                $ready_data[ $ready_data_route ][ $colval_inserted_id->column ] = $insert_id_value;
+              }
 
+            }
+          }
+        }
+      }
+    } else {
+      $this->error_log( '$colval_inserted_ids is note array' );
+    }
+    //krumo( $ready_data );
+    return $ready_data;
+  }
   /**********
     this will get all_values and an col_name and find its col parent eg your provided input is aa[0][0][0] it and there is bb[0][0] this functiom return  bb[0][0]
 	process definition: 
@@ -711,10 +753,10 @@ class data_action extends process {
   }
 
 
-  /****************************************************************************************/
-
-  /****************************************************************************************/
+  /****************************************************************************************
+	this function make multidimensional array to one dimension array keys as string seperataed by - and if it is not multidimension it set * as key
   //source:https://ideone.com/1dBqx
+  ****************************************************************************************/
   function flatten( $array, $sep = '-', $prefix = '' ) {
     $result = array();
     if ( is_array( $array ) ) {
@@ -730,6 +772,7 @@ class data_action extends process {
         $result[ '*' ] = $array;
       }
     }
+    //krumo($result);
     return $result;
   }
 
@@ -752,7 +795,10 @@ class data_action extends process {
     call_user_func_array( 'array_multisort', $args );
     return array_pop( $args );
   }
-
+  /*****************************
+  get the depth of array if none array provided it return 0
+  and if array like array(0=>array(1=>2222)) it return 2
+  ****************************/
   function find_array_depth( $arr ) {
     static $dep;
     static $last_key;
@@ -761,6 +807,7 @@ class data_action extends process {
         $dep = 0;
       }
       $dep++;
+      //reset get first element of array
       $this->find_array_depth( reset( $arr ) );
     } else {
       if ( debug_backtrace()[ 1 ][ 'function' ] !== __FUNCTION__ ) {
@@ -901,11 +948,11 @@ class data_action extends process {
   }
 
 }
-if ( !function_exists( 'array_key_last' )) {
-    function array_key_last( $array ) {
-      end( $array ); // move the internal pointer to the end of the array
-      $key = key( $array ); // fetches the key of the element pointed to by the internal pointer
-      return $key;
-    }
-  
+if ( !function_exists( 'array_key_last' ) ) {
+  function array_key_last( $array ) {
+    end( $array ); // move the internal pointer to the end of the array
+    $key = key( $array ); // fetches the key of the element pointed to by the internal pointer
+    return $key;
+  }
+
 }
