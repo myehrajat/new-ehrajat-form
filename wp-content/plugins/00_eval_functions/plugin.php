@@ -16,3 +16,17 @@ function sys_insert_currency_rate( $exchange_currency, $base_currency, $rate ) {
         'rate' => $rate ) );
   }
 }
+function sys_fa_to_eng_number($string){
+	 $persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+    $arabic = ['٩', '٨', '٧', '٦', '٥', '٤', '٣', '٢', '١','٠'];
+
+    $num = range(0, 9);
+    $convertedPersianNums = str_replace($persian, $num, $string);
+    $englishNumbersOnly = str_replace($arabic, $num, $convertedPersianNums);
+
+    return $englishNumbersOnly;
+}
+function sys_change_currency_unit($from_currency_id,$to_currency_id){
+	global $wpdb;
+	
+}

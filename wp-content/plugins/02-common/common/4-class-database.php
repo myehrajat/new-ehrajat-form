@@ -93,8 +93,9 @@ implements database_interface {
      *this function is for adding to table
 	 $prevent_insert_rule param => sql query and only for value use {column_name} format this function automatically replace it with 'value' note: no need qoutation
   **************************************************/
+
   function add_to_table( string $table, array $column_value, $column_mysql_code = array(), $prevent_insert_rule_ids = NULL ) {
-    //krumo($vals);
+   //krumo( $column_value );
     global $wpdb;
     if ( !is_array( $column_mysql_code ) ) {
       $column_mysql_code = array();
@@ -103,31 +104,31 @@ implements database_interface {
     if ( is_array( $column_value ) ) {
       $prevent_insert_rule_ids = $this->get_ids( $prevent_insert_rule_ids );
       if ( !empty( $prevent_insert_rule_ids ) ) {
-		  //krumo($prevent_insert_rule_ids);
+        //krumo($prevent_insert_rule_ids);
         foreach ( $prevent_insert_rule_ids as $prevent_insert_rule_id ) {
           $prevent_insert_rule_obj = $this->get_by_id( $prevent_insert_rule_id, $GLOBALS[ 'sst_tables' ][ 'data_action_prevent_insert_rule' ] );
           $mysql_rule = $prevent_insert_rule_obj->mysql_rule;
-			
+
           $php_rule = $prevent_insert_rule_obj->php_rule;
           if ( !empty( $php_rule ) ) {
             $php_rule_check_change = $php_rule;
-			  //krumo($column_value);
+            //krumo($column_value);
             foreach ( $column_value as $column => $value ) {
-				//krumo($column .'=>'.$value  );
+              //krumo($column .'=>'.$value  );
               //$php_rule = str_replace( '{col-name:' . $column . "}", '$column_value["' . $column . '"]', $php_rule );
-              $php_rule = str_replace( '{col-value:' . $column . "}", '"' . $value . '"', $php_rule );
+              $php_rule = str_replace( '{col-value:' . $column . "}", $this->wrap_non_numeric($value,'"'), $php_rule );
               //$php_rule = str_replace( '{col-name:'  . $column . "}", '"' . $value . '"', $php_rule );
             }
-            if ( $php_rule != $php_rule_check_change) {
-				
+            if ( $php_rule != $php_rule_check_change ) {
+
               $ecode = 'if(' . $php_rule . '){return true;}else{return false;}';
-				//krumo($ecode);
-				//krumo($php_rule);
-				//krumo($php_rule_check_change);
+              //krumo($ecode);
+              //krumo($php_rule);
+              //krumo($php_rule_check_change);
               $php_res = $this->run_eval( $ecode );
               if ( $php_res == true ) {
-				  //'PHP ERROR :' .
-                return array( 'result' => false, 'html_error' =>  $prevent_insert_rule_obj->prevented_result_html );
+                //'PHP ERROR :' .
+                return array( 'result' => false, 'html_error' => $prevent_insert_rule_obj->prevented_result_html );
               }
             }
           }
@@ -139,18 +140,37 @@ implements database_interface {
           if ( !empty( $mysql_rule ) ) {
             $mysql_rule_check_change = $mysql_rule;
             foreach ( $column_value as $column => $value ) {
-              $mysql_rule = str_replace( "{" . $column . "}", "'" . $value . "'", $mysql_rule );
+				
+				//TEMP KEYWORD
+				/******************************************/
+              if ( $column == '__sst__temp' ) {
+				  //krumo( $value );
+                foreach ( $value as $temp_col => $temp_val ) {
+                  $mysql_rule = str_replace( "{temp:" . $temp_col . "}", $this->wrap_non_numeric($temp_val,"'" ), $mysql_rule );
+                 // krumo( "{temp:" . $temp_col . "}" );
+                  //krumo( $value[ $temp_col  ] );
+                  //krumo( $temp_val );
+                }
+              }
+				 
+				/**********************************************/
+              $mysql_rule = str_replace( "{" . $column . "}",$this->wrap_non_numeric($value,"'" ) , $mysql_rule );
             }
+			 // krumo();
             if ( $mysql_rule_check_change != $mysql_rule ) {
               $mysql_rule_query = "SELECT * FROM " . $mysql_rule_table . " WHERE " . $mysql_rule . " LIMIT 1;";
-
+				//krumo($mysql_rule_query);
               if ( !empty( $wpdb->get_row( $mysql_rule_query ) ) ) {
-				  //'MYSQL ERROR :' . 
+                //'MYSQL ERROR :' . 
+				  krumo($mysql_rule_query);
                 return array( 'result' => false, 'html_error' => $prevent_insert_rule_obj->prevented_result_html );
               }
             }
           }
 
+        }
+        if ( isset( $column_value[ '__sst__temp' ] ) ) {
+          unset( $column_value[ '__sst__temp' ] );
         }
         $columns = array_keys( $column_value );
         $sql = "INSERT  INTO " . $table . "(`" . implode( '`,`', $columns ) . "`";

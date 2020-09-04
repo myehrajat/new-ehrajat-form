@@ -23,77 +23,179 @@ if ( !empty( $_REQUEST[ 'psw' ] ) ) {
         return $options;
       }
     }
+	  /*
+	  //this func is used in dep_select.js
+	function warp_for_sql_col($var){
+		if(empty($var) or !is_numeric($var)){
+			$var =  "'".$var."'";
+		}
+			return $var;
+	}
+	*/
 
   }
+function wrap_non_numeric($str,$warp){
+		if(!is_numeric($str)){
+			$str = $warp.$str.$warp;
+		}
+		return $str ;
+}
+
+function prepare_cols($obj){
+	foreach($obj as $k=>$v){
+		$obj->$k=wrap_non_numeric($v,'"');
+	}
+		return $obj;
+}
   define( 'VALUE_SEPERATOR', ',' );
   $path = preg_replace( '/wp-content.*$/', '', __DIR__ );
 
   require_once( $path . 'wp-load.php' );
 
   if ( $_REQUEST[ 'psw' ] == '12345' ) {
-    $results = $wpdb->get_results( $_REQUEST[ 'pre_query' ] );
-    $col = $results[ 0 ];
-    //var_dump( $col);
     //die;
     $query = $_REQUEST[ 'query' ];
+	 //echo "<pre>";var_dump($query);echo "</pre>";
+
     $obj = json_decode( stripslashes( $query ) );
-
-
     $queries = $obj->queries;
+	
+	  
+	  
+	  
+	 
+    $pre_query_results = $wpdb->get_results( $_REQUEST[ 'pre_query' ] );
+	//echo "<pre>";var_dump( $queries);echo "</pre>";
+	//echo "<pre>";var_dump( $_REQUEST[ 'pre_query' ]);echo "</pre>";
+	//echo "<pre>";var_dump( $pre_query_results);echo "</pre>";
+	//echo "<pre>";var_dump( $queries);echo "</pre>";
+    //$col = $pre_query_results[ 0 ];
+	 $new_queries = $queries;
+
+	foreach($new_queries as $k=>$query){
+		
+		foreach($pre_query_results as $col){
+			$col = prepare_cols($col);
+			//var_dump($col);
+							//echo "<pre>";var_dump( $col);echo "</pre>";
+			$query_set[]=eval('return "'.$query->query.'";');
+							//echo 'return "'.$query->query.'";';
+
+						//$queries[$k]->query = $query_set;
+		}
+				$new_queries[$k]->query=$query_set;
+	}
+	
+			$queries = $new_queries;
+	  	  	  //	 echo "<pre>";echo var_dump(  $queries );echo "</pre>";
+
+	  	  	 //echo "<pre>";echo var_dump(  $query_set);echo "</pre>";
+	  	  	 //echo "<pre>";echo var_dump(  $new_queries );echo "</pre>";
+/*
+	  	 echo "<pre>";echo '""""""""""""""""""""""""""""""""""""""""'; "</pre>";
+	  	 echo "<pre>";echo count( $queries);echo "</pre>";
+	  	 echo "<pre>";echo var_dump(  $queries);echo "</pre>";
+	  	 echo "<pre>";echo '""""""""""""""""""""""""""""""""""""""""'; "</pre>";
+	  	 echo "<pre>";echo count( $pre_query_results);echo "</pre>";
+	  	 echo "<pre>";echo var_dump( $_REQUEST[ 'pre_query' ]); "</pre>";
+	  	 echo "<pre>";echo '""""""""""""""""""""""""""""""""""""""""'; "</pre>";
+	  	 echo "<pre>";echo var_dump( $pre_query_results);echo "</pre>";
+	  	 echo "<pre>";echo '""""""""""""""""""""""""""""""""""""""""'; "</pre>";
+		 echo "<pre>";var_dump( $queries);echo "</pre>";
+	  */
     foreach ( $queries as $k => $query_cond ) {
       //echo 'QQQQQQQQQQ';
       //			var_dump($queries);
       //			die;
+		$json = json_encode($query_cond->query, JSON_UNESCAPED_SLASHES);
       if ( $query_cond->condition != 'else' ) {
         if ( $k == 0 ) {
           $q = 'if(' . $query_cond->condition . '){';
-          $q .= '$wpquery = "' . $query_cond->query . '";';
+			
+          $q .= '$wpqueries = \'' .  $json . '\';';
           $q .= '$disabled = explode(VALUE_SEPERATOR,"' . $query_cond->disabled . '");';
           $q .= '$selected = explode(VALUE_SEPERATOR,"' . $query_cond->selected . '");';
-
+	//$q .= 'echo "<pre>";var_dump($wpqueries);echo "</pre>";';
+			//echo "<pre>";var_dump(json_encode($query_cond->query));echo "</pre>";
+			//echo "<pre>";var_dump(json_decode(json_encode($query_cond->query)));echo "</pre>";
+			//echo "<pre>";var_dump(eval('return $wpqueries;'));echo "</pre>";');
           $q .= '}';
         } else {
           $q .= 'elseif(' . $query_cond->condition . '){';
-          $q .= '$wpquery = "' . $query_cond->query . '";';
+          $q .= '$wpqueries = \'' . json_encode($query_cond->query) . '\';';
           $q .= '$disabled = explode(VALUE_SEPERATOR,"' . $query_cond->disabled . '");';
           $q .= '$selected = explode(VALUE_SEPERATOR,"' . $query_cond->selected . '");';
           $q .= '}';
         }
       } else {
         $q .= 'else{';
-        $q .= '$wpquery = "' . $query_cond->query . '";';
+        $q .= '$wpqueries = \'' . json_encode($query_cond->query) . '\';';
         $q .= '$disabled = explode(VALUE_SEPERATOR,"' . $query_cond->disabled . '");';
         $q .= '$selected = explode(VALUE_SEPERATOR,"' . $query_cond->selected . '");';
         $q .= '}';
       }
     }
-    $q .= '$results = $wpdb->get_results($wpquery);';
-    $q .= 'if(!empty($results)){';
-    $q .= 'foreach($results as $n=>$result){';
-    $q .= '$options[$n]["text"] = "$result->' . $query_cond->text . '";';
-    $q .= '$options[$n]["attrs"]["label"] = "$result->' . $query_cond->label . '";';
-    $q .= '$options[$n]["attrs"]["value"] = "$result->' . $query_cond->value . '";';
+	  
+	//$q .= 'echo "<pre>";var_dump($wpqueries);echo "</pre>";';
+	  
+	$q .= '$wpqueries = json_decode($wpqueries);';
+	$q .= '$n = 0;';
+	$q .= 'foreach($wpqueries as $wpquery){';
+	 // $q .= 'echo "<pre>";var_dump($wpquery);echo "</pre>";';
+	//$q .= 'echo "<pre>";var_dump($wpquery);echo "</pre>";';
+	$q .= '}';
+	$q .= '$wpquery = implode(" UNION ",$wpqueries);';
+	 $q .= 'if(strtolower("'.$_REQUEST[ 'unique_option' ].'")=="yes"){';
+		  if(!empty($query_cond->text)){
+			  $q .= '$distinct_cols[] = "'.$query_cond->text.'";';
+			  $distinct_check[] = $query_cond->text;
+		  }
+		  if(!empty($query_cond->label) and !in_array($query_cond->label,$distinct_check)){
+			  $q .= '$distinct_cols[] = "'.$query_cond->label.'";';
+			  $distinct_check[] = $query_cond->label;
+		  }
+		  if(!empty($query_cond->value) and !in_array($query_cond->value,$distinct_check)){
+				  $q .= '$distinct_cols[] = "'.$query_cond->value.'";';
+		  }
+		   $q .= '$distinct_cols_str = implode(", ",$distinct_cols);';
+		  $q .= '$wpquery = "SELECT DISTINCT ".$distinct_cols_str." FROM(".$wpquery.") AS sst_temp_table";';
+	  $q .= '}';
+	 $q .= 'if(!empty("'.$_REQUEST[ 'order_by' ].'")){';
+	  $q .= '$wpquery .= " ORDER BY '.$_REQUEST[ 'order_by' ].';";';
+	  $q .= '}';
+	  $q .= 'echo $wpquery."<br>";';
+		$q .= '$results = $wpdb->get_results($wpquery);';
+		$q .= 'if(!empty($results)){';
+			$q .= 'foreach($results as $result){';
+	  			//$q .= 'if(){';
+					$q .= '$options[$n]["text"] = "$result->' . $query_cond->text . '";';
+					$q .= '$options[$n]["attrs"]["label"] = "$result->' . $query_cond->label . '";';
+					$q .= '$options[$n]["attrs"]["value"] = "$result->' . $query_cond->value . '";';
 
-    $q .= 'if(in_array($options[$n]["attrs"]["value"],$selected)){';
-    $q .= '$options[$n]["attrs"]["selected"] = "selected";';
-    $q .= '}else{$options[$n]["attrs"]["selected"] = "";}';
-
-    $q .= 'if(in_array($options[$n]["attrs"]["value"],$disabled)){';
-    $q .= '$options[$n]["attrs"]["disabled"] = "disabled";';
-    $q .= '}else{$options[$n]["attrs"]["disabled"] = "";}';
-
-    $q .= '$options[$n]["attrs"]["sst_onfly"] = "yes";';
-
-    $q .= '}';
-    if ( strtolower( $_REQUEST[ 'return_type' ] ) == 'string' ) {
+					$q .= 'if(in_array($options[$n]["attrs"]["value"],$selected)){';
+						$q .= '$options[$n]["attrs"]["selected"] = "selected";';
+					$q .= '}else{';
+						$q .= '$options[$n]["attrs"]["selected"] = "";';
+					$q .= '}';
+					$q .= 'if(in_array($options[$n]["attrs"]["value"],$disabled)){';
+						$q .= '$options[$n]["attrs"]["disabled"] = "disabled";';
+					$q .= '}else{';
+						$q .= '$options[$n]["attrs"]["disabled"] = "";';
+					$q .= '}';
+					$q .= '$options[$n]["attrs"]["sst_onfly"] = "yes";';
+					$q .= '$n++;';
+	  			//$q .= '}';
+			$q .= '}';
+		$q .= '}else{ }';//return "";
+		
+	  if ( strtolower( $_REQUEST[ 'return_type' ] ) == 'string' ) {
       $q .= '$options_obj = new render_opts($options);';
       $q .= '$all_options = $options_obj->opts;';
     } elseif ( strtolower( $_REQUEST[ 'return_type' ] ) == 'json' ) {
       $q .= '$all_options = json_encode($options);';
     }
-    $q .= '}else{ return "";}';
     $q .= ' return $all_options;';
-
+echo $q;
     $options_obj = eval( $q );
     if ( empty( $options_obj )and strtolower( $_REQUEST[ 'return_type' ] ) == 'string' ) {
       $options_obj = '<option disabled="disabled" sst_onfly="yes">No Option On Change Found!</option>"';
@@ -166,11 +268,15 @@ function sst_depend_select( $input_data_json, $process_data_json ) {
   $script .= "'string'," . "\n";
   $script .= "'" . path2url( __FILE__, $_SERVER[ 'REQUEST_SCHEME' ] ) . "'," . "\n";
   if ( !is_array( $input_data[ 'meta' ][ 'query' ] ) ) {
-    $query_str = 'addslashes(\'{ "queries" : [' . $input_data[ 'meta' ][ 'query' ] . ']}\')' . "\n";
+    $query_str = 'addslashes(\'{ "queries" : [' . $input_data[ 'meta' ][ 'query' ] . ']}\'),' . "\n";
   } else {
-    $query_str = 'addslashes(\'{ "queries" : [' . implode( ',', $input_data[ 'meta' ][ 'query' ] ) . ']}\')' . "\n";
+    $query_str = 'addslashes(\'{ "queries" : [' . implode( ',', $input_data[ 'meta' ][ 'query' ] ) . ']}\'),' . "\n";
   }
+	
+  $query_str .= "'".$input_data[ 'meta' ][ 'order-by' ]."'," . "\n";
+  $query_str .= "'".$input_data[ 'meta' ][ 'unique-option' ]."'" . "\n";
   $query_str .= ');';
+	//echo $query_str;
   $query = $query_str;
   preg_match_all( '/' . addslashes( $between_start ) . '(.*?)' . addslashes( $between_end ) . '/', $query, $matches );
   foreach ( $matches[ 1 ] as $k => $match ) {

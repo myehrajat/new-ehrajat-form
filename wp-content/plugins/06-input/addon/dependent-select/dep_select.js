@@ -1,4 +1,6 @@
-function dep_select(dependent_id, controller_ids, pre_query, return_type, url_to_process, query) {
+function dep_select(dependent_id, controller_ids, pre_query, return_type, url_to_process, query,order_by,unique_option) {
+//console.log(unique_option);
+
   var matches = pre_query.match(/\{name:(.*?)\}/g);
 	//console.log( matches);
   //jQuery.each(matches, function (key, value) {
@@ -37,7 +39,7 @@ function dep_select(dependent_id, controller_ids, pre_query, return_type, url_to
 
   });
 
-  //console.log(query);
+//console.log(query);
   jQuery.ajax({
     method: "POST",
     url: url_to_process,
@@ -45,9 +47,12 @@ function dep_select(dependent_id, controller_ids, pre_query, return_type, url_to
       psw: "12345",
       pre_query: pre_query,
       query: query,
+	  order_by: order_by,
+	  unique_option: unique_option,
       return_type: 'string',
     },
     success: function (data) {
+
       if (return_type == 'string') {
         //console.log(jQuery("#" + dependent_id));
        // console.log(data);
@@ -64,7 +69,7 @@ function remove_onfly_options(dependent_id) {
 
 }
 
-function append_onchange_to_controller(dependent_id, controller_ids, pre_query, return_type, url_to_process, query) {
+function append_onchange_to_controller(dependent_id, controller_ids, pre_query, return_type, url_to_process,query,order_by,unique_option) {
 
   controller_ids = controller_ids.split(',');
   jQuery.each(controller_ids, function (key, value) {
@@ -73,10 +78,10 @@ function append_onchange_to_controller(dependent_id, controller_ids, pre_query, 
       current_onchange = '';
     }
 	 // console.log("['" + controller_ids.join("','") + "']");
-		eval(";dep_select('" + dependent_id + "',['" + controller_ids.join("','") + "'],'" + pre_query + "','" + return_type + "','" + url_to_process + "','" + query + "');");
-	  jQuery("#" + value).attr('onchange', current_onchange + ";dep_select('" + dependent_id + "',['" + controller_ids.join("','") + "'],'" + pre_query + "','" + return_type + "','" + url_to_process + "','" + query + "');");
+		eval(";dep_select('" + dependent_id + "',['" + controller_ids.join("','") + "'],'" + pre_query + "','" + return_type + "','" + url_to_process + "','" + query + "','"+order_by+"','"+unique_option+"');");
+	  jQuery("#" + value).attr('onchange', current_onchange + ";dep_select('" + dependent_id + "',['" + controller_ids.join("','") + "'],'" + pre_query + "','" + return_type + "','" + url_to_process + "','" + query + "','"+order_by+"','"+unique_option+"');");
 	  
-	  
+
   });
 }
 

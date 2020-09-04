@@ -44,6 +44,13 @@ implements str_interface {
 	function __construct(){
 		parent::__construct();
 	}
+	
+	function wrap_non_numeric($str,$warp){
+		if(!is_numeric($str)){
+			$str = $warp.$str.$warp;
+		}
+		return $str ;
+	}
     /**************************************************
      *version 1.0.0
      * this function check is minus or not check number or not

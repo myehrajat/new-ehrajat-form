@@ -6,7 +6,10 @@ class data_action extends data_action_fundamental {
   var $multiple_func_before;
 
   function __construct( $is_modal = false ) {
+	 $this->temp_str = "DONT-SAVE-ME-";
+	  //krumo($this->temp_str);
     parent::__construct();
+	// $this->temp_str = "DONT-SAVE-ME-";
   }
 
 
@@ -15,6 +18,13 @@ class data_action extends data_action_fundamental {
   this function collect all rules defined in data_action_database
 
   ***********************/
+	function remove_temp_str($str){
+		if($this->starts_with($str,$this->temp_str)){
+			$len = strlen( $this->temp_str );
+			return  substr( $str,$len);
+		}
+		return $str;
+	}
   function get_all_prevent_insert_rule_ids() {
     $all_prevent_insert_rule_ids = array();
     foreach ( $this->data_actions as $data_action_obj ) {
@@ -100,7 +110,7 @@ class data_action extends data_action_fundamental {
         //create_save_id_column_if_not_exist();
         $this->create_add_column( $wpdb->prefix . $data_action_specific_obj->table, 'save_id' );
         $this->create_colval_data();
-        //krumo($this->db_data);
+      //  krumo($this->db_data);
         //krumo($this->vals);
         if ( !empty( $this->db_data ) ) {
 
@@ -323,8 +333,10 @@ class data_action extends data_action_fundamental {
             case "temp":
             case "temporary":
               $is_there_temp = true;
-              $all_values[ 'DONT-SAVE-ME-' . $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
+              $all_values[ $this->temp_str . $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
+				  //krumo($this->temp_str);
               break;
+				  
             case "file":
               $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->upload_files(
                 $this->vals[ '__sst__files' ][ $sorted_colvals_vals[ 'colval_obj' ]->value ],
@@ -378,7 +390,7 @@ class data_action extends data_action_fundamental {
 
         $ready_data = $this->do_ecodes( $ready_data, $ecodes );
         //krumo('5');
-        //krumo($this->vals);
+        //krumo( $ready_data);
 
         //this used for creating database query
         $ready_data = $this->delete_temp_cloumns( $ready_data, $is_there_temp );
@@ -408,19 +420,24 @@ class data_action extends data_action_fundamental {
     //krumo($this->db_data);
     //krumo($_REQUEST);
   }
-//do insert_id colval type
+  //do insert_id colval type
   function inserted_ids_columns( $ready_data, $colval_inserted_ids ) {
     //krumo($ready_data);
     if ( is_array( $colval_inserted_ids ) ) {
       if ( !empty( $colval_inserted_ids ) ) {
         $insert_ids = $this->vals[ '__sst__insert_ids' ];
-        foreach ( $colval_inserted_ids as $colval_inserted_id ) {
-          foreach ( $insert_ids[ $colval_inserted_id->value ] as $insert_route => $insert_id_value ) {
-            foreach ( $ready_data as $ready_data_route => $ready_data_vals ) {
-              if ( $this->starts_with( $ready_data_route, $insert_route ) ) {
-                $ready_data[ $ready_data_route ][ $colval_inserted_id->column ] = $insert_id_value;
+        if ( is_array( $colval_inserted_ids ) ) {
+          foreach ( $colval_inserted_ids as $colval_inserted_id ) {
+            if ( is_array( $insert_ids[ $colval_inserted_id->value ] ) ) {
+              foreach ( $insert_ids[ $colval_inserted_id->value ] as $insert_route => $insert_id_value ) {
+                if ( is_array( $ready_data ) ) {
+                  foreach ( $ready_data as $ready_data_route => $ready_data_vals ) {
+                    if ( $this->starts_with( $ready_data_route, $insert_route ) ) {
+                      $ready_data[ $ready_data_route ][ $colval_inserted_id->column ] = $insert_id_value;
+                    }
+                  }
+                }
               }
-
             }
           }
         }
@@ -549,7 +566,10 @@ class data_action extends data_action_fundamental {
     if ( $is_there_temp === true ) {
       foreach ( $ready_data as $k => $single_data ) {
         foreach ( $single_data as $column_name => $column_value ) {
-          if ( $this->starts_with( $column_name, 'DONT-SAVE-ME-' ) ) {
+          if ( $this->starts_with( $column_name, $this->temp_str ) ) {
+			//
+			//  krumo($column_name);
+			$ready_data[ $k ]['__sst__temp'][$this->remove_temp_str($column_name)]=$ready_data[ $k ][ $column_name ];
             unset( $ready_data[ $k ][ $column_name ] );
           }
         }

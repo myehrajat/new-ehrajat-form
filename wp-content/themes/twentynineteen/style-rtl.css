@@ -4364,14 +4364,6 @@ body.page .main-navigation {
   margin: 0 1rem;
 }
 
-@media only screen and (min-width: 768px) {
-  .entry .entry-content,
-  .entry .entry-summary {
-    max-width: 80%;
-    margin: 0 10%;
-    padding: 0 60px;
-  }
-}
 
 .entry .entry-content p {
   word-wrap: break-word;
@@ -5191,19 +5183,6 @@ body.page .main-navigation {
   max-width: 100%;
 }
 
-@media only screen and (min-width: 768px) {
-  .entry .entry-content > *,
-  .entry .entry-summary > * {
-    max-width: calc(8 * (100vw / 12) - 28px);
-  }
-}
-
-@media only screen and (min-width: 1168px) {
-  .entry .entry-content > *,
-  .entry .entry-summary > * {
-    max-width: calc(6 * (100vw / 12) - 28px);
-  }
-}
 
 @media only screen and (min-width: 768px) {
   .entry .entry-content > *,
