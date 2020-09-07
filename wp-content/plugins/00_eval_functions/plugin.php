@@ -26,7 +26,18 @@ function sys_fa_to_eng_number($string){
 
     return $englishNumbersOnly;
 }
+function country_has_official_currency($country_id){
+	global $wpdb;
+	$q = "SELECT * FROM ".$wpdb->prefix . 'custom_' . 'currency'." WHERE country_id = ".$country_id." AND official = official LIMIT 1;";
+	$results = $wpdb->get_results($q);
+	if(empty($results)){
+		return false;
+	}else{
+		return true;
+	}
+}
 function sys_change_currency_unit($from_currency_id,$to_currency_id){
 	global $wpdb;
 	
 }
+//var_dump( );

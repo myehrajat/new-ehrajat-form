@@ -94,6 +94,7 @@ class insert_input_related_tables extends database {
         "`id` INT(10) NOT NULL auto_increment," .
         "`epithet` VARCHAR(255) DEFAULT NULL," .
         "`slug` VARCHAR(255) DEFAULT NULL," .
+        "`condition_type` VARCHAR(255) DEFAULT NULL," .
         "`condition` LONGTEXT NOT NULL COMMENT 'Conditions must be in javascript code rules and to get value of xxx input use {name:xxx} and if to use self assigned use {self} if you assigned the condition to this abc named input using {name:abc} and same have the same result!'," .
         "`attr_changer_ids` VARCHAR(255) NOT NULL," .
         "`description` LONGTEXT DEFAULT NULL," .

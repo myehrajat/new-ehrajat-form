@@ -404,6 +404,7 @@ class render extends database {
         return '';
       }
       /*******************/
+      //set attr chagert value to use later
       $this->create_attr_changer_code( $input_data );
 
       if ( isset( $GLOBALS[ 'vals' ] ) ) {
@@ -1061,11 +1062,12 @@ class render extends database {
 	https://www.messletters.com/en/big-text/
   /************************************
   /*
-  Do everything to create a block 
+  create raw without replacing shortcode of js
   Return: Html Text of block (extra also created)
   Note: in view or edit mode it will return all extra that you have used
   */
   function create_attr_changer_code( $x_data ) {
+
     //static $func_num;
     if ( !empty( $x_data[ 'attr_changer_condition_ids' ] ) ) {
       $attr_changer_condition_ids = $this->get_ids( $x_data[ 'attr_changer_condition_ids' ] );
@@ -1074,6 +1076,7 @@ class render extends database {
         foreach ( $attr_changer_condition_ids as $attr_changer_condition_id ) {
           $attr_changer_condition_obj = $this->get_by_id( $attr_changer_condition_id, $GLOBALS[ 'sst_tables' ][ 'attr_changer_condition' ] );
           if ( !empty( $attr_changer_condition_obj ) ) {
+            //krumo( $attr_changer_condition_obj->condition);
             if ( $first_done == false ) {
               $position = 'first';
               $first_done = true;
@@ -1099,11 +1102,11 @@ class render extends database {
 
     if ( !empty( $jquery_code ) ) {
       $attr_changer_func_name = 'attr_changer_' . rand( 1, 99999999 );
-      $temp_attr_changer_code .= "" . "\n" . $attr_changer_func_name . "();});" . "\n";
-      $temp_attr_changer_code .= "jQuery('#" . $x_data[ 'attrs' ][ 'id' ] . "').on('input keyup keypress focus blur click change', function($) {" . "\n" . $attr_changer_func_name . "();;" . "\n";
+      $temp_attr_changer_code .= "jQuery( document ).ready(function($) {" . "\n" . $attr_changer_func_name . "();});" . "\n";
+      $temp_attr_changer_code .= "jQuery('#" . $x_data[ 'attrs' ][ 'id' ] . "').on('input keyup keypress focus blur click change', function($) {" . "\n" . $attr_changer_func_name . "();});" . "\n";
       $temp_attr_changer_code .= "function " . $attr_changer_func_name . "(){" . $jquery_code . "}" . "\n";
 
-
+/*s
       switch ( $x_data[ 'input_html_type' ] ) {
         case "radio":
         case "checkbox":
@@ -1113,29 +1116,67 @@ class render extends database {
           $temp_attr_changer_code = str_replace( '{self}', 'jQuery("#' . $x_data[ 'attrs' ][ 'id' ] . '").val()', $temp_attr_changer_code );
           break;
       }
+	  */
+      switch ( $x_data[ 'input_html_type' ] ) {
+        case "radio":
+        case "checkbox":
+          $temp_attr_changer_code = str_replace( '{self}', '{id:' . $x_data[ 'attrs' ][ 'id' ] . '}', $temp_attr_changer_code );
+          break;
+        default:
+          $temp_attr_changer_code = str_replace( '{self}', '{id:' . $x_data[ 'attrs' ][ 'id' ] . '}', $temp_attr_changer_code );
+          break;
+      }
+	  
+	  
       //
     }
+	  
     $this->attr_changer_code .= $temp_attr_changer_code;
+	 // krumo($this->attr_changer_code);
     //return $x_data;
   }
-  /*
-  this create jquery of attr changer but one step more needed which is replacing shortcodes
-  */
+
   function create_attr_changer_based_conditions( $attr_changer_condition_obj, $position ) {
     //krumo($this->input_data['attrs']['id']);
-	  //krumo($position);
+    //krumo($position);
     switch ( $position ) {
       case 'first':
-        $jquery_code .= "\n" . 'if(' . str_replace( '{name:', '{name_jq_value:', $attr_changer_condition_obj->condition ) . '){' . "\n";
+        if ( strtolower( $attr_changer_condition_obj->condition_type ) == 'php' ) {
+          $ajax_eval_php .= 'jQuery.ajax({
+			url: "http://localhost/wp-content/plugins/06-input/input_eval.php", 
+			type: "post",
+			data: {
+					query:"country_has_official_currency({name:country_id-2})==false"';
+
+          '},
+				},
+			success: function(result){
+				jQuery("#div").html(result);
+				}
+  			});';
+
+
+        } elseif ( strtolower( $attr_changer_condition_obj->condition_type ) == 'js' ) {
+          $jquery_code .= "\n" . 'if(' . $attr_changer_condition_obj->condition . '){' . "\n";
+        } else {
+
+        }
         break;
       case 'middle':
-        $jquery_code .= 'else if(' . str_replace( '{name:', '{name_jq_value:', $attr_changer_condition_obj->condition ) . '){' . "\n";
+        if ( strtolower( $attr_changer_condition_obj->condition_type ) == 'php' ) {
+			//PHP
+		} elseif ( strtolower( $attr_changer_condition_obj->condition_type ) == 'js' ) {
+          $jquery_code .= 'else if(' . $attr_changer_condition_obj->condition . '){' . "\n";
+        } else {
+
+        }
         break;
       case 'last':
-        //$jquery_code .= 'else(' . str_replace( '{name:', '{name_jq_value:', $attr_changer_condition_obj->condition ) . '){' . "\n";
         $jquery_code .= 'else{' . "\n";
         break;
-    } //krumo($jquery_code);
+    }
+
+
     $attr_changer_ids = $this->get_ids( $attr_changer_condition_obj->attr_changer_ids );
     if ( !empty( $attr_changer_ids ) ) {
       foreach ( $attr_changer_ids as $attr_changer_id ) {
@@ -1153,26 +1194,26 @@ class render extends database {
                 if ( $attr_changer_obj->attr == 'hidden' ) {
                   //$jquery_code .= 'console.log(jQuery("{name:' . $input_obj->name . '}").closest("sst-input").attr("id")+ " is showing");'."\n";
                   $jquery_code .= "\t" . '/*input:' . $input_obj->name . '*/' . "\n";
-                  $jquery_code .= "\t" . 'jQuery("{name:' . $input_obj->name . '}").closest("sst-input").prop("' . $attr_changer_obj->attr . '",false);' . "\n";
+                  $jquery_code .= "\t" . 'jQuery({name:' . $input_obj->name . '}).closest("sst-input").prop("' . $attr_changer_obj->attr . '",false);' . "\n";
                 }
                 $jquery_code .= "\t" . '/*input:' . $input_obj->name . '*/' . "\n";
-                $jquery_code .= "\t" . 'jQuery("{name:' . $input_obj->name . '}").prop("' . $attr_changer_obj->attr . '",false);' . "\n";
+                $jquery_code .= "\t" . 'jQuery({name:' . $input_obj->name . '}).prop("' . $attr_changer_obj->attr . '",false);' . "\n";
               } else {
                 $jquery_code .= "\t" . '/*input:' . $input_obj->name . '*/' . "\n";
-                $jquery_code .= "\t" . 'jQuery("{name:' . $input_obj->name . '}").removeAttr("' . $attr_changer_obj->attr . '");' . "\n";
+                $jquery_code .= "\t" . 'jQuery({name:' . $input_obj->name . '}).removeAttr("' . $attr_changer_obj->attr . '");' . "\n";
               }
             } else { //this is not remove
               if ( in_array( $attr_changer_obj->attr, $boolean_attr ) ) {
                 if ( $attr_changer_obj->attr == 'hidden' ) {
                   //$jquery_code .= 'console.log(jQuery("{name:' . $input_obj->name . '}").closest("sst-input").attr("id")+ " is hidding");'."\n";
                   $jquery_code .= "\t" . '/*input:' . $input_obj->name . '*/' . "\n";
-                  $jquery_code .= "\t" . 'jQuery("{name:' . $input_obj->name . '}").closest("sst-input").prop("' . $attr_changer_obj->attr . '",true);' . "\n";
+                  $jquery_code .= "\t" . 'jQuery({name:' . $input_obj->name . '}).closest("sst-input").prop("' . $attr_changer_obj->attr . '",true);' . "\n";
                 }
                 $jquery_code .= "\t" . '/*input:' . $input_obj->name . '*/' . "\n";
-                $jquery_code .= "\t" . 'jQuery("{name:' . $input_obj->name . '}").prop("' . $attr_changer_obj->attr . '",true);' . "\n";
+                $jquery_code .= "\t" . 'jQuery({name:' . $input_obj->name . '}).prop("' . $attr_changer_obj->attr . '",true);' . "\n";
               } else {
                 $jquery_code .= "\t" . '/*input:' . $input_obj->name . '*/' . "\n";
-                $jquery_code .= "\t" . 'jQuery("{name:' . $input_obj->name . '}").prop("' . $attr_changer_obj->attr . '","' . $attr_changer_obj->value . '");' . "\n";
+                $jquery_code .= "\t" . 'jQuery({name:' . $input_obj->name . '}).prop("' . $attr_changer_obj->attr . '","' . $attr_changer_obj->value . '");' . "\n";
               }
             }
           }
@@ -1243,38 +1284,24 @@ class render extends database {
     } else {
       $this->error_log( 'No attr change ids is provided with conditions id:' . $attr_changer_condition_obj->id );
     }
-    //  $jquery_code .= "\t" . 'console.log("sssssssssss");' . "\n";
+    //$jquery_code .= "\t" . 'console.log("sssssssssss");' . "\n";
     $jquery_code .= '}';
-    // $jquery_code = "<script>alert('sssssssssss');</script>";
     return $jquery_code;
   }
 
-  function add_attr_changer_to_form_suffix( $form_suffix ) {
-    if ( !empty( $this->attr_changer_code ) ) {
+  /*
+  this create jquery of attr changer but one step more needed which is replacing shortcodes
+  */
+
+
+  function get_js_of_shortcode_in_attr_changer( $attr_changer_code, $process_data, $type = "js" ) {
+    if ( !empty( $attr_changer_code ) ) {
       $between_start = '{name:';
       $between_end = '}';
-      $attr_changer_code = $this->attr_changer_code;
-      //krumo($attr_changer_code);
       preg_match_all( '/' . addslashes( $between_start ) . '(.*?)' . addslashes( $between_end ) . '/', $attr_changer_code, $matches );
-      //			krumo( $matches);
       foreach ( $matches[ 1 ] as $k => $match ) {
-        // krumo($this->process_data);
-        $id = common::search_by_attr_to_get_other_attr( 'name', $match, 'id', $this->process_data, 'process' );
-        //krumo( $form_data);
-
-        $attr_changer_code = str_replace( $matches[ 0 ][ $k ], "#" . $id, $attr_changer_code );
-      }
-      $this->attr_changer_code = $attr_changer_code;
-
-      //krumo($this->attr_changer_code);
-      $between_start = '{name_jq_value:';
-      $between_end = '}';
-      $attr_changer_code = $this->attr_changer_code;
-      preg_match_all( '/' . addslashes( $between_start ) . '(.*?)' . addslashes( $between_end ) . '/', $attr_changer_code, $matches );
-      //krumo( $matches);
-      foreach ( $matches[ 1 ] as $k => $match ) {
-        $id = common::search_by_attr_to_get_other_attr( 'name', $matches[ 1 ][ $k ], 'id', $this->process_data, 'process' );
-        $html_type = common::search_by_attr_to_get_other_attr( 'name', $matches[ 1 ][ $k ], 'type', $this->process_data, 'process' );
+        $id = common::search_by_attr_to_get_other_attr( 'name', $matches[ 1 ][ $k ], 'id', $process_data, 'process' );
+        $html_type = common::search_by_attr_to_get_other_attr( 'name', $matches[ 1 ][ $k ], 'type', $process_data, 'process' );
         switch ( $html_type ) {
           case "radio":
           case "checkbox":
@@ -1282,15 +1309,39 @@ class render extends database {
             break;
           default:
             $attr_changer_code = str_replace( $matches[ 0 ][ $k ], "jQuery('#" . $id . "').val()", $attr_changer_code );
-
-
             break;
         }
       }
+		
+		
+		
+/************************************
 
-      $this->attr_changer_code = $attr_changer_code;
-      $form_suffix .= $this->attr_changer_code . "\n";
+*************************************/
+      $between_start = '{id:';
+      $between_end = '}';
+      preg_match_all( '/' . addslashes( $between_start ) . '(.*?)' . addslashes( $between_end ) . '/', $attr_changer_code, $matches );
+      foreach ( $matches[ 1 ] as $k => $match ) {
+        //$id = common::search_by_attr_to_get_other_attr( 'name', $matches[ 1 ][ $k ], 'id', $process_data, 'process' );
+        $html_type = common::search_by_attr_to_get_other_attr( 'id', $matches[ 1 ][ $k ], 'type', $process_data, 'process' );
+        switch ( $html_type ) {
+          case "radio":
+          case "checkbox":
+            $attr_changer_code = str_replace( $matches[ 0 ][ $k ], "jQuery('#" .$matches[ 1 ][ $k ] . " :checked').val()", $attr_changer_code );
+            break;
+          default:
+            $attr_changer_code = str_replace( $matches[ 0 ][ $k ], "jQuery('#" . $matches[ 1][ $k ] . "').val()", $attr_changer_code );
+            break;
+        }
+      }
+		$attr_changer_code .= "\n";
     }
-    return $form_suffix;
+
+    return $attr_changer_code;
+  }
+
+  function add_attr_changer_to_form_suffix( $form_suffix ) {
+    $this->attr_changer_code = $this->get_js_of_shortcode_in_attr_changer( $this->attr_changer_code, $this->process_data );
+    return  $this->attr_changer_code ;
   }
 }
