@@ -1099,8 +1099,8 @@ class render extends database {
 
     if ( !empty( $jquery_code ) ) {
       $attr_changer_func_name = 'attr_changer_' . rand( 1, 99999999 );
-      $temp_attr_changer_code .= "" . "\n" . $attr_changer_func_name . "();});" . "\n";
-      $temp_attr_changer_code .= "jQuery('#" . $x_data[ 'attrs' ][ 'id' ] . "').on('input keyup keypress focus blur click change', function($) {" . "\n" . $attr_changer_func_name . "();;" . "\n";
+      $temp_attr_changer_code .= "jQuery( document ).ready(function($) {" . "\n" . $attr_changer_func_name . "();});" . "\n";
+      $temp_attr_changer_code .= "jQuery('#" . $x_data[ 'attrs' ][ 'id' ] . "').on('input keyup keypress focus blur click change', function($) {" . "\n" . $attr_changer_func_name . "();});" . "\n";
       $temp_attr_changer_code .= "function " . $attr_changer_func_name . "(){" . $jquery_code . "}" . "\n";
 
 
