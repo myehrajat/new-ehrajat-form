@@ -1067,6 +1067,8 @@ class render extends database {
   */
   function create_attr_changer_code( $x_data ) {
     //static $func_num;
+    $this->attr_changer_php_query = array();
+
     if ( !empty( $x_data[ 'attr_changer_condition_ids' ] ) ) {
       $attr_changer_condition_ids = $this->get_ids( $x_data[ 'attr_changer_condition_ids' ] );
       if ( !empty( $attr_changer_condition_ids ) ) {
@@ -1085,7 +1087,7 @@ class render extends database {
                 $position = 'last';
               }
               /* create raw if(balabala){balabala}eles if(balabala){balabala}else{balabala}  but raw data eg {name:XXXX} of {self}*/
-            $jquery_function_body_code .= $this->create_attr_changer_based_conditions( $attr_changer_condition_obj, $position ,$x_data);
+            $jquery_function_body_code .= $this->create_attr_changer_based_conditions( $attr_changer_condition_obj, $position, $x_data );
           } else {
             $this->error_log( 'attr_changer_condition_obj cant find you use id which not exists :' . $attr_changer_condition_id );
           }
@@ -1101,25 +1103,91 @@ class render extends database {
       $attr_changer_func_name = 'attr_changer_' . rand( 1, 99999999 );
       $temp_attr_changer_code .= "\n" . $attr_changer_func_name . "();" . "\n";
       $temp_attr_changer_code .= "jQuery('#" . $x_data[ 'attrs' ][ 'id' ] . "').on('input keyup keypress focus blur click change', function($) {" . "\n" . $attr_changer_func_name . "();});" . "\n";
-      $temp_attr_changer_code .= "function " . $attr_changer_func_name . "(){" . $jquery_function_body_code . "}" . "\n";
-     // krumo($jquery_function_body_code);
+      $temp_attr_changer_code .= "function " . $attr_changer_func_name . "(){";
+
+      //$temp_attr_changer_code .= $this->attr_changer_php_query;
+      $temp_attr_changer_code .= $this->apply_php_eval_attr_check( $jquery_function_body_code );
+      $temp_attr_changer_code .= "}" . "\n";
+      // krumo($jquery_function_body_code);
     }
     $this->attr_changer_code .= $temp_attr_changer_code;
     //return $x_data;
   }
+
+  function apply_php_eval_attr_check( $jquery_function_body_code ) {
+    $this->attr_changer_php_query;
+    //krumo( $this->attr_changer_php_query );
+    if ( !empty( $this->attr_changer_php_query ) ) {
+      foreach ( $this->attr_changer_php_query as $t=>$single_attr_changer_php_query ) {
+        //krumo($this->attr_changer_code);
+        $between_start = '{name_php_value:';
+        $between_end = '}';
+        $attr_changer_code = $single_attr_changer_php_query[ 'query' ];
+        preg_match_all( '/' . addslashes( $between_start ) . '(.*?)' . addslashes( $between_end ) . '/', $attr_changer_code, $matches );
+       // krumo( $attr_changer_code);
+        foreach ( $matches[ 1 ] as $k => $match ) {
+			
+          $name_slug = 'v_' . strtolower( trim( preg_replace( '/[^A-Za-z0-9_]+/', '_', $matches[ 1 ][ $k ]) ) ) . rand( 0, 999999 );
+          $id = common::search_by_attr_to_get_other_attr( 'name', $matches[ 1 ][ $k ], 'id', $this->process_data, 'process' );
+          $html_type = common::search_by_attr_to_get_other_attr( 'name', $matches[ 1 ][ $k ], 'type', $this->process_data, 'process' );
+          switch ( $html_type ) {
+            case "radio":
+            case "checkbox":
+              $post_data[] = $name_slug . ":jQuery('#" . $id . ":checked').val()";
+              break;
+            default:
+              $post_data[] =  $name_slug. ":jQuery('#" . $id . "').val()";
+              break;
+          }
+			$single_attr_changer_php_query = str_replace($matches[ 0 ][$k],'$_POST[\''.$name_slug.'\']',$single_attr_changer_php_query);
+        }
+          $temp_body_code .= 'jQuery.ajax({' . "\n";
+          $temp_body_code .= 'url: "http://localhost/wp-content/plugins/06-input/input_eval.php", ' . "\n";
+          $temp_body_code .= 'type: "post", ' . "\n";
+          $temp_body_code .= 'data: {' . "\n";
+          $temp_body_code .= 'query:"'.$single_attr_changer_php_query['query'].'",' . "\n";
+          $temp_body_code .= implode(',',$post_data) . "\n";
+          $temp_body_code .= "}," . "\n";
+          $temp_body_code .= "success: function(result){" . "\n";
+          $temp_body_code .= "var ".$single_attr_changer_php_query['var']."=result;" . "\n";
+			$temp_body_code .= $jquery_function_body_code. "\n";
+			$temp_body_code .= '}'. "\n";
+		  $temp_body_code .= '});'. "\n";
+			$jquery_function_body_code = $temp_body_code;
+					
+		  
+      }
+		return $jquery_function_body_code;
+    } else {
+      return $jquery_function_body_code;
+    }
+
+  }
   /*
   this create jquery of attr changer but one step more needed which is replacing shortcodes
   */
-  function create_attr_changer_based_conditions( $attr_changer_condition_obj, $position,$x_data ) {
-    //krumo($this->input_data['attrs']['id']);
-	  //krumo($position);
+  function create_attr_changer_based_conditions( $attr_changer_condition_obj, $position, $x_data ) {
+    if ( strtolower( $attr_changer_condition_obj->condition_type ) == 'php' ) {
+      $php_result_var = 'var_' . rand( 0, 9999999 );
+      $m = count( $this->attr_changer_php_query );
+      $this->attr_changer_php_query[ $m ][ 'query' ] = str_replace( '{name:', '{name_php_value:', str_replace( '{self}', '{name_php_value:' . $x_data[ 'attrs' ][ 'name' ] . '}', $attr_changer_condition_obj->condition ) );
+      $this->attr_changer_php_query[ $m ][ 'var' ] = $php_result_var;
+
+    }
     switch ( $position ) {
       case 'first':
-
-        $jquery_code .= "\n" . 'if(' . str_replace( '{name:', '{name_jq_value:',str_replace( '{self}', '{name_jq_value:' . $x_data[ 'attrs' ][ 'name' ] . '}', $attr_changer_condition_obj->condition) ) . '){' . "\n";
+        if ( strtolower( $attr_changer_condition_obj->condition_type ) == 'js' ) {
+          $jquery_code .= "\n" . 'if(' . str_replace( '{name:', '{name_jq_value:', str_replace( '{self}', '{name_jq_value:' . $x_data[ 'attrs' ][ 'name' ] . '}', $attr_changer_condition_obj->condition ) ) . '){' . "\n";
+        } elseif ( strtolower( $attr_changer_condition_obj->condition_type ) == 'php' ) {
+          $jquery_code .= "\n" . 'if(' . $php_result_var . '=="php_true"){';
+        }
         break;
       case 'middle':
-        $jquery_code .= 'else if(' . str_replace( '{name:', '{name_jq_value:', str_replace( '{self}', '{name_jq_value:' . $x_data[ 'attrs' ][ 'name' ] . '}', $attr_changer_condition_obj->condition)  ) . '){' . "\n";
+        if ( strtolower( $attr_changer_condition_obj->condition_type ) == 'js' ) {
+          $jquery_code .= 'else if(' . str_replace( '{name:', '{name_jq_value:', str_replace( '{self}', '{name_jq_value:' . $x_data[ 'attrs' ][ 'name' ] . '}', $attr_changer_condition_obj->condition ) ) . '){' . "\n";
+        } elseif ( strtolower( $attr_changer_condition_obj->condition_type ) == 'php' ) {
+          $jquery_code .= "\n" . 'else if(' . $php_result_var . '=="php_true"){';
+        }
         break;
       case 'last':
         //$jquery_code .= 'else(' . str_replace( '{name:', '{name_jq_value:', $attr_changer_condition_obj->condition ) . '){' . "\n";
@@ -1233,9 +1301,7 @@ class render extends database {
     } else {
       $this->error_log( 'No attr change ids is provided with conditions id:' . $attr_changer_condition_obj->id );
     }
-    //  $jquery_code .= "\t" . 'console.log("sssssssssss");' . "\n";
     $jquery_code .= '}';
-    // $jquery_code = "<script>alert('sssssssssss');</script>";
     return $jquery_code;
   }
 
@@ -1255,6 +1321,7 @@ class render extends database {
         $attr_changer_code = str_replace( $matches[ 0 ][ $k ], "#" . $id, $attr_changer_code );
       }
       $this->attr_changer_code = $attr_changer_code;
+
 
       //krumo($this->attr_changer_code);
       $between_start = '{name_jq_value:';
