@@ -18,12 +18,20 @@
 		  b:'bbbbbbbbbb',
 	  },
 	  success: function(result){
-    $("#div").html(result);
+		    var rs = result;
+		    $("#div").html(rs);
+			console.log(rs);
+
+
   }});
-	
-	
 	</script>
 	<div id="div"></div>
 </body>
 </html>
-<?php
+<br>
+
+
+
+
+
+

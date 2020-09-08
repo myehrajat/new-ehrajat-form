@@ -29,6 +29,8 @@ function sys_fa_to_eng_number($string){
 function country_has_official_currency($country_id){
 	global $wpdb;
 	$q = "SELECT * FROM ".$wpdb->prefix . 'custom_' . 'currency'." WHERE country_id = ".$country_id." AND official = official LIMIT 1;";
+	///echo  $q ;
+	///die;
 	$results = $wpdb->get_results($q);
 	if(empty($results)){
 		return false;
