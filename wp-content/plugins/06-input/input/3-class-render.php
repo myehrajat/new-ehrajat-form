@@ -1085,7 +1085,7 @@ class render extends database {
                 $position = 'last';
               }
               /* create raw if(balabala){balabala}eles if(balabala){balabala}else{balabala}  but raw data eg {name:XXXX} of {self}*/
-            $jquery_code .= $this->create_attr_changer_based_conditions( $attr_changer_condition_obj, $position );
+            $jquery_function_body_code .= $this->create_attr_changer_based_conditions( $attr_changer_condition_obj, $position ,$x_data);
           } else {
             $this->error_log( 'attr_changer_condition_obj cant find you use id which not exists :' . $attr_changer_condition_id );
           }
@@ -1097,23 +1097,12 @@ class render extends database {
     //$jquery_code is like this 
     //if({self}=='value'){jQuery("{name:query-12}").attr("disabled","disabled");jQuery("{name:json_url-12}").attr("disabled","disabled");}else if({name_jq_value:source_type-12}=='query'){jQuery("{name:json_url-12}").attr("disabled","disabled");jQuery("{name:query-12}").removeAttr("disabled");}else if({self}=='json'){jQuery("{name:query-12}").attr("disabled","disabled");jQuery("{name:json_url-12}").removeAttr("disabled");}
 
-    if ( !empty( $jquery_code ) ) {
+    if ( !empty( $jquery_function_body_code ) ) {
       $attr_changer_func_name = 'attr_changer_' . rand( 1, 99999999 );
       $temp_attr_changer_code .= "\n" . $attr_changer_func_name . "();" . "\n";
       $temp_attr_changer_code .= "jQuery('#" . $x_data[ 'attrs' ][ 'id' ] . "').on('input keyup keypress focus blur click change', function($) {" . "\n" . $attr_changer_func_name . "();});" . "\n";
-      $temp_attr_changer_code .= "function " . $attr_changer_func_name . "(){" . $jquery_code . "}" . "\n";
-
-
-      switch ( $x_data[ 'input_html_type' ] ) {
-        case "radio":
-        case "checkbox":
-          $temp_attr_changer_code = str_replace( '{self}', 'jQuery("#' . $x_data[ 'attrs' ][ 'id' ] . ':checked").val()', $temp_attr_changer_code );
-          break;
-        default:
-          $temp_attr_changer_code = str_replace( '{self}', 'jQuery("#' . $x_data[ 'attrs' ][ 'id' ] . '").val()', $temp_attr_changer_code );
-          break;
-      }
-      //
+      $temp_attr_changer_code .= "function " . $attr_changer_func_name . "(){" . $jquery_function_body_code . "}" . "\n";
+     // krumo($jquery_function_body_code);
     }
     $this->attr_changer_code .= $temp_attr_changer_code;
     //return $x_data;
@@ -1121,15 +1110,16 @@ class render extends database {
   /*
   this create jquery of attr changer but one step more needed which is replacing shortcodes
   */
-  function create_attr_changer_based_conditions( $attr_changer_condition_obj, $position ) {
+  function create_attr_changer_based_conditions( $attr_changer_condition_obj, $position,$x_data ) {
     //krumo($this->input_data['attrs']['id']);
 	  //krumo($position);
     switch ( $position ) {
       case 'first':
-        $jquery_code .= "\n" . 'if(' . str_replace( '{name:', '{name_jq_value:', $attr_changer_condition_obj->condition ) . '){' . "\n";
+
+        $jquery_code .= "\n" . 'if(' . str_replace( '{name:', '{name_jq_value:',str_replace( '{self}', '{name_jq_value:' . $x_data[ 'attrs' ][ 'name' ] . '}', $attr_changer_condition_obj->condition) ) . '){' . "\n";
         break;
       case 'middle':
-        $jquery_code .= 'else if(' . str_replace( '{name:', '{name_jq_value:', $attr_changer_condition_obj->condition ) . '){' . "\n";
+        $jquery_code .= 'else if(' . str_replace( '{name:', '{name_jq_value:', str_replace( '{self}', '{name_jq_value:' . $x_data[ 'attrs' ][ 'name' ] . '}', $attr_changer_condition_obj->condition)  ) . '){' . "\n";
         break;
       case 'last':
         //$jquery_code .= 'else(' . str_replace( '{name:', '{name_jq_value:', $attr_changer_condition_obj->condition ) . '){' . "\n";
@@ -1278,7 +1268,7 @@ class render extends database {
         switch ( $html_type ) {
           case "radio":
           case "checkbox":
-            $attr_changer_code = str_replace( $matches[ 0 ][ $k ], "jQuery('#" . $id . " :checked').val()", $attr_changer_code );
+            $attr_changer_code = str_replace( $matches[ 0 ][ $k ], "jQuery('#" . $id . ":checked').val()", $attr_changer_code );
             break;
           default:
             $attr_changer_code = str_replace( $matches[ 0 ][ $k ], "jQuery('#" . $id . "').val()", $attr_changer_code );
