@@ -15,7 +15,10 @@ function dep_select(dependent_id, controller_ids, pre_query, return_type, url_to
 
         //console.log(jQuery('[id="'+controller_id+'"][name="'+placeHolder[1]+'"]'));
         var inputValue = el.first().val();
-        pre_query = pre_query.replace(placeHolder[0], inputValue);
+		  if(typeof inputValue!='number'){
+			  inputValue = "'"+inputValue+"'";
+		  }
+        pre_query = pre_query.replace(placeHolder[0],inputValue );
       }
     });
   });
