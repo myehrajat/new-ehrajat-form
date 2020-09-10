@@ -1098,11 +1098,12 @@ class render extends database {
     }
     //$jquery_code is like this 
     //if({self}=='value'){jQuery("{name:query-12}").attr("disabled","disabled");jQuery("{name:json_url-12}").attr("disabled","disabled");}else if({name_jq_value:source_type-12}=='query'){jQuery("{name:json_url-12}").attr("disabled","disabled");jQuery("{name:query-12}").removeAttr("disabled");}else if({self}=='json'){jQuery("{name:query-12}").attr("disabled","disabled");jQuery("{name:json_url-12}").removeAttr("disabled");}
-
+	  //input keyup keypress focus blur click 
+	$on = 'change';
     if ( !empty( $jquery_function_body_code ) ) {
       $attr_changer_func_name = 'attr_changer_' . rand( 1, 99999999 );
       $temp_attr_changer_code .= "\n" . $attr_changer_func_name . "();" . "\n";
-      $temp_attr_changer_code .= "jQuery('#" . $x_data[ 'attrs' ][ 'id' ] . "').on('input keyup keypress focus blur click change', function($) {" . "\n" . $attr_changer_func_name . "();});" . "\n";
+      $temp_attr_changer_code .= "jQuery('#" . $x_data[ 'attrs' ][ 'id' ] . "').on('".$on."', function($) {" . "\n" . $attr_changer_func_name . "();});" . "\n";
       $temp_attr_changer_code .= "function " . $attr_changer_func_name . "(){";
 
       //$temp_attr_changer_code .= $this->attr_changer_php_query;
@@ -1115,10 +1116,13 @@ class render extends database {
   }
 
   function apply_php_eval_attr_check( $jquery_function_body_code ) {
+	  
     $this->attr_changer_php_query;
-    //krumo( $this->attr_changer_php_query );
+//krumo( $jquery_function_body_code );
+    //krumo( $this->attr_changer_php_query);
     if ( !empty( $this->attr_changer_php_query ) ) {
       foreach ( $this->attr_changer_php_query as $t=>$single_attr_changer_php_query ) {
+		  $post_data = array();
         //krumo($this->attr_changer_code);
         $between_start = '{name_php_value:';
         $between_end = '}';
@@ -1142,21 +1146,27 @@ class render extends database {
 			$single_attr_changer_php_query = str_replace($matches[ 0 ][$k],'$_POST[\''.$name_slug.'\']',$single_attr_changer_php_query);
         }
           $temp_body_code .= 'jQuery.ajax({' . "\n";
-          $temp_body_code .= 'url: "http://localhost/wp-content/plugins/06-input/input_eval.php", ' . "\n";
+          $temp_body_code .= 'url: "'.INPUT_EVAL_URL.'", ' . "\n";
           $temp_body_code .= 'type: "post", ' . "\n";
           $temp_body_code .= 'data: {' . "\n";
           $temp_body_code .= 'query:"'.$single_attr_changer_php_query['query'].'",' . "\n";
-          $temp_body_code .= implode(',',$post_data) . "\n";
+          $temp_body_code .= implode(',',$post_data) .','. "\n";
+          $temp_body_code .=  '__sst__psw:123,'. "\n";
           $temp_body_code .= "}," . "\n";
-          $temp_body_code .= "success: function(result){" . "\n";
+          $temp_body_code .= "success: function(result";
+		  
+		  $res_vars[] = $single_attr_changer_php_query['var'];
+		  $temp_body_code .= "){" . "\n";
           $temp_body_code .= "var ".$single_attr_changer_php_query['var']."=result;" . "\n";
-			$temp_body_code .= $jquery_function_body_code. "\n";
-			$temp_body_code .= '}'. "\n";
-		  $temp_body_code .= '});'. "\n";
-			$jquery_function_body_code = $temp_body_code;
-					
+
+		  $end_ajax .= '}'. "\n";
+		  $end_ajax .= '});'. "\n";
 		  
       }
+		//$tt = 'console.log('.implode(');'."\n".'console.log(',$res_vars).');';
+		$tt = '';
+		$jquery_function_body_code = $temp_body_code.$tt.$jquery_function_body_code. "\n".$end_ajax;
+		//krumo($jquery_function_body_code);
 		return $jquery_function_body_code;
     } else {
       return $jquery_function_body_code;

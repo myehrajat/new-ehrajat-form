@@ -66,7 +66,7 @@ class insert_custom_tables extends database {
     "`currency_code` VARCHAR(255) NOT NULL," .
     "`currency_sign_position` VARCHAR(255) NOT NULL," .
     "`official` VARCHAR(255) NOT NULL," .
-    "`parent_currency_ratio` VARCHAR(255) NOT NULL COMMENT 'How many of this currency make parent currency'," .
+    "`official_currency_ratio` VARCHAR(255) NOT NULL COMMENT 'How many of this currency make parent currency'," .
     "`desc` LONGTEXT NOT NULL," .
     "`save_id` VARCHAR(255) NOT NULL," .
     "`owner` VARCHAR(255) DEFAULT NULL," .

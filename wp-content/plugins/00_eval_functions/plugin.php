@@ -8,6 +8,7 @@
  * Author URI: http://ehrajat.com
  * License: GPL2
  */
+/*
 function sys_insert_currency_rate( $exchange_currency, $base_currency, $rate ) {
   if ( !empty( $exchange_currency )and!empty( $base_currency )and!empty( $rate ) ) {
     database::add_to_table( $GLOBALS[ 'sst_custom' ][ 'currency_rate' ],
@@ -16,6 +17,7 @@ function sys_insert_currency_rate( $exchange_currency, $base_currency, $rate ) {
         'rate' => $rate ) );
   }
 }
+*/
 function sys_fa_to_eng_number($string){
 	 $persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
     $arabic = ['٩', '٨', '٧', '٦', '٥', '٤', '٣', '٢', '١','٠'];
@@ -29,8 +31,6 @@ function sys_fa_to_eng_number($string){
 function country_has_official_currency($country_id){
 	global $wpdb;
 	$q = "SELECT * FROM ".$wpdb->prefix . 'custom_' . 'currency'." WHERE country_id = ".$country_id." AND official = official LIMIT 1;";
-	//echo  $q ;
-	///die;
 	$results = $wpdb->get_results($q);
 	if(empty($results)){
 		return false;

