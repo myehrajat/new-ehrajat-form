@@ -101,14 +101,11 @@ function loadDynamicContentModal(process_url, modal_container_id, input_url, inp
               var to_hide = pair[0];
               var to_set_val = pair[1];
               jQuery('#' + modal_container_id + " [sst-input-id='" + to_hide + "']").attr("readonly", "readonly");/*on select there is no readonly*/
-              jQuery('#' + modal_container_id + " [sst-input-id='" + to_hide + "']").parent().closest('sst-input').attr("hidden", "hidden");
+              //jQuery('#' + modal_container_id + " [sst-input-id='" + to_hide + "']").parent().closest('sst-input').attr("hidden", "hidden");
               jQuery('#' + modal_container_id + " [sst-input-id='" + to_hide + "']").val(jQuery('#' + form_id + " [sst-input-id='" + to_set_val + "']").val());				
              // console.log(to_hide);
              // console.log(to_set_val);
-
-
             });
-
           },
           error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);

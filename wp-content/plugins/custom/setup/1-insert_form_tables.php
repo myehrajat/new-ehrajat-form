@@ -184,7 +184,6 @@ class insert_custom_tables extends database {
     "`driving_licence_no` VARCHAR(255) NOT NULL," .
     "`driving_licence_issue_date` VARCHAR(255) NOT NULL," .
     "`driving_licence_card` VARCHAR(255) NOT NULL," .
-    "`currency_id` VARCHAR(255) NOT NULL," .
     "`passport_no` VARCHAR(255) NOT NULL," .
     "`passport_image` VARCHAR(255) NOT NULL," .
     "`nationality` VARCHAR(255) NOT NULL," .
@@ -412,8 +411,9 @@ class insert_custom_tables extends database {
     $sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_custom' ][ 'payment_method_commission' ] . " (" .
     "`id` INT(10) NOT NULL auto_increment," .
     "`payment_method_id` VARCHAR(255) NOT NULL," .
-    "`commission_type` VARCHAR(255) NOT NULL," . //percentage/flat
+    "`commission_type` VARCHAR(255) NOT NULL COMMENT 'percentage/flat/flat-by-unit'," . //percentage/flat/flat-by-unit
     "`currency_id` VARCHAR(255) DEFAULT NULL," .
+    "`unit` VARCHAR(255) DEFAULT NULL," .
     "`range` VARCHAR(255) DEFAULT NULL," .
     "`min` FLOAT DEFAULT 0," .
     "`max` FLOAT DEFAULT 0," . //means upto

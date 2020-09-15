@@ -162,7 +162,7 @@ implements database_interface {
 				//krumo($mysql_rule_query);
               if ( !empty( $wpdb->get_row( $mysql_rule_query ) ) ) {
                 //'MYSQL ERROR :' . 
-				  krumo($mysql_rule_query);
+				  //krumo($mysql_rule_query);
                 return array( 'result' => false, 'html_error' => $prevent_insert_rule_obj->prevented_result_html );
               }
             }

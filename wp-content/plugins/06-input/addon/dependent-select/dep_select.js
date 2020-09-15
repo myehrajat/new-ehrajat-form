@@ -1,4 +1,4 @@
-function dep_select(dependent_id, controller_ids, pre_query, return_type, url_to_process, query,order_by,unique_option) {
+function dep_select(dependent_id, controller_ids, pre_query, return_type, url_to_process, query,order_by,unique_option,query_joiner) {
 //console.log(unique_option);
 
   var matches = pre_query.match(/\{name:(.*?)\}/g);
@@ -52,7 +52,8 @@ function dep_select(dependent_id, controller_ids, pre_query, return_type, url_to
       query: query,
 	  order_by: order_by,
 	  unique_option: unique_option,
-      return_type: 'string',
+		query_joiner:query_joiner,
+		return_type: 'string',
     },
     success: function (data) {
 
@@ -72,7 +73,7 @@ function remove_onfly_options(dependent_id) {
 
 }
 
-function append_onchange_to_controller(dependent_id, controller_ids, pre_query, return_type, url_to_process,query,order_by,unique_option) {
+function append_onchange_to_controller(dependent_id, controller_ids, pre_query, return_type, url_to_process,query,order_by,unique_option,query_joiner) {
 
   controller_ids = controller_ids.split(',');
   jQuery.each(controller_ids, function (key, value) {
@@ -80,9 +81,10 @@ function append_onchange_to_controller(dependent_id, controller_ids, pre_query, 
     if (current_onchange === undefined) {
       current_onchange = '';
     }
-	 // console.log("['" + controller_ids.join("','") + "']");
-		eval(";dep_select('" + dependent_id + "',['" + controller_ids.join("','") + "'],'" + pre_query + "','" + return_type + "','" + url_to_process + "','" + query + "','"+order_by+"','"+unique_option+"');");
-	  jQuery("#" + value).attr('onchange', current_onchange + ";dep_select('" + dependent_id + "',['" + controller_ids.join("','") + "'],'" + pre_query + "','" + return_type + "','" + url_to_process + "','" + query + "','"+order_by+"','"+unique_option+"');");
+	  //console.log(";dep_select('" + dependent_id + "',['" + controller_ids.join("','") + "'],'" + pre_query + "','" + return_type + "','" + url_to_process + "','" + query + "','"+order_by+"','"+unique_option+"');");
+		eval(";dep_select('" + dependent_id + "',['" + controller_ids.join("','") + "'],'" + pre_query + "','" + return_type + "','" + url_to_process + "','" + query + "','"+order_by+"','"+unique_option+"','"+query_joiner+"');");
+	  
+	  jQuery("#" + value).attr('onchange', current_onchange + ";dep_select('" + dependent_id + "',['" + controller_ids.join("','") + "'],'" + pre_query + "','" + return_type + "','" + url_to_process + "','" + query + "','"+order_by+"','"+unique_option+"','"+query_joiner+"');");
 	  
 
   });

@@ -48,77 +48,76 @@ if ( !empty( $_REQUEST[ 'psw' ] ) ) {
     }
     return $obj;
   }
-  define( 'VALUE_SEPERATOR', ',' );
-  $path = preg_replace( '/wp-content.*$/', '', __DIR__ );
+	
+function null_pre_query_result_prepare($qu){
+$qu = preg_replace( '/[\t\n\r\s]+/', ' ', $qu );
+$qu_arr = explode( ' ', $qu );
+foreach ( $qu_arr as $k => $el ) {
+  if ( starts_with( $el, '$col->' ) ) {
+    $qu_arr[ $k ] = "''";
+  }
+}
+return implode( ' ', $qu_arr );
+
+}
+function starts_with( $string, $startString ) {
+  settype( $string, 'string' );
+  settype( $startString, 'string' );
+  $len = strlen( $startString );
+  return ( substr( $string, 0, $len ) === $startString );
+}
+	$path = preg_replace( '/wp-content.*$/', '', __DIR__ );
   require_once( $path . 'wp-load.php' );
   if ( $_REQUEST[ 'psw' ] == '12345' ) {
     $query = $_REQUEST[ 'query' ];
     $obj = json_decode( stripslashes( $query ) );
     $queries = $obj->queries;
-    $pre_query = stripslashes( $_REQUEST[ 'pre_query' ] );
-    $pre_query_results = $wpdb->get_results( $pre_query );
-    $new_queries = $queries;
-    foreach ( $new_queries as $k => $query ) {
+    if ( !empty( $_REQUEST[ 'pre_query' ] ) ) {
+      $pre_query = stripslashes( $_REQUEST[ 'pre_query' ] );
+      $pre_query_results = $wpdb->get_results( $pre_query );
+      $new_queries = $queries;
+      foreach ( $new_queries as $k => $query ) {
+        if ( !empty( $pre_query_results ) ) {
+          foreach ( $pre_query_results as $col ) {
+            $col = prepare_cols( $col );
+            $query_set[] = eval( 'return "' . $query->query . '";' );
+          }
+			//prequery return zero result
+        }else{
+            $query_set[] =null_pre_query_result_prepare($query->query );
+		}
+        $new_queries[ $k ]->query = $query_set;
 
-      foreach ( $pre_query_results as $col ) {
-        //var_dump( $col );
-        //var_dump( $query->query );
-        //die;
-
-        $col = prepare_cols( $col );
-        $query_set[] = eval( 'return "' . $query->query . '";' );
-        //echo 'return "'.$query->query.'";';
-
-        //$queries[$k]->query = $query_set;
+      }
+    } else {
+      $new_queries = $queries;
+      foreach ( $new_queries as $k => $query ) {
+        $query_set[] = $query->query;
       }
       $new_queries[ $k ]->query = $query_set;
-		
     }
-
     $queries = $new_queries;
-    //	 echo "<pre>";echo var_dump(  $queries );echo "</pre>";
 
-    //echo s"<pre>";echo var_dump(  $query_set);echo "</pre>";
-    //echo "<pre>";echo var_dump(  $new_queries );echo "</pre>";
-    /*
-    	  	 echo "<pre>";echo '""""""""""""""""""""""""""""""""""""""""'; "</pre>";
-    	  	 echo "<pre>";echo count( $queries);echo "</pre>";
-    	  	 echo "<pre>";echo var_dump(  $queries);echo "</pre>";
-    	  	 echo "<pre>";echo '""""""""""""""""""""""""""""""""""""""""'; "</pre>";
-    	  	 echo "<pre>";echo count( $pre_query_results);echo "</pre>";
-    	  	 echo "<pre>";echo var_dump( $_REQUEST[ 'pre_query' ]); "</pre>";
-    	  	 echo "<pre>";echo '""""""""""""""""""""""""""""""""""""""""'; "</pre>";
-    	  	 echo "<pre>";echo var_dump( $pre_query_results);echo "</pre>";
-    	  	 echo "<pre>";echo '""""""""""""""""""""""""""""""""""""""""'; "</pre>";
-    		 echo "<pre>";var_dump( $queries);echo "</pre>";
-    	  */
     foreach ( $queries as $k => $query_cond ) {
-      //echo 'QQQQQQQQQQ';
-      //			var_dump($queries);
-      //			die;
-      $json = str_replace("'","\'", json_encode( $query_cond->query, JSON_UNESCAPED_SLASHES ));
+      $json = str_replace( "'", "\'", json_encode( $query_cond->query, JSON_UNESCAPED_SLASHES ) );
       if ( $query_cond->condition != 'else' ) {
         if ( $k == 0 ) {
           $q = 'if(' . $query_cond->condition . '){';
-
-          $q .= '$wpqueries = \'' .$json. '\';';
+          $q .= '$wpqueries = \'' . $json . '\';';
+          $q .= "define( 'VALUE_SEPERATOR', ',' );";
           $q .= '$disabled = explode(VALUE_SEPERATOR,"' . $query_cond->disabled . '");';
           $q .= '$selected = explode(VALUE_SEPERATOR,"' . $query_cond->selected . '");';
-          //$q .= 'echo "<pre>";var_dump($wpqueries);echo "</pre>";';
-          //echo "<pre>";var_dump(json_encode($query_cond->query));echo "</pre>";
-          //echo "<pre>";var_dump(json_decode(json_encode($query_cond->query)));echo "</pre>";
-          //echo "<pre>";var_dump(eval('return $wpqueries;'));echo "</pre>";');
           $q .= '}';
         } else {
           $q .= 'elseif(' . $query_cond->condition . '){';
-          $q .= '$wpqueries = \'' . /*json_encode( $query_cond->query )*/$json . '\';';
+          $q .= '$wpqueries = \'' . /*json_encode( $query_cond->query )*/ $json . '\';';
           $q .= '$disabled = explode(VALUE_SEPERATOR,"' . $query_cond->disabled . '");';
           $q .= '$selected = explode(VALUE_SEPERATOR,"' . $query_cond->selected . '");';
           $q .= '}';
         }
       } else {
         $q .= 'else{';
-        $q .= '$wpqueries = \'' . /*json_encode( $query_cond->query )*/$json . '\';';
+        $q .= '$wpqueries = \'' . /*json_encode( $query_cond->query )*/ $json . '\';';
         $q .= '$disabled = explode(VALUE_SEPERATOR,"' . $query_cond->disabled . '");';
         $q .= '$selected = explode(VALUE_SEPERATOR,"' . $query_cond->selected . '");';
         $q .= '}';
@@ -133,7 +132,18 @@ if ( !empty( $_REQUEST[ 'psw' ] ) ) {
     // $q .= 'echo "<pre>";var_dump($wpquery);echo "</pre>";';
     //$q .= 'echo "<pre>";var_dump($wpquery);echo "</pre>";';
     $q .= '}';
-    $q .= '$wpquery = implode(" UNION ",$wpqueries);';
+	switch(strtolower($_POST['query_joiner'])){
+		case'union':
+		$q .= '$wpquery = implode(" UNION ",$wpqueries);';
+		break;
+		case'intersect':
+		$q .= '$wpquery = implode(" INTERSECT ",$wpqueries);';
+		break;
+		default:
+		$q .= '$wpquery = implode(" UNION ",$wpqueries);';
+		break;
+	}
+    $q .= '/*echo $wpquery;*/';
     $q .= 'if(strtolower("' . $_REQUEST[ 'unique_option' ] . '")=="yes"){';
     if ( !empty( $query_cond->text ) ) {
       $q .= '$distinct_cols[] = "' . $query_cond->text . '";';
@@ -184,7 +194,7 @@ if ( !empty( $_REQUEST[ 'psw' ] ) ) {
       $q .= '$all_options = json_encode($options);';
     }
     $q .= ' return $all_options;';
-    //echo $q;
+   // echo $q;
     $options_obj = eval( $q );
     if ( empty( $options_obj )and strtolower( $_REQUEST[ 'return_type' ] ) == 'string' ) {
       $options_obj = '<option disabled="disabled" sst_onfly="yes">No Option On Change Found!</option>"';
@@ -257,27 +267,32 @@ function sst_depend_select( $input_data_json, $process_data_json ) {
 
   }
   $script .= "'" . addslashes( $query_on_change ) . "'," . "\n";
-  /************************************/
+  /*******************return_type*****************/
   $script .= "'string'," . "\n";
+  /*******************url_to_process*****************/
   $script .= "'" . path2url( __FILE__, $_SERVER[ 'REQUEST_SCHEME' ] ) . "'," . "\n";
+  /*******************query*****************/
   if ( !is_array( $input_data[ 'meta' ][ 'query' ] ) ) {
     $query_str = 'addslashes(\'{ "queries" : [' . $input_data[ 'meta' ][ 'query' ] . ']}\'),' . "\n";
   } else {
     $query_str = 'addslashes(\'{ "queries" : [' . implode( ',', $input_data[ 'meta' ][ 'query' ] ) . ']}\'),' . "\n";
   }
-
-  $query_str .= "'" . $input_data[ 'meta' ][ 'order-by' ] . "'," . "\n";
-  $query_str .= "'" . $input_data[ 'meta' ][ 'unique-option' ] . "'" . "\n";
-  $query_str .= ');';
-  //echo $query_str;
-  $query = $query_str;
-  preg_match_all( '/' . addslashes( $between_start ) . '(.*?)' . addslashes( $between_end ) . '/', $query, $matches );
+  preg_match_all( '/' . addslashes( $between_start ) . '(.*?)' . addslashes( $between_end ) . '/', $query_str, $matches );
   foreach ( $matches[ 1 ] as $k => $match ) {
     $id = common::search_by_attr_to_get_other_attr( 'name', $matches[ 1 ][ $k ], 'id', $process_data, 'process' );
-    $query = str_replace( $matches[ 0 ][ $k ], $between_start . $id . $between_end, $query );
+    $query_str = str_replace( $matches[ 0 ][ $k ], $between_start . $id . $between_end, $query_str );
 
   }
-  $script .= $query;
+  $script .= $query_str;
+  /*******************order_by*****************/
+  $script .= "'" . $input_data[ 'meta' ][ 'order-by' ] . "'," . "\n";
+  /*******************unique_option*****************/
+  $script .= "'" . $input_data[ 'meta' ][ 'unique-option' ] . "'," . "\n";
+  $script .= "'" . $input_data[ 'meta' ][ 'query-joiner' ] . "'" . "\n";
+  $script .= ');';
+  //$query = $query_str;
+
+  //$script .= $query;
   //$script .= '});';
   //$script .= '});';
   //$script .= '</script>';
@@ -287,6 +302,7 @@ function sst_depend_select( $input_data_json, $process_data_json ) {
   //krumo(explode(',', $controller_inputs_str));
   //$controller_inputs_str_id_selector = implode(',#',explode(',', $controller_inputs_str));
   // $input_data[ 'js_code' ] .= 'jQuery("#'. $controller_inputs_str_id_selector .'").on("change remove create",function(){alert("سسسسسسسسسسسسسسسسسس")});';
+  //krumo(  $script);
   $input_data[ 'js_code' ] .= $script;
   //$input_data[ 'tag' ][ 'before' ] .= '<script type="text/javascript">alert("sssssssssss");</script>';
   //$input_data[ 'tag' ][ 'before' ] .= '<script type="text/javascript"></script>';

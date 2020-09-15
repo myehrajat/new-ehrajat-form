@@ -1099,16 +1099,17 @@ class render extends database {
     //$jquery_code is like this 
     //if({self}=='value'){jQuery("{name:query-12}").attr("disabled","disabled");jQuery("{name:json_url-12}").attr("disabled","disabled");}else if({name_jq_value:source_type-12}=='query'){jQuery("{name:json_url-12}").attr("disabled","disabled");jQuery("{name:query-12}").removeAttr("disabled");}else if({self}=='json'){jQuery("{name:query-12}").attr("disabled","disabled");jQuery("{name:json_url-12}").removeAttr("disabled");}
 	  //input keyup keypress focus blur click 
-	$on = 'change';
+	$on = 'change load';
     if ( !empty( $jquery_function_body_code ) ) {
       $attr_changer_func_name = 'attr_changer_' . rand( 1, 99999999 );
-      $temp_attr_changer_code .= "\n" . $attr_changer_func_name . "();" . "\n";
+
       $temp_attr_changer_code .= "jQuery('#" . $x_data[ 'attrs' ][ 'id' ] . "').on('".$on."', function($) {" . "\n" . $attr_changer_func_name . "();});" . "\n";
       $temp_attr_changer_code .= "function " . $attr_changer_func_name . "(){";
 
       //$temp_attr_changer_code .= $this->attr_changer_php_query;
       $temp_attr_changer_code .= $this->apply_php_eval_attr_check( $jquery_function_body_code );
       $temp_attr_changer_code .= "}" . "\n";
+      $temp_attr_changer_code .= "\n " . $attr_changer_func_name . "();" . "\n";
       // krumo($jquery_function_body_code);
     }
     $this->attr_changer_code .= $temp_attr_changer_code;

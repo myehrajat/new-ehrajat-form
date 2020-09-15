@@ -17,34 +17,37 @@ function sst_lat_log_location_text($input_data_json,$process_data_json=NULL){
 	$rnd = rand(1111111,999999999999);
 	$input_data[ 'js_code' ] = '
 	jQuery("#'.$input_data[ 'attrs' ]['id'].'").on("focus click",function(){
-		getLocation();
+		getLocation_'.$rnd.'();
 	});
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition_'.$rnd.', showError);
+function getLocation_'.$rnd.'() {
+  if (navigator.geolocation) {';
+		$input_data[ 'js_code' ] .= 'jQuery("#'.$input_data[ 'attrs' ]['id'].'").attr("placeholder","Wait! Retrieving location ... ");';
+		$input_data[ 'js_code' ] .='navigator.geolocation.getCurrentPosition(showPosition_'.$rnd.', showError_'.$rnd.',{timeout:10000});
   } else { 
      console.log( "Geolocation is not supported by this browser.");
   }
 }
 
 function showPosition_'.$rnd.'(position) {';
-	switch(strtolower([ 'meta' ][ 'lat-or-lon' ])){
+	switch(strtolower($input_data[ 'meta' ][ 'lat-or-lon' ])){
 		case "lat":
-			$input_data[ 'js_code' ] .= 'jQuery("#'.$input_data[ 'attrs' ]['id'].'").val(position.coords.latitude)';
+			$input_data[ 'js_code' ] .= 'jQuery("#'.$input_data[ 'attrs' ]['id'].'").val(position.coords.latitude);';
 			break;
 		case "lon":
-			$input_data[ 'js_code' ] .= 'jQuery("#'.$input_data[ 'attrs' ]['id'].'").val(position.coords.longitude)';
+			$input_data[ 'js_code' ] .= 'jQuery("#'.$input_data[ 'attrs' ]['id'].'").val(position.coords.longitude);';
 			break;
 		case "latlon":
 		case "default":
-			$input_data[ 'js_code' ] .= 'jQuery("#'.$input_data[ 'attrs' ]['id'].'").val(position.coords.latitude+","+position.coords.longitude)';
+			$input_data[ 'js_code' ] .= 'jQuery("#'.$input_data[ 'attrs' ]['id'].'").val(position.coords.latitude+","+position.coords.longitude);';
 			break;
 	}
-	
-$input_data[ 'js_code' ] .= '}
+	//krumo();
+$input_data[ 'js_code' ] .= '}';
 
-function showError(error) {
-  switch(error.code) {
+$input_data[ 'js_code' ] .='function showError_'.$rnd.'(error) {';
+	//$input_data[ 'js_code' ] .= 'jQuery("#'.$input_data[ 'attrs' ]['id'].'").val("Failed");';
+	$input_data[ 'js_code' ] .= 'jQuery("#'.$input_data[ 'attrs' ]['id'].'").attr("placeholder","Failed");';
+$input_data[ 'js_code' ] .= 'switch(error.code) {
     case error.PERMISSION_DENIED:
       console.log("User denied the request for Geolocation.");
       break;
@@ -58,6 +61,7 @@ function showError(error) {
        console.log("An unknown error occurred.");
       break;
   }
+  
 }';
 	return $input_data;
 	
