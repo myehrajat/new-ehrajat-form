@@ -666,6 +666,7 @@ class render extends database {
     # Hide add and remove controller because yet there is another extra need to be generated
     # Only last generated element need controller
     $block_data[ 'extra' ][ 'add_controller_data' ][ 'style' ] = 'display: none;';
+	  
     $new_extra_data = extra::render_extra_controller( $block_data[ 'extra' ][ 'add_controller_data' ], $block_data[ 'extra' ][ 'remove_controller_data' ] );
     $block_data[ 'extra' ][ 'add_controller' ] = $new_extra_data[ 'extra_add_controller' ];
     $block_data[ 'extra' ][ 'remove_controller' ] = $new_extra_data[ 'extra_remove_controller' ];

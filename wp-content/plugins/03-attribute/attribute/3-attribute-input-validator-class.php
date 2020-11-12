@@ -376,6 +376,9 @@ implements attribute_input_validator_interface {
     }
     //
     function attr_readonly( $attr_value ) {
+		if($this->mode=='view'){
+			$attr_value = 'readonly';
+		}
         return $this->create_same_name_attribute_value( 'readonly', $attr_value );
     }
     //
@@ -424,6 +427,9 @@ implements attribute_input_validator_interface {
     }
     //
     function attr_disabled( $attr_value ) {
+		if($this->mode=='view'){
+			$attr_value = 'disabled';
+		}
         return $this->create_same_name_attribute_value( 'disabled', $attr_value );
     }
     //id of form
