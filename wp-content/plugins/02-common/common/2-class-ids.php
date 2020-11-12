@@ -173,10 +173,42 @@ class ids extends str implements ids_interface {
     function run_eval( $ecode, $a = NULL /*,$use_defined_vars = FALSE*/) {
         $eval_var = $a;
         $vals = $a;
-		//search more to find a solution. Creativity needed
+        $var = $a;
+        //search more to find a solution. Creativity needed
 		//if($use_defined_vars==TRUE){
 		//	krumo(get_defined_vars());
 		//}
+        $ecode = str_replace( EVAL_STR, '', $ecode );
+        try {
+            $result = eval( $ecode.';' );
+        } catch ( Throwable $error ) {
+			//krumo();
+            debug::error_log( 'eval string has syntax error.This code is problematic: '.$ecode );
+            $result = NULL;
+        }
+        return $result;
+    }
+    
+    
+    
+    /*******
+    array of argument format
+    variable name need to be used in eval must be with the key 'name'
+    variable name need to be used in eval must be with the key 'value'
+    eg. $var1 =  array('name'=>'my_variable_name','value'=>'my variable value')
+    so triggering this 
+    run_eval2( 'echo my_variable_name;',$var1);
+    will show: my variable value
+    
+    ********/
+    //advanced version of run_eval
+    //#TO_DO PORT TO THIS
+    function run_eval2( $ecode/*any arguments you need you can add and run argument must be array as sample i desc*/) {
+        $numargs = func_num_args();
+        $arg_list = func_get_args();
+        for ($i = 1; $i < $numargs; $i++) {
+            ${$arg_list[$i]['name']} = $arg_list[$i]['value'];
+        }
         $ecode = str_replace( EVAL_STR, '', $ecode );
         try {
             $result = eval( $ecode.';' );

@@ -3,6 +3,8 @@ class render extends database {
   #todo : validate html tags
   function __construct() {
     parent::__construct();
+    //krumo('render');
+    //krumo($this->vals);
   }
   /***************************************
 
@@ -87,6 +89,21 @@ class render extends database {
       preg_match_all( '/' . addslashes( $between_start ) . '(.*?)' . addslashes( $between_end ) . '/', $str, $matches );
       foreach ( $matches[ 1 ] as $k => $match ) {
         $str = str_replace( $matches[ 0 ][ $k ], $own_data[ $match ], $str );
+      }
+    }
+    return $str;
+  }
+  /*use this globally*/
+  //TO DO :: remove all other shortcode replacer and port all to this version
+  function replace_short_codes( $str, $arr_obj, $between_start = '{attr:', $between_end = '}', $wrapper = NULL ) {
+    if ( !empty( $str ) ) {
+      preg_match_all( '/' . addslashes( $between_start ) . '(.*?)' . addslashes( $between_end ) . '/', $str, $matches );
+      foreach ( $matches[ 1 ] as $k => $match ) {
+        if ( is_array( $arr_obj ) ) {
+          $str = str_replace( $matches[ 0 ][ $k ], $wrapper . $arr_obj[ $match ] . $wrapper, $str );
+        } elseif ( is_object( $arr_obj ) ) {
+          $str = str_replace( $matches[ 0 ][ $k ], $wrapper . $arr_obj->$match . $wrapper, $str );
+        }
       }
     }
     return $str;
@@ -180,32 +197,59 @@ class render extends database {
       return $options;
     }
   }
+  /****
+    
+  parse eg inputname[0][11][2]
+  **/
+  function get_name_and_suffix_array_key_number( $input_name, $return_type ) {
+    $name_arr = explode( '[', $input_name );
+    if ( $return_type == 'name' ) {
+      return $name_arr[ 0 ];
+    } elseif ( $return_type == 'number' ) {
+      unset( $name_arr[ 0 ] );
+      $numbers = array();
+      foreach ( $name_arr as $key_num ) {
+        $numbers[] = rtrim( $key_num, ']' );
+      }
+      return $numbers;
+    } else {
+      //false $return_type
+    }
+
+  }
 
   function change_value_by_vals( $input_data ) {
-    $multiple_select = false;
-    $multiple_select_single_string = false;
-    if ( $input_data[ 'input_html_type' ] == 'select'
-      and isset( $input_data[ 'attrs' ][ 'multiple' ] ) ) {
+    /********************
+    $input_data_value is the value of input name from vals
+    ***********/
+    $numbers = $this->get_name_and_suffix_array_key_number( $input_data[ 'attrs' ][ 'name' ], 'number' );
+    if ( empty( $numbers ) ) {
+      $input_data_value = $GLOBALS[ 'vals' ][ $input_data[ 'attrs' ][ 'name' ] ];
+    } else {
+      $name = $this->get_name_and_suffix_array_key_number( $input_data[ 'attrs' ][ 'name' ], 'name' );
+      $numbers_imploded = '[' . implode( '][', $numbers ) . ']';
+      $input_data_value = $this->run_eval2( EVAL_STR . 'return $GLOBALS[ "vals" ][$name]' . $numbers_imploded, array( 'name' => 'name', 'value' => $name ) );
+    }
 
-      if ( isset( $GLOBALS[ 'vals' ][ $input_data[ 'attrs' ][ 'name' ] ] ) ) {
+
+    /**********
+    select with multiple have an array as value so need to check all of them
+    **********/
+    if ( $input_data[ 'input_html_type' ] == 'select' ) {
+
+      if ( isset( $input_data[ 'attrs' ][ 'multiple' ] ) ) {
         $multiple_select = true;
-        $multiple_select_single_string = true;
-      } else {
-
-        foreach ( $GLOBALS[ 'vals' ] as $global_name => $global_value ) {
-          $global_name_arr = explode( '[', $global_name );
-          array_pop( $global_name_arr );
-          $global_name = implode( '[', $global_name_arr );
-          if ( $input_data[ 'attrs' ][ 'name' ] == $global_name ) {
-            $multiple_select = true;
-            $multiple_select_single_string = false;
-            break;
-          }
+        if ( is_array( $input_data_value ) ) {
+          $multiple_select_single_string = false;
+        } else {
+          $multiple_select_single_string = true;
         }
+      } else {
+        $multiple_select = false;
       }
     }
-    if ( isset( $GLOBALS[ 'vals' ][ $input_data[ 'attrs' ][ 'name' ] ] )or $multiple_select == true ) {
-      // krumo( $GLOBALS[ 'vals' ][ $input_data[ 'attrs' ][ 'name' ] ] );
+    if ( isset( $input_data_value )or $multiple_select == true ) {
+
       //krumo($input_data[ 'input_html_type' ]);
       switch ( $input_data[ 'input_html_type' ] ) {
         case "text":
@@ -225,104 +269,84 @@ class render extends database {
         case "datetime":
         case "color":
         case "hidden":
-          $input_data[ 'attrs' ][ 'value' ] = $GLOBALS[ 'vals' ][ $input_data[ 'attrs' ][ 'name' ] ];
+          $input_data[ 'attrs' ][ 'value' ] = $input_data_value;
           //krumo($input_data);
           break;
         case "password":
           if ( strtolower( ATTRIBUTE_PASSWORD_VALUE ) == 'yes' ) {
-            $input_data[ 'attrs' ][ 'value' ] = $GLOBALS[ 'vals' ][ $input_data[ 'attrs' ][ 'name' ] ];
+            $input_data[ 'attrs' ][ 'value' ] = $input_data_value;
           }
           break;
         case "file":
-          $input_data[ 'attrs' ][ 'value' ] = $GLOBALS[ 'vals' ][ $input_data[ 'attrs' ][ 'name' ] ];
+          $input_data[ 'attrs' ][ 'value' ] = $input_data_value;
           break;
         case "checkbox":
         case "radio":
-          if ( $GLOBALS[ 'vals' ][ $input_data[ 'attrs' ][ 'name' ] ] == $input_data[ 'attrs' ][ 'value' ] ) {
+          if ( $input_data_value == $input_data[ 'attrs' ][ 'value' ] ) {
             $input_data[ 'attrs' ][ 'checked' ] = 'checked';
           }
 
           break;
         case "select":
+          /***********
+          option search for value
+          ***********/
+          //krumo( $input_data_value );
           if ( is_array( $input_data[ 'option_data' ] ) ) {
             foreach ( $input_data[ 'option_data' ] as $k => $option ) {
-              if ( $option[ 'attrs' ][ 'value' ] == $GLOBALS[ 'vals' ][ $input_data[ 'attrs' ][ 'name' ] ]and $multiple_select == false ) {
-                $input_data[ 'option_data' ][ $k ][ 'attrs' ][ 'selected' ] = 'selected';
-                break;
-
-
-              } elseif ( $multiple_select == true and $multiple_select_single_string == false ) {
+              //deselect default selected
+              if ( isset( $input_data[ 'option_data' ][ $k ][ 'attrs' ][ 'selected' ] ) ) {
                 unset( $input_data[ 'option_data' ][ $k ][ 'attrs' ][ 'selected' ] );
-                foreach ( $GLOBALS[ 'vals' ] as $global_name => $global_value ) {
-                  $global_name_arr = explode( '[', $global_name );
-                  array_pop( $global_name_arr );
-                  $trimmed_global_name = implode( '[', $global_name_arr );
-
-                  if ( $trimmed_global_name == $input_data[ 'attrs' ][ 'name' ] ) {
-                    if ( $option[ 'attrs' ][ 'value' ] == $GLOBALS[ 'vals' ][ $global_name ] ) {
-
-                      $input_data[ 'option_data' ][ $k ][ 'attrs' ][ 'selected' ] = 'selected';
-                    }
-                  }
+              }
+              if ( $multiple_select == false ) {
+                if ( $option[ 'attrs' ][ 'value' ] == $input_data_value ) {
+                  $input_data[ 'option_data' ][ $k ][ 'attrs' ][ 'selected' ] = 'selected';
+                  //only one can be selected so no need more loop
+                  break;
                 }
-
+              } elseif ( $multiple_select == true and $multiple_select_single_string = false ) {
+                if ( in_array( $option[ 'attrs' ][ 'value' ], $input_data_value ) ) {
+                  $input_data[ 'option_data' ][ $k ][ 'attrs' ][ 'selected' ] = 'selected';
+                }
               } elseif ( $multiple_select == true and $multiple_select_single_string = true ) {
-
                 $value_seperator = ',';
-                $values_arr = explode( $value_seperator, $GLOBALS[ 'vals' ][ $input_data[ 'attrs' ][ 'name' ] ] );
+                $values_arr = explode( $value_seperator, $input_data_value );
                 if ( in_array( $option[ 'attrs' ][ 'value' ], $values_arr ) ) {
                   $input_data[ 'option_data' ][ $k ][ 'attrs' ][ 'selected' ] = 'selected';
-                } else {
-                  unset( $input_data[ 'option_data' ][ $k ][ 'attrs' ][ 'selected' ] );
                 }
-
-
-              } elseif ( isset( $input_data[ 'option_data' ][ $k ][ 'attrs' ][ 'selected' ] ) ) {
-                unset( $input_data[ 'option_data' ][ $k ][ 'attrs' ][ 'selected' ] );
               }
             }
           }
+          /***********
+          optgroup search for value
+          ***********/
           if ( is_array( $input_data[ 'optgroup_data' ] ) ) {
             foreach ( $input_data[ 'optgroup_data' ] as $j => $optgroup ) {
 
               if ( is_array( $optgroup[ 'options' ] ) ) {
                 foreach ( $optgroup[ 'options' ] as $k => $option ) {
-                  // krumo($option);
 
-                  if ( $option[ 'attrs' ][ 'value' ] == $GLOBALS[ 'vals' ][ $input_data[ 'attrs' ][ 'name' ] ]and $multiple_select == false ) {
-                    $input_data[ 'optgroup_data' ][ $j ][ 'options' ][ $k ][ 'attrs' ][ 'selected' ] = 'selected';
-                    break;
-
-
-                  } elseif ( $multiple_select == true and $multiple_select_single_string = false ) {
-                    unset( $input_data[ 'optgroup_data' ][ $j ][ 'options' ][ $k ][ 'attrs' ][ 'selected' ] );
-                    foreach ( $GLOBALS[ 'vals' ] as $global_name => $global_value ) {
-                      $global_name_arr = explode( '[', $global_name );
-                      array_pop( $global_name_arr );
-                      $trimmed_global_name = implode( '[', $global_name_arr );
-                      if ( $trimmed_global_name == $input_data[ 'attrs' ][ 'name' ] ) {
-
-                        if ( $option[ 'attrs' ][ 'value' ] == $GLOBALS[ 'vals' ][ $global_name ] ) {
-                          $input_data[ 'optgroup_data' ][ $j ][ 'options' ][ $k ][ 'attrs' ][ 'selected' ] = 'selected';
-                        }
-                      }
-                    }
-
-
-                  } elseif ( $multiple_select == true and $multiple_select_single_string = true ) {
-                    $value_seperator = ',';
-                    $values_arr = explode( $value_seperator, $GLOBALS[ 'vals' ][ $input_data[ 'attrs' ][ 'name' ] ] );
-                    if ( in_array( $option[ 'attrs' ][ 'value' ], $values_arr ) ) {
-                      $input_data[ 'optgroup_data' ][ $j ][ 'options' ][ $k ][ 'attrs' ][ 'selected' ] = 'selected';
-                    } else {
-                      unset( $input_data[ 'optgroup_data' ][ $j ][ 'options' ][ $k ][ 'attrs' ][ 'selected' ] );
-                    }
-
-
-                  } elseif ( isset( $input_data[ 'optgroup_data' ][ $j ][ 'options' ][ $k ][ 'attrs' ][ 'selected' ] ) ) {
+                  //deselect default selected
+                  if ( isset( $input_data[ 'optgroup_data' ][ $j ][ 'options' ][ $k ][ 'attrs' ][ 'selected' ] ) ) {
                     unset( $input_data[ 'optgroup_data' ][ $j ][ 'options' ][ $k ][ 'attrs' ][ 'selected' ] );
                   }
-
+                  if ( $multiple_select == false ) {
+                    if ( $option[ 'attrs' ][ 'value' ] == $input_data_value ) {
+                      $input_data[ 'optgroup_data' ][ $j ][ 'options' ][ $k ][ 'attrs' ][ 'selected' ] = 'selected';
+                      //only one can be selected so no need more loop
+                      break;
+                    }
+                  } elseif ( $multiple_select == true and $multiple_select_single_string = false ) {
+                    if ( in_array( $option[ 'attrs' ][ 'value' ], $input_data_value ) ) {
+                      $input_data[ 'optgroup_data' ][ $j ][ 'options' ][ $k ][ 'attrs' ][ 'selected' ] = 'selected';
+                    }
+                  } elseif ( $multiple_select == true and $multiple_select_single_string = true ) {
+                    $value_seperator = ',';
+                    $values_arr = explode( $value_seperator, $input_data_value );
+                    if ( in_array( $option[ 'attrs' ][ 'value' ], $values_arr ) ) {
+                      $input_data[ 'optgroup_data' ][ $j ][ 'options' ][ $k ][ 'attrs' ][ 'selected' ] = 'selected';
+                    }
+                  }
                 }
               }
             }
@@ -330,7 +354,7 @@ class render extends database {
           break;
         case "textarea":
           //krumo($GLOBALS[ 'vals' ][ $input_data[ 'attrs' ][ 'name' ] ]);
-          $input_data[ 'text' ] = $GLOBALS[ 'vals' ][ $input_data[ 'attrs' ][ 'name' ] ];
+          $input_data[ 'text' ] = $input_data_value;
 
           break;
       }
@@ -339,10 +363,13 @@ class render extends database {
   }
 
   function render_input( $input_data = NULL ) {
-    //krumo($input_data);
+    // krumo($this->vals);
+    //krumo('render_block');
+    //krumo($this->vals);
     if ( $input_data == NULL ) {
       $input_data = $this->input_data;
     }
+    //krumo($input_data);
     if ( $_GET[ '__sst__is_modal' ]and( $input_data[ 'input_html_type' ] == 'submit'
         or $input_data[ 'input_html_type' ] == 'image' ) ) {
       return;
@@ -405,7 +432,9 @@ class render extends database {
       }
       /*******************/
       $this->create_attr_changer_code( $input_data );
-
+      //krumo('render_block');
+      //krumo($this->vals);
+      //krumo($GLOBALS[ 'vals' ]);
       if ( isset( $GLOBALS[ 'vals' ] ) ) {
         $input_data = $this->change_value_by_vals( $input_data );
       }
@@ -549,6 +578,8 @@ class render extends database {
 
 
   function render_block( $block_data = NULL ) {
+    //krumo('render_block');
+    //krumo($this->vals);
     //krumo($block_data);
     if ( $block_data == NULL ) {
       $block_data = $this->block_data;
@@ -571,13 +602,20 @@ class render extends database {
     }
 
     if ( isset( $block_data[ 'inputs_data' ] ) ) {
+
       foreach ( $block_data[ 'inputs_data' ] as $input_data ) {
+
         $input_data = $this->extra_block_set_value( $block_data, $input_data );
+        //krumo( $input_data );
+        //krumo('render_block');
+        //krumo($this->vals);
+
         $elements[ 'input' ] = $elements[ 'input' ] . $this->render_input( $input_data );
       }
     }
     # This function MUST be before rendering children and fieldsets
     $extra_block = $this->recursively_generate_block( $block_data );
+    //krumo($extra_block);
 
 
     if ( !empty( $block_data[ 'fieldsets_data' ] ) ) {
@@ -602,6 +640,7 @@ class render extends database {
 
 
   function recursively_generate_block( & $block_data ) {
+    //krumo($block_data);
     if ( isset( $block_data[ 'inputs_data' ] ) ) {
       //this return an array of only next extra block(not more) of the block which is processing
       $extra_block_data = $this->extra_block_creator_based_vals( $block_data );
@@ -668,17 +707,42 @@ class render extends database {
 
   */
   function extra_block_creator_based_vals( $block_data ) {
+    //krumo($block_data);
     $extra_block_data = array();
     $first_input_name = reset( $block_data[ 'inputs_data' ] )[ 'attrs' ][ 'name' ];
+    $first_input_name_for_extra = $this->add_up_extra( $first_input_name, '[', ']' );
+    $tmp_arr = explode( '[', $first_input_name_for_extra );
+    $tmp_arr[ 0 ] = '["' . $tmp_arr[ 0 ] . '"]';
+    $isset_first_input_val = $this->run_eval2( EVAL_STR . 'return isset($v' . implode( '[', $tmp_arr ) . ');', array( 'name' => 'v', 'value' => $this->vals ) );
+   // krumo( $isset_first_input_val );
     //check is the next block first input is set 
     if ( $block_data[ 'extra' ][ 'max' ] > 0 and( $this->mode == 'view'
-        or $this->mode == 'edit' )and isset( $this->vals[ $this->add_up_extra( $first_input_name, '[', ']' ) ] ) ) {
+        or $this->mode == 'edit' )and $isset_first_input_val ) {
+        
       $first_input_name = reset( $block_data[ 'inputs_data' ] )[ 'attrs' ][ 'name' ];
       $current_input_num = $this->last_number_of_element( $first_input_name, '[', ']' );
       $block_data[ 'unique_id' ] = $this->add_up_extra( $block_data[ 'unique_id' ], '≪', '≫' );
       foreach ( $block_data[ 'inputs_data' ] as $input_key => $input_data ) {
         $block_data[ 'inputs_data' ][ $input_key ][ 'unique_id' ] = $this->add_up_extra( $input_data[ 'unique_id' ], '≪', '≫' );
         $block_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'name' ] = $this->add_up_extra( $input_data[ 'attrs' ][ 'name' ], '[', ']' );
+        $block_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'id' ] = $this->add_up_extra( $input_data[ 'attrs' ][ 'id' ], '≪', '≫' );
+        $block_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'before' ]=
+            str_replace( $input_data[ 'attrs' ][ 'name' ]
+                    ,$block_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'name' ],
+                   $block_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'before' ]);
+        $block_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'after' ] = 
+            str_replace( $input_data[ 'attrs' ][ 'name' ],
+                    $block_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'name' ],
+                    $block_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'after' ]);
+        $block_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'before' ]= 
+            str_replace( $input_data[ 'attrs' ][ 'id' ],
+                    $block_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'id' ],
+                    $block_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'before' ]);
+       $block_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'after' ]=
+           str_replace($input_data[ 'attrs' ][ 'id' ],
+                    $block_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'id' ],
+                    $block_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'after' ]);
+
       }
       if ( !empty( $block_data[ 'children' ] ) ) {
         $block_data = $this->extra_children_block_creator( $block_data );
@@ -689,8 +753,10 @@ class render extends database {
       }
       $extra_block_data = $block_data;
     } else {
+      //krumo('sssssss');
       return NULL;
     }
+//    krumo($extra_block_data);
     return $extra_block_data;
   }
 
@@ -748,8 +814,11 @@ class render extends database {
   function add_up_extra( $string, $before, $after, $deep = 1, $step = 1 ) {
     //$unique_id_arr[count($unique_id_arr)-$deep]
     $unique_id_arr = explode( $before, $string ); //vdiUoVF2dNWx≪0≫≪0≫ => array(0=>'vdiUoVF2dNWx',1=>'0≫',2=>'0≫')
+    // krumo($unique_id_arr);
     $laset_block_number = reset( explode( $after, $unique_id_arr[ count( $unique_id_arr ) - $deep ] ) ); //1=>'0≫ ===> array(0=>0,1=>NULL)
+    //krumo($laset_block_number);
     $unique_id_arr[ count( $unique_id_arr ) - $deep ] = ( $laset_block_number + $step ) . $after; //0=>0   ===>  0=>1  ==>  0=>1≫ ====>  array(0=>'vdiUoVF2dNWx',1=>'1≫',2=>'0≫')
+    //krumo(implode( $before, $unique_id_arr ));
     return implode( $before, $unique_id_arr );
 
   }
@@ -893,13 +962,23 @@ class render extends database {
     }
     return $input_data;
   }
+/*
 
+
+
+*/
   function extra_fieldset_creator_based_vals( $fieldset_data ) {
     $extra_fieldset_data = array();
     $first_input_name = reset( $fieldset_data[ 'inputs_data' ] )[ 'attrs' ][ 'name' ];
+    $first_input_name_for_extra = $this->add_up_extra( $first_input_name, '[', ']' );
+    $tmp_arr = explode( '[', $first_input_name_for_extra );
+    $tmp_arr[ 0 ] = '["' . $tmp_arr[ 0 ] . '"]';
+    $isset_first_input_val = $this->run_eval2( EVAL_STR . 'return isset($v' . implode( '[', $tmp_arr ) . ');', array( 'name' => 'v', 'value' => $this->vals ) );
+      
+      
     //check is the next fieldset first input is set 
     if ( $fieldset_data[ 'extra' ][ 'max' ] > 0 and( $this->mode == 'view'
-        or $this->mode == 'edit' )and isset( $this->vals[ $this->add_up_extra( $first_input_name, '[', ']' ) ] ) ) {
+        or $this->mode == 'edit' )and $isset_first_input_val ) {
       $first_input_name = reset( $fieldset_data[ 'inputs_data' ] )[ 'attrs' ][ 'name' ];
       $current_input_num = $this->last_number_of_element( $first_input_name, '[', ']' );
 
@@ -907,6 +986,23 @@ class render extends database {
       foreach ( $fieldset_data[ 'inputs_data' ] as $input_key => $input_data ) {
         $fieldset_data[ 'inputs_data' ][ $input_key ][ 'unique_id' ] = $this->add_up_extra( $input_data[ 'unique_id' ], '≪', '≫' );
         $fieldset_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'name' ] = $this->add_up_extra( $input_data[ 'attrs' ][ 'name' ], '[', ']' );
+        $fieldset_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'id' ] = $this->add_up_extra( $input_data[ 'attrs' ][ 'id' ], '≪', '≫' );
+        $fieldset_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'before' ]=
+            str_replace( $input_data[ 'attrs' ][ 'name' ]
+                    ,$fieldset_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'name' ],
+                   $fieldset_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'before' ]);
+        $fieldset_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'after' ] = 
+            str_replace( $input_data[ 'attrs' ][ 'name' ],
+                    $fieldset_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'name' ],
+                    $fieldset_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'after' ]);
+        $fieldset_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'before' ]= 
+            str_replace( $input_data[ 'attrs' ][ 'id' ],
+                    $fieldset_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'id' ],
+                    $fieldset_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'before' ]);
+       $fieldset_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'after' ]=
+           str_replace($input_data[ 'attrs' ][ 'id' ],
+                    $fieldset_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'id' ],
+                    $fieldset_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'after' ]);
       }
       if ( !empty( $fieldset_data[ 'children' ] ) ) {
         $fieldset_data = $this->extra_children_fieldset_creator( $fieldset_data );
@@ -969,6 +1065,7 @@ class render extends database {
 
   function render_form( $form_data, $process_data = NULL ) {
     //krumo( $form_data);
+    //krumo( $this->vals);
     if ( $form_data == NULL ) {
       $form_data = $this->form_data;
     }
@@ -987,6 +1084,8 @@ class render extends database {
 
       }
     }
+    //krumo('render_form');
+    //krumo($this->vals);
 
     if ( !empty( $form_data[ 'blocks_data' ] ) ) {
       foreach ( $form_data[ 'blocks_data' ] as $blocks_data ) {
@@ -1019,6 +1118,8 @@ class render extends database {
     // krumo($this->dep_select);
 
     //$form_suffix  .= $this->dep_select ;
+    //krumo('render_form');
+    //krumo($this->vals);
 
     //krumo( $form_suffix  );
     $form_suffix .= '</form>' . $form_data[ 'tag' ][ 'after' ] . '</sst-form>';
@@ -1039,10 +1140,14 @@ class render extends database {
   //static $process_data;
 
   function render_process( $process_data ) {
+    //      krumo('render_process');
+    //    krumo($this->vals);
 
     if ( $process_data == NULL ) {
       $process_data = $this->process_data;
     }
+    // krumo( $process_data);
+    //krumo( $this->vals);
     $this->process_data = $process_data;
 
 
@@ -1098,17 +1203,17 @@ class render extends database {
     }
     //$jquery_code is like this 
     //if({self}=='value'){jQuery("{name:query-12}").attr("disabled","disabled");jQuery("{name:json_url-12}").attr("disabled","disabled");}else if({name_jq_value:source_type-12}=='query'){jQuery("{name:json_url-12}").attr("disabled","disabled");jQuery("{name:query-12}").removeAttr("disabled");}else if({self}=='json'){jQuery("{name:query-12}").attr("disabled","disabled");jQuery("{name:json_url-12}").removeAttr("disabled");}
-	  //input keyup keypress focus blur click 
-	$on = 'change load';
+    //input keyup keypress focus blur click 
+    $on = 'change';
     if ( !empty( $jquery_function_body_code ) ) {
       $attr_changer_func_name = 'attr_changer_' . rand( 1, 99999999 );
 
-      $temp_attr_changer_code .= "jQuery('#" . $x_data[ 'attrs' ][ 'id' ] . "').on('".$on."', function($) {" . "\n" . $attr_changer_func_name . "();});" . "\n";
+      $temp_attr_changer_code .= "jQuery('#" . $x_data[ 'attrs' ][ 'id' ] . "').on('" . $on . "', function($) {" . "\n" . $attr_changer_func_name . "();});" . "\n";
       $temp_attr_changer_code .= "function " . $attr_changer_func_name . "(){";
-
       //$temp_attr_changer_code .= $this->attr_changer_php_query;
       $temp_attr_changer_code .= $this->apply_php_eval_attr_check( $jquery_function_body_code );
       $temp_attr_changer_code .= "}" . "\n";
+      //this code trigger once on load
       $temp_attr_changer_code .= "\n " . $attr_changer_func_name . "();" . "\n";
       // krumo($jquery_function_body_code);
     }
@@ -1117,22 +1222,22 @@ class render extends database {
   }
 
   function apply_php_eval_attr_check( $jquery_function_body_code ) {
-	  
+
     $this->attr_changer_php_query;
-//krumo( $jquery_function_body_code );
+    //krumo( $jquery_function_body_code );
     //krumo( $this->attr_changer_php_query);
     if ( !empty( $this->attr_changer_php_query ) ) {
-      foreach ( $this->attr_changer_php_query as $t=>$single_attr_changer_php_query ) {
-		  $post_data = array();
+      foreach ( $this->attr_changer_php_query as $t => $single_attr_changer_php_query ) {
+        $post_data = array();
         //krumo($this->attr_changer_code);
         $between_start = '{name_php_value:';
         $between_end = '}';
         $attr_changer_code = $single_attr_changer_php_query[ 'query' ];
         preg_match_all( '/' . addslashes( $between_start ) . '(.*?)' . addslashes( $between_end ) . '/', $attr_changer_code, $matches );
-       // krumo( $attr_changer_code);
+        // krumo( $attr_changer_code);
         foreach ( $matches[ 1 ] as $k => $match ) {
-			
-          $name_slug = 'v_' . strtolower( trim( preg_replace( '/[^A-Za-z0-9_]+/', '_', $matches[ 1 ][ $k ]) ) ) . rand( 0, 999999 );
+
+          $name_slug = 'v_' . strtolower( trim( preg_replace( '/[^A-Za-z0-9_]+/', '_', $matches[ 1 ][ $k ] ) ) ) . rand( 0, 999999 );
           $id = common::search_by_attr_to_get_other_attr( 'name', $matches[ 1 ][ $k ], 'id', $this->process_data, 'process' );
           $html_type = common::search_by_attr_to_get_other_attr( 'name', $matches[ 1 ][ $k ], 'type', $this->process_data, 'process' );
           switch ( $html_type ) {
@@ -1141,34 +1246,34 @@ class render extends database {
               $post_data[] = $name_slug . ":jQuery('#" . $id . ":checked').val()";
               break;
             default:
-              $post_data[] =  $name_slug. ":jQuery('#" . $id . "').val()";
+              $post_data[] = $name_slug . ":jQuery('#" . $id . "').val()";
               break;
           }
-			$single_attr_changer_php_query = str_replace($matches[ 0 ][$k],'$_POST[\''.$name_slug.'\']',$single_attr_changer_php_query);
+          $single_attr_changer_php_query = str_replace( $matches[ 0 ][ $k ], '$_POST[\'' . $name_slug . '\']', $single_attr_changer_php_query );
         }
-          $temp_body_code .= 'jQuery.ajax({' . "\n";
-          $temp_body_code .= 'url: "'.INPUT_EVAL_URL.'", ' . "\n";
-          $temp_body_code .= 'type: "post", ' . "\n";
-          $temp_body_code .= 'data: {' . "\n";
-          $temp_body_code .= 'query:"'.$single_attr_changer_php_query['query'].'",' . "\n";
-          $temp_body_code .= implode(',',$post_data) .','. "\n";
-          $temp_body_code .=  '__sst__psw:123,'. "\n";
-          $temp_body_code .= "}," . "\n";
-          $temp_body_code .= "success: function(result";
-		  
-		  $res_vars[] = $single_attr_changer_php_query['var'];
-		  $temp_body_code .= "){" . "\n";
-          $temp_body_code .= "var ".$single_attr_changer_php_query['var']."=result;" . "\n";
+        $temp_body_code .= 'jQuery.ajax({' . "\n";
+        $temp_body_code .= 'url: "' . INPUT_EVAL_URL . '", ' . "\n";
+        $temp_body_code .= 'type: "post", ' . "\n";
+        $temp_body_code .= 'data: {' . "\n";
+        $temp_body_code .= 'query:"' . $single_attr_changer_php_query[ 'query' ] . '",' . "\n";
+        $temp_body_code .= implode( ',', $post_data ) . ',' . "\n";
+        $temp_body_code .= '__sst__psw:123,' . "\n";
+        $temp_body_code .= "}," . "\n";
+        $temp_body_code .= "success: function(result";
 
-		  $end_ajax .= '}'. "\n";
-		  $end_ajax .= '});'. "\n";
-		  
+        $res_vars[] = $single_attr_changer_php_query[ 'var' ];
+        $temp_body_code .= "){" . "\n";
+        $temp_body_code .= "var " . $single_attr_changer_php_query[ 'var' ] . "=result;" . "\n";
+
+        $end_ajax .= '}' . "\n";
+        $end_ajax .= '});' . "\n";
+
       }
-		//$tt = 'console.log('.implode(');'."\n".'console.log(',$res_vars).');';
-		$tt = '';
-		$jquery_function_body_code = $temp_body_code.$tt.$jquery_function_body_code. "\n".$end_ajax;
-		//krumo($jquery_function_body_code);
-		return $jquery_function_body_code;
+      //$tt = 'console.log('.implode(');'."\n".'console.log(',$res_vars).');';
+      $tt = '';
+      $jquery_function_body_code = $temp_body_code . $tt . $jquery_function_body_code . "\n" . $end_ajax;
+      //krumo($jquery_function_body_code);
+      return $jquery_function_body_code;
     } else {
       return $jquery_function_body_code;
     }

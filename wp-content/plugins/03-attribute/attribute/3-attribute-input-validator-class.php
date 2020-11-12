@@ -454,6 +454,7 @@ implements attribute_input_validator_interface {
     //
     function attr_value( $attr_value ) {
 		//krumo($attr_value);
+        //krumo($this->vals);
         return $this->create_attribute( 'value', $attr_value );
     }
 

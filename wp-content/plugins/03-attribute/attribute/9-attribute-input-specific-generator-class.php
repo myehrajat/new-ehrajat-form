@@ -113,6 +113,8 @@ implements attribute_input_specific_generator_interface {
 
 
   function create_attr_input_specific() {
+              //krumo($this->vals);
+
     // $this->change_value_by_vals();
     //krumo($this->input_html_type=='hidden');
     if ( !empty( $this->attr_input_specific_id ) ) {

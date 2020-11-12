@@ -97,7 +97,7 @@ class data_creator extends render{
 	it will generate array and html for add and remove and position based on EXTRA_CONTROLLER_POSITION
 	*/
 	function create_extra_data( $data ) {
-        if ( $data[ 'extra' ][ 'max' ] > 0 ) {
+        if ( $data[ 'extra' ][ 'max' ] > 0 and $this->mode=='add') {
             $extra = new extra( $data[ 'extra' ][ 'max' ], $data[ 'unique_id' ] );
 			
             $data[ 'extra' ][ 'add_controller_data' ] = $extra->extra_add_controller_arr;

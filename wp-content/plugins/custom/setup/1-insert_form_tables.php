@@ -36,7 +36,7 @@ class insert_custom_tables extends database {
     $GLOBALS[ 'sst_custom' ][ 'bank_branch' ] = $wpdb->prefix . 'custom_' . 'bank_branch';
     $GLOBALS[ 'sst_custom' ][ 'bank_account_type' ] = $wpdb->prefix . 'custom_' . 'bank_account_type';
     $GLOBALS[ 'sst_custom' ][ 'bank_account' ] = $wpdb->prefix . 'custom_' . 'bank_account';
-    $GLOBALS[ 'sst_custom' ][ 'person_account_data' ] = $wpdb->prefix . 'custom_' . 'person_account_data';
+    $GLOBALS[ 'sst_custom' ][ 'account_data' ] = $wpdb->prefix . 'custom_' . 'account_data';
     $GLOBALS[ 'sst_custom' ][ 'payment_method' ] = $wpdb->prefix . 'custom_' . 'payment_method';
     $GLOBALS[ 'sst_custom' ][ 'payment_method_relation' ] = $wpdb->prefix . 'custom_' . 'payment_method_relation';
     $GLOBALS[ 'sst_custom' ][ 'payment_method_commission' ] = $wpdb->prefix . 'custom_' . 'payment_method_commission';
@@ -369,15 +369,15 @@ class insert_custom_tables extends database {
     "`modified` DATETIME NOT NULL DEFAULT NOW(),
         PRIMARY KEY id  (`id`)) $this->collate_charset;";
 
-    $sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_custom' ][ 'person_account_data' ] . " (" .
+    $sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_custom' ][ 'account_data' ] . " (" .
     "`id` INT(10) NOT NULL auto_increment," .
-    "`person_id` VARCHAR(255) NOT NULL," .
+    "`account_id` VARCHAR(255) NOT NULL," .
     "`balance` VARCHAR(255) NOT NULL," .
     "`total_debit` VARCHAR(255) NOT NULL," .
     "`total_credit` VARCHAR(255) NOT NULL," .
-    "`first_transaction` VARCHAR(255) NOT NULL," .
-    "`last_transaction` VARCHAR(255) NOT NULL," .
-    "`total_transaction_number` VARCHAR(255) NOT NULL," .
+    "`first_transaction_date` VARCHAR(255) NOT NULL," .
+    "`last_transaction_date` VARCHAR(255) NOT NULL," .
+    "`total_transaction` VARCHAR(255) NOT NULL," .
     "`desc` LONGTEXT NOT NULL," .
     "`save_id` VARCHAR(255) NOT NULL," .
     "`owner` VARCHAR(255) DEFAULT NULL," .
@@ -410,6 +410,7 @@ class insert_custom_tables extends database {
 
     $sql[] = "CREATE TABLE IF NOT EXISTS " . $GLOBALS[ 'sst_custom' ][ 'payment_method_commission' ] . " (" .
     "`id` INT(10) NOT NULL auto_increment," .
+    "`bank_id` VARCHAR(255) NOT NULL," .
     "`payment_method_id` VARCHAR(255) NOT NULL," .
     "`commission_type` VARCHAR(255) NOT NULL COMMENT 'percentage/flat/flat-by-unit'," . //percentage/flat/flat-by-unit
     "`currency_id` VARCHAR(255) DEFAULT NULL," .
@@ -435,7 +436,7 @@ class insert_custom_tables extends database {
     "`credit_person_id` VARCHAR(255) NOT NULL," .
     "`credit_account_id` VARCHAR(255) NOT NULL," .
     "`invoice_id` VARCHAR(255) NOT NULL," .
-    "`value` FLOAT DEFAULT 0," .
+    "`value` FLOAT(24) DEFAULT 0," .
     "`date` VARCHAR(255) NOT NULL," .
     "`payment_method_id` VARCHAR(255) NOT NULL," .
     "`currency_id` VARCHAR(255) DEFAULT NULL," .

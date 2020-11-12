@@ -18,7 +18,6 @@ class attribute_generator extends attribute_form_validator implements attribute_
      *these is for creating one simple attribute and value pair
      **************************************************/
     function create_simple_attr( $attr_name, $attr_value, $html_input_type,$attr_name_value ) {
-
         if ( $this->is_valid_custom_attr_name( $attr_name ) ) {
 			
 			//after data action trigger get the vals in formatted flat with route and generate the same name input cause array as value

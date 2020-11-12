@@ -6,10 +6,10 @@ class data_action extends data_action_fundamental {
   var $multiple_func_before;
 
   function __construct( $is_modal = false ) {
-	 $this->temp_str = "DONT-SAVE-ME-";
-	  //krumo($this->temp_str);
+    $this->temp_str = "DONT-SAVE-ME-";
+    //krumo($this->temp_str);
     parent::__construct();
-	// $this->temp_str = "DONT-SAVE-ME-";
+    // $this->temp_str = "DONT-SAVE-ME-";
   }
 
 
@@ -18,13 +18,14 @@ class data_action extends data_action_fundamental {
   this function collect all rules defined in data_action_database
 
   ***********************/
-	function remove_temp_str($str){
-		if($this->starts_with($str,$this->temp_str)){
-			$len = strlen( $this->temp_str );
-			return  substr( $str,$len);
-		}
-		return $str;
-	}
+  function remove_temp_str( $str ) {
+    if ( $this->starts_with( $str, $this->temp_str ) ) {
+      $len = strlen( $this->temp_str );
+      return substr( $str, $len );
+    }
+    return $str;
+  }
+
   function get_all_prevent_insert_rule_ids() {
     $all_prevent_insert_rule_ids = array();
     foreach ( $this->data_actions as $data_action_obj ) {
@@ -110,97 +111,117 @@ class data_action extends data_action_fundamental {
         //create_save_id_column_if_not_exist();
         $this->create_add_column( $wpdb->prefix . $data_action_specific_obj->table, 'save_id' );
         $this->create_colval_data();
-      //  krumo($this->db_data);
-        //krumo($this->vals);
-        if ( !empty( $this->db_data ) ) {
-
-          foreach ( $this->db_data as $key_route => $one_ready_data ) {
-            $one_ready_data[ 'save_id' ] = addslashes( $_REQUEST[ '__sst__unique' ] );
-            if ( isset( $insert_ref[ $data_action_specific_obj->insert_ref ] ) ) {
-              $i = count( $insert_ref[ $data_action_specific_obj->insert_ref ] );
-            } else {
-              $i = 0;
-            }
-            $i = $key_route;
-            //krumo($data_action_specific_obj);
-            $this->run_eval( EVAL_STR . $this->multiple_func_before );
-            //krumo($this->all_prevent_insert_rule_ids );
-            //if(){
-            $db_result = $this->add_to_table( $wpdb->prefix . $data_action_specific_obj->table, $one_ready_data, $this->mysql_code_col_vals, $this->all_prevent_insert_rule_ids );
-            //}
-
-            // != false and $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ] != 'prevented'
-            if ( $db_result[ 'result' ] == true ) {
-              $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ] = $db_result[ 'insert_id' ];
-              $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'data' ] = $one_ready_data;
-              if ( $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ] != false and $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ] != 'prevented' ) {
-                $this->vals[ "__sst__insert_ids" ][ $data_action_specific_obj->insert_ref ][ $i ] = $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ];
-              }
-              $res = str_replace( '{insert_id}', $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ], $data_action_specific_obj->added_result_html );
-              $this->multiple_func_after = str_replace( '{insert_id}', $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ], $this->multiple_func_after );
-            } elseif ( $db_result[ 'result' ] == false ) {
-                $res = $db_result[ 'html_error' ];
+        /** In edit moder we call this **/
+		ADD:
+          if ( !empty( $this->db_data ) ) {
+            foreach ( $this->db_data as $key_route => $one_ready_data ) {
+              $one_ready_data[ 'save_id' ] = addslashes( $_REQUEST[ '__sst__unique' ] );
+              if ( isset( $insert_ref[ $data_action_specific_obj->insert_ref ] ) ) {
+                $i = count( $insert_ref[ $data_action_specific_obj->insert_ref ] );
               } else {
-                $res = $data_action_specific_obj->database_error_result_html;
+                $i = 0;
               }
-              // {insert_id:insert_name:level_to_be_same}
-              //krumo( $_REQUEST );
-            foreach ( $one_ready_data as $column => $value ) {
-              $res = str_replace( '{data_value:' . $column . '}', $value, $res );
-              $res = str_replace( '{data_column:' . $column . '}', $column, $res );
-              $this->multiple_func_after = str_replace( '{data_value:' . $column . '}', $value, $this->multiple_func_after );
-              $this->multiple_func_after = str_replace( '{data_column:' . $column . '}', $column, $this->multiple_func_after );
-
-            }
-            $result[] = $res;
-          }
-          //krumo($result);
-          //if($_GET['data_action_result'])
-          if ( $this->is_modal == true ) {
-            echo '<span id="result_content">' . implode( '', $result ) . "</span>";
-            echo '<span hidden="hidden" id="' . $_REQUEST[ "__sst__modal_result_container_id" ] . '">';
-            //__sst__insert_ref_result is determining which dataaction insert_id is needed 
-            if ( !empty( $insert_ref[ $_REQUEST[ '__sst__insert_ref_result' ] ] ) ) {
-              foreach ( $insert_ref[ $_REQUEST[ '__sst__insert_ref_result' ] ] as $single_insert_ref ) {
+              $i = $key_route;
+              $this->run_eval( EVAL_STR . $this->multiple_func_before );
+              if ( $this->mode == 'add' ) {
+                $db_result = $this->add_to_table( $wpdb->prefix . $data_action_specific_obj->table, $one_ready_data, $this->mysql_code_col_vals, $this->all_prevent_insert_rule_ids );
+              } elseif ( $this->mode == 'edit' ) {
+                  $db_result = $this->add_to_table( $wpdb->prefix . $data_action_specific_obj->table, $one_ready_data, $this->mysql_code_col_vals, $this->all_prevent_insert_rule_ids, true );
+              }
+                //}
+                // != false and $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ] != 'prevented'
+              if ( $db_result[ 'result' ] == true ) {
+                $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ] = $db_result[ 'insert_id' ];
+                $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'data' ] = $one_ready_data;
                 if ( $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ] != false and $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ] != 'prevented' ) {
-                  $modal_insert_ids[] = $single_insert_ref[ 'insert_id' ];
+                  $this->vals[ "__sst__insert_ids" ][ $data_action_specific_obj->insert_ref ][ $i ] = $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ];
+                }
+                if ( $this->mode == 'add' ) {
+                  $res = str_replace( '{insert_id}', $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ], $data_action_specific_obj->added_result_html );
+                } elseif ( $this->mode == 'edit' ) {
+                  $res = str_replace( '{insert_id}', $db_result[ 'insert_id' ], $data_action_specific_obj->edited_result_html );
+                }
+                $this->multiple_func_after = str_replace( '{insert_id}', $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ], $this->multiple_func_after );
+              } elseif ( $db_result[ 'result' ] == false ) {
+                  $res = $db_result[ 'html_error' ];
+                } else {
+                  $res = $data_action_specific_obj->database_error_result_html;
+                }
+                /* {insert_id:insert_name:level_to_be_same}*/
+
+              foreach ( $one_ready_data as $column => $value ) {
+                if ( $column != '__sst__temp' ) {
+                  $res = str_replace( '{data_value:' . $column . '}', $value, $res );
+                  $res = str_replace( '{data_column:' . $column . '}', $column, $res );
+                  $this->multiple_func_after = str_replace( '{data_value:' . $column . '}', $value, $this->multiple_func_after );
+                  $this->multiple_func_after = str_replace( '{data_column:' . $column . '}', $column, $this->multiple_func_after );
+                } else {
+                  foreach ( $value as $temp_column => $temp_value ) {
+                    $this->multiple_func_after = str_replace( '{temp:' . $temp_column . '}', "'" . $temp_value . "'", $this->multiple_func_after );
+                  }
                 }
 
               }
+              //  krumo($res);
+              $result[] = $res;
             }
-            //krumo($modal_insert_ids);
-            echo implode( ',', $modal_insert_ids );
-            echo "</span>";
-          } else {
-            //krumo('is_not_modal');
-            echo '<span id="result_content">' . implode( '', $result ) . "</span>";
-          }
-        } else {
-          $this->error_log( '$this->dbdata is NULL' );
+            //krumo($result);
+            //if($_GET['data_action_result'])
+            if ( $this->is_modal == true ) {
+              echo '<span id="result_content">' . implode( '', $result ) . "</span>";
+              echo '<span hidden="hidden" id="' . $_REQUEST[ "__sst__modal_result_container_id" ] . '">';
+              //__sst__insert_ref_result is determining which dataaction insert_id is needed 
+              if ( !empty( $insert_ref[ $_REQUEST[ '__sst__insert_ref_result' ] ] ) ) {
+                foreach ( $insert_ref[ $_REQUEST[ '__sst__insert_ref_result' ] ] as $single_insert_ref ) {
+                  if ( $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ] != false and $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ] != 'prevented' ) {
+                    $modal_insert_ids[] = $single_insert_ref[ 'insert_id' ];
+                  }
 
-        }
-        //krumo(EVAL_STR.$this->multiple_func_after );
+                }
+              }
+              //krumo($modal_insert_ids);
+              echo implode( ',', $modal_insert_ids );
+              echo "</span>";
+            } else {
+              //krumo('is_not_modal');
+              echo '<span id="result_content">' . implode( '', $result ) . "</span>";
+            }
+          } else {
+            $this->error_log( '$this->dbdata is NULL' );
+
+          }
+          //       krumo(EVAL_STR.$this->multiple_func_after );
+
         $this->run_eval( EVAL_STR . $this->multiple_func_after );
         break;
       case "edit":
         $ids = array();
         $this->create_colval_data();
         $select = "SELECT * FROM " . $wpdb->prefix . $data_action_specific_obj->table . " WHERE `save_id`='" . addslashes( $_REQUEST[ '__sst__unique' ] ) . "';";
-        $results = $wpdb->get_results( $select );
-        foreach ( $results as $results ) {
-          $ids[] = $results->id;
+        //krumo($select);
+        $select_results = $wpdb->get_results( $select );
+        /************
+            in edit mode cant remove record
+        ************/
+        $count_select_results = count( $select_results );
+        if ( $count_select_results > count( $this->db_data ) ) {
+          echo '<span>' . 'in edit mode cant remove record' . "</span>";
+          return;
         }
-        $delete = "DELETE FROM " . $wpdb->prefix . $data_action_specific_obj->table . " WHERE `save_id`='" . addslashes( $_REQUEST[ '__sst__unique' ] ) . "';";
-        $wpdb->query( $delete );
-        $i = 0;
-        foreach ( $this->db_data as $one_ready_data ) {
-          if ( isset( $ids[ $i ] ) ) {
-            $one_ready_data[ 'id' ] = $ids[ $i ];
-          }
-          $one_ready_data[ 'save_id' ] = addslashes( $_REQUEST[ '__sst__unique' ] );
-          $this->add_to_table( $wpdb->prefix . $data_action_specific_obj->table, $one_ready_data, $this->mysql_code_col_vals, $data_action_specific_obj->prevent_insert_rule );
-          $i++;
+        //$delete = "DELETE FROM " . $wpdb->prefix . $data_action_specific_obj->table . " WHERE `save_id`='" . addslashes( $_REQUEST[ '__sst__unique' ] ) . "';";
+        // krumo($delete);
+        //$wpdb->query( $delete );
+
+
+        foreach ( $select_results as $select_result ) {
+          $ids[ $select_result->id ] = $select_result->id;
         }
+
+        foreach ( $this->db_data as $k => $one_ready_data ) {
+          $this->db_data[ $k ][ 'id' ] = $select_results[ $k ]->id;
+        }
+        //            krumo($this->db_data);
+        goto ADD;
         break;
       case "view":
 
@@ -334,9 +355,9 @@ class data_action extends data_action_fundamental {
             case "temporary":
               $is_there_temp = true;
               $all_values[ $this->temp_str . $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->flatten( $this->vals[ $sorted_colvals_vals[ 'colval_obj' ]->input_name ] );
-				  //krumo($this->temp_str);
+              //krumo($this->temp_str);
               break;
-				  
+
             case "file":
               $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->upload_files(
                 $this->vals[ '__sst__files' ][ $sorted_colvals_vals[ 'colval_obj' ]->value ],
@@ -567,9 +588,9 @@ class data_action extends data_action_fundamental {
       foreach ( $ready_data as $k => $single_data ) {
         foreach ( $single_data as $column_name => $column_value ) {
           if ( $this->starts_with( $column_name, $this->temp_str ) ) {
-			//
-			//  krumo($column_name);
-			$ready_data[ $k ]['__sst__temp'][$this->remove_temp_str($column_name)]=$ready_data[ $k ][ $column_name ];
+            //
+            //  krumo($column_name);
+            $ready_data[ $k ][ '__sst__temp' ][ $this->remove_temp_str( $column_name ) ] = $ready_data[ $k ][ $column_name ];
             unset( $ready_data[ $k ][ $column_name ] );
           }
         }
@@ -657,7 +678,9 @@ class data_action extends data_action_fundamental {
     if ( !empty( $ecodes ) ) {
       foreach ( $ready_data as $k => $single_record ) {
         foreach ( $ecodes as $input_name => $ecode ) {
+
           $ready_data[ $k ][ $input_name ] = $this->run_eval( EVAL_STR . $this->replace_attribute_short_codes( $ecode, $single_record, '{vals:', '}', '\'' ) . ';' );
+
           $this->multiple_func_after = $this->replace_attribute_short_codes( $this->multiple_func_after, $single_record, '{vals:', '}', '\'' );
           $this->multiple_func_before = $this->replace_attribute_short_codes( $this->multiple_func_before, $single_record, '{vals:', '}', '\'' );
         }

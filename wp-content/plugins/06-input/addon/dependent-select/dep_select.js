@@ -81,7 +81,7 @@ function append_onchange_to_controller(dependent_id, controller_ids, pre_query, 
     if (current_onchange === undefined) {
       current_onchange = '';
     }
-	  //console.log(";dep_select('" + dependent_id + "',['" + controller_ids.join("','") + "'],'" + pre_query + "','" + return_type + "','" + url_to_process + "','" + query + "','"+order_by+"','"+unique_option+"');");
+		//console.log(";dep_select('" + dependent_id + "',['" + controller_ids.join("','") + "'],'" + pre_query + "','" + return_type + "','" + url_to_process + "','" + query + "','"+order_by+"','"+unique_option+"','"+query_joiner+"');");
 		eval(";dep_select('" + dependent_id + "',['" + controller_ids.join("','") + "'],'" + pre_query + "','" + return_type + "','" + url_to_process + "','" + query + "','"+order_by+"','"+unique_option+"','"+query_joiner+"');");
 	  
 	  jQuery("#" + value).attr('onchange', current_onchange + ";dep_select('" + dependent_id + "',['" + controller_ids.join("','") + "'],'" + pre_query + "','" + return_type + "','" + url_to_process + "','" + query + "','"+order_by+"','"+unique_option+"','"+query_joiner+"');");

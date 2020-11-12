@@ -80,6 +80,9 @@ function starts_with( $string, $startString ) {
         if ( !empty( $pre_query_results ) ) {
           foreach ( $pre_query_results as $col ) {
             $col = prepare_cols( $col );
+			 // var_dump(  $query->query) ;
+			 // var_dump( 'dddddddddddddddddddddddddddddddddddddddddddddd') ;
+
             $query_set[] = eval( 'return "' . $query->query . '";' );
           }
 			//prequery return zero result
@@ -87,7 +90,7 @@ function starts_with( $string, $startString ) {
             $query_set[] =null_pre_query_result_prepare($query->query );
 		}
         $new_queries[ $k ]->query = $query_set;
-
+		  
       }
     } else {
       $new_queries = $queries;
@@ -97,7 +100,6 @@ function starts_with( $string, $startString ) {
       $new_queries[ $k ]->query = $query_set;
     }
     $queries = $new_queries;
-
     foreach ( $queries as $k => $query_cond ) {
       $json = str_replace( "'", "\'", json_encode( $query_cond->query, JSON_UNESCAPED_SLASHES ) );
       if ( $query_cond->condition != 'else' ) {
@@ -197,7 +199,7 @@ function starts_with( $string, $startString ) {
    // echo $q;
     $options_obj = eval( $q );
     if ( empty( $options_obj )and strtolower( $_REQUEST[ 'return_type' ] ) == 'string' ) {
-      $options_obj = '<option disabled="disabled" sst_onfly="yes">No Option On Change Found!</option>"';
+      $options_obj = '<option disabled="disabled" sst_onfly="yes">No Option On Change Found!</option>';
     }
     //var_dump($options_obj);
     //$options_obj .= '<script>alert("sssssssssss");</script>';

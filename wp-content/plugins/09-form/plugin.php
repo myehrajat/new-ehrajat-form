@@ -39,4 +39,3 @@ require_once(FORM_PLUGIN_PATH.'asset/register.php');
 glob_includer(FORM_SETUP_PATH);
 new insert_form_tables;
 glob_includer(FORM_FUNC_PATH);
-

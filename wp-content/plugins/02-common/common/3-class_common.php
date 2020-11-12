@@ -122,13 +122,22 @@ implements common_interface {
   }
 
   function get_mode() {
-    $this->mode = strtolower( $_REQUEST[ COMMON_MODE_KEYWORD ] );
+    /* This part  */
+    $mode = strtolower( $_REQUEST[ COMMON_MODE_KEYWORD ] );
     if ( isset( $_REQUEST[ COMMON_MODE_KEYWORD ] ) ) {
-      $this->mode = $_REQUEST[ COMMON_MODE_KEYWORD ];
+      $mode = $_REQUEST[ COMMON_MODE_KEYWORD ];
     } elseif ( isset( $_REQUEST[ '__sst__mode' ] ) ) {
-      $this->mode = $_REQUEST[ '__sst__mode' ];
+        $mode = $_REQUEST[ '__sst__mode' ];
+      } else {
+        $mode = 'add';
+      }
+      /* This part is to use outside of class as standalone */
+    if ( isset( $this ) ) {
+      $this->mode = $mode;
+
     } else {
-      $this->mode = 'add';
+      return $mode;
+
     }
   }
 
@@ -279,7 +288,7 @@ implements common_interface {
             common::get_all_blocks_data( $fieldset, "fieldset" );
           }
         }
-        $all_block[$data['id']] = $data;
+        $all_block[ $data[ 'id' ] ] = $data;
         break;
 
     }

@@ -244,9 +244,12 @@ function add_missed_vals_key($vals ){
       return $this->vals;
     } elseif ( $this->mode == 'edit'
       or $this->mode == 'view' ) {
+        //krumo('sssssssss');
       $record_id = $_REQUEST[ PROCESS_RECORD_ID_KEYWORD ];
       $this->vals = $this->get_vals( $record_id );
+//        krumo($this->vals);
       $this->vals[ '__sst__unique' ] = $_REQUEST[ PROCESS_RECORD_ID_KEYWORD ];
+        //krumo($this->vals);
     }
   }
 
@@ -422,6 +425,8 @@ function add_missed_vals_key($vals ){
   }
 
   function render( $process_data = NULL ) {
+//      krumo('process');
+  //    krumo($this->vals);
     if ( $this->break_class != true ) {
       return $this->render_process( $process_data );
     }

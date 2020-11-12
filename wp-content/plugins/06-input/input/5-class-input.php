@@ -12,7 +12,7 @@ class input extends data_creator {
 		 $this->input_id =  $input_id;
         $this->input_data['id'] = $this->input_id;
         parent::__construct();
-
+       // krumo($this->vals);
         $input_id = $this->get_ids( $input_id, true );
         if ( !empty( $input_id ) ) {
 
@@ -32,6 +32,7 @@ class input extends data_creator {
 
     function common_atrributes( string $input_id ) {
         $this->common_attr_obj = new attribute_input_common_generator( $input_id );
+        
         $input_type_id = $input_obj->type_id;
         $this->input_data[ 'input_type' ] = $this->common_attr_obj->input_type;
         $this->input_data[ 'input_html_type' ] = $this->common_attr_obj->input_html_type;
@@ -51,7 +52,7 @@ class input extends data_creator {
             $specific_id = $this->get_ids( $specific_id, true );
 			//krumo( $specific_id);
             if ( !empty( $specific_id ) ) {
-				
+//				krumo( $this->vals);
                 $this->specific_attr_obj = new attribute_input_specific_generator( $specific_id, $this->input_data[ 'input_html_type' ],$this->input_id );
 				//krumo( $this->specific_attr_obj );
                 if ( !empty( $this->specific_attr_obj ) ) {

@@ -1,0 +1,1 @@
+http://192.168.0.129:8090/SendSMS?username=shahab&password=1111&phone=09121010200&message=ff

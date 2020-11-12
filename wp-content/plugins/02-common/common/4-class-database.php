@@ -6,7 +6,7 @@ interface database_interface {
 
   function check_is_in_table( $arr, $table, $exclude_to_check_arr = NULL );
 
-  function add_to_table( string $table, array $column_value );
+  function add_to_table( string $table, array $column_value , $prevent_insert_rule_ids,$update);
 
   function drop_tables();
 
@@ -94,8 +94,7 @@ implements database_interface {
 	 $prevent_insert_rule param => sql query and only for value use {column_name} format this function automatically replace it with 'value' note: no need qoutation
   **************************************************/
 
-  function add_to_table( string $table, array $column_value, $column_mysql_code = array(), $prevent_insert_rule_ids = NULL ) {
-   //krumo( $column_value );
+  function add_to_table( string $table, array $column_value, $column_mysql_code = array(), $prevent_insert_rule_ids = NULL,$update=false ) {
     global $wpdb;
     if ( !is_array( $column_mysql_code ) ) {
       $column_mysql_code = array();
@@ -116,7 +115,7 @@ implements database_interface {
             foreach ( $column_value as $column => $value ) {
               //krumo($column .'=>'.$value  );
               //$php_rule = str_replace( '{col-name:' . $column . "}", '$column_value["' . $column . '"]', $php_rule );
-              $php_rule = str_replace( '{col-value:' . $column . "}", $this->wrap_non_numeric($value,'"'), $php_rule );
+              $php_rule = str_replace( '{col-value:' . $column . "}", $this->wrap_non_numeric( $value, '"' ), $php_rule );
               //$php_rule = str_replace( '{col-name:'  . $column . "}", '"' . $value . '"', $php_rule );
             }
             if ( $php_rule != $php_rule_check_change ) {
@@ -140,60 +139,77 @@ implements database_interface {
           if ( !empty( $mysql_rule ) ) {
             $mysql_rule_check_change = $mysql_rule;
             foreach ( $column_value as $column => $value ) {
-				
-				//TEMP KEYWORD
-				/******************************************/
+
+              //TEMP KEYWORD
+              /******************************************/
               if ( $column == '__sst__temp' ) {
-				  //krumo( $value );
+                //krumo( $value );
                 foreach ( $value as $temp_col => $temp_val ) {
-                  $mysql_rule = str_replace( "{temp:" . $temp_col . "}", $this->wrap_non_numeric($temp_val,"'" ), $mysql_rule );
-                 // krumo( "{temp:" . $temp_col . "}" );
+                  $mysql_rule = str_replace( "{temp:" . $temp_col . "}", $this->wrap_non_numeric( $temp_val, "'" ), $mysql_rule );
+                  // krumo( "{temp:" . $temp_col . "}" );
                   //krumo( $value[ $temp_col  ] );
                   //krumo( $temp_val );
                 }
               }
-				 
-				/**********************************************/
-              $mysql_rule = str_replace( "{" . $column . "}",$this->wrap_non_numeric($value,"'" ) , $mysql_rule );
+
+              /**********************************************/
+              $mysql_rule = str_replace( "{" . $column . "}", $this->wrap_non_numeric( $value, "'" ), $mysql_rule );
             }
-			 // krumo();
+            // krumo();
             if ( $mysql_rule_check_change != $mysql_rule ) {
               $mysql_rule_query = "SELECT * FROM " . $mysql_rule_table . " WHERE " . $mysql_rule . " LIMIT 1;";
-				//krumo($mysql_rule_query);
+              //krumo($mysql_rule_query);
               if ( !empty( $wpdb->get_row( $mysql_rule_query ) ) ) {
                 //'MYSQL ERROR :' . 
-				  //krumo($mysql_rule_query);
+                //krumo($mysql_rule_query);
                 return array( 'result' => false, 'html_error' => $prevent_insert_rule_obj->prevented_result_html );
               }
             }
           }
 
         }
-        if ( isset( $column_value[ '__sst__temp' ] ) ) {
-          unset( $column_value[ '__sst__temp' ] );
-        }
-        $columns = array_keys( $column_value );
-        $sql = "INSERT  INTO " . $table . "(`" . implode( '`,`', $columns ) . "`";
-        if ( !empty( $column_mysql_code ) ) {
-          $sql .= ',`' . implode( '`,`', $column_mysql_code_column ) . '`';
-        }
-        $sql .= ") VALUES (";
-        $sql .= "'" . implode( "','", $column_value ) . "'";
-        if ( !empty( $column_mysql_code ) ) {
-          $sql .= ',' . implode( ',', $column_mysql_code );
-        }
-        $sql .= ")";
-        $result = $wpdb->query( $sql );
-        if ( $wpdb->last_error !== '' ) {
-          //$wpdb->print_error();
-          debug::error_log( '$this->add_to_table() MYSQL syntax error:' . $wpdb->print_error() );
-          return array( 'result' => false );
-        } else {
-          return array( 'result' => true, 'insert_id' => $wpdb->insert_id );
-        }
       } else {
-        debug::error_log( 'column_value must Not be empty!' );
+        //debug::error_log( 'no prevent rule id supplied!' );
+        //return array( 'result' => false );
+      }
+
+      if ( isset( $column_value[ '__sst__temp' ] ) ) {
+        unset( $column_value[ '__sst__temp' ] );
+      }
+      $columns = array_keys( $column_value );
+//        krumo($column_value);
+        if($update==true){
+            $sql = "UPDATE " . $table ." SET ";
+            foreach($column_value as $c=>$v){
+                $set_pairs[] = "`".$c."`='".$v."'";
+            }
+             $sql .=  implode( ',', $set_pairs );
+            $sql .= " Where `id`=".$column_value['id']." AND `save_id`='".$column_value['save_id']."'";
+        }else{
+
+          $sql = "INSERT  INTO " . $table . "(`" . implode( '`,`', $columns ) . "`";
+          if ( !empty( $column_mysql_code ) ) {
+            $sql .= ',`' . implode( '`,`', $column_mysql_code_column ) . '`';
+          }
+          $sql .= ") VALUES (";
+          $sql .= "'" . implode( "','", $column_value ) . "'";
+          if ( !empty( $column_mysql_code ) ) {
+            $sql .= ',' . implode( ',', $column_mysql_code );
+          }
+          $sql .= ")";
+        }
+      // krumo($sql);
+      $result = $wpdb->query( $sql );
+      if ( $wpdb->last_error !== '' ) {
+        //$wpdb->print_error();
+        debug::error_log( '$this->add_to_table() MYSQL syntax error:' . $wpdb->print_error() );
         return array( 'result' => false );
+      } else {
+          if($update==true){
+        return array( 'result' => true, 'insert_id' => $column_value['id'] );
+          }else{
+        return array( 'result' => true, 'insert_id' => $wpdb->insert_id );
+          }
       }
     } else {
       debug::error_log( 'column_value must be array!' );

@@ -12,7 +12,7 @@ class form extends data_creator {
     $this->form_data = $this->create_unique_id_data( $this->form_data ); //$this->form_data['unique_id']
     $this->form_data = $this->create_access_data( $this->form_data, $this->form_obj );
     $this->form_data = $this->create_own_data_data( $this->form_data, $this->form_obj );
-
+//krumo($this->vals);
     $this->form_data = $this->create_tag_data( $this->form_data, $this->form_obj ); //$this->form_data['unique_id']
     $this->form_data = $this->create_show_order_data( $this->form_data, $this->form_obj, 'form' );
     /************ submit by Ajax ************/
@@ -134,7 +134,7 @@ jQuery("body").on("submit", "#'.$this->form_data[ 'attrs' ][ 'id' ].'", function
 
 
   function render( $form_data = NULL ) {
-
+      
     return $this->render_form( $form_data );
   }
 }

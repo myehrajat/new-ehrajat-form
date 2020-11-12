@@ -1,7 +1,7 @@
 <?php
 
 function do_all_resister() {
-	wp_dequeue_script('jquery');
+  wp_dequeue_script('jquery');
   wp_deregister_script( 'jquery' );
 	//https://code.jquery.com/jquery-3.5.0.min.js
   wp_register_script( 'jquery', FORM_PLUGIN_URL.'asset/jquery-3.5.0.min.js' );
