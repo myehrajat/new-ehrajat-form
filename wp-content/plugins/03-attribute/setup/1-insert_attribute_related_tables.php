@@ -549,7 +549,7 @@ class insert_attribute_related_tables extends database {
         "`slug` VARCHAR(255) NOT NULL," .
         "`html_type` VARCHAR(255) NOT NULL," .
         "`type` VARCHAR(255) NOT NULL," .
-        "`function` VARCHAR(255) NOT NULL," .
+        "`func` VARCHAR(255) NOT NULL," .
         "`description` LONGTEXT NOT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .
         "`created` DATETIME NOT NULL DEFAULT NOW()," .

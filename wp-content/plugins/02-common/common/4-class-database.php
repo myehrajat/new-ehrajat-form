@@ -6,7 +6,7 @@ interface database_interface {
 
   function check_is_in_table( $arr, $table, $exclude_to_check_arr = NULL );
 
-  function add_to_table( string $table, array $column_value , $prevent_insert_rule_ids,$update);
+  function add_to_table( string $table, array $column_value, $prevent_insert_rule_ids, $update, $dev_show_query );
 
   function drop_tables();
 
@@ -94,7 +94,7 @@ implements database_interface {
 	 $prevent_insert_rule param => sql query and only for value use {column_name} format this function automatically replace it with 'value' note: no need qoutation
   **************************************************/
 
-  function add_to_table( string $table, array $column_value, $column_mysql_code = array(), $prevent_insert_rule_ids = NULL,$update=false ) {
+  function add_to_table( string $table, array $column_value, $column_mysql_code = array(), $prevent_insert_rule_ids = NULL, $update = false, $debugme = false ) {
     global $wpdb;
     if ( !is_array( $column_mysql_code ) ) {
       $column_mysql_code = array();
@@ -105,12 +105,12 @@ implements database_interface {
       if ( !empty( $prevent_insert_rule_ids ) ) {
         //krumo($prevent_insert_rule_ids);
         foreach ( $prevent_insert_rule_ids as $prevent_insert_rule_id ) {
-			
+
           $prevent_insert_rule_obj = $this->get_by_id( $prevent_insert_rule_id, $GLOBALS[ 'sst_tables' ][ 'data_action_prevent_insert_rule' ] );
-			
+
           $mysql_rule = $prevent_insert_rule_obj->mysql_rule;
           $php_rule = $prevent_insert_rule_obj->php_rule;
-			
+
           if ( !empty( $php_rule ) ) {
             $php_rule_check_change = $php_rule;
             //krumo($column_value);
@@ -162,15 +162,15 @@ implements database_interface {
               //$mysql_rule_query = "SELECT * FROM " . $mysql_rule_table . " WHERE " . $mysql_rule . " LIMIT 1;";
               $mysql_rule_query = "SELECT * FROM " . $mysql_rule_table . " WHERE " . $mysql_rule . ";";
               //krumo($mysql_rule_query);
-				
-				$msq_results_count = count($wpdb->get_results( $mysql_rule_query ));
-              if ( $msq_results_count>0 && $update==false ) {
+
+              $msq_results_count = count( $wpdb->get_results( $mysql_rule_query ) );
+              if ( $msq_results_count > 0 && $update == false ) {
                 //'MYSQL ERROR :' . 
                 //krumo($mysql_rule_query);
                 return array( 'result' => false, 'html_error' => $prevent_insert_rule_obj->prevented_result_html );
-              }elseif($msq_results_count>1 && $update==true){
+              } elseif ( $msq_results_count > 1 && $update == true ) {
                 return array( 'result' => false, 'html_error' => $prevent_insert_rule_obj->prevented_result_html );
-			  }
+              }
             }
           }
 
@@ -184,39 +184,41 @@ implements database_interface {
         unset( $column_value[ '__sst__temp' ] );
       }
       $columns = array_keys( $column_value );
-//        krumo($column_value);
-        if($update==true){
-            $sql = "UPDATE " . $table ." SET ";
-            foreach($column_value as $c=>$v){
-                $set_pairs[] = "`".$c."`='".$v."'";
-            }
-             $sql .=  implode( ',', $set_pairs );
-            $sql .= " Where `id`=".$column_value['id']." AND `save_id`='".$column_value['save_id']."'";
-        }else{
-
-          $sql = "INSERT  INTO " . $table . "(`" . implode( '`,`', $columns ) . "`";
-          if ( !empty( $column_mysql_code ) ) {
-            $sql .= ',`' . implode( '`,`', $column_mysql_code_column ) . '`';
-          }
-          $sql .= ") VALUES (";
-          $sql .= "'" . implode( "','", $column_value ) . "'";
-          if ( !empty( $column_mysql_code ) ) {
-            $sql .= ',' . implode( ',', $column_mysql_code );
-          }
-          $sql .= ")";
+      //        krumo($column_value);
+      if ( $update == true ) {
+        $sql = "UPDATE " . $table . " SET ";
+        foreach ( $column_value as $c => $v ) {
+          $set_pairs[] = "`" . $c . "`='" . $v . "'";
         }
-      // krumo($sql);
+        $sql .= implode( ',', $set_pairs );
+        $sql .= " Where `id`=" . $column_value[ 'id' ] . " AND `save_id`='" . $column_value[ 'save_id' ] . "'";
+      } else {
+
+        $sql = "INSERT  INTO " . $table . "(`" . implode( '`,`', $columns ) . "`";
+        if ( !empty( $column_mysql_code ) ) {
+          $sql .= ',`' . implode( '`,`', $column_mysql_code_column ) . '`';
+        }
+        $sql .= ") VALUES (";
+        $sql .= "'" . implode( "','", $column_value ) . "'";
+        if ( !empty( $column_mysql_code ) ) {
+          $sql .= ',' . implode( ',', $column_mysql_code );
+        }
+        $sql .= ")";
+      }
+      if ( $debugme == 'debugme' ) {
+        krumo( $sql );
+      }
       $result = $wpdb->query( $sql );
       if ( $wpdb->last_error !== '' ) {
         //$wpdb->print_error();
         debug::error_log( '$this->add_to_table() MYSQL syntax error:' . $wpdb->print_error() );
         return array( 'result' => false );
       } else {
-          if($update==true){
-        return array( 'result' => true, 'insert_id' => $column_value['id'] );
-          }else{
-        return array( 'result' => true, 'insert_id' => $wpdb->insert_id );
-          }
+        if ( $update == true ) {
+          return array( 'result' => true, 'insert_id' => $column_value[ 'id' ] );
+        } else {
+          return array( 'result' => true, 'insert_id' => $wpdb->insert_id );
+        }
       }
     } else {
       debug::error_log( 'column_value must be array!' );

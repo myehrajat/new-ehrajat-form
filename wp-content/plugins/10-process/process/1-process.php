@@ -30,16 +30,16 @@ class process extends data_creator {
 
           if ( $condition_obj->condition != 'else' ) {
             if ( $i == 0 ) {
-              $eval_condition_functions[] = $condition_obj->function;
+              $eval_condition_functions[] = $condition_obj->func;
               $eval_condition_first = 'if(' . $condition_obj->condition . '){$p = new process(' . $condition_process_id . ');echo $p->render();}';
 
             } else {
-              $eval_condition_functions[] = $condition_obj->function;
+              $eval_condition_functions[] = $condition_obj->func;
 
               $eval_condition_middle .= 'elseif(' . $condition_obj->condition . '){ $p = new process(' . $condition_process_id . ');echo $p->render();}';
             }
           } else {
-            $eval_condition_functions[] = $condition_obj->function;
+            $eval_condition_functions[] = $condition_obj->func;
             $eval_condition_else = 'else{$p = new process(' . $condition_process_id . ');echo $p->render();}';
           }
           $i++;
@@ -217,153 +217,50 @@ class process extends data_creator {
     $wpdb->query( $query );
   }
 
-  function save_vals( $final_vals = NULL ) {
-    //krumo($final_vals);
-    if ( isset( $_REQUEST[ '__sst__unique' ] ) ) {
-      global $wpdb;
-      $db_vals = $this->get_vals();
-      if ( empty( $final_vals ) ) {
-        $files = $this->save_files_to_vals();
-        $form_vals = $_REQUEST;
-        $merged_vals = array_merge( $db_vals, $form_vals, $files );
-      } else {
-        $merged_vals = $final_vals;
-      }
-      //krumo( $merged_vals );
-      $merged_vals = $this->add_missed_vals_key( $merged_vals );
-
-
-      /**************
-      this part is for removing on record on all in delete mode
-      ****************/
-
-      if ( isset( $merged_vals[ '__sst__delete-all' ] )and $this->mode == 'delete' ) {
-        $this->delete_vals( $_REQUEST[ '__sst__unique' ] );
-      }
-      //krumo($merged_vals);
-      //krumo(	data_action::flatten($merged_vals[ '__sst__delete' ] ));
-      if ( isset( $merged_vals[ '__sst__delete' ] )and $this->mode == 'delete' ) {
-        // krumo( $merged_vals[ '__sst__delete' ] );
-        //https://stackoverflow.com/questions/3654295/remove-empty-array-elements
-        //remove all empty, when you want to delete not first precedence will make a null value
-        $merged_vals[ '__sst__delete' ] = array_filter( $merged_vals[ '__sst__delete' ], 'strlen' );
-        //krumo($merged_vals[ '__sst__delete' ]);
-       // krumo( $merged_vals );
-        $to_delete_vals_routes = extra_name_handle::get_trailings_from_array( $merged_vals[ '__sst__delete' ] );
-        //krumo( $to_delete_vals_routes );
-        foreach ( $merged_vals as $col1 => $val1 ) {
-          //if ( !$this->starts_with( '__sst__', $col1 ) ) {
-          foreach ( $to_delete_vals_routes as $to_delete_vals_route ) {
-            if ( $col1 == '__sst__files' ) {
-				/*
-              if ( is_array( $merged_vals[ '__sst__files' ] ) ) {
-                foreach ( $merged_vals[ '__sst__files' ] as $file_input_name => $file_input_values ) {
-                  $merged_vals = ids::run_eval2( EVAL_STR . 'if(isset($merged_vals[\'' . $col1 . '\'][\'' . $file_input_name . '\'][\'name\']' . $to_delete_vals_route . ')){unset($merged_vals[\'' . $col1 . '\'][\'' . $file_input_name . '\'][\'name\']' . $to_delete_vals_route . ');} return $merged_vals;', array( 'name' => 'merged_vals', 'value' => $merged_vals ) );
-
-                  $merged_vals = ids::run_eval2( EVAL_STR . 'if(isset($merged_vals[\'' . $col1 . '\'][\'' . $file_input_name . '\'][\'type\']' . $to_delete_vals_route . ')){unset($merged_vals[\'' . $col1 . '\'][\'' . $file_input_name . '\'][\'type\']' . $to_delete_vals_route . ');} return $merged_vals;', array( 'name' => 'merged_vals', 'value' => $merged_vals ) );
-
-                  $merged_vals = ids::run_eval2( EVAL_STR . 'if(isset($merged_vals[\'' . $col1 . '\'][\'' . $file_input_name . '\'][\'temp_name\']' . $to_delete_vals_route . ')){unset($merged_vals[\'' . $col1 . '\'][\'' . $file_input_name . '\'][\'temp_name\']' . $to_delete_vals_route . ');} return $merged_vals;', array( 'name' => 'merged_vals', 'value' => $merged_vals ) );
-
-                  $merged_vals = ids::run_eval2( EVAL_STR . 'if(isset($merged_vals[\'' . $col1 . '\'][\'' . $file_input_name . '\'][\'error\']' . $to_delete_vals_route . ')){unset($merged_vals[\'' . $col1 . '\'][\'' . $file_input_name . '\'][\'error\']' . $to_delete_vals_route . ');} return $merged_vals;', array( 'name' => 'merged_vals', 'value' => $merged_vals ) );
-
-                  $merged_vals = ids::run_eval2( EVAL_STR . 'if(isset($merged_vals[\'' . $col1 . '\'][\'' . $file_input_name . '\'][\'size\']' . $to_delete_vals_route . ')){unset($merged_vals[\'' . $col1 . '\'][\'' . $file_input_name . '\'][\'size\']' . $to_delete_vals_route . ');} return $merged_vals;', array( 'name' => 'merged_vals', 'value' => $merged_vals ) );
-                }
-				
-              }*/
-            } else {
-              if ( is_array( $merged_vals[ $col1 ] ) ) {
-                $merged_vals = ids::run_eval2( EVAL_STR . 'if(isset($merged_vals[\'' . $col1 . '\']' . $to_delete_vals_route . ')){unset($merged_vals[\'' . $col1 . '\']' . $to_delete_vals_route . ');}return $merged_vals;', array( 'name' => 'merged_vals', 'value' => $merged_vals ) );
-                //
-              }
-            }
-          }
-
-
-          if ( is_array( $merged_vals[ $col1 ] ) ) {
-            //reset number of values
-            $merged_vals[ $col1 ] = array_values( $merged_vals[ $col1 ] );
-           /* if ( is_array( $merged_vals[ '__sst__files' ][ $col1 ][ 'name' ] ) ) {
-              $merged_vals[ '__sst__files' ][ $col1 ][ 'name' ] = array_values( $merged_vals[ '__sst__files' ][ $col1 ][ 'name' ] );
-              $merged_vals[ '__sst__files' ][ $col1 ][ 'type' ] = array_values( $merged_vals[ '__sst__files' ][ $col1 ][ 'type' ] );
-              $merged_vals[ '__sst__files' ][ $col1 ][ 'temp_name' ] = array_values( $merged_vals[ '__sst__files' ][ $col1 ][ 'temp_name' ] );
-              $merged_vals[ '__sst__files' ][ $col1 ][ 'error' ] = array_values( $merged_vals[ '__sst__files' ][ $col1 ][ 'error' ] );
-              $merged_vals[ '__sst__files' ][ $col1 ][ 'size' ] = array_values( $merged_vals[ '__sst__files' ][ $col1 ][ 'size' ] );
-            }*/
-          }
-          //}
-        }
-      }
-	$vals = $this->prepare_vals_to_save($merged_vals);
-
-      if ( empty( $db_vals ) ) {
-
-        $q = $wpdb->prepare( "INSERT INTO " . $GLOBALS[ 'sst_tables' ][ 'vals' ] .
-          " (`key`, `value`, `owner`, `created`, `modified`) 
-							VALUES ('" . "%s" . "','" . "%s" . "'," . "%d" . ",NOW(),NOW());", array( $_REQUEST[ '__sst__unique' ], $vals, $this->user_id ) );
-      } else {
-        $q = $wpdb->prepare( "UPDATE " . $GLOBALS[ 'sst_tables' ][ 'vals' ] .
-          " SET `value`='" . "%s" . "', `owner`=" . "%d" . ", `modified`=NOW() WHERE `key`='" . "%s" . "';", array( $vals, $this->user_id, $_REQUEST[ '__sst__unique' ] ) );
-      }
-      $wpdb->query( $q );
-      $this->vals = $merged_vals;
-      return $this->vals;
-    } elseif ( $this->mode == 'edit'
-      or $this->mode == 'view'
-      or $this->mode == 'delete' ) {
-      //krumo('sssssssss');
-      $record_id = $_REQUEST[ PROCESS_RECORD_ID_KEYWORD ];
-      $this->vals = $this->get_vals( $record_id );
-      //        krumo($this->vals);
-      $this->vals[ '__sst__unique' ] = $_REQUEST[ PROCESS_RECORD_ID_KEYWORD ];
-      //krumo($this->vals);
+  function remove_unnecessary_vals_data( $vals ) {
+    $save_id = $vals[ '__sst__unique' ];
+    if ( isset( $vals[ '__sst__files' ] ) ) {
+      unset( $vals[ '__sst__files' ] );
     }
+    unset( $vals[ '__sst__data_actions' ] );
+    unset( $vals[ '__sst__mode' ] );
+    unset( $vals[ '__sst__step' ] );
+    unset( $vals[ '__sst__unique' ] );
+    unset( $vals[ 'mode' ] );
+    //krumo($this->vals);
+    //krumo($save_id);
+    return $this->update_vals( $vals, $save_id );
+
+
   }
-function update_vals($vals,$save_id){
-	global  $wpdb;
-	$jsonedvals = $this->prepare_vals_to_save($vals);
-	 $q = $wpdb->prepare( "UPDATE " . $GLOBALS[ 'sst_tables' ][ 'vals' ] .
-          " SET `value`='" . "%s" . "', `owner`=" . "%d" . ", `modified`=NOW() WHERE `key`='" . "%s" . "';", array( $jsonedvals, $this->user_id, $save_id ) );
-      $wpdb->query( $q );
 
-}
-function prepare_vals_to_save($merged_vals){
-      ksort( $merged_vals );
-      $vals = json_encode( $merged_vals );
-      if ( PROCESS_COMPRESS_VALS == true ) {
-        $vals = gzdeflate( $vals, 9 );
-      }
-	return $vals;
-}
-	function get_vals( $__sst__unique = NULL ) {
-    if ( empty( $__sst__unique ) ) {
-      $__sst__unique = $_REQUEST[ '__sst__unique' ];
+
+  function update_vals( $vals, $save_id ) {
+    global $wpdb;
+    krumo( $vals );
+    // krumo($save_id );
+    $jsonedvals = $this->prepare_vals_to_save( $vals );
+    $q = $wpdb->prepare( "UPDATE " . $GLOBALS[ 'sst_tables' ][ 'vals' ] .
+      " SET `value`='" . "%s" . "', `owner`=" . "%d" . ", `modified`=NOW() WHERE `key`='" . "%s" . "';", array( $jsonedvals, $this->user_id, $save_id ) );
+    // krumo($q );
+    if ( $debugme = 'debugme' ) {
+      krumo( $q );
     }
-    if ( !empty( $__sst__unique ) ) {
-      global $wpdb;
-      $q = "SELECT * FROM " . $GLOBALS[ 'sst_tables' ][ 'vals' ] . "  WHERE `key`='" . $__sst__unique . "' LIMIT 1;";
-      $results = $wpdb->get_results( $q );
-      if ( !empty( $results ) ) {
-        $dbvals = $results[ 0 ]->value;
-        $vals = $dbvals;
-        $vals = @ gzinflate( $dbvals );
+    $wpdb->query( $q );
+    return $vals;
 
-        if ( $vals === false ) {
-          $vals = json_decode( $dbvals, TRUE );
-        } else {
-          $vals = json_decode( $vals, TRUE );
-        }
-        $vals = stripslashes_deep( $vals );
-        if ( !is_array( $vals ) ) {
-          $vals = array();
-        }
-      } else {
-        $vals = array();
-      }
-    } else {
-      $vals = array();
+  }
+
+  function prepare_vals_to_save( $merged_vals ) {
+    krumo( $merged_vals );
+    ksort( $merged_vals );
+    $vals = json_encode( $merged_vals );
+    if ( PROCESS_COMPRESS_VALS == true ) {
+      $vals = gzdeflate( $vals, 9 );
     }
     return $vals;
   }
+
 
   function get_process_object( $process_id_str ) {
     $process_id = $this->get_ids( $process_id_str, true );
@@ -489,6 +386,147 @@ function prepare_vals_to_save($merged_vals){
 		}
 		*/
   }
+  /*
+
+  ██╗░░░██╗░█████╗░██╗░░░░░░██████╗
+  ██║░░░██║██╔══██╗██║░░░░░██╔════╝
+  ╚██╗░██╔╝███████║██║░░░░░╚█████╗░
+  ░╚████╔╝░██╔══██║██║░░░░░░╚═══██╗
+  ░░╚██╔╝░░██║░░██║███████╗██████╔╝
+  ░░░╚═╝░░░╚═╝░░╚═╝╚══════╝╚═════╝░
+  */
+  /*
+get vals and if need decompress data and return an array empty array means nothing found
+
+  */
+  function get_vals( $__sst__unique = NULL, $debugme = 'false' ) {
+    if ( empty( $__sst__unique ) ) {
+      $__sst__unique = $_REQUEST[ '__sst__unique' ];
+    }
+    if ( empty( $__sst__unique ) ) {
+      $vals = array();
+      goto RET;
+    }
+    global $wpdb;
+    $q = $wpdb->prepare( "SELECT * FROM " . $GLOBALS[ 'sst_tables' ][ 'vals' ] . "  WHERE `key`='%s' LIMIT 1;", array( $__sst__unique ) );
+    if ( $debugme == 'debugme' ) {
+      krumo( $q );
+    }
+
+    $results = $wpdb->get_results( $q );
+    if ( empty( $results ) ) {
+      $vals = array();
+      goto RET;
+    }
+
+    $dbvals = $results[ 0 ]->value;
+    $vals = @ gzinflate( $dbvals );
+
+    if ( $vals === false ) {
+      $vals = json_decode( $dbvals, TRUE );
+    } else {
+      $vals = json_decode( $vals, TRUE );
+    }
+    //wp_function
+    $vals = stripslashes_deep( $vals );
+    if ( !is_array( $vals ) ) {
+      $vals = array();
+    }
+    RET:
+      if ( $debugme == 'debugme' ) {
+        krumo( $vals );
+      }
+    return $vals;
+  }
+
+
+  function save_vals( $debugme = 'false' ) {
+	  //save data on submit
+    if ( isset( $_REQUEST[ '__sst__unique' ] ) ) {
+      global $wpdb;
+      $db_vals = $this->get_vals();
+
+      $files = $this->save_files_to_vals();
+      $form_vals = $_REQUEST;
+      $merged_vals = array_merge( $db_vals, $form_vals, $files );
+      //krumo( $merged_vals );
+      $merged_vals = $this->add_missed_vals_key( $merged_vals );
+
+
+      /**************
+      this part is for removing on record on all in delete mode
+      ****************/
+
+      if ( isset( $merged_vals[ '__sst__delete-all' ] )and $this->mode == 'delete' ) {
+        $this->delete_vals( $_REQUEST[ '__sst__unique' ] );
+      }
+      //krumo( $merged_vals );
+      //krumo($merged_vals);
+      //krumo(	data_action::flatten($merged_vals[ '__sst__delete' ] ));
+      if ( isset( $merged_vals[ '__sst__delete' ] )and $this->mode == 'delete' ) {
+        // krumo( $merged_vals[ '__sst__delete' ] );
+        //https://stackoverflow.com/questions/3654295/remove-empty-array-elements
+        //remove all empty, when you want to delete not first precedence will make a null value
+        $merged_vals[ '__sst__delete' ] = array_filter( $merged_vals[ '__sst__delete' ], 'strlen' );
+        //krumo($merged_vals[ '__sst__delete' ]);
+        // krumo( $merged_vals );
+        $to_delete_vals_routes = extra_name_handle::get_trailings_from_array( $merged_vals[ '__sst__delete' ] );
+        krumo( $merged_vals );
+
+        foreach ( $merged_vals as $col1 => $val1 ) {
+          //if ( !$this->starts_with( '__sst__', $col1 ) ) {
+          foreach ( $to_delete_vals_routes as $to_delete_vals_route ) {
+
+            if ( is_array( $merged_vals[ $col1 ] ) ) {
+              $merged_vals = ids::run_eval2( EVAL_STR . 'if(isset($merged_vals[\'' . $col1 . '\']' . $to_delete_vals_route . ')){unset($merged_vals[\'' . $col1 . '\']' . $to_delete_vals_route . ');}return $merged_vals;', array( 'name' => 'merged_vals', 'value' => $merged_vals ) );
+            }
+
+          }
+
+
+          if ( is_array( $merged_vals[ $col1 ] ) ) {
+            //reset number of values
+            $merged_vals[ $col1 ] = array_values( $merged_vals[ $col1 ] );
+            /* if ( is_array( $merged_vals[ '__sst__files' ][ $col1 ][ 'name' ] ) ) {
+               $merged_vals[ '__sst__files' ][ $col1 ][ 'name' ] = array_values( $merged_vals[ '__sst__files' ][ $col1 ][ 'name' ] );
+               $merged_vals[ '__sst__files' ][ $col1 ][ 'type' ] = array_values( $merged_vals[ '__sst__files' ][ $col1 ][ 'type' ] );
+               $merged_vals[ '__sst__files' ][ $col1 ][ 'temp_name' ] = array_values( $merged_vals[ '__sst__files' ][ $col1 ][ 'temp_name' ] );
+               $merged_vals[ '__sst__files' ][ $col1 ][ 'error' ] = array_values( $merged_vals[ '__sst__files' ][ $col1 ][ 'error' ] );
+               $merged_vals[ '__sst__files' ][ $col1 ][ 'size' ] = array_values( $merged_vals[ '__sst__files' ][ $col1 ][ 'size' ] );
+             }*/
+          }
+          //}
+        }
+      }
+      //krumo( $merged_vals );
+      $vals = $this->prepare_vals_to_save( $merged_vals );
+
+      if ( empty( $db_vals ) ) {
+
+        $q = $wpdb->prepare( "INSERT INTO " . $GLOBALS[ 'sst_tables' ][ 'vals' ] .
+          " (`key`, `value`, `owner`, `created`, `modified`) 
+							VALUES ('" . "%s" . "','" . "%s" . "'," . "%d" . ",NOW(),NOW());", array( $_REQUEST[ '__sst__unique' ], $vals, $this->user_id ) );
+      } else {
+        $q = $wpdb->prepare( "UPDATE " . $GLOBALS[ 'sst_tables' ][ 'vals' ] .
+          " SET `value`='" . "%s" . "', `owner`=" . "%d" . ", `modified`=NOW() WHERE `key`='" . "%s" . "';", array( $vals, $this->user_id, $_REQUEST[ '__sst__unique' ] ) );
+      }
+      $wpdb->query( $q );
+      $this->vals = $merged_vals;
+      return $this->vals;
+    } elseif ( $this->mode == 'edit'
+      or $this->mode == 'view'
+      or $this->mode == 'delete' ) {
+      //krumo('sssssssss');
+      $record_id = $_REQUEST[ PROCESS_RECORD_ID_KEYWORD ];
+      $this->vals = $this->get_vals( $record_id );
+      //        krumo($this->vals);
+      $this->vals[ '__sst__unique' ] = $_REQUEST[ PROCESS_RECORD_ID_KEYWORD ];
+      //krumo($this->vals);
+    }
+  }
+function save_vals_on_submit(){
+	
+}
 
   function sample_vals() {
     $test[ 'input_name_1' ][ 0 ] = '';

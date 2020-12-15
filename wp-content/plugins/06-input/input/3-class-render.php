@@ -460,15 +460,12 @@ class render extends database {
           $input = '<input' . $this->render_attrs( $input_data[ 'attrs' ] ) . '>';
           break;
         case "file":
-		  //krumo( $this->vals);
+		 // krumo( $this->vals);
 
           if ( empty( $input_data[ 'attrs' ][ 'value' ] ) ) {
-			  			  		  krumo( 'ddddddddddd');
-
             $input = '<input' . $this->render_attrs( $input_data[ 'attrs' ] ) . '>';
           } else {
 			  		 // krumo( $input_data);
-			  		  krumo( $input_data);
             $input = '<image_input id="' . $input_data[ 'unique_id' ] . '_file_place_holder">';
             $input .= '<a href="' . $input_data[ 'attrs' ][ 'value' ] . '">Show File</a>';
             if ( $input_data[ 'access' ][ 'editable' ] == 'yes'and $this->mode=='edit' ) {

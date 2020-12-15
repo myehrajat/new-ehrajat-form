@@ -36,7 +36,7 @@ class input extends data_creator {
         $input_type_id = $input_obj->type_id;
         $this->input_data[ 'input_type' ] = $this->common_attr_obj->input_type;
         $this->input_data[ 'input_html_type' ] = $this->common_attr_obj->input_html_type;
-        $this->input_data[ 'function' ] = $this->common_attr_obj->input_type_obj->function;
+        $this->input_data[ 'function' ] = $this->common_attr_obj->input_type_obj->func;
 		
         $this->input_data['modal'] = $this->common_attr_obj->modal_data;
 		//krumo($this->input_data['modal']);
