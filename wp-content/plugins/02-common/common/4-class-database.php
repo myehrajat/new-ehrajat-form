@@ -105,10 +105,12 @@ implements database_interface {
       if ( !empty( $prevent_insert_rule_ids ) ) {
         //krumo($prevent_insert_rule_ids);
         foreach ( $prevent_insert_rule_ids as $prevent_insert_rule_id ) {
+			
           $prevent_insert_rule_obj = $this->get_by_id( $prevent_insert_rule_id, $GLOBALS[ 'sst_tables' ][ 'data_action_prevent_insert_rule' ] );
+			
           $mysql_rule = $prevent_insert_rule_obj->mysql_rule;
-
           $php_rule = $prevent_insert_rule_obj->php_rule;
+			
           if ( !empty( $php_rule ) ) {
             $php_rule_check_change = $php_rule;
             //krumo($column_value);
@@ -157,13 +159,18 @@ implements database_interface {
             }
             // krumo();
             if ( $mysql_rule_check_change != $mysql_rule ) {
-              $mysql_rule_query = "SELECT * FROM " . $mysql_rule_table . " WHERE " . $mysql_rule . " LIMIT 1;";
+              //$mysql_rule_query = "SELECT * FROM " . $mysql_rule_table . " WHERE " . $mysql_rule . " LIMIT 1;";
+              $mysql_rule_query = "SELECT * FROM " . $mysql_rule_table . " WHERE " . $mysql_rule . ";";
               //krumo($mysql_rule_query);
-              if ( !empty( $wpdb->get_row( $mysql_rule_query ) ) ) {
+				
+				$msq_results_count = count($wpdb->get_results( $mysql_rule_query ));
+              if ( $msq_results_count>0 && $update==false ) {
                 //'MYSQL ERROR :' . 
                 //krumo($mysql_rule_query);
                 return array( 'result' => false, 'html_error' => $prevent_insert_rule_obj->prevented_result_html );
-              }
+              }elseif($msq_results_count>1 && $update==true){
+                return array( 'result' => false, 'html_error' => $prevent_insert_rule_obj->prevented_result_html );
+			  }
             }
           }
 

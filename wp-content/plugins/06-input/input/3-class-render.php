@@ -222,6 +222,10 @@ class render extends database {
     /********************
     $input_data_value is the value of input name from vals
     ***********/
+	  	//krumo($this->vals);
+
+	//krumo($GLOBALS[ 'vals' ]);
+
     $numbers = $this->get_name_and_suffix_array_key_number( $input_data[ 'attrs' ][ 'name' ], 'number' );
     if ( empty( $numbers ) ) {
       $input_data_value = $GLOBALS[ 'vals' ][ $input_data[ 'attrs' ][ 'name' ] ];
@@ -248,6 +252,8 @@ class render extends database {
         $multiple_select = false;
       }
     }
+	  			 // krumo($input_data_value);
+
     if ( isset( $input_data_value )or $multiple_select == true ) {
 
       //krumo($input_data[ 'input_html_type' ]);
@@ -278,6 +284,8 @@ class render extends database {
           }
           break;
         case "file":
+			//  krumo($input_data);
+		 // krumo($input_data_value);
           $input_data[ 'attrs' ][ 'value' ] = $input_data_value;
           break;
         case "checkbox":
@@ -435,7 +443,7 @@ class render extends database {
       //krumo('render_block');
       //krumo($this->vals);
       //krumo($GLOBALS[ 'vals' ]);
-      if ( isset( $GLOBALS[ 'vals' ] ) ) {
+      if ( isset( $this->vals ) ) {
         $input_data = $this->change_value_by_vals( $input_data );
       }
       //		krumo($input_data );
@@ -449,21 +457,26 @@ class render extends database {
         case "image":
         case "checkbox":
         case "radio":
-
           $input = '<input' . $this->render_attrs( $input_data[ 'attrs' ] ) . '>';
           break;
         case "file":
+		  //krumo( $this->vals);
+
           if ( empty( $input_data[ 'attrs' ][ 'value' ] ) ) {
+			  			  		  krumo( 'ddddddddddd');
+
             $input = '<input' . $this->render_attrs( $input_data[ 'attrs' ] ) . '>';
           } else {
+			  		 // krumo( $input_data);
+			  		  krumo( $input_data);
             $input = '<image_input id="' . $input_data[ 'unique_id' ] . '_file_place_holder">';
-            $input .= '<a href="' . $todovalue . '">Show File</a>';
-            if ( $input_data[ 'access' ][ 'editable' ] == 'yes' ) {
-              $input .= '<a href="#" id="' . $input_data[ 'unique_id' ] . '_file_controller_remove">Remove File</a>';
+            $input .= '<a href="' . $input_data[ 'attrs' ][ 'value' ] . '">Show File</a>';
+            if ( $input_data[ 'access' ][ 'editable' ] == 'yes'and $this->mode=='edit' ) {
+              $input .= ' | <a href="#" id="' . $input_data[ 'unique_id' ] . '_file_controller_remove">Remove File</a>';
             }
             $input .= '</image_input>';
-            $input_data[ 'attrs' ][ 'disabled' ] = 'disabled';
-            $input_data[ 'attrs' ][ 'hidden' ] = 'hidden';
+            $input_data[ 'tag' ] = array();
+			$input_data[ 'attrs' ][ 'type' ] = 'hidden';
             $input .= '<input' . $this->render_attrs( $input_data[ 'attrs' ] ) . '>';
 
           }
@@ -482,6 +495,7 @@ class render extends database {
         case "week":
         case "datetime":
         case "color":
+
           $datalist = $this->render_datalist( $input_data );
           $input = '<input' . $this->render_attrs( $input_data[ 'attrs' ] ) . '>' . $datalist;
           break;
@@ -600,6 +614,11 @@ class render extends database {
       and $this->mode == 'add' ) {
       return '';
     }
+    if ( $this->mode == 'delete'
+      and isset( $block_data[ 'inputs_data' ][ 0 ][ 'attrs' ][ 'name' ] ) ) {
+      $trailing = extra_name_handle::get_trailing_from_string( $block_data[ 'inputs_data' ][ 0 ][ 'attrs' ][ 'name' ] );
+      $del_controller = '<div style="width:100%;background-color: orangered;text-align: center;font-size: 22px;"><input type="checkbox" name="__sst__delete' . $trailing . '" value="delete">Delete this block data!</div>';
+    }
 
     if ( isset( $block_data[ 'inputs_data' ] ) ) {
 
@@ -613,6 +632,7 @@ class render extends database {
         $elements[ 'input' ] = $elements[ 'input' ] . $this->render_input( $input_data );
       }
     }
+    $elements[ 'input' ] = $del_controller . $elements[ 'input' ];
     # This function MUST be before rendering children and fieldsets
     $extra_block = $this->recursively_generate_block( $block_data );
     //krumo($extra_block);
@@ -666,7 +686,7 @@ class render extends database {
     # Hide add and remove controller because yet there is another extra need to be generated
     # Only last generated element need controller
     $block_data[ 'extra' ][ 'add_controller_data' ][ 'style' ] = 'display: none;';
-	  
+
     $new_extra_data = extra::render_extra_controller( $block_data[ 'extra' ][ 'add_controller_data' ], $block_data[ 'extra' ][ 'remove_controller_data' ] );
     $block_data[ 'extra' ][ 'add_controller' ] = $new_extra_data[ 'extra_add_controller' ];
     $block_data[ 'extra' ][ 'remove_controller' ] = $new_extra_data[ 'extra_remove_controller' ];
@@ -694,7 +714,8 @@ class render extends database {
 
   function extra_block_set_value( $block_data, $input_data ) {
     if ( $this->mode == 'view'
-      or $this->mode == 'edit' ) {
+      or $this->mode == 'edit'
+      or $this->mode == 'delete' ) {
       if ( $block_data[ 'extra' ][ 'max' ] > 0 and isset( $this->vals[ $input_data[ 'attrs' ][ 'name' ] ] ) ) { //change value of
 
         $input_data[ 'attrs' ][ 'value' ] = $this->vals[ $input_data[ 'attrs' ][ 'name' ] ];
@@ -715,11 +736,12 @@ class render extends database {
     $tmp_arr = explode( '[', $first_input_name_for_extra );
     $tmp_arr[ 0 ] = '["' . $tmp_arr[ 0 ] . '"]';
     $isset_first_input_val = $this->run_eval2( EVAL_STR . 'return isset($v' . implode( '[', $tmp_arr ) . ');', array( 'name' => 'v', 'value' => $this->vals ) );
-   // krumo( $isset_first_input_val );
+    // krumo( $isset_first_input_val );
     //check is the next block first input is set 
     if ( $block_data[ 'extra' ][ 'max' ] > 0 and( $this->mode == 'view'
-        or $this->mode == 'edit' )and $isset_first_input_val ) {
-        
+        or $this->mode == 'edit'
+        or $this->mode == 'delete' )and $isset_first_input_val ) {
+
       $first_input_name = reset( $block_data[ 'inputs_data' ] )[ 'attrs' ][ 'name' ];
       $current_input_num = $this->last_number_of_element( $first_input_name, '[', ']' );
       $block_data[ 'unique_id' ] = $this->add_up_extra( $block_data[ 'unique_id' ], '≪', '≫' );
@@ -727,22 +749,21 @@ class render extends database {
         $block_data[ 'inputs_data' ][ $input_key ][ 'unique_id' ] = $this->add_up_extra( $input_data[ 'unique_id' ], '≪', '≫' );
         $block_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'name' ] = $this->add_up_extra( $input_data[ 'attrs' ][ 'name' ], '[', ']' );
         $block_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'id' ] = $this->add_up_extra( $input_data[ 'attrs' ][ 'id' ], '≪', '≫' );
-        $block_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'before' ]=
-            str_replace( $input_data[ 'attrs' ][ 'name' ]
-                    ,$block_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'name' ],
-                   $block_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'before' ]);
-        $block_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'after' ] = 
-            str_replace( $input_data[ 'attrs' ][ 'name' ],
-                    $block_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'name' ],
-                    $block_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'after' ]);
-        $block_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'before' ]= 
-            str_replace( $input_data[ 'attrs' ][ 'id' ],
-                    $block_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'id' ],
-                    $block_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'before' ]);
-       $block_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'after' ]=
-           str_replace($input_data[ 'attrs' ][ 'id' ],
-                    $block_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'id' ],
-                    $block_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'after' ]);
+        $block_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'before' ] =
+          str_replace( $input_data[ 'attrs' ][ 'name' ], $block_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'name' ],
+            $block_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'before' ] );
+        $block_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'after' ] =
+          str_replace( $input_data[ 'attrs' ][ 'name' ],
+            $block_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'name' ],
+            $block_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'after' ] );
+        $block_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'before' ] =
+          str_replace( $input_data[ 'attrs' ][ 'id' ],
+            $block_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'id' ],
+            $block_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'before' ] );
+        $block_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'after' ] =
+          str_replace( $input_data[ 'attrs' ][ 'id' ],
+            $block_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'id' ],
+            $block_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'after' ] );
 
       }
       if ( !empty( $block_data[ 'children' ] ) ) {
@@ -757,7 +778,7 @@ class render extends database {
       //krumo('sssssss');
       return NULL;
     }
-//    krumo($extra_block_data);
+    //    krumo($extra_block_data);
     return $extra_block_data;
   }
 
@@ -850,7 +871,11 @@ class render extends database {
       and $this->mode == 'add' ) {
       return '';
     }
-
+    if ( $this->mode == 'delete'
+      and isset( $fieldset_data[ 'inputs_data' ][ 0 ][ 'attrs' ][ 'name' ] ) ) {
+      $trailing = extra_name_handle::get_trailing_from_string( $fieldset_data[ 'inputs_data' ][ 0 ][ 'attrs' ][ 'name' ] );
+      $del_controller = '<div style="width:100%;background-color: orangered;text-align: center;font-size: 22px;"><input type="checkbox" name="__sst__delete' . $trailing . '" value="delete">Delete this fieldset data!</div>';
+    }
 
     if ( isset( $fieldset_data[ 'inputs_data' ] ) ) {
       foreach ( $fieldset_data[ 'inputs_data' ] as $input_data ) {
@@ -858,7 +883,7 @@ class render extends database {
         $elements[ 'input' ] = $elements[ 'input' ] . $this->render_input( $input_data );
       }
     }
-
+$elements[ 'input' ] = $del_controller .$elements[ 'input' ];
     # This function MUST be before rendering children and blocks
     $extra_fieldset = $this->recursively_generate_fieldset( $fieldset_data );
 
@@ -953,7 +978,8 @@ class render extends database {
 
   function extra_fieldset_set_value( $fieldset_data, $input_data ) {
     if ( $this->mode == 'view'
-      or $this->mode == 'edit' ) {
+      or $this->mode == 'edit'
+      or $this->mode == 'delete' ) {
       if ( $fieldset_data[ 'extra' ][ 'max' ] > 0 and isset( $this->vals[ $input_data[ 'attrs' ][ 'name' ] ] ) ) { //change value of
 
         $input_data[ 'attrs' ][ 'value' ] = $this->vals[ $input_data[ 'attrs' ][ 'name' ] ];
@@ -963,11 +989,11 @@ class render extends database {
     }
     return $input_data;
   }
-/*
+  /*
 
 
 
-*/
+  */
   function extra_fieldset_creator_based_vals( $fieldset_data ) {
     $extra_fieldset_data = array();
     $first_input_name = reset( $fieldset_data[ 'inputs_data' ] )[ 'attrs' ][ 'name' ];
@@ -975,11 +1001,12 @@ class render extends database {
     $tmp_arr = explode( '[', $first_input_name_for_extra );
     $tmp_arr[ 0 ] = '["' . $tmp_arr[ 0 ] . '"]';
     $isset_first_input_val = $this->run_eval2( EVAL_STR . 'return isset($v' . implode( '[', $tmp_arr ) . ');', array( 'name' => 'v', 'value' => $this->vals ) );
-      
-      
+
+
     //check is the next fieldset first input is set 
     if ( $fieldset_data[ 'extra' ][ 'max' ] > 0 and( $this->mode == 'view'
-        or $this->mode == 'edit' )and $isset_first_input_val ) {
+        or $this->mode == 'edit'
+        or $this->mode == 'delete' )and $isset_first_input_val ) {
       $first_input_name = reset( $fieldset_data[ 'inputs_data' ] )[ 'attrs' ][ 'name' ];
       $current_input_num = $this->last_number_of_element( $first_input_name, '[', ']' );
 
@@ -988,22 +1015,21 @@ class render extends database {
         $fieldset_data[ 'inputs_data' ][ $input_key ][ 'unique_id' ] = $this->add_up_extra( $input_data[ 'unique_id' ], '≪', '≫' );
         $fieldset_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'name' ] = $this->add_up_extra( $input_data[ 'attrs' ][ 'name' ], '[', ']' );
         $fieldset_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'id' ] = $this->add_up_extra( $input_data[ 'attrs' ][ 'id' ], '≪', '≫' );
-        $fieldset_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'before' ]=
-            str_replace( $input_data[ 'attrs' ][ 'name' ]
-                    ,$fieldset_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'name' ],
-                   $fieldset_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'before' ]);
-        $fieldset_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'after' ] = 
-            str_replace( $input_data[ 'attrs' ][ 'name' ],
-                    $fieldset_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'name' ],
-                    $fieldset_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'after' ]);
-        $fieldset_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'before' ]= 
-            str_replace( $input_data[ 'attrs' ][ 'id' ],
-                    $fieldset_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'id' ],
-                    $fieldset_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'before' ]);
-       $fieldset_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'after' ]=
-           str_replace($input_data[ 'attrs' ][ 'id' ],
-                    $fieldset_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'id' ],
-                    $fieldset_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'after' ]);
+        $fieldset_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'before' ] =
+          str_replace( $input_data[ 'attrs' ][ 'name' ], $fieldset_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'name' ],
+            $fieldset_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'before' ] );
+        $fieldset_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'after' ] =
+          str_replace( $input_data[ 'attrs' ][ 'name' ],
+            $fieldset_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'name' ],
+            $fieldset_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'after' ] );
+        $fieldset_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'before' ] =
+          str_replace( $input_data[ 'attrs' ][ 'id' ],
+            $fieldset_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'id' ],
+            $fieldset_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'before' ] );
+        $fieldset_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'after' ] =
+          str_replace( $input_data[ 'attrs' ][ 'id' ],
+            $fieldset_data[ 'inputs_data' ][ $input_key ][ 'attrs' ][ 'id' ],
+            $fieldset_data[ 'inputs_data' ][ $input_key ][ 'tag' ][ 'after' ] );
       }
       if ( !empty( $fieldset_data[ 'children' ] ) ) {
         $fieldset_data = $this->extra_children_fieldset_creator( $fieldset_data );
@@ -1065,24 +1091,31 @@ class render extends database {
 
 
   function render_form( $form_data, $process_data = NULL ) {
-    //krumo( $form_data);
+    // krumo($this->vals);
     //krumo( $this->vals);
     if ( $form_data == NULL ) {
       $form_data = $this->form_data;
     }
-    if ( $form_data[ 'access' ][ 'editable' ] == 'no'
-      and $this->mode == 'edit' ) {
-      //mode is global so in input mode is edit and all inputs are disabled
-      $form_data[ 'disabled' ] = 'disabled';
-    }
-    if ( $form_data[ 'access' ][ 'addable' ] == 'no'
-      and $this->mode == 'add' ) {
+    //krumo($form_data[ 'access' ]);
+    if ( ( $form_data[ 'access' ][ 'visible' ] == 'no'
+        and $this->mode == 'visible' )or( $form_data[ 'access' ][ 'editable' ] == 'no'
+        and $this->mode == 'edit' )or( $form_data[ 'access' ][ 'addable' ] == 'no'
+        and $this->mode == 'add' )or $form_data[ 'access' ][ 'deletable' ] == 'no'
+      and $this->mode == 'delete' ) {
+      //$form_data[ 'disabled' ] = 'disabled';
       return '';
+    }
+    if ( $this->mode == 'delete' ) {
+      $del_controller = '<div style="width:100%;background-color: orangered;text-align: center;font-size: 22px;"><input type="checkbox" name="__sst__delete-all" value="delete-all">Delete all data!</div>';
     }
     if ( isset( $form_data[ 'inputs_data' ] ) ) {
       foreach ( $form_data[ 'inputs_data' ] as $input_data ) {
+        if ( $input_data[ 'input_html_type' ] == 'submit'
+          and $this->mode == 'delete' ) {
+          unset( $input_data[ 'attrs' ][ 'readonly' ] );
+          unset( $input_data[ 'attrs' ][ 'disabled' ] );
+        }
         $elements[ 'input' ] = $elements[ 'input' ] . $this->render_input( $input_data );
-
       }
     }
     //krumo('render_form');
@@ -1101,7 +1134,7 @@ class render extends database {
       }
     }
     $form_prefix = '<sst-form id="' . $form_data[ 'unique_id' ] . '">' . $form_data[ 'tag' ][ 'before' ] . '<form ' . $this->render_attrs( $form_data[ 'attrs' ] ) . '>';
-
+    $form_prefix .= $del_controller;
     $form = $elements[ $form_data[ 'order' ][ 'show_first' ] ] . $elements[ $form_data[ 'order' ][ 'show_second' ] ] . $elements[ $form_data[ 'order' ][ 'show_third' ] ];
     //krumo($this->attr_changer_code);
     // $this->attr_changer_code added by input render
@@ -1122,7 +1155,7 @@ class render extends database {
     //krumo('render_form');
     //krumo($this->vals);
 
-    //krumo( $form_suffix  );
+    //krumo( $form_suffix  );op
     $form_suffix .= '</form>' . $form_data[ 'tag' ][ 'after' ] . '</sst-form>';
     return $form_prefix . $form . $form_suffix;
 

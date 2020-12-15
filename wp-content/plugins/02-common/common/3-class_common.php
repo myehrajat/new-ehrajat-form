@@ -122,22 +122,24 @@ implements common_interface {
   }
 
   function get_mode() {
+    $possible_modes = array( 'add', 'edit', 'view', 'delete' );
     /* This part  */
-    $mode = strtolower( $_REQUEST[ COMMON_MODE_KEYWORD ] );
     if ( isset( $_REQUEST[ COMMON_MODE_KEYWORD ] ) ) {
-      $mode = $_REQUEST[ COMMON_MODE_KEYWORD ];
+      $mode = strtolower( $_REQUEST[ COMMON_MODE_KEYWORD ] );
     } elseif ( isset( $_REQUEST[ '__sst__mode' ] ) ) {
-        $mode = $_REQUEST[ '__sst__mode' ];
+        $mode = strtolower( $_REQUEST[ '__sst__mode' ] );
       } else {
         $mode = 'add';
       }
       /* This part is to use outside of class as standalone */
-    if ( isset( $this ) ) {
-      $this->mode = $mode;
-
+    if ( in_array( $mode, $possible_modes ) ) {
+      if ( isset( $this ) ) {
+        $this->mode = $mode;
+      } else {
+        return $mode;
+      }
     } else {
-      return $mode;
-
+      debug::error_log( '$possible_modes are add,edit,view,delete mode you have provided not match' );
     }
   }
 

@@ -30,16 +30,16 @@ class process extends data_creator {
 
           if ( $condition_obj->condition != 'else' ) {
             if ( $i == 0 ) {
-              $eval_condition_functions[] = $condition_obj-> function;
+              $eval_condition_functions[] = $condition_obj->function;
               $eval_condition_first = 'if(' . $condition_obj->condition . '){$p = new process(' . $condition_process_id . ');echo $p->render();}';
 
             } else {
-              $eval_condition_functions[] = $condition_obj-> function;
+              $eval_condition_functions[] = $condition_obj->function;
 
               $eval_condition_middle .= 'elseif(' . $condition_obj->condition . '){ $p = new process(' . $condition_process_id . ');echo $p->render();}';
             }
           } else {
-            $eval_condition_functions[] = $condition_obj-> function;
+            $eval_condition_functions[] = $condition_obj->function;
             $eval_condition_else = 'else{$p = new process(' . $condition_process_id . ');echo $p->render();}';
           }
           $i++;
@@ -94,12 +94,12 @@ class process extends data_creator {
     }
 
   }
-	
+
   /*******************
   this function loop through vals and return an array which its key is level and value is most value
 
   **********************/
-	/*
+  /*
   function find_toppest_key( $merged_vals, $level = 1 ) {
     //$merged_vals = $this->sample_vals();
     static $all;
@@ -142,8 +142,8 @@ class process extends data_creator {
     return $all;
   }
   */
-/* fill array whith range key*/
-  
+  /* fill array whith range key*/
+
   function array_fill_missed_keys( $arr, $min, $max, $value = NULL ) {
     if ( ( !is_array( $arr )and empty( $arr ) )or is_array( $arr ) ) {
       if ( ( !is_array( $arr )and empty( $arr ) ) ) {
@@ -159,13 +159,13 @@ class process extends data_creator {
     }
     return $arr;
   }
-  
-/*
 
-use vals to generate all missed values this is for extra which element 0 is disabled or not sent
+  /*
 
-*/
-	/*
+  use vals to generate all missed values this is for extra which element 0 is disabled or not sent
+
+  */
+  /*
   function add_missed_vals_key( $vals) {
     static $toppest_keys;
     if ( debug_backtrace()[ 1 ][ 'function' ] !== __FUNCTION__ ) {
@@ -196,22 +196,29 @@ use vals to generate all missed values this is for extra which element 0 is disa
     }
     return $vals;
   }*/
-function add_missed_vals_key($vals ){
-	//array_fill_missed_keys( $arr, $min, $max, $value = NULL );
-	foreach($vals as $k=>$val){
-		if(is_array($val)){
-			if(count($val)-1< $this->max_key( $val )){
-				$vals[$k] = $this->array_fill_missed_keys( $val, 0,$this->max_key( $val ) );
-			}
-			$vals[$k] = $this->add_missed_vals_key($vals[$k] );
-		}
-		//return $vals;
-	}
-	
-	return $vals ;
-}
-  function save_vals( $final_vals = NULL ) {
+  function add_missed_vals_key( $vals ) {
+    //array_fill_missed_keys( $arr, $min, $max, $value = NULL );
+    foreach ( $vals as $k => $val ) {
+      if ( is_array( $val ) ) {
+        if ( count( $val ) - 1 < $this->max_key( $val ) ) {
+          $vals[ $k ] = $this->array_fill_missed_keys( $val, 0, $this->max_key( $val ) );
+        }
+        $vals[ $k ] = $this->add_missed_vals_key( $vals[ $k ] );
+      }
+      //return $vals;
+    }
 
+    return $vals;
+  }
+
+  function delete_vals( $record_id ) {
+    global $wpdb;
+    $query = $wpdb->prepare( "DELETE FROM `" . $GLOBALS[ 'sst_tables' ][ 'vals' ] . "` WHERE `key` = '%s' ;", array( $record_id ) );;
+    $wpdb->query( $query );
+  }
+
+  function save_vals( $final_vals = NULL ) {
+    //krumo($final_vals);
     if ( isset( $_REQUEST[ '__sst__unique' ] ) ) {
       global $wpdb;
       $db_vals = $this->get_vals();
@@ -224,12 +231,70 @@ function add_missed_vals_key($vals ){
       }
       //krumo( $merged_vals );
       $merged_vals = $this->add_missed_vals_key( $merged_vals );
-      //krumo( $merged_vals );
-		ksort($merged_vals);
-      $vals = json_encode( $merged_vals );
-      if ( PROCESS_COMPRESS_VALS == true ) {
-        $vals = gzdeflate( $vals, 9 );
+
+
+      /**************
+      this part is for removing on record on all in delete mode
+      ****************/
+
+      if ( isset( $merged_vals[ '__sst__delete-all' ] )and $this->mode == 'delete' ) {
+        $this->delete_vals( $_REQUEST[ '__sst__unique' ] );
       }
+      //krumo($merged_vals);
+      //krumo(	data_action::flatten($merged_vals[ '__sst__delete' ] ));
+      if ( isset( $merged_vals[ '__sst__delete' ] )and $this->mode == 'delete' ) {
+        // krumo( $merged_vals[ '__sst__delete' ] );
+        //https://stackoverflow.com/questions/3654295/remove-empty-array-elements
+        //remove all empty, when you want to delete not first precedence will make a null value
+        $merged_vals[ '__sst__delete' ] = array_filter( $merged_vals[ '__sst__delete' ], 'strlen' );
+        //krumo($merged_vals[ '__sst__delete' ]);
+       // krumo( $merged_vals );
+        $to_delete_vals_routes = extra_name_handle::get_trailings_from_array( $merged_vals[ '__sst__delete' ] );
+        //krumo( $to_delete_vals_routes );
+        foreach ( $merged_vals as $col1 => $val1 ) {
+          //if ( !$this->starts_with( '__sst__', $col1 ) ) {
+          foreach ( $to_delete_vals_routes as $to_delete_vals_route ) {
+            if ( $col1 == '__sst__files' ) {
+				/*
+              if ( is_array( $merged_vals[ '__sst__files' ] ) ) {
+                foreach ( $merged_vals[ '__sst__files' ] as $file_input_name => $file_input_values ) {
+                  $merged_vals = ids::run_eval2( EVAL_STR . 'if(isset($merged_vals[\'' . $col1 . '\'][\'' . $file_input_name . '\'][\'name\']' . $to_delete_vals_route . ')){unset($merged_vals[\'' . $col1 . '\'][\'' . $file_input_name . '\'][\'name\']' . $to_delete_vals_route . ');} return $merged_vals;', array( 'name' => 'merged_vals', 'value' => $merged_vals ) );
+
+                  $merged_vals = ids::run_eval2( EVAL_STR . 'if(isset($merged_vals[\'' . $col1 . '\'][\'' . $file_input_name . '\'][\'type\']' . $to_delete_vals_route . ')){unset($merged_vals[\'' . $col1 . '\'][\'' . $file_input_name . '\'][\'type\']' . $to_delete_vals_route . ');} return $merged_vals;', array( 'name' => 'merged_vals', 'value' => $merged_vals ) );
+
+                  $merged_vals = ids::run_eval2( EVAL_STR . 'if(isset($merged_vals[\'' . $col1 . '\'][\'' . $file_input_name . '\'][\'temp_name\']' . $to_delete_vals_route . ')){unset($merged_vals[\'' . $col1 . '\'][\'' . $file_input_name . '\'][\'temp_name\']' . $to_delete_vals_route . ');} return $merged_vals;', array( 'name' => 'merged_vals', 'value' => $merged_vals ) );
+
+                  $merged_vals = ids::run_eval2( EVAL_STR . 'if(isset($merged_vals[\'' . $col1 . '\'][\'' . $file_input_name . '\'][\'error\']' . $to_delete_vals_route . ')){unset($merged_vals[\'' . $col1 . '\'][\'' . $file_input_name . '\'][\'error\']' . $to_delete_vals_route . ');} return $merged_vals;', array( 'name' => 'merged_vals', 'value' => $merged_vals ) );
+
+                  $merged_vals = ids::run_eval2( EVAL_STR . 'if(isset($merged_vals[\'' . $col1 . '\'][\'' . $file_input_name . '\'][\'size\']' . $to_delete_vals_route . ')){unset($merged_vals[\'' . $col1 . '\'][\'' . $file_input_name . '\'][\'size\']' . $to_delete_vals_route . ');} return $merged_vals;', array( 'name' => 'merged_vals', 'value' => $merged_vals ) );
+                }
+				
+              }*/
+            } else {
+              if ( is_array( $merged_vals[ $col1 ] ) ) {
+                $merged_vals = ids::run_eval2( EVAL_STR . 'if(isset($merged_vals[\'' . $col1 . '\']' . $to_delete_vals_route . ')){unset($merged_vals[\'' . $col1 . '\']' . $to_delete_vals_route . ');}return $merged_vals;', array( 'name' => 'merged_vals', 'value' => $merged_vals ) );
+                //
+              }
+            }
+          }
+
+
+          if ( is_array( $merged_vals[ $col1 ] ) ) {
+            //reset number of values
+            $merged_vals[ $col1 ] = array_values( $merged_vals[ $col1 ] );
+           /* if ( is_array( $merged_vals[ '__sst__files' ][ $col1 ][ 'name' ] ) ) {
+              $merged_vals[ '__sst__files' ][ $col1 ][ 'name' ] = array_values( $merged_vals[ '__sst__files' ][ $col1 ][ 'name' ] );
+              $merged_vals[ '__sst__files' ][ $col1 ][ 'type' ] = array_values( $merged_vals[ '__sst__files' ][ $col1 ][ 'type' ] );
+              $merged_vals[ '__sst__files' ][ $col1 ][ 'temp_name' ] = array_values( $merged_vals[ '__sst__files' ][ $col1 ][ 'temp_name' ] );
+              $merged_vals[ '__sst__files' ][ $col1 ][ 'error' ] = array_values( $merged_vals[ '__sst__files' ][ $col1 ][ 'error' ] );
+              $merged_vals[ '__sst__files' ][ $col1 ][ 'size' ] = array_values( $merged_vals[ '__sst__files' ][ $col1 ][ 'size' ] );
+            }*/
+          }
+          //}
+        }
+      }
+	$vals = $this->prepare_vals_to_save($merged_vals);
+
       if ( empty( $db_vals ) ) {
 
         $q = $wpdb->prepare( "INSERT INTO " . $GLOBALS[ 'sst_tables' ][ 'vals' ] .
@@ -243,17 +308,33 @@ function add_missed_vals_key($vals ){
       $this->vals = $merged_vals;
       return $this->vals;
     } elseif ( $this->mode == 'edit'
-      or $this->mode == 'view' ) {
-        //krumo('sssssssss');
+      or $this->mode == 'view'
+      or $this->mode == 'delete' ) {
+      //krumo('sssssssss');
       $record_id = $_REQUEST[ PROCESS_RECORD_ID_KEYWORD ];
       $this->vals = $this->get_vals( $record_id );
-//        krumo($this->vals);
+      //        krumo($this->vals);
       $this->vals[ '__sst__unique' ] = $_REQUEST[ PROCESS_RECORD_ID_KEYWORD ];
-        //krumo($this->vals);
+      //krumo($this->vals);
     }
   }
+function update_vals($vals,$save_id){
+	global  $wpdb;
+	$jsonedvals = $this->prepare_vals_to_save($vals);
+	 $q = $wpdb->prepare( "UPDATE " . $GLOBALS[ 'sst_tables' ][ 'vals' ] .
+          " SET `value`='" . "%s" . "', `owner`=" . "%d" . ", `modified`=NOW() WHERE `key`='" . "%s" . "';", array( $jsonedvals, $this->user_id, $save_id ) );
+      $wpdb->query( $q );
 
-  function get_vals( $__sst__unique = NULL ) {
+}
+function prepare_vals_to_save($merged_vals){
+      ksort( $merged_vals );
+      $vals = json_encode( $merged_vals );
+      if ( PROCESS_COMPRESS_VALS == true ) {
+        $vals = gzdeflate( $vals, 9 );
+      }
+	return $vals;
+}
+	function get_vals( $__sst__unique = NULL ) {
     if ( empty( $__sst__unique ) ) {
       $__sst__unique = $_REQUEST[ '__sst__unique' ];
     }
@@ -425,8 +506,8 @@ function add_missed_vals_key($vals ){
   }
 
   function render( $process_data = NULL ) {
-//      krumo('process');
-  //    krumo($this->vals);
+    //      krumo('process');
+    //    krumo($this->vals);
     if ( $this->break_class != true ) {
       return $this->render_process( $process_data );
     }

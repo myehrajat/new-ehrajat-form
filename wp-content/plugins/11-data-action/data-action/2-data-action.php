@@ -112,7 +112,7 @@ class data_action extends data_action_fundamental {
         $this->create_add_column( $wpdb->prefix . $data_action_specific_obj->table, 'save_id' );
         $this->create_colval_data();
         /** In edit moder we call this **/
-		ADD:
+        ADD:
           if ( !empty( $this->db_data ) ) {
             foreach ( $this->db_data as $key_route => $one_ready_data ) {
               $one_ready_data[ 'save_id' ] = addslashes( $_REQUEST[ '__sst__unique' ] );
@@ -127,7 +127,7 @@ class data_action extends data_action_fundamental {
                 $db_result = $this->add_to_table( $wpdb->prefix . $data_action_specific_obj->table, $one_ready_data, $this->mysql_code_col_vals, $this->all_prevent_insert_rule_ids );
               } elseif ( $this->mode == 'edit' ) {
                   $db_result = $this->add_to_table( $wpdb->prefix . $data_action_specific_obj->table, $one_ready_data, $this->mysql_code_col_vals, $this->all_prevent_insert_rule_ids, true );
-              }
+                }
                 //}
                 // != false and $insert_ref[ $data_action_specific_obj->insert_ref ][ $i ][ 'insert_id' ] != 'prevented'
               if ( $db_result[ 'result' ] == true ) {
@@ -208,9 +208,6 @@ class data_action extends data_action_fundamental {
           echo '<span>' . 'in edit mode cant remove record' . "</span>";
           return;
         }
-        //$delete = "DELETE FROM " . $wpdb->prefix . $data_action_specific_obj->table . " WHERE `save_id`='" . addslashes( $_REQUEST[ '__sst__unique' ] ) . "';";
-        // krumo($delete);
-        //$wpdb->query( $delete );
 
 
         foreach ( $select_results as $select_result ) {
@@ -220,9 +217,48 @@ class data_action extends data_action_fundamental {
         foreach ( $this->db_data as $k => $one_ready_data ) {
           $this->db_data[ $k ][ 'id' ] = $select_results[ $k ]->id;
         }
+        //krumo($this->db_data);
+        //$delete = "DELETE FROM " . $wpdb->prefix . $data_action_specific_obj->table . " WHERE `save_id`='" . addslashes( $_REQUEST[ '__sst__unique' ] ) . "';";
+        // krumo($delete);
+        //$wpdb->query( $delete );
         //            krumo($this->db_data);
         goto ADD;
         break;
+      case "delete":
+
+        $this->create_colval_data();
+        //krumo( $this->db_data);
+        if ( $_REQUEST[ '__sst__delete-all' ] == 'delete-all' ) {
+          $delele_query = "DELETE FROM " . $wpdb->prefix . $data_action_specific_obj->table . " WHERE `save_id`='" . $_REQUEST[ PROCESS_RECORD_ID_KEYWORD ] . "';";
+          //$delele_query .= "DELETE FROM " . $GLOBALS[ 'sst_tables' ][ 'vals' ] . " WHERE `key`='" . $_REQUEST[ PROCESS_RECORD_ID_KEYWORD ] . "';";
+          $delete_vals = true;
+          #todo : delete images
+        } else {
+          //krumo( $this->db_data );
+
+          $delele_query = "DELETE FROM " . $wpdb->prefix . $data_action_specific_obj->table . " WHERE `save_id`='" . $_REQUEST[ PROCESS_RECORD_ID_KEYWORD ] . "' ";
+          $delele_query .= "AND NOT (";
+          foreach ( $this->db_data as $one_record ) {
+            //krumo( $one_record );
+            //unset( $one_record[ '__sst__delete-me' ] );
+            // krumo( $one_record );
+            $delele_query_vals = array();
+            foreach ( $one_record as $where_col => $where_val ) {
+              $delele_query_vals[] = "`" . $where_col . "`='" . $where_val . "'";
+            }
+            $delele_query_rows[] = " (" . implode( ' AND ', $delele_query_vals ) . ") ";
+
+          }
+          $delele_query .= implode( ' OR ', $delele_query_rows );
+          $delele_query .= ');';
+        }
+        krumo( $delele_query );
+
+        $wpdb->query( $delele_query );
+
+        //krumo($delele_query);
+        break;
+
       case "view":
 
         break;
@@ -233,6 +269,10 @@ class data_action extends data_action_fundamental {
                 break;
 				*/
     }
+    /***************
+    in delete mode here delete vals if all data deleted
+	  
+    ***************/
     //krumo($this->vals);
     $this->run_eval( EVAL_STR . $data_action_obj->single_func_after );
   }
@@ -307,7 +347,6 @@ class data_action extends data_action_fundamental {
       if ( !empty( $sorted_colvals_obj ) ) {
 
         foreach ( $sorted_colvals_obj as $u => $sorted_colvals_vals ) {
-
           switch ( $sorted_colvals_vals[ 'colval_obj' ]->type ) {
 
             /*
@@ -359,7 +398,7 @@ class data_action extends data_action_fundamental {
               break;
 
             case "file":
-              $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->upload_files(
+              $all_values[ $sorted_colvals_vals[ 'colval_obj' ]->column ] = $this->upload_files( $sorted_colvals_vals[ 'colval_obj' ]->value,
                 $this->vals[ '__sst__files' ][ $sorted_colvals_vals[ 'colval_obj' ]->value ],
                 $sorted_colvals_vals[ 'colval_obj' ]->file_path,
                 $this->data_action_obj->default_file_path );
@@ -386,6 +425,15 @@ class data_action extends data_action_fundamental {
               break;
           }
         }
+        //krumo( $this->vals);
+        //krumo($GLOBALS['vals']);
+        /* if ( $this->mode == 'delete' ) {
+           $all_values[ '__sst__delete-me' ] = $this->flatten( $this->vals[ '__sst__delete' ] );
+           if ( !isset( $save_raw_data[ '__sst__delete' ] ) ) {
+             $save_raw_data[ '__sst__delete' ] = $all_values[ '__sst__delete-me' ];
+           }
+         }*/
+        $this->remove_unnecessary_vals_data();
         #send columns which has more elements go to last of column level ordering based on number elements of column 
         //krumo($this->vals );
         //krumo($all_values );
@@ -440,6 +488,19 @@ class data_action extends data_action_fundamental {
     //krumo($this->vals);
     //krumo($this->db_data);
     //krumo($_REQUEST);
+  }
+
+  function remove_unnecessary_vals_data() {
+    $save_id = $this->vals[ '__sst__unique' ];
+    if ( isset( $this->vals[ '__sst__files' ] ) ) {
+      unset( $this->vals[ '__sst__files' ] );
+    }
+    unset( $this->vals[ '__sst__data_actions' ] );
+    unset( $this->vals[ '__sst__mode' ] );
+    unset( $this->vals[ '__sst__step' ] );
+    unset( $this->vals[ '__sst__unique' ] );
+    unset( $this->vals[ 'mode' ] );
+    $this->update_vals( $this->vals,$save_id );
   }
   //do insert_id colval type
   function inserted_ids_columns( $ready_data, $colval_inserted_ids ) {
@@ -719,13 +780,18 @@ class data_action extends data_action_fundamental {
 
   /************************************************/
 
-  function upload_files( $files, $colval_file_path = NULL, $default_data_action_file_path = NULL ) {
+  function upload_files( $input_name, $files, $colval_file_path = NULL, $default_data_action_file_path = NULL ) {
+
+    //krumo($this->vals);
+    //krumo($this-);
+    /*krumo($files);
+     */
     $f_names = $this->flatten( $files[ 'name' ] );
     $f_type = $this->flatten( $files[ 'type' ] );
     $f_tmp_name = $this->flatten( $files[ 'tmp_name' ] );
     $f_error = $this->flatten( $files[ 'error' ] );
     $f_size = $this->flatten( $files[ 'size' ] );
-
+    //krumo($f_names);
     foreach ( $f_names as $key_route => $name ) {
       $dest_path = '';
       if ( $f_error[ $key_route ] == 0 ) {
@@ -739,14 +805,34 @@ class data_action extends data_action_fundamental {
           $dest_path = $_SERVER[ 'DOCUMENT_ROOT' ] . '/';
         }
 
+
         //$dest_path = ltrim($dest_path,'/');
         $upload_path = $dest_path . $this->user_id . '_' . time() . '_' . $f_names[ $key_route ];
         $success = move_uploaded_file( $f_tmp_name[ $key_route ], $upload_path );
         $upload_url = $this->path2url( $upload_path );
+        $key_route_array_trailing = $this->key_route_to_array_trailing( $key_route );
         if ( $success == true ) {
           $urls[ $key_route ] = $upload_url;
+          $this->vals = ids::run_eval2( EVAL_STR . '$vals[\'' . $input_name . '\']' . $key_route_array_trailing . '=\'' . $upload_url . '\'; return $vals;', array( 'name' => 'vals', 'value' => $this->vals ) );
+          /* $this->vals = ids::run_eval2( EVAL_STR . '
+			unset($vals[\'__sst__files\']'.'[\''.$input_name.'\'][\'name\']'.$key_route_array_trailing.');
+			unset($vals[\'__sst__files\']'.'[\''.$input_name.'\'][\'type\']'.$key_route_array_trailing.');
+			unset($vals[\'__sst__files\']'.'[\''.$input_name.'\'][\'tmp_name\']'.$key_route_array_trailing.');
+			unset($vals[\'__sst__files\']'.'[\''.$input_name.'\'][\'error\']'.$key_route_array_trailing.');
+			unset($vals[\'__sst__files\']'.'[\''.$input_name.'\'][\'size\']'.$key_route_array_trailing.');
+			return $vals;', array( 'name' => 'vals', 'value' => $this->vals) );*/
+
         } else {
           $urls[ $key_route ] = NULL;
+          $this->vals = ids::run_eval2( EVAL_STR . '$vals[\'' . $input_name . '\']' . $key_route_array_trailing . '=NULL; return $vals;', array( 'name' => 'vals', 'value' => $this->vals ) );
+          /* $this->vals = ids::run_eval2( EVAL_STR . '
+			unset($vals[\'__sst__files\']'.'[\''.$input_name.'\'][\'name\']'.$key_route_array_trailing.');
+			unset($vals[\'__sst__files\']'.'[\''.$input_name.'\'][\'type\']'.$key_route_array_trailing.');
+			unset($vals[\'__sst__files\']'.'[\''.$input_name.'\'][\'tmp_name\']'.$key_route_array_trailing.');
+			unset($vals[\'__sst__files\']'.'[\''.$input_name.'\'][\'error\']'.$key_route_array_trailing.');
+			unset($vals[\'__sst__files\']'.'[\''.$input_name.'\'][\'size\']'.$key_route_array_trailing.');
+			return $vals;', array( 'name' => 'vals', 'value' => $this->vals) );
+			*/
         }
 
       } elseif ( $f_error[ $key_route ] == 1 ) {
@@ -771,6 +857,11 @@ class data_action extends data_action_fundamental {
     //if(is_array($files['name']){
 
     //}
+  }
+
+  function key_route_to_array_trailing( $key_route ) {
+    $key_route_elements = explode( '-', $key_route );
+    return '[' . implode( '][', $key_route_elements ) . ']';
   }
 
   function path2url( $file ) {

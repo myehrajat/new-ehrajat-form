@@ -21,6 +21,7 @@ class data_creator extends render{
             $data[ 'access' ][ 'visible' ] = $access->visible;
             $data[ 'access' ][ 'editable' ] = $access->editable;
             $data[ 'access' ][ 'addable' ] = $access->addable;
+            $data[ 'access' ][ 'deletable' ] = $access->deletable;
         }
 
 		return $data;

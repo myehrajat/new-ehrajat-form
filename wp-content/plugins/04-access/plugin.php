@@ -26,6 +26,7 @@ define('ACCESS_SETUP_PATH',__DIR__.'/setup/');
 define( 'DEFAULT_VIEW', 'enable' );
 define( 'DEFAULT_EDIT', 'enable' );
 define( 'DEFAULT_ADD', 'enable' );
+define( 'DEFAULT_DELETE', 'enable' );
 glob_includer(ACCESS_SETUP_PATH);
 new insert_access_tables;
 glob_includer(ACCESS_FUNC_PATH);

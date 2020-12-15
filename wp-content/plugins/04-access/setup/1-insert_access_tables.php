@@ -28,6 +28,8 @@ class insert_access_tables extends database {
         "`except_edit` VARCHAR(255) NOT NULL," .
         "`default_add` VARCHAR(255) NOT NULL," .
         "`except_add` VARCHAR(255) NOT NULL," .
+        "`default_delete` VARCHAR(255) NOT NULL," .
+        "`except_delete` VARCHAR(255) NOT NULL," .
         "`description` LONGTEXT NOT NULL," .
         "`owner` VARCHAR(255) DEFAULT NULL," .
         "`created` DATETIME NOT NULL DEFAULT NOW()," .
