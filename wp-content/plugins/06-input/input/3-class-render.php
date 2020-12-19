@@ -222,9 +222,9 @@ class render extends database {
     /********************
     $input_data_value is the value of input name from vals
     ***********/
-	  	//krumo($this->vals);
+    //krumo($this->vals);
 
-	//krumo($GLOBALS[ 'vals' ]);
+    //krumo($GLOBALS[ 'vals' ]);
 
     $numbers = $this->get_name_and_suffix_array_key_number( $input_data[ 'attrs' ][ 'name' ], 'number' );
     if ( empty( $numbers ) ) {
@@ -252,7 +252,7 @@ class render extends database {
         $multiple_select = false;
       }
     }
-	  			 // krumo($input_data_value);
+    // krumo($input_data_value);
 
     if ( isset( $input_data_value )or $multiple_select == true ) {
 
@@ -284,8 +284,8 @@ class render extends database {
           }
           break;
         case "file":
-			//  krumo($input_data);
-		 // krumo($input_data_value);
+          //  krumo($input_data);
+          // krumo($input_data_value);
           $input_data[ 'attrs' ][ 'value' ] = $input_data_value;
           break;
         case "checkbox":
@@ -460,23 +460,27 @@ class render extends database {
           $input = '<input' . $this->render_attrs( $input_data[ 'attrs' ] ) . '>';
           break;
         case "file":
-		 // krumo( $this->vals);
+          //krumo( $input_data);
 
-          if ( empty( $input_data[ 'attrs' ][ 'value' ] ) ) {
-            $input = '<input' . $this->render_attrs( $input_data[ 'attrs' ] ) . '>';
-          } else {
-			  		 // krumo( $input_data);
-            $input = '<image_input id="' . $input_data[ 'unique_id' ] . '_file_place_holder">';
-            $input .= '<a href="' . $input_data[ 'attrs' ][ 'value' ] . '">Show File</a>';
-            if ( $input_data[ 'access' ][ 'editable' ] == 'yes'and $this->mode=='edit' ) {
-              $input .= ' | <a href="#" id="' . $input_data[ 'unique_id' ] . '_file_controller_remove">Remove File</a>';
+          if ( !empty( $input_data[ 'attrs' ][ 'value' ] ) ) {
+            // krumo( $input_data);
+            $img_input = '<image_input id="' . $input_data[ 'unique_id' ] . '_file_place_holder">';
+            $img_input .= '<a href="' . $input_data[ 'attrs' ][ 'value' ] . '">Show File</a>';
+            if ( $input_data[ 'access' ][ 'editable' ] == 'yes'
+              and $this->mode == 'edit' ) {
+              $img_input .= ' | <span id="' . $input_data[ 'unique_id' ] . '_file_controller_remove">Remove File</span>';
+              $img_input .= '<input type="hidden" value="' . $input_data[ 'attrs' ][ 'value' ] . '">';
+              unset( $input_data[ 'attrs' ][ 'value' ] );
+
             }
-            $input .= '</image_input>';
-            $input_data[ 'tag' ] = array();
-			$input_data[ 'attrs' ][ 'type' ] = 'hidden';
-            $input .= '<input' . $this->render_attrs( $input_data[ 'attrs' ] ) . '>';
+            $img_input .= '</image_input>';
+            $input_data[ 'sibling' ][ 'next' ] = $img_input;
+            $input_data[ 'sibling' ][ 'prev' ] = '';
+            $input_data[ 'js_code' ] .= 'var unique_id = "' . $input_data[ 'unique_id' ] . '";var input_attr_unique_id = "' . $input_data[ 'attrs' ][ 'id' ] . '";hide_image_input(unique_id, input_attr_unique_id);click_on_remove_image(unique_id, input_attr_unique_id);';
+            $input_data[ 'attrs' ][ 'disabled' ] = 'disabled';
 
           }
+          $input = '<input' . $this->render_attrs( $input_data[ 'attrs' ] ) . '>';
           break;
         case "text":
         case "search":
@@ -572,7 +576,7 @@ class render extends database {
       if ( isset( $input_data[ 'js_code' ] ) ) {
         $this->inptut_js_code .= $input_data[ 'js_code' ];
       }
-      $input = '<sst-input id="' . "" . $input_data[ 'unique_id' ] . '" >' . $input . '</sst-input>';
+      $input = $input_data[ 'sibling' ][ 'prev' ] . '<sst-input id="' . "" . $input_data[ 'unique_id' ] . '" >' . $input . '</sst-input>' . $input_data[ 'sibling' ][ 'next' ];
       $this->input = $input;
       return $this->input;
     }
@@ -880,7 +884,7 @@ class render extends database {
         $elements[ 'input' ] = $elements[ 'input' ] . $this->render_input( $input_data );
       }
     }
-$elements[ 'input' ] = $del_controller .$elements[ 'input' ];
+    $elements[ 'input' ] = $del_controller . $elements[ 'input' ];
     # This function MUST be before rendering children and blocks
     $extra_fieldset = $this->recursively_generate_fieldset( $fieldset_data );
 

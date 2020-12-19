@@ -94,7 +94,7 @@ implements database_interface {
 	 $prevent_insert_rule param => sql query and only for value use {column_name} format this function automatically replace it with 'value' note: no need qoutation
   **************************************************/
 
-  function add_to_table( string $table, array $column_value, $column_mysql_code = array(), $prevent_insert_rule_ids = NULL, $update = false, $debugme = false ) {
+  function add_to_table( string $table, array $column_value, $column_mysql_code = array(), $prevent_insert_rule_ids = NULL, $update = false) {
     global $wpdb;
     if ( !is_array( $column_mysql_code ) ) {
       $column_mysql_code = array();
@@ -204,9 +204,6 @@ implements database_interface {
           $sql .= ',' . implode( ',', $column_mysql_code );
         }
         $sql .= ")";
-      }
-      if ( $debugme == 'debugme' ) {
-        krumo( $sql );
       }
       $result = $wpdb->query( $sql );
       if ( $wpdb->last_error !== '' ) {

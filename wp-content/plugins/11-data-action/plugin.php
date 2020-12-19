@@ -19,7 +19,9 @@ define( 'DATA_ACTION_PLUGIN_PATH', __DIR__ . '/' );
 define( 'DATA_ACTION_PLUGIN_FILE', basename( __FILE__ ) );
 define('DATA_ACTION_FUNC_PATH',__DIR__.'/data-action/');
 define('DATA_ACTION_SETUP_PATH',__DIR__.'/setup/');
-
+/*define('DATA_ACTION_PLUGIN_URL',plugin_dir_url( __FILE__ ));
+define('DELETE_FILE_BY_GET_URL',INPUT_PLUGIN_URL.'delete_file.php');
+*/
 //define('IS_INPUT_PLUGIN_ACTIVE',in_array(PLUGIN_FOLDER.'/'.PLUGIN_FILE, apply_filters('active_plugins', get_option('active_plugins'))));
 #############################################
 # VISIBILTY

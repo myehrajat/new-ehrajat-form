@@ -5,8 +5,8 @@ var $vals;
 	function __construct( $is_modal = false ) {
     parent::__construct();
     $this->is_modal = $is_modal;
-
-    if ( $GLOBALS[ 'vals' ][ '__sst__data_actions' ] ) {
+	$this->vals = $GLOBALS[ 'vals' ];
+    if ( $this->vals[ '__sst__data_actions' ] ) {
       $this->vals = $GLOBALS[ 'vals' ];
       $this->get_data_actions();
       $this->do_data_actions();
